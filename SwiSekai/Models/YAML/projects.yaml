@@ -1,0 +1,25 @@
+projects:
+  - id: "7B5D9E0F-3A6C-4B1E-8D5F-2A7C1B9E0A3D"
+    project_name: "Hello, World!"
+    project_blocks:
+      - type: "explanation"
+        content:
+          text: "The first step in any programming journey is to make the computer say something. In Swift, we use the `print()` function to display text in the debug console."
+      - type: "explanation"
+        content:
+          text: "To do this, simply call the function and put the text you want to display inside the parentheses, surrounded by double quotes. For example: `print(\"This is my text.\")`"
+    level_prerequisite: 1
+
+  - id: "9F4E1C8B-7A2D-4C6E-9B8A-1E3D5F7C9B6A"
+    project_name: "FizzBuzz"
+    project_blocks:
+      - type: "explanation"
+        content:
+          text: "FizzBuzz is a classic programming challenge that combines loops and conditional logic."
+      - type: "explanation"
+        content:
+          text: "The goal is to loop through numbers from 1 to 100. If the number is divisible by 3, print 'Fizz'. If it's divisible by 5, print 'Buzz'. If it's divisible by both 3 and 5, print 'FizzBuzz'. Otherwise, just print the number."
+      - type: "explanation"
+        content:
+          text: "You will need a `for-in` loop and `if/else if/else` statements. The 'modulo' operator, `%`, will be very helpful for checking divisibility. For example, `number % 3 == 0` is true if `number` is perfectly divisible by 3."
+    level_prerequisite: 2
