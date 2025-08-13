@@ -10,26 +10,26 @@ import HighlightSwift
 import Highlightr
 
 class HighlightrManager {
-    private let highlightr = Highlightr()
-
-    init() {
-        highlightr?.setTheme(to: "atom-one-dark")
-    }
-
-    func highlightCode(_ code: String, as language: String?) -> AttributedString {
-        if let highlightedNSAttributedString = highlightr?.highlight(code, as: language) {
-            return AttributedString(highlightedNSAttributedString)
-        }
-        return AttributedString(code)
-    }
+	private let highlightr = Highlightr()
+	
+	init() {
+		highlightr?.setTheme(to: "atom-one-dark")
+	}
+	
+	func highlightCode(_ code: String, as language: String?) -> AttributedString {
+		if let highlightedNSAttributedString = highlightr?.highlight(code, as: language) {
+			return AttributedString(highlightedNSAttributedString)
+		}
+		return AttributedString(code)
+	}
 }
 
 struct ContentBlockView: View {
 	let blocks: [ContentBlock]
 	let highlight = Highlight()
 	@State private var buttonText: String = "Copy"
-    
-    private let highlightrManager = HighlightrManager()
+	
+	private let highlightrManager = HighlightrManager()
 	
 	var body: some View {
 		List(blocks) { block in
@@ -40,7 +40,7 @@ struct ContentBlockView: View {
 					.listRowSeparator(.hidden)
 				
 			case .snippet(let code):
-                let highlightedCode = highlightrManager.highlightCode(code, as: "swift")
+				let highlightedCode = highlightrManager.highlightCode(code, as: "swift")
 				ZStack(alignment: .topTrailing) {
 					Text(highlightedCode)
 						.font(.system(.body, design: .monospaced))
@@ -61,13 +61,15 @@ struct ContentBlockView: View {
 					.listRowSeparator(.hidden)
 				}
 				
-			case .multipleChoice(let question, let options, let answer):
-				MultipleChoiceView(
-					question: question,
-					options: options,
-					correctAnswer: answer
-				)
-				.listRowSeparator(.hidden)
+			case .multipleChoice(let questions):
+				ForEach(questions) { question in
+					MultipleChoiceView(
+						question: question.question,
+						options: question.options,
+						correctAnswer: question.answer
+					)
+					.listRowSeparator(.hidden)
+				}
 				
 			case .fillBlank:
 				Text("[Fill in the Blank Question UI Here]")
@@ -135,7 +137,7 @@ struct ContentBlockView: View {
 			
 		}
 		.listStyle(.plain)
-        .frame(width: 800)
+		.frame(width: 800)
 	}
 	
 	private func copyToClipboard(code: String) {

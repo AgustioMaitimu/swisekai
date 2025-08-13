@@ -28,13 +28,28 @@ modules:
             
       - type: "multipleChoice"
         content:
-          question: "Which keyword should you use to store a user's date of birth, which will never change?"
-          options:
-            - "var"
-            - "let"
-            - "const"
-            - "static"
-          answer: "let"
+          - question: "Which keyword should you use to store a user's date of birth, which will never change?"
+            options:
+              - "var"
+              - "let"
+              - "const"
+              - "static"
+            answer: "let"
+          - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
+            options:
+              - "5"
+              - "10"
+              - "The code will cause an error."
+              - "15"
+            answer: "10"
+          - question: "Which of the following is a valid constant declaration?"
+            options:
+              - "var name = \"Alice\""
+              - "let name = \"Alice\""
+              - "constant name = \"Alice\""
+              - "let name: String"
+            answer: "let name = \"Alice\""
+
 
   - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
     module_name: "Loops"
@@ -51,13 +66,13 @@ modules:
             }
       - type: "multipleChoice"
         content:
-          question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
-          options:
-            - "1"
-            - "4"
-            - "5"
-            - "6"
-          answer: "5"
+          - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
+            options:
+              - "1"
+              - "4"
+              - "5"
+              - "6"
+            answer: "5"
           
   - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
     module_name: "ass and holes"
@@ -88,13 +103,13 @@ modules:
             
       - type: "multipleChoice"
         content:
-          question: "Which keyword should you use to store a user's date of birth, which will never change?"
-          options:
-            - "var"
-            - "let"
-            - "const"
-            - "static"
-          answer: "let"
+          - question: "Which keyword should you use to store a user's date of birth, which will never change?"
+            options:
+              - "var"
+              - "let"
+              - "const"
+              - "static"
+            answer: "let"
 
   - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
     module_name: "Ass"
@@ -111,13 +126,13 @@ modules:
             }
       - type: "multipleChoice"
         content:
-          question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
-          options:
-            - "1"
-            - "4"
-            - "5"
-            - "6"
-          answer: "5"
+          - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
+            options:
+              - "1"
+              - "4"
+              - "5"
+              - "6"
+            answer: "5"
           
   - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
     module_name: "Dick and balls"
@@ -148,13 +163,13 @@ modules:
             
       - type: "multipleChoice"
         content:
-          question: "Which keyword should you use to store a user's date of birth, which will never change?"
-          options:
-            - "var"
-            - "let"
-            - "const"
-            - "static"
-          answer: "let"
+          - question: "Which keyword should you use to store a user's date of birth, which will never change?"
+            options:
+              - "var"
+              - "let"
+              - "const"
+              - "static"
+            answer: "let"
 
   - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
     module_name: "balls"
@@ -171,11 +186,10 @@ modules:
             }
       - type: "multipleChoice"
         content:
-          question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
-          options:
-            - "1"
-            - "4"
-            - "5"
-            - "6"
-          answer: "5"
-
+          - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
+            options:
+              - "1"
+              - "4"
+              - "5"
+              - "6"
+            answer: "5"

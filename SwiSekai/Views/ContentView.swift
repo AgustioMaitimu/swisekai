@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-		ModuleDetailView(module: DataManager.shared.moduleCollection.modules[1])
+		ModuleDetailView(module: DataManager.shared.moduleCollection.modules[0])
 //		ProjectDetailView(project: DataManager.shared.projectCollection.projects[2])
     }
 }

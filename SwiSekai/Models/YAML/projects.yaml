@@ -98,13 +98,27 @@ projects:
           text: "Interactive Elements"
       - type: "multipleChoice"
         content:
-          question: "Which keyword is used to define a constant in Swift?"
-          options:
-            - "var"
-            - "let"
-            - "const"
-            - "static"
-          answer: "let"
+          - question: "Which keyword is used to define a constant in Swift?"
+            options:
+              - "var"
+              - "let"
+              - "const"
+              - "static"
+            answer: "let"
+          - question: "What is the purpose of the `if` statement in Swift?"
+            options:
+              - "To declare a new variable."
+              - "To perform a block of code only if a certain condition is true."
+              - "To create a loop."
+              - "To define a function."
+            answer: "To perform a block of code only if a certain condition is true."
+          - question: "Which of these is NOT a primitive data type in Swift?"
+            options:
+              - "Int"
+              - "String"
+              - "Array"
+              - "Bool"
+            answer: "Array"
       - type: "fillBlank"
         content:
           prose: "To display text in the debug console, you would use the ______ function."
