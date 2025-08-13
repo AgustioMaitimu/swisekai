@@ -7,11 +7,29 @@
 
 import SwiftUI
 import HighlightSwift
+import Highlightr
+
+class HighlightrManager {
+    private let highlightr = Highlightr()
+
+    init() {
+        highlightr?.setTheme(to: "atom-one-dark")
+    }
+
+    func highlightCode(_ code: String, as language: String?) -> AttributedString {
+        if let highlightedNSAttributedString = highlightr?.highlight(code, as: language) {
+            return AttributedString(highlightedNSAttributedString)
+        }
+        return AttributedString(code)
+    }
+}
 
 struct ContentBlockView: View {
 	let blocks: [ContentBlock]
 	let highlight = Highlight()
 	@State private var buttonText: String = "Copy"
+    
+    private let highlightrManager = HighlightrManager()
 	
 	var body: some View {
 		List(blocks) { block in
@@ -22,8 +40,9 @@ struct ContentBlockView: View {
 					.listRowSeparator(.hidden)
 				
 			case .snippet(let code):
+                let highlightedCode = highlightrManager.highlightCode(code, as: "swift")
 				ZStack(alignment: .topTrailing) {
-					Text(code)
+					Text(highlightedCode)
 						.font(.system(.body, design: .monospaced))
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.padding()
@@ -116,6 +135,7 @@ struct ContentBlockView: View {
 			
 		}
 		.listStyle(.plain)
+        .frame(width: 800)
 	}
 	
 	private func copyToClipboard(code: String) {

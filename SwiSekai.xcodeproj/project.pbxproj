@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EC3F7702E4C25C500E87F27 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 6EC3F76F2E4C25C500E87F27 /* Highlightr */; };
 		FA4891522E4A561300C51050 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891512E4A561300C51050 /* Yams */; };
 		FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891722E4AB5F500C51050 /* HighlightSwift */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA4891522E4A561300C51050 /* Yams in Frameworks */,
+				6EC3F7702E4C25C500E87F27 /* Highlightr in Frameworks */,
 				FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +76,7 @@
 			packageProductDependencies = (
 				FA4891512E4A561300C51050 /* Yams */,
 				FA4891722E4AB5F500C51050 /* HighlightSwift */,
+				6EC3F76F2E4C25C500E87F27 /* Highlightr */,
 			);
 			productName = SwiSekai;
 			productReference = FA4891412E4A55A900C51050 /* SwiSekai.app */;
@@ -106,6 +109,7 @@
 			packageReferences = (
 				FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */,
 				FA4891712E4AB5F500C51050 /* XCRemoteSwiftPackageReference "highlightswift" */,
+				6EC3F76E2E4C25C500E87F27 /* XCRemoteSwiftPackageReference "Highlightr" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA4891422E4A55A900C51050 /* Products */;
@@ -267,7 +271,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9ASBJ87RVR;
+				DEVELOPMENT_TEAM = 68D4P32AKJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -294,7 +298,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9ASBJ87RVR;
+				DEVELOPMENT_TEAM = 68D4P32AKJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -336,6 +340,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6EC3F76E2E4C25C500E87F27 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raspu/Highlightr/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
 		FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams.git";
@@ -355,6 +367,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6EC3F76F2E4C25C500E87F27 /* Highlightr */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EC3F76E2E4C25C500E87F27 /* XCRemoteSwiftPackageReference "Highlightr" */;
+			productName = Highlightr;
+		};
 		FA4891512E4A561300C51050 /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */;
