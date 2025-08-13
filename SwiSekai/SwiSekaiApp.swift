@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiSekaiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LevelView()
         }
     }
 }
