@@ -1,7 +1,7 @@
 projects:
   - id: "7B5D9E0F-3A6C-4B1E-8D5F-2A7C1B9E0A3D"
     project_name: "Hello, World!"
-    project_blocks:
+    content_blocks:
       - type: "explanation"
         content:
           text: "The first step in any programming journey is to make the computer say something. In Swift, we use the `print()` function to display text in the debug console."
@@ -12,7 +12,7 @@ projects:
 
   - id: "9F4E1C8B-7A2D-4C6E-9B8A-1E3D5F7C9B6A"
     project_name: "FizzBuzz"
-    project_blocks:
+    content_blocks:
       - type: "explanation"
         content:
           text: "FizzBuzz is a classic programming challenge that combines loops and conditional logic."
@@ -23,3 +23,100 @@ projects:
         content:
           text: "You will need a `for-in` loop and `if/else if/else` statements. The 'modulo' operator, `%`, will be very helpful for checking divisibility. For example, `number % 3 == 0` is true if `number` is perfectly divisible by 3."
     level_prerequisite: 2
+    
+  - id: "D4C4B5A6-9876-4321-ABCD-FE9876543210"
+    project_name: "All Content Blocks Demo"
+    content_blocks:
+      - type: "heading1"
+        content:
+          text: "This is a Heading 1"
+      - type: "explanation"
+        content:
+          text: "Use headings to structure your content. This is a regular explanation paragraph following a main heading."
+      - type: "heading2"
+        content:
+          text: "This is a Heading 2"
+      - type: "explanation"
+        content:
+          text: "This text falls under the second-level heading. It's a good way to create major sections within your module."
+      - type: "heading3"
+        content:
+          text: "This is a Heading 3"
+      - type: "explanation"
+        content:
+          text: "And this is a paragraph under a third-level heading, useful for further subdivision."
+      
+      - type: "heading4"
+        content:
+          text: "Text Styling"
+      - type: "explanation"
+        content:
+          text: "You can easily style your text. Here is some **bold text**, some *italic text for emphasis*, and some ==highlighted text== to draw attention."
+
+      - type: "heading4"
+        content:
+          text: "Code Snippets"
+      - type: "explanation"
+        content:
+          text: "Provide code examples using the snippet block:"
+      - type: "snippet"
+        content:
+          code: |
+            import SwiftUI
+
+            struct DemoView: View {
+                var body: some View {
+                    Text("Hello, SwiSekai!")
+                        .font(.title)
+                }
+            }
+            
+      - type: "heading4"
+        content:
+          text: "Lists"
+      - type: "explanation"
+        content:
+          text: "You can also create lists. Here is an ordered list:"
+      - type: "orderedList"
+        content:
+          items:
+            - "First item: Define the requirements."
+            - "Second item: Implement the feature."
+            - "Third item: Test thoroughly."
+      - type: "explanation"
+        content:
+          text: "And here is an unordered list for items that don't require a specific sequence:"
+      - type: "unorderedList"
+        content:
+          items:
+            - "SwiftUI for UI."
+            - "Yams for YAML parsing."
+            - "HighlightSwift for syntax highlighting."
+
+      - type: "heading4"
+        content:
+          text: "Interactive Elements"
+      - type: "multipleChoice"
+        content:
+          question: "Which keyword is used to define a constant in Swift?"
+          options:
+            - "var"
+            - "let"
+            - "const"
+            - "static"
+          answer: "let"
+      - type: "fillBlank"
+        content:
+          prose: "To display text in the debug console, you would use the ______ function."
+          answer: "print()"
+          
+      - type: "heading5"
+        content:
+          text: "This is a Heading 5"
+      - type: "heading6"
+        content:
+          text: "This is a Heading 6"
+      - type: "explanation"
+        content:
+          text: "These smaller headings can be used for minor notes or asides."
+    level_prerequisite: 3

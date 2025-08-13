@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C11CC5D2E4C2EDF00B36D14 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 7C11CC5C2E4C2EDF00B36D14 /* Highlightr */; };
 		FA4891522E4A561300C51050 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891512E4A561300C51050 /* Yams */; };
 		FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891722E4AB5F500C51050 /* HighlightSwift */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA4891522E4A561300C51050 /* Yams in Frameworks */,
+				7C11CC5D2E4C2EDF00B36D14 /* Highlightr in Frameworks */,
 				FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +76,7 @@
 			packageProductDependencies = (
 				FA4891512E4A561300C51050 /* Yams */,
 				FA4891722E4AB5F500C51050 /* HighlightSwift */,
+				7C11CC5C2E4C2EDF00B36D14 /* Highlightr */,
 			);
 			productName = SwiSekai;
 			productReference = FA4891412E4A55A900C51050 /* SwiSekai.app */;
@@ -106,6 +109,7 @@
 			packageReferences = (
 				FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */,
 				FA4891712E4AB5F500C51050 /* XCRemoteSwiftPackageReference "highlightswift" */,
+				7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA4891422E4A55A900C51050 /* Products */;
@@ -336,6 +340,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raspu/Highlightr/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
 		FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams.git";
@@ -355,6 +367,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7C11CC5C2E4C2EDF00B36D14 /* Highlightr */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */;
+			productName = Highlightr;
+		};
 		FA4891512E4A561300C51050 /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */;

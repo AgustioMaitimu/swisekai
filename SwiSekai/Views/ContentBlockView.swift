@@ -7,23 +7,42 @@
 
 import SwiftUI
 import HighlightSwift
+import Highlightr
+
+class HighlightrManager {
+    private let highlightr = Highlightr()
+
+    init() {
+        highlightr?.setTheme(to: "atom-one-dark")
+    }
+
+    func highlightCode(_ code: String, as language: String?) -> AttributedString {
+        if let highlightedNSAttributedString = highlightr?.highlight(code, as: language) {
+            return AttributedString(highlightedNSAttributedString)
+        }
+        return AttributedString(code)
+    }
+}
 
 struct ContentBlockView: View {
 	let blocks: [ContentBlock]
 	let highlight = Highlight()
 	@State private var buttonText: String = "Copy"
+    
+    private let highlightrManager = HighlightrManager()
 	
 	var body: some View {
 		List(blocks) { block in
 			switch block {
 			case .explanation(let text):
-				Text(text.toStyledAttributedString())
+				Text(text.toStyledTaggedString())
 					.padding(.vertical, 4)
 					.listRowSeparator(.hidden)
 				
 			case .snippet(let code):
+                let highlightedCode = highlightrManager.highlightCode(code, as: "swift")
 				ZStack(alignment: .topTrailing) {
-					Text(code)
+					Text(highlightedCode)
 						.font(.system(.body, design: .monospaced))
 						.frame(maxWidth: .infinity, alignment: .leading)
 						.padding()
@@ -54,10 +73,69 @@ struct ContentBlockView: View {
 				Text("[Fill in the Blank Question UI Here]")
 					.foregroundColor(.gray)
 					.listRowSeparator(.hidden)
+				
+			case .heading1(let text):
+				Text(text)
+					.font(.largeTitle)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading2(let text):
+				Text(text)
+					.font(.title)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading3(let text):
+				Text(text)
+					.font(.title2)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading4(let text):
+				Text(text)
+					.font(.title3)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading5(let text):
+				Text(text)
+					.font(.headline)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading6(let text):
+				Text(text)
+					.font(.subheadline)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .orderedList(let items):
+				VStack(alignment: .leading) {
+					ForEach(items.indices, id: \.self) { index in
+						HStack(alignment: .top) {
+							Text("\(index + 1).")
+							Text(items[index])
+						}
+					}
+				}
+				.listRowSeparator(.hidden)
+				
+			case .unorderedList(let items):
+				VStack(alignment: .leading) {
+					ForEach(items, id: \.self) { item in
+						HStack(alignment: .top) {
+							Text("•")
+							Text(item)
+						}
+					}
+				}
+				.listRowSeparator(.hidden)
 			}
 			
 		}
 		.listStyle(.plain)
+        .frame(width: 800)
 	}
 	
 	private func copyToClipboard(code: String) {
@@ -72,7 +150,7 @@ struct ContentBlockView: View {
 }
 
 extension String {
-	func toStyledAttributedString() -> AttributedString {
+	func toStyledTaggedString() -> AttributedString {
 		do {
 			let regex = try NSRegularExpression(pattern: "(\\*\\*|==|\\*)(.*?)\\1", options: [])
 			
