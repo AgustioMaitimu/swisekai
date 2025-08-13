@@ -47,7 +47,7 @@ final class UserData {
 	func unlockProjects(for level: Int) {
 		let allProjects = DataManager.shared.projectCollection.projects
 		
-		let newlyUnlocked = allProjects.filter { $0.level_prerequisite == level }
+		let newlyUnlocked = allProjects.filter { $0.levelPrerequisite == level }
 			.map { $0.id }
 		
 		for projectId in newlyUnlocked {
@@ -60,7 +60,7 @@ final class UserData {
 	private func unlockInitialProjects() {
 		let allProjects = DataManager.shared.projectCollection.projects
 		
-		let projectsToUnlock = allProjects.filter { $0.level_prerequisite <= self.highestCompletedLevel }
+		let projectsToUnlock = allProjects.filter { $0.levelPrerequisite <= self.highestCompletedLevel }
 			.map { $0.id }
 		
 		for projectId in projectsToUnlock {

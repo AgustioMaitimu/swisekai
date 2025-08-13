@@ -12,12 +12,12 @@ struct ProjectDetailView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
-			Text(project.project_name)
+			Text(project.projectName)
 				.font(.largeTitle)
 				.bold()
 				.padding()
 			
-			ContentBlockView(blocks: project.project_blocks)
+			ContentBlockView(blocks: project.contentBlocks)
 		}
 		.toolbar {
 			Button("Complete") {
@@ -27,7 +27,7 @@ struct ProjectDetailView: View {
 	}
 	
 	private func completeProject() {
-		print("Completing Project on macOS: \(project.project_name)")
+		print("Completing Project on macOS: \(project.projectName)")
 		//userdata.completedProjects.insert(project.project_name) disini
 	}
 }

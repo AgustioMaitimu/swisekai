@@ -18,15 +18,28 @@ struct ProjectCollection: Codable {
 
 struct Module: Codable, Identifiable {
 	let id: UUID
-	let module_name: String
-	let module_blocks: [ContentBlock]
+	let moduleName: String
+	let contentBlocks: [ContentBlock]
+	
+	enum CodingKeys: String, CodingKey {
+		case id
+		case moduleName = "module_name"
+		case contentBlocks = "content_blocks"
+	}
 }
 
 struct Project: Codable, Identifiable {
 	let id: UUID
-	let project_name: String
-	let project_blocks: [ContentBlock]
-	let level_prerequisite: Int
+	let projectName: String
+	let contentBlocks: [ContentBlock]
+	let levelPrerequisite: Int
+	
+	enum CodingKeys: String, CodingKey {
+		case id
+		case projectName = "project_name"
+		case contentBlocks = "content_blocks"
+		case levelPrerequisite = "level_prerequisite"
+	}
 }
 
 enum ContentBlock: Codable, Identifiable {
@@ -34,6 +47,14 @@ enum ContentBlock: Codable, Identifiable {
 	case snippet(code: String)
 	case multipleChoice(question: String, options: [String], answer: String)
 	case fillBlank(prose: String, answer: String)
+	case heading1(text: String)
+	case heading2(text: String)
+	case heading3(text: String)
+	case heading4(text: String)
+	case heading5(text: String)
+	case heading6(text: String)
+	case orderedList(items: [String])
+	case unorderedList(items: [String])
 	
 	var id: String {
 		switch self {
@@ -45,6 +66,22 @@ enum ContentBlock: Codable, Identifiable {
 			return "mc-" + question
 		case .fillBlank(let prose, _):
 			return "fb-" + prose
+		case .heading1(let text):
+			return "h1-" + text
+		case .heading2(let text):
+			return "h2-" + text
+		case .heading3(let text):
+			return "h3-" + text
+		case .heading4(let text):
+			return "h4-" + text
+		case .heading5(let text):
+			return "h5-" + text
+		case .heading6(let text):
+			return "h6-" + text
+		case .orderedList(let items):
+			return "ol-" + items.joined()
+		case .unorderedList(let items):
+			return "ul-" + items.joined()
 		}
 	}
 	
@@ -53,7 +90,7 @@ enum ContentBlock: Codable, Identifiable {
 	}
 	
 	private enum ContentKeys: String, CodingKey {
-		case text, code, question, options, answer, prose
+		case text, code, question, options, answer, prose, items
 	}
 	
 	init(from decoder: Decoder) throws {
@@ -77,6 +114,30 @@ enum ContentBlock: Codable, Identifiable {
 			let prose = try contentContainer.decode(String.self, forKey: .prose)
 			let answer = try contentContainer.decode(String.self, forKey: .answer)
 			self = .fillBlank(prose: prose, answer: answer)
+		case "heading1":
+			let text = try contentContainer.decode(String.self, forKey: .text)
+			self = .heading1(text: text)
+		case "heading2":
+			let text = try contentContainer.decode(String.self, forKey: .text)
+			self = .heading2(text: text)
+		case "heading3":
+			let text = try contentContainer.decode(String.self, forKey: .text)
+			self = .heading3(text: text)
+		case "heading4":
+			let text = try contentContainer.decode(String.self, forKey: .text)
+			self = .heading4(text: text)
+		case "heading5":
+			let text = try contentContainer.decode(String.self, forKey: .text)
+			self = .heading5(text: text)
+		case "heading6":
+			let text = try contentContainer.decode(String.self, forKey: .text)
+			self = .heading6(text: text)
+		case "orderedList":
+			let items = try contentContainer.decode([String].self, forKey: .items)
+			self = .orderedList(items: items)
+		case "unorderedList":
+			let items = try contentContainer.decode([String].self, forKey: .items)
+			self = .unorderedList(items: items)
 		default:
 			throw DecodingError.dataCorruptedError(forKey: .type, in: container, debugDescription: "Invalid content block type")
 		}
@@ -102,6 +163,30 @@ enum ContentBlock: Codable, Identifiable {
 			try container.encode("fillBlank", forKey: .type)
 			try contentContainer.encode(prose, forKey: .prose)
 			try contentContainer.encode(answer, forKey: .answer)
+		case .heading1(let text):
+			try container.encode("heading1", forKey: .type)
+			try contentContainer.encode(text, forKey: .text)
+		case .heading2(let text):
+			try container.encode("heading2", forKey: .type)
+			try contentContainer.encode(text, forKey: .text)
+		case .heading3(let text):
+			try container.encode("heading3", forKey: .type)
+			try contentContainer.encode(text, forKey: .text)
+		case .heading4(let text):
+			try container.encode("heading4", forKey: .type)
+			try contentContainer.encode(text, forKey: .text)
+		case .heading5(let text):
+			try container.encode("heading5", forKey: .type)
+			try contentContainer.encode(text, forKey: .text)
+		case .heading6(let text):
+			try container.encode("heading6", forKey: .type)
+			try contentContainer.encode(text, forKey: .text)
+		case .orderedList(let items):
+			try container.encode("orderedList", forKey: .type)
+			try contentContainer.encode(items, forKey: .items)
+		case .unorderedList(let items):
+			try container.encode("unorderedList", forKey: .type)
+			try contentContainer.encode(items, forKey: .items)
 		}
 	}
 }

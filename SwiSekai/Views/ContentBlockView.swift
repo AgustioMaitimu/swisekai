@@ -17,7 +17,7 @@ struct ContentBlockView: View {
 		List(blocks) { block in
 			switch block {
 			case .explanation(let text):
-				Text(text.toStyledAttributedString())
+				Text(text.toStyledTaggedString())
 					.padding(.vertical, 4)
 					.listRowSeparator(.hidden)
 				
@@ -54,6 +54,64 @@ struct ContentBlockView: View {
 				Text("[Fill in the Blank Question UI Here]")
 					.foregroundColor(.gray)
 					.listRowSeparator(.hidden)
+				
+			case .heading1(let text):
+				Text(text)
+					.font(.largeTitle)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading2(let text):
+				Text(text)
+					.font(.title)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading3(let text):
+				Text(text)
+					.font(.title2)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading4(let text):
+				Text(text)
+					.font(.title3)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading5(let text):
+				Text(text)
+					.font(.headline)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .heading6(let text):
+				Text(text)
+					.font(.subheadline)
+					.bold()
+					.listRowSeparator(.hidden)
+				
+			case .orderedList(let items):
+				VStack(alignment: .leading) {
+					ForEach(items.indices, id: \.self) { index in
+						HStack(alignment: .top) {
+							Text("\(index + 1).")
+							Text(items[index])
+						}
+					}
+				}
+				.listRowSeparator(.hidden)
+				
+			case .unorderedList(let items):
+				VStack(alignment: .leading) {
+					ForEach(items, id: \.self) { item in
+						HStack(alignment: .top) {
+							Text("•")
+							Text(item)
+						}
+					}
+				}
+				.listRowSeparator(.hidden)
 			}
 			
 		}
@@ -72,7 +130,7 @@ struct ContentBlockView: View {
 }
 
 extension String {
-	func toStyledAttributedString() -> AttributedString {
+	func toStyledTaggedString() -> AttributedString {
 		do {
 			let regex = try NSRegularExpression(pattern: "(\\*\\*|==|\\*)(.*?)\\1", options: [])
 			

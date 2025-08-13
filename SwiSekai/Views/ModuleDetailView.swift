@@ -12,12 +12,12 @@ struct ModuleDetailView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
-			Text(module.module_name)
+			Text(module.moduleName)
 				.font(.largeTitle)
 				.bold()
 				.padding()
 			
-			ContentBlockView(blocks: module.module_blocks)
+			ContentBlockView(blocks: module.contentBlocks)
 		}
 		.toolbar {
 			Button("Complete") {
@@ -27,7 +27,7 @@ struct ModuleDetailView: View {
 	}
 	
 	private func completeModule() {
-		print("Completing Module on macOS: \(module.module_name)")
+		print("Completing Module on macOS: \(module.moduleName)")
 		//userdata.highestLevelCompleted += 1 disini
 	}
 }

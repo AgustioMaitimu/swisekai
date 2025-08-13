@@ -1,7 +1,7 @@
 modules:
   - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
     module_name: "Variables and Constants"
-    module_blocks:
+    content_blocks:
       - type: "explanation"
         content:
           text: "this shit is **BOLD**, and this one is *italics, hon hon hon hon croissant*, and this one is ==highlighted=="
@@ -38,7 +38,7 @@ modules:
 
   - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
     module_name: "Loops"
-    module_blocks:
+    content_blocks:
       - type: "explanation"
         content:
           text: "Loops allow us to repeat a piece of code multiple times. The most common type in Swift is the 'for-in' loop, which is great for running code for each item in a collection or a range of numbers."
