@@ -11,6 +11,8 @@ import SwiftUI
 struct SwiSekaiApp: App {
     var body: some Scene {
         WindowGroup {
+//            ModulesView()
+//            test_balls()
             ContentView()
                 .background(Color("BackgroundColor"))
         }
