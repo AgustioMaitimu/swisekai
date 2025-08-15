@@ -11,7 +11,8 @@ import SwiftUI
 struct SwiSekaiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ModulesView()
+            test_balls()
         }
     }
 }

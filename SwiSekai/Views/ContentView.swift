@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ResponsiveNavBarView: View {
     var body: some View {
 		ModuleDetailView(module: DataManager.shared.moduleCollection.modules[1])
 //		ProjectDetailView(project: DataManager.shared.projectCollection.projects[2])
@@ -15,5 +15,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ModulesView()
 }

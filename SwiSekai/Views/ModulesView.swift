@@ -8,10 +8,11 @@
 import SwiftUI
 
 // MARK: - Main Level View
-struct LevelView: View {
+struct ModulesView: View {
     // MARK: - Data
     // Gets module data from database
     var collections = DataManager.shared.moduleCollection.modules
+    var highestCompletedLevel: Int = 4
     
     // Placeholder quiz names (TODO: Replace with DB data later)
     var quizzes = ["balls", "squares", "triangles"]
@@ -44,7 +45,7 @@ struct LevelView: View {
         // MARK: - Main UI
         ScrollView {
             Spacer().frame(height: 30) // Top margin
-            ChapterButton() // Example top button
+            ChapterButton()
             
             ZStack {
                 // Uncomment if you want to draw the sine path background
@@ -225,8 +226,8 @@ struct ChapterButton: View {
             .background(
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        Color(red: 0.99, green: 0.76, blue: 0.47),
-                        Color(red: 0.98, green: 0.29, blue: 0.13)
+                        Color(red: 0.99, green: 0.25, blue: 0),
+                        Color(red: 1, green: 0.49, blue: 0.25),
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
@@ -249,34 +250,13 @@ struct ChapterButton: View {
     }
 }
 
-struct ModuleHexagonIcon: View {
-    let iconName: String
-    let isPressed: Bool
-
-    var body: some View {
-        ZStack {
-            RoundedPolygonShape(sides: 6, cornerRadius: 10)
-                .fill(Color(red: 0.35, green: 0.78, blue: 0.96))
-                .frame(width: 140, height: 140)
-                .rotationEffect(.degrees(30))
-                .shadow(color: Color(red: 0.21, green: 0.5, blue: 0.61),
-                        radius: 0,
-                        x: 0,
-                        y: isPressed ? 2 : 6)
-                .offset(y: isPressed ? 4 : 0)
-                .animation(.easeOut(duration: 0.1), value: isPressed)
-            
-            Image(systemName: iconName)
-                .font(.system(size: 50, weight: .medium))
-                .foregroundColor(.white)
-                .offset(y: isPressed ? 4 : 0)
-                .animation(.easeOut(duration: 0.1), value: isPressed)
-        }
-    }
-}
 
 // module icon
+
+
 struct ModuleIconView: View {
+    
+    
     let moduleName: String
     let iconName: String
     @State private var isPressed = false
@@ -284,7 +264,7 @@ struct ModuleIconView: View {
     var body: some View {
         VStack(spacing: 8) {
             Button(action: { print("\(moduleName) tapped") }) {
-                ModuleHexagonIcon(iconName: iconName, isPressed: isPressed)
+                ModuleHexagonIcon(status: .finished, isPressed: isPressed)
             }
             .buttonStyle(.plain)
             .simultaneousGesture(
@@ -305,19 +285,109 @@ struct ModuleIconView: View {
     }
 }
 
+enum ModuleStatus {
+    case finished
+    case current
+    case unavailable
+}
+
+struct ModuleHexagonIcon: View {
+    let status: ModuleStatus
+    let isPressed: Bool
+
+    var body: some View {
+        ZStack {
+            // Background Shape
+            RoundedPolygonShape(sides: 6, cornerRadius: 10)
+                .fill(backgroundFill)
+                .frame(width: 140, height: 140)
+                .rotationEffect(.degrees(30))
+                .shadow(color: shadowColor,
+                        radius: 0,
+                        x: 0,
+                        y: isPressed ? 2 : 6)
+                .offset(y: isPressed ? 4 : 0)
+                .animation(.easeOut(duration: 0.1), value: isPressed)
+            
+            // Icon
+            Image(systemName: symbolName)
+                .font(.system(size: 50, weight: .medium))
+                .foregroundColor(.white)
+                .offset(y: isPressed ? 4 : 0)
+                .animation(.easeOut(duration: 0.1), value: isPressed)
+        }
+    }
+    
+    // MARK: - Computed Styles
+    private var backgroundFill: AnyShapeStyle {
+        switch status {
+        case .finished:
+            return AnyShapeStyle(Color(red: 0.35, green: 0.78, blue: 0.96)) // Your original blue
+        case .current:
+            return AnyShapeStyle(
+                LinearGradient(
+                    stops: [
+                        Gradient.Stop(color: Color(red: 0.99, green: 0.76, blue: 0.47), location: 0.00),
+                        Gradient.Stop(color: Color(red: 0.98, green: 0.29, blue: 0.13), location: 1.00)
+                    ],
+                    startPoint: UnitPoint(x: 0.5, y: 0),
+                    endPoint: UnitPoint(x: 0.5, y: 1)
+                )
+            )
+        case .unavailable:
+            return AnyShapeStyle(Color(red: 0.85, green: 0.85, blue: 0.85)) // #D9D9D9
+        }
+    }
+
+    
+    private var shadowColor: Color {
+        switch status {
+        case .finished:
+            return Color(red: 0.21, green: 0.5, blue: 0.61)
+        case .current:
+            return Color(red: 0.49, green: 0.15, blue: 0.06)
+        case .unavailable:
+            return Color(red: 0.42, green: 0.42, blue: 0.42) // #6B6B6B
+        }
+    }
+    
+    private var symbolName: String {
+        switch status {
+        case .finished:
+            return "checkmark"
+        case .current:
+            return "book"
+        case .unavailable:
+            return "lock"
+        }
+    }
+}
+
+
+
+
 // quiz icon
+enum QuizStatus {
+    case available
+    case unavailable
+}
+
 struct QuizIconView: View {
+    var status: QuizStatus = .unavailable // placeholder until database logic comes in
+    
     var body: some View {
         VStack(spacing: 8) {
             ZStack {
                 Rectangle()
                     .foregroundColor(.clear)
                     .frame(width: 90, height: 90)
-                    .background(Color(red: 0, green: 0.66, blue: 0.93))
+                    .background(status == .available
+                                ? Color(red: 0, green: 0.66, blue: 0.93) // Blue
+                                : Color(red: 0.65, green: 0.65, blue: 0.65)) // Gray
                     .cornerRadius(10)
                     .rotationEffect(.degrees(45))
                 
-                Image("QuizIconBlue")
+                Image(status == .available ? "QuizIconBlue" : "QuizIconGray")
             }
             .frame(width: 90, height: 140)
 
@@ -329,7 +399,8 @@ struct QuizIconView: View {
     }
 }
 
-//  Helper view for the sine path to keep body light
+
+//  Helper view for the sine path
 struct SinePathView: View {
     let verticalSpacing: CGFloat
     let waveAmplitude: CGFloat
@@ -440,5 +511,5 @@ struct FinalTestButton: View {
 
 
 #Preview {
-    LevelView()
+    ModulesView()
 }
