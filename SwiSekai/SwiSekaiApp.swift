@@ -12,7 +12,8 @@ struct SwiSekaiApp: App {
     var body: some Scene {
         WindowGroup {
 //            ModulesView()
-            test_balls()
+//            test_balls()
+            ContentView()
         }
     }
 }
