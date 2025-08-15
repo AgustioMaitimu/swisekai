@@ -2,7 +2,7 @@ projects:
   - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
     project_name: "Variables and Constants Declaration"
     project_description: "Learn the fundamental concept of storing data in variables and constants. This is the first step in learning any programming language."
-    project_difficulty: "Beginner"
+    project_difficulty: "Easy"
     content_blocks:
       - type: "explanation"
         content:
@@ -26,7 +26,7 @@ projects:
   - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
     project_name: "Basic Arithmetic Operations"
     project_description: "Perform basic math operations like addition, subtraction, multiplication, and division. Understanding these is crucial for almost any program."
-    project_difficulty: "Beginner"
+    project_difficulty: "Easy"
     content_blocks:
       - type: "explanation"
         content:
@@ -51,7 +51,7 @@ projects:
   - id: "DA8A2B6C-6246-4482-A4A6-18CB39851B24"
     project_name: "String Interpolation and Concatenation"
     project_description: "Learn how to embed variables and constants within strings and how to combine strings."
-    project_difficulty: "Beginner"
+    project_difficulty: "Easy"
     content_blocks:
       - type: "explanation"
         content:
@@ -72,7 +72,7 @@ projects:
   - id: "4F1B3E3D-4A2D-4B9A-8C3D-1B9E0F7B5D9E"
     project_name: "Conditional Statements (if-else)"
     project_description: "Control the flow of your program based on certain conditions. This is essential for making decisions in your code."
-    project_difficulty: "Beginner"
+    project_difficulty: "Easy"
     content_blocks:
       - type: "explanation"
         content:
@@ -92,7 +92,7 @@ projects:
   - id: "9B6A1E3D-5F7C-4C6E-9B8A-1E3D5F7C9B6A"
     project_name: "Arrays and For-In Loops"
     project_description: "Work with collections of data using arrays and iterate over them with for-in loops. This is a common pattern for processing lists of items."
-    project_difficulty: "Intermediate"
+    project_difficulty: "Medium"
     content_blocks:
       - type: "explanation"
         content:
@@ -112,7 +112,7 @@ projects:
   - id: "D4C4B5A6-9876-4321-ABCD-FE9876543210"
     project_name: "Dictionaries and Key-Value Pairs"
     project_description: "Store key-value pairs and access values by their keys. Dictionaries are useful for storing associated data."
-    project_difficulty: "Intermediate"
+    project_difficulty: "Medium"
     content_blocks:
       - type: "explanation"
         content:
@@ -128,7 +128,7 @@ projects:
   - id: "1E3D5F7C-9B6A-4C6E-9B8A-1E3D5F7C9B6A"
     project_name: "Functions and Parameters"
     project_description: "Organize your code into reusable blocks called functions. Functions can take input (parameters) and return output."
-    project_difficulty: "Intermediate"
+    project_difficulty: "Medium"
     content_blocks:
       - type: "explanation"
         content:
@@ -150,7 +150,7 @@ projects:
   - id: "8C3D1B9E-0F7B-4A2D-4B9A-1B9E0F7B5D9E"
     project_name: "Structures and Properties"
     project_description: "Create your own custom data types using structures. Structures are a powerful way to model real-world objects."
-    project_difficulty: "Intermediate"
+    project_difficulty: "Medium"
     content_blocks:
       - type: "explanation"
         content:
@@ -172,7 +172,7 @@ projects:
   - id: "4B9A8C3D-1B9E-4A2D-8C3D-1B9E0F7B5D9E"
     project_name: "Classes and Inheritance"
     project_description: "Learn about object-oriented programming with classes. Classes allow for more complex data modeling with features like inheritance."
-    project_difficulty: "Advanced"
+    project_difficulty: "Hard"
     content_blocks:
       - type: "explanation"
         content:
@@ -207,7 +207,7 @@ projects:
   - id: "1B9E0F7B-5D9E-4A2D-4B9A-8C3D1B9E0F7B"
     project_name: "Optionals and Nil Coalescing"
     project_description: "Handle the absence of a value safely with optionals. This is a core concept in Swift for writing robust code."
-    project_difficulty: "Advanced"
+    project_difficulty: "Hard"
     content_blocks:
       - type: "explanation"
         content:
@@ -230,7 +230,7 @@ projects:
   - id: "8C3D1B9E-0F7B-4A2D-4B9A-1E3D5F7C9B6A"
     project_name: "Error Handling with Do-Try-Catch"
     project_description: "Respond to and recover from errors in your program. Proper error handling makes your app more reliable."
-    project_difficulty: "Advanced"
+    project_difficulty: "Hard"
     content_blocks:
       - type: "explanation"
         content:
@@ -258,7 +258,7 @@ projects:
   - id: "1B9E0F7B-5D9E-4A2D-8C3D-1B9E0F7B5D9E"
     project_name: "Switch Statements and Pattern Matching"
     project_description: "A powerful alternative to if-else for matching against multiple possible values. Switch statements can be used for more complex pattern matching."
-    project_difficulty: "Intermediate"
+    project_difficulty: "Medium"
     content_blocks:
       - type: "explanation"
         content:

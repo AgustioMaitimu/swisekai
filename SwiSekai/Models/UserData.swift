@@ -7,19 +7,17 @@ import SwiftData
 final class UserData {
 	@Attribute(.unique) var id: UUID
 	var highestCompletedLevel: Int
-	var unlockedProjects: [UUID]
 	var completedProjects: [UUID]
-	var lastLogin: Date // New property
-	var totalLogin: Int // New property
+	var lastLogin: Date
+	var totalLogin: Int
 	
 	init() {
 		self.id = UUID()
-		self.highestCompletedLevel = 1
-		self.unlockedProjects = []
+		self.highestCompletedLevel = 2
 		self.completedProjects = []
 		self.lastLogin = .distantPast
 		self.totalLogin = 0
-		self.unlockInitialProjects()
+		self.addMockData()
 	}
 	
 	static func shared(in context: ModelContext) -> UserData {
@@ -32,40 +30,18 @@ final class UserData {
 		}
 	}
 	
+	private func addMockData() {
+		completeProject(id: UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!)
+		completeProject(id: UUID(uuidString: "0C8D23A7-522A-44C3-A33B-32825B3E144C")!)
+	}
+	
 	func completeLevel() {
 		self.highestCompletedLevel += 1
-		unlockProjects(for: self.highestCompletedLevel)
 	}
 	
 	func completeProject(id: UUID) {
 		if !self.completedProjects.contains(id) {
 			self.completedProjects.append(id)
-		}
-	}
-	
-	func unlockProjects(for level: Int) {
-		let allProjects = DataManager.shared.projectCollection.projects
-		
-		let newlyUnlocked = allProjects.filter { $0.levelPrerequisite == level }
-			.map { $0.id }
-		
-		for projectId in newlyUnlocked {
-			if !self.unlockedProjects.contains(projectId) {
-				self.unlockedProjects.append(projectId)
-			}
-		}
-	}
-	
-	private func unlockInitialProjects() {
-		let allProjects = DataManager.shared.projectCollection.projects
-		
-		let projectsToUnlock = allProjects.filter { $0.levelPrerequisite <= self.highestCompletedLevel }
-			.map { $0.id }
-		
-		for projectId in projectsToUnlock {
-			if !self.unlockedProjects.contains(projectId) {
-				self.unlockedProjects.append(projectId)
-			}
 		}
 	}
 }

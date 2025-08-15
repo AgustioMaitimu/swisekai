@@ -19,8 +19,9 @@ struct SwiSekaiApp: App {
 		WindowGroup {
 //			ProjectsView()
 //				.onAppear(perform: checkLogin)
-			ContentView()
+			ProjectsView()
 				.onAppear(perform: checkLogin)
+				.background(.mainBackground)
 		}
 		.modelContainer(modelContainer)
 	}
