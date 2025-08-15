@@ -6,7 +6,7 @@ projects:
     content_blocks:
       - type: "explanation"
         content:
-          text: "In Swift, we use 'variables' to store values that can change throughout the execution of the program. On the other hand, 'constants' are used for values that, once set, will never change. This distinction is a key safety feature in Swift, as it helps prevent accidental modification of values that should remain constant."
+          text: "In Swift, we use **'variables'** to store values that can change throughout the execution of the program. On the other hand, 'constants' are used for values that, once set, will never change. This distinction is a key safety feature in Swift, as it helps prevent accidental modification of values that should remain constant."
       - type: "explanation"
         content:
           text: "We declare variables with the 'var' keyword and constants with the 'let' keyword. It's a good practice to use 'let' by default and only switch to 'var' when you know you'll need to change the value later."

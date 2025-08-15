@@ -17,7 +17,9 @@ struct SwiSekaiApp: App {
 	
 	var body: some Scene {
 		WindowGroup {
-			ProjectsView()
+//			ProjectsView()
+//				.onAppear(perform: checkLogin)
+			ContentView()
 				.onAppear(perform: checkLogin)
 		}
 		.modelContainer(modelContainer)
