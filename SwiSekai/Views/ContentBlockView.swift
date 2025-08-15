@@ -61,16 +61,6 @@ struct ContentBlockView: View {
 					.listRowSeparator(.hidden)
 				}
 				
-			case .multipleChoice(let questions):
-				ForEach(questions) { question in
-					MultipleChoiceView(
-						question: question.question,
-						options: question.options,
-						correctAnswer: question.answer
-					)
-					.listRowSeparator(.hidden)
-				}
-				
 			case .fillBlank:
 				Text("[Fill in the Blank Question UI Here]")
 					.foregroundColor(.gray)

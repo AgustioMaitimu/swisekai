@@ -1,136 +1,286 @@
 projects:
-  - id: "7B5D9E0F-3A6C-4B1E-8D5F-2A7C1B9E0A3D"
-    project_name: "Hello, World!"
+  - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
+    project_name: "Variables and Constants Declaration"
+    project_description: "Learn the fundamental concept of storing data in variables and constants. This is the first step in learning any programming language."
+    project_difficulty: "Beginner"
     content_blocks:
       - type: "explanation"
         content:
-          text: "The first step in any programming journey is to make the computer say something. In Swift, we use the `print()` function to display text in the debug console."
+          text: "In Swift, we use 'variables' to store values that can change throughout the execution of the program. On the other hand, 'constants' are used for values that, once set, will never change. This distinction is a key safety feature in Swift, as it helps prevent accidental modification of values that should remain constant."
       - type: "explanation"
         content:
-          text: "To do this, simply call the function and put the text you want to display inside the parentheses, surrounded by double quotes. For example: `print(\"This is my text.\")`"
-    level_prerequisite: 1
-
-  - id: "9F4E1C8B-7A2D-4C6E-9B8A-1E3D5F7C9B6A"
-    project_name: "FizzBuzz"
-    content_blocks:
-      - type: "explanation"
-        content:
-          text: "FizzBuzz is a classic programming challenge that combines loops and conditional logic."
-      - type: "explanation"
-        content:
-          text: "The goal is to loop through numbers from 1 to 100. If the number is divisible by 3, print 'Fizz'. If it's divisible by 5, print 'Buzz'. If it's divisible by both 3 and 5, print 'FizzBuzz'. Otherwise, just print the number."
-      - type: "explanation"
-        content:
-          text: "You will need a `for-in` loop and `if/else if/else` statements. The 'modulo' operator, `%`, will be very helpful for checking divisibility. For example, `number % 3 == 0` is true if `number` is perfectly divisible by 3."
-    level_prerequisite: 2
-    
-  - id: "D4C4B5A6-9876-4321-ABCD-FE9876543210"
-    project_name: "All Content Blocks Demo"
-    content_blocks:
-      - type: "heading1"
-        content:
-          text: "This is a Heading 1"
-      - type: "explanation"
-        content:
-          text: "Use headings to structure your content. This is a regular explanation paragraph following a main heading."
-      - type: "heading2"
-        content:
-          text: "This is a Heading 2"
-      - type: "explanation"
-        content:
-          text: "This text falls under the second-level heading. It's a good way to create major sections within your module."
-      - type: "heading3"
-        content:
-          text: "This is a Heading 3"
-      - type: "explanation"
-        content:
-          text: "And this is a paragraph under a third-level heading, useful for further subdivision."
-      
-      - type: "heading4"
-        content:
-          text: "Text Styling"
-      - type: "explanation"
-        content:
-          text: "You can easily style your text. Here is some **bold text**, some *italic text for emphasis*, and some ==highlighted text== to draw attention."
-
-      - type: "heading4"
-        content:
-          text: "Code Snippets"
-      - type: "explanation"
-        content:
-          text: "Provide code examples using the snippet block:"
+          text: "We declare variables with the 'var' keyword and constants with the 'let' keyword. It's a good practice to use 'let' by default and only switch to 'var' when you know you'll need to change the value later."
       - type: "snippet"
         content:
           code: |
-            import SwiftUI
+            // 'score' can be changed, so it's a variable.
+            var score = 100
+            print("Initial score: \\(score)")
+            score = 110
+            print("Updated score: \\(score)")
 
-            struct DemoView: View {
-                var body: some View {
-                    Text("Hello, SwiSekai!")
-                        .font(.title)
+            // 'playerName' should not change, so it's a constant.
+            let playerName = "Cyber-Cat"
+            print("Welcome, \\(playerName)!")
+    level_prerequisite: 1
+  - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
+    project_name: "Basic Arithmetic Operations"
+    project_description: "Perform basic math operations like addition, subtraction, multiplication, and division. Understanding these is crucial for almost any program."
+    project_difficulty: "Beginner"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Swift supports the standard arithmetic operators for performing mathematical calculations. These operators work with numeric types like Int, Double, and Float."
+      - type: "snippet"
+        content:
+          code: |
+            let a = 15
+            let b = 4
+            let sum = a + b
+            let difference = a - b
+            let product = a * b
+            let quotient = a / b
+            let remainder = a % b
+
+            print("Sum: \\(sum)")
+            print("Difference: \\(difference)")
+            print("Product: \\(product)")
+            print("Quotient: \\(quotient)")
+            print("Remainder: \\(remainder)")
+    level_prerequisite: 1
+  - id: "DA8A2B6C-6246-4482-A4A6-18CB39851B24"
+    project_name: "String Interpolation and Concatenation"
+    project_description: "Learn how to embed variables and constants within strings and how to combine strings."
+    project_difficulty: "Beginner"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "String interpolation is a powerful feature in Swift that allows you to create strings by embedding expressions within them. You can also combine strings using the '+' operator, which is called concatenation."
+      - type: "snippet"
+        content:
+          code: |
+            let name = "Alice"
+            let age = 30
+            let message = "My name is \\(name) and I am \\(age) years old."
+            print(message)
+
+            let greeting = "Hello"
+            let world = "World"
+            let combined = greeting + ", " + world + "!"
+            print(combined)
+    level_prerequisite: 1
+  - id: "4F1B3E3D-4A2D-4B9A-8C3D-1B9E0F7B5D9E"
+    project_name: "Conditional Statements (if-else)"
+    project_description: "Control the flow of your program based on certain conditions. This is essential for making decisions in your code."
+    project_difficulty: "Beginner"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "The if-else statement allows you to execute different blocks of code based on a condition. You can also chain multiple conditions using 'else if'."
+      - type: "snippet"
+        content:
+          code: |
+            let temperature = 25
+            if temperature > 30 {
+              print("It's a hot day!")
+            } else if temperature < 10 {
+              print("It's a cold day!")
+            } else {
+              print("It's a pleasant day.")
+            }
+    level_prerequisite: 2
+  - id: "9B6A1E3D-5F7C-4C6E-9B8A-1E3D5F7C9B6A"
+    project_name: "Arrays and For-In Loops"
+    project_description: "Work with collections of data using arrays and iterate over them with for-in loops. This is a common pattern for processing lists of items."
+    project_difficulty: "Intermediate"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Arrays store multiple values of the same type in an ordered list. You can iterate over the items in an array with a for-in loop. This is much more efficient than accessing each element by its index."
+      - type: "snippet"
+        content:
+          code: |
+            let fruits = ["Apple", "Banana", "Cherry"]
+            for fruit in fruits {
+              print("I like to eat \\(fruit).")
+            }
+
+            for i in 1...5 {
+                print("This is number \\(i)")
+            }
+    level_prerequisite: 2
+  - id: "D4C4B5A6-9876-4321-ABCD-FE9876543210"
+    project_name: "Dictionaries and Key-Value Pairs"
+    project_description: "Store key-value pairs and access values by their keys. Dictionaries are useful for storing associated data."
+    project_difficulty: "Intermediate"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Dictionaries are collections of key-value pairs, where each key is unique. They are useful for storing data where you need to look up values by a specific identifier."
+      - type: "snippet"
+        content:
+          code: |
+            var person = ["name": "John", "age": "30", "city": "New York"]
+            print("\\(person["name"]!) is \\(person["age"]!) years old and lives in \\(person["city"]!).")
+            person["occupation"] = "Developer"
+            print("\\(person["name"]!) is a \\(person["occupation"]!).")
+    level_prerequisite: 2
+  - id: "1E3D5F7C-9B6A-4C6E-9B8A-1E3D5F7C9B6A"
+    project_name: "Functions and Parameters"
+    project_description: "Organize your code into reusable blocks called functions. Functions can take input (parameters) and return output."
+    project_difficulty: "Intermediate"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Functions are self-contained chunks of code that perform a specific task. They can take parameters as input and can return a value as output."
+      - type: "snippet"
+        content:
+          code: |
+            func greet(person: String) -> String {
+              let greeting = "Hello, " + person + "!"
+              return greeting
+            }
+            print(greet(person: "Dave"))
+
+            func add(_ a: Int, to b: Int) -> Int {
+                return a + b
+            }
+            print("The sum is \\(add(5, to: 3))")
+    level_prerequisite: 3
+  - id: "8C3D1B9E-0F7B-4A2D-4B9A-1B9E0F7B5D9E"
+    project_name: "Structures and Properties"
+    project_description: "Create your own custom data types using structures. Structures are a powerful way to model real-world objects."
+    project_difficulty: "Intermediate"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Structures are a way to group related values into a single compound value. The values within a structure are called properties."
+      - type: "snippet"
+        content:
+          code: |
+            struct Person {
+              var name: String
+              var age: Int
+
+              func introduce() {
+                print("Hi, my name is \\(name) and I'm \\(age) years old.")
+              }
+            }
+            let person = Person(name: "Carol", age: 25)
+            person.introduce()
+    level_prerequisite: 3
+  - id: "4B9A8C3D-1B9E-4A2D-8C3D-1B9E0F7B5D9E"
+    project_name: "Classes and Inheritance"
+    project_description: "Learn about object-oriented programming with classes. Classes allow for more complex data modeling with features like inheritance."
+    project_difficulty: "Advanced"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Classes are similar to structures but offer additional capabilities like inheritance, which allows one class to receive properties and methods from another class."
+      - type: "snippet"
+        content:
+          code: |
+            class Animal {
+              var name: String
+              init(name: String) {
+                self.name = name
+              }
+              func speak() {
+                print("...")
+              }
+            }
+            class Dog: Animal {
+              override func speak() {
+                print("Woof!")
+              }
+            }
+            class Cat: Animal {
+                override func speak() {
+                    print("Meow!")
                 }
             }
+            let myDog = Dog(name: "Buddy")
+            let myCat = Cat(name: "Whiskers")
+            myDog.speak()
+            myCat.speak()
+    level_prerequisite: 4
+  - id: "1B9E0F7B-5D9E-4A2D-4B9A-8C3D1B9E0F7B"
+    project_name: "Optionals and Nil Coalescing"
+    project_description: "Handle the absence of a value safely with optionals. This is a core concept in Swift for writing robust code."
+    project_difficulty: "Advanced"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "Optionals are used in situations where a value may be absent. You can use optional binding (`if let`) to safely unwrap an optional's value. The nil-coalescing operator (`??`) provides a default value for an optional that is `nil`."
+      - type: "snippet"
+        content:
+          code: |
+            var optionalName: String? = "John"
+            if let name = optionalName {
+              print("Hello, \\(name)")
+            } else {
+              print("Hello, guest")
+            }
             
-      - type: "heading4"
-        content:
-          text: "Lists"
-      - type: "explanation"
-        content:
-          text: "You can also create lists. Here is an ordered list:"
-      - type: "orderedList"
-        content:
-          items:
-            - "First item: Define the requirements."
-            - "Second item: Implement the feature."
-            - "Third item: Test thoroughly."
-      - type: "explanation"
-        content:
-          text: "And here is an unordered list for items that don't require a specific sequence:"
-      - type: "unorderedList"
-        content:
-          items:
-            - "SwiftUI for UI."
-            - "Yams for YAML parsing."
-            - "HighlightSwift for syntax highlighting."
+            let nickname: String? = nil
+            let displayName = nickname ?? "Guest"
+            print("Welcome, \\(displayName)!")
 
-      - type: "heading4"
-        content:
-          text: "Interactive Elements"
-      - type: "multipleChoice"
-        content:
-          - question: "Which keyword is used to define a constant in Swift?"
-            options:
-              - "var"
-              - "let"
-              - "const"
-              - "static"
-            answer: "let"
-          - question: "What is the purpose of the `if` statement in Swift?"
-            options:
-              - "To declare a new variable."
-              - "To perform a block of code only if a certain condition is true."
-              - "To create a loop."
-              - "To define a function."
-            answer: "To perform a block of code only if a certain condition is true."
-          - question: "Which of these is NOT a primitive data type in Swift?"
-            options:
-              - "Int"
-              - "String"
-              - "Array"
-              - "Bool"
-            answer: "Array"
-      - type: "fillBlank"
-        content:
-          prose: "To display text in the debug console, you would use the ______ function."
-          answer: "print()"
-          
-      - type: "heading5"
-        content:
-          text: "This is a Heading 5"
-      - type: "heading6"
-        content:
-          text: "This is a Heading 6"
+    level_prerequisite: 4
+  - id: "8C3D1B9E-0F7B-4A2D-4B9A-1E3D5F7C9B6A"
+    project_name: "Error Handling with Do-Try-Catch"
+    project_description: "Respond to and recover from errors in your program. Proper error handling makes your app more reliable."
+    project_difficulty: "Advanced"
+    content_blocks:
       - type: "explanation"
         content:
-          text: "These smaller headings can be used for minor notes or asides."
-    level_prerequisite: 3
+          text: "Swift provides first-class support for throwing, catching, propagating, and manipulating recoverable errors at runtime. This is done using `do-try-catch` blocks and functions that are marked with the `throws` keyword."
+      - type: "snippet"
+        content:
+          code: |
+            enum MyError: Error {
+              case someError
+              case anotherError
+            }
+            func doSomethingThatCanThrow(shouldThrow: Bool) throws {
+              if shouldThrow {
+                throw MyError.someError
+              }
+            }
+            do {
+              try doSomethingThatCanThrow(shouldThrow: true)
+            } catch MyError.someError {
+              print("Caught some error.")
+            } catch {
+              print("An unexpected error occurred.")
+            }
+    level_prerequisite: 5
+  - id: "1B9E0F7B-5D9E-4A2D-8C3D-1B9E0F7B5D9E"
+    project_name: "Switch Statements and Pattern Matching"
+    project_description: "A powerful alternative to if-else for matching against multiple possible values. Switch statements can be used for more complex pattern matching."
+    project_difficulty: "Intermediate"
+    content_blocks:
+      - type: "explanation"
+        content:
+          text: "A switch statement considers a value and compares it against several possible matching patterns. It's more powerful than in many other languages, as it can match against ranges, tuples, and more."
+      - type: "snippet"
+        content:
+          code: |
+            let someCharacter: Character = "z"
+            switch someCharacter {
+            case "a", "A":
+                print("The first letter of the alphabet")
+            case "z", "Z":
+                print("The last letter of the alphabet")
+            default:
+                print("Some other character")
+            }
+
+            let number = 5
+            switch number {
+            case 1...10:
+                print("The number is between 1 and 10.")
+            default:
+                print("The number is not in the range.")
+            }
+    level_prerequisite: 2

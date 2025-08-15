@@ -1,9 +1,4 @@
-//
-//  UserData.swift
-//  SwiSekai
-//
-//  Created by Agustio Maitimu on 12/08/25.
-//
+// SwiSekai/Models/UserData.swift
 
 import Foundation
 import SwiftData
@@ -14,12 +9,16 @@ final class UserData {
 	var highestCompletedLevel: Int
 	var unlockedProjects: [UUID]
 	var completedProjects: [UUID]
+	var lastLogin: Date // New property
+	var totalLogin: Int // New property
 	
 	init() {
 		self.id = UUID()
 		self.highestCompletedLevel = 1
 		self.unlockedProjects = []
 		self.completedProjects = []
+		self.lastLogin = .distantPast
+		self.totalLogin = 0
 		self.unlockInitialProjects()
 	}
 	
