@@ -20,11 +20,13 @@ struct Module: Codable, Identifiable {
 	let id: UUID
 	let moduleName: String
 	let contentBlocks: [ContentBlock]
+	let multipleChoice: [MultipleChoice]
 	
 	enum CodingKeys: String, CodingKey {
 		case id
 		case moduleName = "module_name"
 		case contentBlocks = "content_blocks"
+		case multipleChoice = "multipleChoice"
 	}
 }
 
@@ -33,12 +35,16 @@ struct Project: Codable, Identifiable {
 	let projectName: String
 	let contentBlocks: [ContentBlock]
 	let levelPrerequisite: Int
+	let projectDifficulty: String
+	let projectDescription: String
 	
 	enum CodingKeys: String, CodingKey {
 		case id
 		case projectName = "project_name"
 		case contentBlocks = "content_blocks"
 		case levelPrerequisite = "level_prerequisite"
+		case projectDifficulty = "project_difficulty"
+		case projectDescription = "project_description"
 	}
 }
 
@@ -49,10 +55,11 @@ struct MultipleChoice: Codable, Identifiable {
 	let answer: String
 }
 
+
+
 enum ContentBlock: Codable, Identifiable {
 	case explanation(text: String)
 	case snippet(code: String)
-	case multipleChoice(questions: [MultipleChoice])
 	case fillBlank(prose: String, answer: String)
 	case heading1(text: String)
 	case heading2(text: String)
@@ -69,8 +76,6 @@ enum ContentBlock: Codable, Identifiable {
 			return "exp-" + text
 		case .snippet(let code):
 			return "snip-" + code
-		case .multipleChoice(let questions):
-			return "mc-" + questions.map { $0.question }.joined()
 		case .fillBlank(let prose, _):
 			return "fb-" + prose
 		case .heading1(let text):
@@ -113,9 +118,6 @@ enum ContentBlock: Codable, Identifiable {
 			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let code = try contentContainer.decode(String.self, forKey: .code)
 			self = .snippet(code: code)
-		case "multipleChoice":
-			let questions = try container.decode([MultipleChoice].self, forKey: .content)
-			self = .multipleChoice(questions: questions)
 		case "fillBlank":
 			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let prose = try contentContainer.decode(String.self, forKey: .prose)
@@ -170,9 +172,6 @@ enum ContentBlock: Codable, Identifiable {
 			try container.encode("snippet", forKey: .type)
 			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(code, forKey: .code)
-		case .multipleChoice(let questions):
-			try container.encode("multipleChoice", forKey: .type)
-			try container.encode(questions, forKey: .content)
 		case .fillBlank(let prose, let answer):
 			try container.encode("fillBlank", forKey: .type)
 			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)

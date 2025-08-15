@@ -10,25 +10,31 @@ import SwiftUI
 struct ModuleDetailView: View {
 	let module: Module
 	
-	var body: some View {
-        HStack{
-            Spacer()
-            VStack(alignment: .leading, spacing: 0) {
-                Text(module.moduleName)
-                    .font(.largeTitle)
-                    .bold()
-                    .padding()
+    var body: some View {
+        VStack(alignment: .center, spacing: 16) {
+            ContentBlockView(blocks: module.contentBlocks)
                 
-                ContentBlockView(blocks: module.contentBlocks)
+            HStack{
+                Spacer()
+                
+                Button(action: completeModule) {
+                    Text("Next")
+                        .padding(.horizontal, 55)
+                        .padding(.vertical, 14)
+                        .background(Color("ButtonColor"))
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                }
+                .buttonStyle(.plain)
             }
+            
             Spacer()
         }
-		.toolbar {
-			Button("Complete") {
-				completeModule()
-			}
-		}
-	}
+        .frame(width: 800)
+        .padding(.vertical)
+        .frame(maxWidth: .infinity)
+        .background(Color("BackgroundColor"))
+    }
 	
 	private func completeModule() {
 		print("Completing Module on macOS: \(module.moduleName)")
