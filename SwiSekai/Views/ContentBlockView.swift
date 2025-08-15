@@ -101,6 +101,7 @@ struct ParagraphView: View {
             .padding(.top, 4)
             .padding(.bottom, 16)
             .lineSpacing(12)
+            .fixedSize(horizontal: false, vertical: true)
     }
     
     private var styledAttributedText: AttributedString {
