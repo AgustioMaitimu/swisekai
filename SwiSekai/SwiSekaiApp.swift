@@ -14,6 +14,7 @@ struct SwiSekaiApp: App {
 //            ModulesView()
 //            test_balls()
             ContentView()
+                .background(Color("BackgroundColor"))
         }
     }
 }

@@ -20,11 +20,13 @@ struct Module: Codable, Identifiable {
 	let id: UUID
 	let moduleName: String
 	let contentBlocks: [ContentBlock]
+	let multipleChoice: [MultipleChoice]
 	
 	enum CodingKeys: String, CodingKey {
 		case id
 		case moduleName = "module_name"
 		case contentBlocks = "content_blocks"
+		case multipleChoice = "multipleChoice"
 	}
 }
 
@@ -33,19 +35,31 @@ struct Project: Codable, Identifiable {
 	let projectName: String
 	let contentBlocks: [ContentBlock]
 	let levelPrerequisite: Int
+	let projectDifficulty: String
+	let projectDescription: String
 	
 	enum CodingKeys: String, CodingKey {
 		case id
 		case projectName = "project_name"
 		case contentBlocks = "content_blocks"
 		case levelPrerequisite = "level_prerequisite"
+		case projectDifficulty = "project_difficulty"
+		case projectDescription = "project_description"
 	}
 }
+
+struct MultipleChoice: Codable, Identifiable {
+	let id = UUID()
+	let question: String
+	let options: [String]
+	let answer: String
+}
+
+
 
 enum ContentBlock: Codable, Identifiable {
 	case explanation(text: String)
 	case snippet(code: String)
-	case multipleChoice(question: String, options: [String], answer: String)
 	case fillBlank(prose: String, answer: String)
 	case heading1(text: String)
 	case heading2(text: String)
@@ -62,8 +76,6 @@ enum ContentBlock: Codable, Identifiable {
 			return "exp-" + text
 		case .snippet(let code):
 			return "snip-" + code
-		case .multipleChoice(let question, _, _):
-			return "mc-" + question
 		case .fillBlank(let prose, _):
 			return "fb-" + prose
 		case .heading1(let text):
@@ -96,46 +108,51 @@ enum ContentBlock: Codable, Identifiable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		let type = try container.decode(String.self, forKey: .type)
-		let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 		
 		switch type {
 		case "explanation":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .explanation(text: text)
 		case "snippet":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let code = try contentContainer.decode(String.self, forKey: .code)
 			self = .snippet(code: code)
-		case "multipleChoice":
-			let question = try contentContainer.decode(String.self, forKey: .question)
-			let options = try contentContainer.decode([String].self, forKey: .options)
-			let answer = try contentContainer.decode(String.self, forKey: .answer)
-			self = .multipleChoice(question: question, options: options, answer: answer)
 		case "fillBlank":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let prose = try contentContainer.decode(String.self, forKey: .prose)
 			let answer = try contentContainer.decode(String.self, forKey: .answer)
 			self = .fillBlank(prose: prose, answer: answer)
 		case "heading1":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .heading1(text: text)
 		case "heading2":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .heading2(text: text)
 		case "heading3":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .heading3(text: text)
 		case "heading4":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .heading4(text: text)
 		case "heading5":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .heading5(text: text)
 		case "heading6":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let text = try contentContainer.decode(String.self, forKey: .text)
 			self = .heading6(text: text)
 		case "orderedList":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let items = try contentContainer.decode([String].self, forKey: .items)
 			self = .orderedList(items: items)
 		case "unorderedList":
+			let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			let items = try contentContainer.decode([String].self, forKey: .items)
 			self = .unorderedList(items: items)
 		default:
@@ -145,47 +162,52 @@ enum ContentBlock: Codable, Identifiable {
 	
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
-		var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 		
 		switch self {
 		case .explanation(let text):
 			try container.encode("explanation", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .snippet(let code):
 			try container.encode("snippet", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(code, forKey: .code)
-		case .multipleChoice(let question, let options, let answer):
-			try container.encode("multipleChoice", forKey: .type)
-			try contentContainer.encode(question, forKey: .question)
-			try contentContainer.encode(options, forKey: .options)
-			try contentContainer.encode(answer, forKey: .answer)
 		case .fillBlank(let prose, let answer):
 			try container.encode("fillBlank", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(prose, forKey: .prose)
 			try contentContainer.encode(answer, forKey: .answer)
 		case .heading1(let text):
 			try container.encode("heading1", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .heading2(let text):
 			try container.encode("heading2", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .heading3(let text):
 			try container.encode("heading3", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .heading4(let text):
 			try container.encode("heading4", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .heading5(let text):
 			try container.encode("heading5", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .heading6(let text):
 			try container.encode("heading6", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(text, forKey: .text)
 		case .orderedList(let items):
 			try container.encode("orderedList", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(items, forKey: .items)
 		case .unorderedList(let items):
 			try container.encode("unorderedList", forKey: .type)
+			var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
 			try contentContainer.encode(items, forKey: .items)
 		}
 	}
