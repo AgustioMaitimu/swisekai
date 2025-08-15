@@ -17,8 +17,9 @@ struct ModuleDetailView: View {
             HStack{
                 Spacer()
                 
-                Button(action: completeModule) {
+                NavigationLink(destination: MultipleChoiceView(module: module)) {
                     Text("Next")
+                        .fontWeight(.semibold)
                         .padding(.horizontal, 55)
                         .padding(.vertical, 14)
                         .background(Color("ButtonColor"))

@@ -59,13 +59,6 @@ modules:
   - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
     module_name: "Variables and Constants"
     multipleChoice:
-      - question: "Which keyword should you use to store a user's date of birth, which will never change?"
-        options:
-          - "var"
-          - "let"
-          - "const"
-          - "static"
-        answer: "let"
       - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
         options:
           - "5"
@@ -73,6 +66,13 @@ modules:
           - "The code will cause an error."
           - "15"
         answer: "10"
+      - question: "Which keyword should you use to store a user's date of birth, which will never change?"
+        options:
+          - "var"
+          - "let"
+          - "const"
+          - "static"
+        answer: "let"
       - question: "Which of the following is a valid constant declaration?"
         options:
           - "var name = \"Alice\""
