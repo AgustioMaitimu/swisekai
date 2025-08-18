@@ -34,7 +34,7 @@ struct ModuleDetailView: View {
         .frame(width: 800)
         .padding(.vertical)
         .frame(maxWidth: .infinity)
-        .background(Color("BackgroundColor"))
+		.background(.mainBackground)
     }
 	
 	private func completeModule() {

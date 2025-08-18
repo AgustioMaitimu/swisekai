@@ -66,7 +66,7 @@ struct SideBarView: View {
             case .learn:
                 ModulesView()
             case .projects:
-                Text("🛠 Projects Content").font(.largeTitle)
+                ProjectsView()
             }
         }
     }

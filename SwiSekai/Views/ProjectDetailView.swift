@@ -1,5 +1,5 @@
 //
-//  ProjectDetailView.swift
+//  ModuleDetailView.swift
 //  SwiSekai
 //
 //  Created by Agustio Maitimu on 12/08/25.
@@ -11,27 +11,22 @@ struct ProjectDetailView: View {
 	let project: Project
 	
 	var body: some View {
-		VStack(alignment: .leading, spacing: 0) {
-			Text(project.projectName)
-				.font(.largeTitle)
-				.bold()
-				.padding()
-			
+		VStack(alignment: .center, spacing: 16) {
 			ContentBlockView(blocks: project.contentBlocks)
+			Spacer()
 		}
-		.toolbar {
-			Button("Complete") {
-				completeProject()
-			}
-		}
-	}
-	
-	private func completeProject() {
-		print("Completing Project on macOS: \(project.projectName)")
-		//userdata.completedProjects.insert(project.project_name) disini
-	}
+		.frame(width: 800)
+		.padding(.vertical)
+		.frame(maxWidth: .infinity)
+		.background(.mainBackground)
+}
+
+private func completeModule() {
+	print("Completing Module on macOS: \(project.projectName)")
+	//userdata.completeProject() disini
+}
 }
 
 //#Preview {
-//    ProjectDetailView()
+//    ModuleDetailView()
 //}

@@ -17,11 +17,14 @@ struct SwiSekaiApp: App {
 	
 	var body: some Scene {
 		WindowGroup {
-//			ProjectsView()
-//				.onAppear(perform: checkLogin)
-			ProjectsView()
-				.onAppear(perform: checkLogin)
-				.background(.mainBackground)
+						ProjectsView()
+							.onAppear(perform: checkLogin)
+							.background(.mainBackground)
+			//			ContentView()
+			//				.onAppear(perform: checkLogin)
+			//			test_balls()
+			//				.background(.mainBackground)
+			//				.onAppear(perform: checkLogin)
 		}
 		.modelContainer(modelContainer)
 	}

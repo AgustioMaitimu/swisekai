@@ -13,7 +13,7 @@ struct TabBarView: View {
                 case .learn:
                     ModulesView()
                 case .projects:
-                    Text("🛠 Projects").font(.largeTitle)
+                    ProjectsView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // take all space

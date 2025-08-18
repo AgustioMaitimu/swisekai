@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MultipleChoiceView: View {
+    @Environment(\.dismiss) var dismiss
+
     // The view now accepts a Module
     let module: Module
     
@@ -17,6 +19,10 @@ struct MultipleChoiceView: View {
     // State for the current question's interaction
     @State private var selectedAnswer: String?
     @State private var isCorrect: Bool?
+    
+    // State for quiz completion and score
+    @State private var score = 0
+    @State private var isQuizFinished = false
     
     // Computed property to get the current question easily
     private var currentQuestion: MultipleChoice {
@@ -34,7 +40,7 @@ struct MultipleChoiceView: View {
     var body: some View {
         ZStack {
             // Dark background for the entire view
-            Color("BackgroundColor").ignoresSafeArea()
+			Color.mainBackground.ignoresSafeArea()
             
             VStack(spacing: 30) {
                 //MARK:  Progress Bar
@@ -43,10 +49,10 @@ struct MultipleChoiceView: View {
                         .foregroundColor(.white.opacity(0.8))
                 }
                 .tint(.white)
-                .padding(.horizontal, 40)
+                .padding(.horizontal, 30)
                 
                 // MARK: Main content container
-                VStack(alignment: .leading, spacing: 25) {
+                VStack(alignment: .leading, spacing: 15) {
                     // Question Text from the current question
                     Text(currentQuestion.question)
                         .font(.title)
@@ -59,8 +65,8 @@ struct MultipleChoiceView: View {
                                 option: option,
                                 letter: letter(for: option),
                                 isSelected: selectedAnswer == option,
-                                // Disable the button after the answer is checked
-                                isDisabled: isCorrect != nil
+                                isCorrect: isCorrect,
+                                correctAnswer: currentQuestion.answer
                             ) {
                                 // Action to perform on tap
                                 selectedAnswer = option
@@ -80,10 +86,12 @@ struct MultipleChoiceView: View {
                 )
                 .padding(.horizontal)
                 
+                ResultFeedbackView(isCorrect: $isCorrect)
+                
                 QuizActionButton(
                     isCorrect: $isCorrect,
                     selectedAnswer: $selectedAnswer,
-                    correctAnswer: currentQuestion.answer,
+                    checkAction: checkAnswer,
                     nextAction: goToNextQuestion
                 )
                 
@@ -91,6 +99,13 @@ struct MultipleChoiceView: View {
             }
             .padding(.top, 20)
             .frame(width: 500)
+        }
+        .sheet(isPresented: $isQuizFinished, onDismiss: {
+            // When the ScoreView sheet is dismissed, also dismiss this view.
+            dismiss()
+            dismiss()
+        }) {
+            ScoreView(score: score, totalQuestions: module.multipleChoice.count)
         }
     }
     
@@ -101,7 +116,20 @@ struct MultipleChoiceView: View {
         return letters[index]
     }
     
-    // Function to advance to the next question
+    // Function to check the answer and update the score
+    private func checkAnswer() {
+        if let selected = selectedAnswer {
+            let wasCorrect = (selected == currentQuestion.answer)
+            if wasCorrect {
+                score += 1
+            }
+            withAnimation {
+                isCorrect = wasCorrect
+            }
+        }
+    }
+    
+    // Function to advance to the next question or finish the quiz
     private func goToNextQuestion() {
         if currentQuestionIndex < module.multipleChoice.count - 1 {
             currentQuestionIndex += 1
@@ -109,9 +137,8 @@ struct MultipleChoiceView: View {
             selectedAnswer = nil
             isCorrect = nil
         } else {
-            // This is where you would handle the end of the quiz
-            print("Quiz finished!")
-            // For example, you could dismiss the view or navigate to a results screen.
+            // End of the quiz, present the score screen
+            isQuizFinished = true
         }
     }
 }
@@ -122,8 +149,34 @@ struct AnswerButton: View {
     let option: String
     let letter: String
     let isSelected: Bool
-    let isDisabled: Bool
+    let isCorrect: Bool?
+    let correctAnswer: String
     let action: () -> Void
+    
+    // Computed property to determine the border color dynamically
+    private var borderColor: Color {
+        guard let isCorrect = isCorrect else {
+            // Before the answer is checked, highlight the selected option in blue
+            return isSelected ? .blue : .clear
+        }
+        
+        // After the answer is checked
+        if isSelected {
+            // If this is the button the user selected, show green for correct, red for incorrect
+            return isCorrect ? Color("QuizCorrectColor") : Color("QuizIncorrectColor")
+        } else if option == correctAnswer {
+            // If this is the correct answer (and the user picked something else), highlight it in green
+            return Color("QuizCorrectColor")
+        } else {
+            // Otherwise, no border
+            return .clear
+        }
+    }
+    
+    // Check if the buttons should be disabled
+    private var isDisabled: Bool {
+        isCorrect != nil
+    }
     
     var body: some View {
         Button(action: action) {
@@ -140,6 +193,7 @@ struct AnswerButton: View {
                             Text(option).font(.title2)
                             Text(option).font(.body)
                         }
+                        .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 5) // Padding to avoid overlapping with the letter
                         Spacer()
@@ -150,6 +204,7 @@ struct AnswerButton: View {
                 // Position the letter in the top-left corner
                 Text(letter)
                     .font(.title)
+                    .fontWeight(.bold)
                     .padding(15)
             }
             .frame(minWidth: 180, minHeight: 120)
@@ -160,20 +215,37 @@ struct AnswerButton: View {
             .foregroundColor(.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 4)
+                    .stroke(borderColor, lineWidth: 4) // Use the dynamic border color
             )
         }
         .buttonStyle(.plain)
         .disabled(isDisabled) // Disable the button when needed
-        .opacity(isDisabled && !isSelected ? 0.6 : 1.0) // Fade out unselected options
-        .padding(.horizontal, 5)
+        .opacity(isDisabled && !isSelected && option != correctAnswer ? 0.6 : 1.0) // Fade out irrelevant options
+        .animation(.easeInOut, value: borderColor)
+    }
+}
+
+struct ResultFeedbackView: View {
+    @Binding var isCorrect: Bool?
+    
+    var body: some View {
+        // Only show the view if an answer has been checked
+        if let isCorrect = isCorrect {
+            HStack {
+                Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
+                Text(isCorrect ? "Correct Answer" : "Incorrect Answer")
+                    .fontWeight(.bold)
+            }
+            .foregroundColor(isCorrect ? .green : .red)
+            .transition(.scale.combined(with: .opacity))
+        }
     }
 }
 
 struct QuizActionButton: View {
     @Binding var isCorrect: Bool?
     @Binding var selectedAnswer: String?
-    let correctAnswer: String
+    let checkAction: () -> Void
     let nextAction: () -> Void
     
     // Check if the answer has been verified
@@ -188,7 +260,7 @@ struct QuizActionButton: View {
             return selectedAnswer == nil ? .gray : Color.blue // Disabled vs. Enabled
         } else {
             // If we are in "Next" mode
-            return isCorrect == true ? .green : .red
+            return isCorrect == true ? Color("QuizCorrectColor") : Color("QuizIncorrectColor")
         }
     }
     
@@ -199,15 +271,9 @@ struct QuizActionButton: View {
     var body: some View {
         Button(action: {
             if isAnswerChecked {
-                // If the button says "Next", perform the next action
                 nextAction()
             } else {
-                // If the button says "Check", verify the answer
-                if let selected = selectedAnswer {
-                    withAnimation {
-                        isCorrect = (selected == correctAnswer)
-                    }
-                }
+                checkAction() // Call the passed-in checkAction
             }
         }) {
             Text(buttonText)
@@ -220,9 +286,54 @@ struct QuizActionButton: View {
         }
         .buttonStyle(.plain)
         .padding(.horizontal)
-        // Disable the "Check" button if no answer is selected
         .disabled(selectedAnswer == nil && !isAnswerChecked)
         .animation(.easeInOut, value: buttonColor)
+    }
+}
+
+// MARK: - Score View
+
+struct ScoreView: View {
+    let score: Int
+    let totalQuestions: Int
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        ZStack {
+            VStack(spacing: 25) {
+                Text("Quiz Complete!")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                VStack{
+                    Text("Your Score")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                    
+                    Text("\(score)/\(totalQuestions)")
+                        .font(.system(size: 80, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Done")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color("ButtonColor"))
+                        .foregroundColor(.white)
+                        .cornerRadius(15)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal)
+            }
+        }
+        .padding()
+        .padding(.vertical)
+		.background(.mainBackground)
     }
 }
 
