@@ -18,7 +18,7 @@ struct ContentView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(Color("BackgroundColor"))
+			.background(.mainBackground)
         }
     }
 }

@@ -40,7 +40,7 @@ struct MultipleChoiceView: View {
     var body: some View {
         ZStack {
             // Dark background for the entire view
-            Color("BackgroundColor").ignoresSafeArea()
+			Color.mainBackground.ignoresSafeArea()
             
             VStack(spacing: 30) {
                 //MARK:  Progress Bar
@@ -333,7 +333,7 @@ struct ScoreView: View {
         }
         .padding()
         .padding(.vertical)
-        .background(Color("BackgroundColor"))
+		.background(.mainBackground)
     }
 }
 

@@ -90,7 +90,7 @@ struct ModulesView: View {
                 .padding(.top, 200)
                 .padding(.bottom, 100)
             }
-            .background(Color("BackgroundColor")) // Dark gray background
+			.background(Color.mainBackground) // Dark gray background
             .navigationTitle("Learn")
         }
     }

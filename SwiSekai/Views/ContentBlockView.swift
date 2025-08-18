@@ -59,7 +59,7 @@ struct ContentBlockView: View {
                 }
             }
         }
-        .background(Color("BackgroundColor"))
+		.background(.mainBackground)
     }
 }
 
