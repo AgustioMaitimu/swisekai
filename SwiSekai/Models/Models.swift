@@ -1,19 +1,16 @@
-//
-//  Models.swift
-//  SwiSekai
-//
-//  Created by Agustio Maitimu on 12/08/25.
-//
+// SwiSekai/Models/Models.swift
 
 import Foundation
 import Yams
 
-struct ModuleCollection: Codable {
-	let modules: [Module]
+struct ChapterCollection: Codable {
+	let chapters: [Chapter]
 }
 
-struct ProjectCollection: Codable {
-	let projects: [Project]
+struct Chapter: Codable {
+	let chapterName: String
+	let modules: [Module]
+	let finalReview: FinalReview
 }
 
 struct Module: Codable, Identifiable {
@@ -27,6 +24,27 @@ struct Module: Codable, Identifiable {
 		case moduleName = "module_name"
 		case contentBlocks = "content_blocks"
 		case multipleChoice = "multipleChoice"
+	}
+}
+
+struct FinalReview: Codable {
+	let contentBlocks: [ContentBlock]
+	
+	// Add this to map the YAML key to the Swift property
+	enum CodingKeys: String, CodingKey {
+		case contentBlocks = "content_blocks"
+	}
+}
+
+struct ProjectCollection: Codable {
+	let projects: [Project]
+}
+
+struct ModuleCollection: Codable {
+	let modules: [Module]
+	
+	init(modules: [Module]) {
+		self.modules = modules
 	}
 }
 

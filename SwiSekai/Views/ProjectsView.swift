@@ -9,6 +9,7 @@ struct ProjectsView: View {
 	private var userData: UserData { userDataItems.first ?? UserData.shared(in: modelContext) }
 	var projects = DataManager.shared.projectCollection.projects
 	var modules = DataManager.shared.moduleCollection.modules
+	var chapters = DataManager.shared.chapterCollection.chapters
 	
 	@State var projectId: String = "" // Initialize as empty
 	@State private var selectedCategory: String = "All"
@@ -44,23 +45,21 @@ struct ProjectsView: View {
 	)
 	
 	var body: some View {
-		NavigationStack{
-			GeometryReader { geometry in
-				VStack {
-					headerView(for: geometry.size.width)
-					if geometry.size.width < 580 {
-						verticalLayout
-					} else {
-						HStack {
-							Spacer()
-							horizontalLayout(for: geometry.size.width)
-							Spacer()
-						}
+		GeometryReader { geometry in
+			VStack {
+				headerView(for: geometry.size.width)
+				if geometry.size.width < 580 {
+					verticalLayout
+				} else {
+					HStack {
+						Spacer()
+						horizontalLayout(for: geometry.size.width)
+						Spacer()
 					}
 				}
-				.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
-				.padding(.vertical, 36)
 			}
+			.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
+			.padding(.vertical, 36)
 		}
 		.onAppear {
 			if let firstUnlocked = unlockedProjects.first {
