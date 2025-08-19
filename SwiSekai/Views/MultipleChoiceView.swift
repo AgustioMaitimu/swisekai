@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MultipleChoiceView: View {
     @Environment(\.dismiss) var dismiss
-
+    
     // The view now accepts a Module
     let module: Module
     
@@ -38,74 +38,80 @@ struct MultipleChoiceView: View {
     }
     
     var body: some View {
-        ZStack {
-            // Dark background for the entire view
-			Color.mainBackground.ignoresSafeArea()
-            
-            VStack(spacing: 30) {
-                //MARK:  Progress Bar
-                ProgressView(value: progress) {
-                    Text(progressText)
-                        .foregroundColor(.white.opacity(0.8))
-                }
-                .tint(.white)
-                .padding(.horizontal, 30)
+        GeometryReader { geometry in
+            ZStack {
+                // Dark background for the entire view
+                Color.mainBackground.ignoresSafeArea()
                 
-                // MARK: Main content container
-                VStack(alignment: .leading, spacing: 15) {
-                    // Question Text from the current question
-                    Text(currentQuestion.question)
-                        .font(.title)
-                        .foregroundColor(.white)
-                    
-                    // Answer Options Grid
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        ForEach(currentQuestion.options, id: \.self) { option in
-                            AnswerButton(
-                                option: option,
-                                letter: letter(for: option),
-                                isSelected: selectedAnswer == option,
-                                isCorrect: isCorrect,
-                                correctAnswer: currentQuestion.answer
-                            ) {
-                                // Action to perform on tap
-                                selectedAnswer = option
+                // The main content is now wrapped in a ScrollView.
+                ScrollView {
+                    VStack(spacing: 30) {
+                        //MARK:  Progress Bar
+                        ProgressView(value: progress) {
+                            Text(progressText)
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        .tint(.white)
+                        .padding(.horizontal, 30)
+                        
+                        // MARK: Main content container
+                        VStack(alignment: .leading, spacing: 15) {
+                            // Question Text from the current question
+                            Text(currentQuestion.question)
+                                .font(geometry.size.width < 500 ? .title2 : .title)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                            
+                            // Answer Options Grid
+                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                                ForEach(currentQuestion.options, id: \.self) { option in
+                                    AnswerButton(
+                                        option: option,
+                                        letter: letter(for: option),
+                                        isSelected: selectedAnswer == option,
+                                        isCorrect: isCorrect,
+                                        correctAnswer: currentQuestion.answer,
+                                        width: geometry.size.width
+                                    ) {
+                                        selectedAnswer = option
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                .padding()
-                .background(
-                    // Frosted glass effect
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white.opacity(0.1))
-                        .overlay(
+                        .padding()
+                        .background(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                .fill(Color.white.opacity(0.1))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                                )
                         )
-                )
-                .padding(.horizontal)
-                
-                ResultFeedbackView(isCorrect: $isCorrect)
-                
-                QuizActionButton(
-                    isCorrect: $isCorrect,
-                    selectedAnswer: $selectedAnswer,
-                    checkAction: checkAnswer,
-                    nextAction: goToNextQuestion
-                )
-                
-                Spacer()
+                        .padding(.horizontal, geometry.size.width < 500 ? 15 : 30)
+                        
+                        ResultFeedbackView(isCorrect: $isCorrect)
+                        
+                        QuizActionButton(
+                            isCorrect: $isCorrect,
+                            selectedAnswer: $selectedAnswer,
+                            checkAction: checkAnswer,
+                            nextAction: goToNextQuestion
+                        )
+                        
+                        Spacer()
+                    }
+                    .padding(.top, 20)
+                    .frame(maxWidth: 800)
+                    .frame(minHeight: geometry.size.height)
+                }
             }
-            .padding(.top, 20)
-            .frame(width: 500)
-        }
-        .sheet(isPresented: $isQuizFinished, onDismiss: {
-            // When the ScoreView sheet is dismissed, also dismiss this view.
-            dismiss()
-            dismiss()
-        }) {
-            ScoreView(score: score, totalQuestions: module.multipleChoice.count)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .sheet(isPresented: $isQuizFinished, onDismiss: {
+                dismiss()
+                dismiss()
+            }) {
+                ScoreView(score: score, totalQuestions: module.multipleChoice.count)
+            }
         }
     }
     
@@ -151,6 +157,7 @@ struct AnswerButton: View {
     let isSelected: Bool
     let isCorrect: Bool?
     let correctAnswer: String
+    let width: CGFloat // Receive width for dynamic sizing.
     let action: () -> Void
     
     // Computed property to determine the border color dynamically
@@ -200,14 +207,15 @@ struct AnswerButton: View {
                     }
                     Spacer()
                 }
-
+                
                 // Position the letter in the top-left corner
                 Text(letter)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(15)
+                    .font(width < 500 ? .title2.bold() : .title.bold())
+                    .padding(width < 500 ? 12 : 15)
             }
-            .frame(minWidth: 180, minHeight: 120)
+            // Use adaptive height instead of a fixed minimum size.
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: width < 500 ? 100 : 120)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.black.opacity(0.3))
@@ -233,10 +241,11 @@ struct ResultFeedbackView: View {
         if let isCorrect = isCorrect {
             HStack {
                 Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-                Text(isCorrect ? "Correct Answer" : "Incorrect Answer")
+                Text(isCorrect ? "Correct!" : "Incorrect")
                     .fontWeight(.bold)
             }
-            .foregroundColor(isCorrect ? .green : .red)
+            .font(.title2)
+            .foregroundColor(isCorrect ? Color("QuizCorrectColor") : Color("QuizIncorrectColor"))
             .transition(.scale.combined(with: .opacity))
         }
     }
@@ -277,6 +286,7 @@ struct QuizActionButton: View {
             }
         }) {
             Text(buttonText)
+                .font(.title2)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -333,10 +343,6 @@ struct ScoreView: View {
         }
         .padding()
         .padding(.vertical)
-		.background(.mainBackground)
+        .background(.mainBackground)
     }
 }
-
-//#Preview {
-//    MultipleChoiceView()
-//}

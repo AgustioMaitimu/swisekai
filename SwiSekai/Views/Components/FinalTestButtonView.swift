@@ -16,43 +16,23 @@ struct FinalTestButton: View {
         
         VStack {
             
-            Button(action: {
-                print("Final Test tapped")
-                // Later you'll update `status` from fetched data
-            }) {
-                Image(imageName(for: status))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200) // Adjust as needed
-                    .scaleEffect(isPressed ? 0.9 : 1.0) // Shrink on press
-                    .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
-            }
-            .buttonStyle(PlainButtonStyle()) // Remove default blue tint
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        withAnimation { isPressed = true }
-                    }
-                    .onEnded { _ in
-                        withAnimation { isPressed = false }
-                    }
-            )
+            // The Image is now the tappable area, not a separate Button.
+            Image(imageName(for: status))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .scaleEffect(isPressed ? 0.9 : 1.0)
+                .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
             
-            // Title 1/Emphasized
             Text("Final Review")
-              .font(
-                Font.custom("SF Pro", size: 22)
-                  .weight(.bold)
-              )
-              .multilineTextAlignment(.center)
-              .foregroundColor(.white)
-              .frame(width: 139, alignment: .top)
-            
-
+                .font(
+                    Font.custom("SF Pro", size: 22)
+                        .weight(.bold)
+                )
+                .multilineTextAlignment(.center)
+                .foregroundColor(.white)
+                .frame(width: 139, alignment: .top)
         }
-        
-      
-            
     }
     
     private func imageName(for status: FinalTestStatus) -> String {

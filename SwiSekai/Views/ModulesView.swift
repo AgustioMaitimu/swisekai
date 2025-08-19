@@ -57,11 +57,14 @@ struct ModulesView: View {
                             if let lastPos = positions.last {
                                 let finalYOffset = lastPos.y + verticalSpacing
                                 
-                                FinalTestButton()
-                                    .position(
-                                        x: geo.size.width / 2,
-                                        y: finalYOffset + 100
-                                    )
+                                NavigationLink(destination: FinalTestView(finalReview: chapter.finalReview)) {
+                                    FinalTestButton()
+                                }
+                                .buttonStyle(.plain)
+                                .position(
+                                    x: geo.size.width / 2,
+                                    y: finalYOffset + 100
+                                )
                             }
                         }
                         .offset(y: -40)

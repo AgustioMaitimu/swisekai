@@ -8,39 +8,39 @@
 import SwiftUI
 
 struct ModuleDetailView: View {
-	let module: Module
-	
+    let module: Module
+    
     var body: some View {
-        VStack(alignment: .center, spacing: 16) {
-            ContentBlockView(blocks: module.contentBlocks)
-                
-            HStack{
-                Spacer()
-                
-                NavigationLink(destination: MultipleChoiceView(module: module)) {
-                    Text("Next")
-                        .fontWeight(.semibold)
-                        .padding(.horizontal, 55)
-                        .padding(.vertical, 14)
-                        .background(Color("ButtonColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(alignment: .center, spacing: 24) {
+                    ContentBlockView(blocks: module.contentBlocks)
+                    
+                    HStack {
+                        Spacer()
+                        
+                        NavigationLink(destination: MultipleChoiceView(module: module)) {
+                            Text("Next")
+                                .font(geometry.size.width < 700 ? .title3.bold() : .title2.bold())
+                                .padding(.horizontal, geometry.size.width < 700 ? 40 : 55)
+                                .padding(.vertical, geometry.size.width < 700 ? 12 : 14)
+                                .background(Color("ButtonColor"))
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    
+                    Spacer()
                 }
-                .buttonStyle(.plain)
+                .padding(.vertical, 30)
+                .padding(.horizontal, geometry.size.width < 700 ? 20 : 40)
+                .frame(maxWidth: 1000) // Set a max width for better text readability on wide displays.
             }
-            
-            Spacer()
+            .frame(maxWidth: .infinity) // Center the content horizontally.
+            .background(.mainBackground)
         }
-        .frame(width: 800)
-        .padding(.vertical)
-        .frame(maxWidth: .infinity)
-		.background(.mainBackground)
     }
-	
-	private func completeModule() {
-		print("Completing Module on macOS: \(module.moduleName)")
-		//userdata.highestLevelCompleted += 1 disini
-	}
 }
 
 //#Preview {
