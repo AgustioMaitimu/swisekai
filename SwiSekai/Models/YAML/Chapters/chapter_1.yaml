@@ -1,29 +1,31 @@
-modules:
-  - id: "A4B2C1D0-E5F6-4A3B-8C7D-9E0F1A2B3C4D"
-    module_name: "Variable"
-    multipleChoice:
+chapters:
+  - chapterName: "Chapter 1: The Basics"
+    modules:
+    - id: "A4B2C1D0-E5F6-4A3B-8C7D-9E0F1A2B3C4D"
+      module_name: "Variable"
+      multipleChoice:
       - question: "Which keyword should you use to store a user's date of birth, which will never change?"
         options:
-          - "var"
-          - "let"
-          - "const"
-          - "static"
+        - "var"
+        - "let"
+        - "const"
+        - "static"
         answer: "let"
       - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
         options:
-          - "5"
-          - "10"
-          - "The code will cause an error."
-          - "15"
+        - "5"
+        - "10"
+        - "The code will cause an error."
+        - "15"
         answer: "10"
       - question: "Which of the following is a valid constant declaration?"
         options:
-          - "var name = \"Alice\""
-          - "let name = \"Alice\""
-          - "constant name = \"Alice\""
-          - "let name: String"
+        - "var name = \"Alice\""
+        - "let name = \"Alice\""
+        - "constant name = \"Alice\""
+        - "let name: String"
         answer: "let name = \"Alice\""
-    content_blocks:
+      content_blocks:
       - type: "heading1"
         content:
           text: "Variable"
@@ -55,32 +57,31 @@ modules:
       - type: "explanation"
         content:
           text: "Choose descriptive names for your variables that reflect their purpose. Variable names should start with a lowercase letter and can contain letters, numbers, and underscores. For example, '**userName**', '**totalScore**', and '**isValid**' are valid variable names."
-
-  - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
-    module_name: "Variables and Constants"
-    multipleChoice:
+    - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
+      module_name: "Variables and Constants"
+      multipleChoice:
       - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
         options:
-          - "5"
-          - "10"
-          - "The code will cause an error."
-          - "15"
+        - "5"
+        - "10"
+        - "The code will cause an error."
+        - "15"
         answer: "10"
       - question: "Which keyword should you use to store a user's date of birth, which will never change?"
         options:
-          - "var"
-          - "let"
-          - "const"
-          - "static"
+        - "var"
+        - "let"
+        - "const"
+        - "static"
         answer: "let"
       - question: "Which of the following is a valid constant declaration?"
         options:
-          - "var name = \"Alice\""
-          - "let name = \"Alice\""
-          - "constant name = \"Alice\""
-          - "let name: String"
+        - "var name = \"Alice\""
+        - "let name = \"Alice\""
+        - "constant name = \"Alice\""
+        - "let name: String"
         answer: "let name = \"Alice\""
-    content_blocks:
+      content_blocks:
       - type: "explanation"
         content:
           text: "Here is an example of **bolded text**, *italicized text*, and ==highlighted text==."
@@ -98,22 +99,20 @@ modules:
           code: |
             var score = 100
             score = 110 // This is allowed.
-
             let playerName = "Cyber-Cat"
             print("The final score is: \(score)")
             print("Welcome, \(playerName)!")
-
-  - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
-    module_name: "Introduction to Loops"
-    multipleChoice:
+    - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
+      module_name: "Introduction to Loops"
+      multipleChoice:
       - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
         options:
-          - "1"
-          - "4"
-          - "5"
-          - "6"
+        - "1"
+        - "4"
+        - "5"
+        - "6"
         answer: "5"
-    content_blocks:
+      content_blocks:
       - type: "explanation"
         content:
           text: "Loops allow us to repeat a piece of code multiple times. The most common type in Swift is the 'for-in' loop, which is great for running code for each item in a collection or a range of numbers."
@@ -122,20 +121,19 @@ modules:
           code: |
             // This loop will print numbers 1 through 3
             for i in 1...3 {
-              print("The number is \(i)")
+                print("The number is \(i)")
             }
-
-  - id: "B5C6D7E8-1A2B-4C3D-8E4F-A9B0C1D2E3F4"
-    module_name: "Data Storage in Swift"
-    multipleChoice:
+    - id: "B5C6D7E8-1A2B-4C3D-8E4F-A9B0C1D2E3F4"
+      module_name: "Data Storage in Swift"
+      multipleChoice:
       - question: "Which keyword should you use to store a user's date of birth, which will never change?"
         options:
-          - "var"
-          - "let"
-          - "const"
-          - "static"
+        - "var"
+        - "let"
+        - "const"
+        - "static"
         answer: "let"
-    content_blocks:
+      content_blocks:
       - type: "explanation"
         content:
           text: "Here is an example of **bolded text**, *italicized text*, and ==highlighted text==."
@@ -153,22 +151,20 @@ modules:
           code: |
             var score = 100
             score = 110 // This is allowed.
-
             let playerName = "Cyber-Cat"
             print("The final score is: \(score)")
             print("Welcome, \(playerName)!")
-
-  - id: "F1E2D3C4-B5A6-4E3D-9C2B-A1B0C9D8E7F6"
-    module_name: "Repeating Code with Loops"
-    multipleChoice:
+    - id: "F1E2D3C4-B5A6-4E3D-9C2B-A1B0C9D8E7F6"
+      module_name: "Repeating Code with Loops"
+      multipleChoice:
       - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
         options:
-          - "1"
-          - "4"
-          - "5"
-          - "6"
+        - "1"
+        - "4"
+        - "5"
+        - "6"
         answer: "5"
-    content_blocks:
+      content_blocks:
       - type: "explanation"
         content:
           text: "Loops allow us to repeat a piece of code multiple times. The most common type in Swift is the 'for-in' loop, which is great for running code for each item in a collection or a range of numbers."
@@ -177,20 +173,19 @@ modules:
           code: |
             // This loop will print numbers 1 through 3
             for i in 1...3 {
-              print("The number is \(i)")
+                print("The number is \(i)")
             }
-
-  - id: "AABBCCDD-EEFF-4011-8222-334455667788"
-    module_name: "Understanding `let` and `var`"
-    multipleChoice:
+    - id: "AABBCCDD-EEFF-4011-8222-334455667788"
+      module_name: "Understanding `let` and `var`"
+      multipleChoice:
       - question: "Which keyword should you use to store a user's date of birth, which will never change?"
         options:
-          - "var"
-          - "let"
-          - "const"
-          - "static"
+        - "var"
+        - "let"
+        - "const"
+        - "static"
         answer: "let"
-    content_blocks:
+      content_blocks:
       - type: "explanation"
         content:
           text: "Here is an example of **bolded text**, *italicized text*, and ==highlighted text==."
@@ -206,3 +201,16 @@ modules:
       - type: "snippet"
         content:
           code: |
+            var score = 100
+            score = 110 // This is allowed.
+            let playerName = "Cyber-Cat"
+            print("The final score is: \(score)")
+            print("Welcome, \(playerName)!")
+    finalReview:
+      content_blocks:
+      - type: "heading1"
+        content:
+          text: "Chapter 1 Review"
+      - type: "explanation"
+        content:
+          text: "This is a placeholder for the final review of Chapter 1."
