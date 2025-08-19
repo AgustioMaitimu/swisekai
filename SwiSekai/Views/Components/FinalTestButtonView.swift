@@ -13,27 +13,26 @@ struct FinalTestButton: View {
     @State private var isPressed = false
     
     var body: some View {
-        Button(action: {
-            print("Final Test tapped")
-            // Later you'll update `status` from fetched data
-        }) {
+        
+        VStack {
+            
+            // The Image is now the tappable area, not a separate Button.
             Image(imageName(for: status))
                 .resizable()
                 .scaledToFit()
-                .frame(width: 160, height: 160) // Adjust as needed
-                .scaleEffect(isPressed ? 0.9 : 1.0) // Shrink on press
+                .frame(width: 200, height: 200)
+                .scaleEffect(isPressed ? 0.9 : 1.0)
                 .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
+            
+            Text("Final Review")
+                .font(
+                    Font.custom("SF Pro", size: 22)
+                        .weight(.bold)
+                )
+                .multilineTextAlignment(.center)
+                .foregroundColor(.white)
+                .frame(width: 139, alignment: .top)
         }
-        .buttonStyle(PlainButtonStyle()) // Remove default blue tint
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in
-                    withAnimation { isPressed = true }
-                }
-                .onEnded { _ in
-                    withAnimation { isPressed = false }
-                }
-        )
     }
     
     private func imageName(for status: FinalTestStatus) -> String {

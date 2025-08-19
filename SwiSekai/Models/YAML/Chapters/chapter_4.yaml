@@ -1,0 +1,292 @@
+chapters:
+  - chapterName: "Chapter 4: Deeper Types and Closures"
+    modules:
+      - id: "279EA8BE-7E25-4D21-B01E-13A9407D6102"
+        module_name: "Advanced Structures"
+        multipleChoice:
+          - question: "A function that belongs to a struct is called a what?"
+            options:
+              - "Parameter"
+              - "Method"
+              - "Property"
+              - "Type"
+            answer: "Method"
+          - question: "What is a computed property?"
+            options:
+              - "A property that is stored in memory."
+              - "A property that calculates its value rather than storing it."
+              - "A property that cannot be changed."
+              - "A special type of method."
+            answer: "A property that calculates its value rather than storing it."
+          - question: "What keyword must you use for a method that changes a struct's properties?"
+            options:
+              - "static"
+              - "change"
+              - "mutating"
+              - "override"
+            answer: "mutating"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Advanced Structures"
+          - type: "explanation"
+            content:
+              text: "You've learned how to create `struct`s to group related data. Now, let's make them more powerful by adding functionality directly to them."
+          - type: "heading2"
+            content:
+              text: "Computed Properties"
+          - type: "explanation"
+            content:
+              text: "Sometimes you need a property that is calculated from other properties. A **computed property** doesn't store a value itself; instead, it provides a 'getter' to retrieve a calculated value and an optional 'setter' to change other properties indirectly."
+          - type: "snippet"
+            content:
+              code: |
+                struct User {
+                    var firstName: String
+                    var lastName: String
+
+                    // This is a computed property
+                    var fullName: String {
+                        return "\(firstName) \(lastName)"
+                    }
+                }
+
+                let user = User(firstName: "Taylor", lastName: "Swift")
+                print(user.fullName) // Prints "Taylor Swift"
+          - type: "heading2"
+            content:
+              text: "Methods (Functions in a Struct)"
+          - type: "explanation"
+            content:
+              text: "Functions that are part of a `struct` are called **methods**. They have access to the struct's properties and can add behavior to your custom type. If a method needs to change one of the struct's properties, it must be marked with the `mutating` keyword."
+          - type: "snippet"
+            content:
+              code: |
+                struct Player {
+                    var score = 0
+                    var health = 100
+
+                    func displayStatus() {
+                        print("Score: \(score), Health: \(health)%")
+                    }
+
+                    // This method changes the 'score' property
+                    mutating func gainPoints(_ points: Int) {
+                        score += points
+                    }
+                }
+
+                var playerOne = Player()
+                playerOne.gainPoints(10)
+                playerOne.displayStatus() // Prints "Score: 10, Health: 100%"
+
+      - id: "D11CD83B-813C-453F-B804-18131BD48BBC"
+        module_name: "Introduction to Classes"
+        multipleChoice:
+          - question: "What is the main feature that classes have but structs do not?"
+            options:
+              - "Properties"
+              - "Methods"
+              - "Inheritance"
+              - "Initializers"
+            answer: "Inheritance"
+          - question: "What is the name of a special method that prepares a new class instance for use?"
+            options:
+              - "setup()"
+              - "start()"
+              - "init()"
+              - "main()"
+            answer: "init()"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Introduction to Classes"
+          - type: "explanation"
+            content:
+              text: "**Classes** are the second way to build custom data types in Swift. They look very similar to `struct`s but have a few key differences that make them incredibly powerful."
+          - type: "heading2"
+            content:
+              text: "Initializers"
+          - type: "explanation"
+            content:
+              text: "Unlike `struct`s, classes don't automatically get a memberwise initializer. You must create your own special method called an **initializer** (using `init`) to ensure all properties have a starting value when a new instance is created."
+          - type: "heading2"
+            content:
+              text: "Inheritance"
+          - type: "explanation"
+            content:
+              text: "The most important feature of classes is **inheritance**. A class can be based on another class, inheriting all of its properties and methods. The original class is the **superclass**, and the new class is the **subclass**. This allows you to build on existing code without starting from scratch."
+          - type: "snippet"
+            content:
+              code: |
+                // 1. Superclass (the parent)
+                class Vehicle {
+                    var wheels: Int
+                    var speed = 0
+
+                    init(wheels: Int) {
+                        self.wheels = wheels
+                    }
+
+                    func accelerate() {
+                        speed += 10
+                    }
+                }
+
+                // 2. Subclass (the child)
+                // Car inherits `wheels`, `speed`, and `accelerate()` from Vehicle
+                class Car: Vehicle {
+                    var hasSunroof: Bool
+
+                    init(hasSunroof: Bool) {
+                        self.hasSunroof = hasSunroof
+                        super.init(wheels: 4) // Call the parent's initializer
+                    }
+                }
+
+                let myCar = Car(hasSunroof: true)
+                myCar.accelerate()
+                print("My car has \(myCar.wheels) wheels and is going \(myCar.speed) km/h.")
+
+      - id: "9D87E8F1-F14B-4889-A14C-9281FCA178A6"
+        module_name: "Value vs. Reference Types"
+        multipleChoice:
+          - question: "If you assign a struct instance to a new variable, what happens?"
+            options:
+              - "The data is shared between the two variables."
+              - "The data is copied to the new variable."
+              - "It creates a link to the original variable."
+              - "The code produces an error."
+            answer: "The data is copied to the new variable."
+          - question: "Classes are which type of type?"
+            options:
+              - "Value Type"
+              - "Data Type"
+              - "Shared Type"
+              - "Reference Type"
+            answer: "Reference Type"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Value vs. Reference Types: `struct` vs. `class`"
+          - type: "explanation"
+            content:
+              text: "This is the most critical difference between `struct`s and `class`es. Understanding this concept is key to writing correct and efficient Swift code."
+          - type: "heading2"
+            content:
+              text: "Structs are Value Types"
+          - type: "explanation"
+            content:
+              text: "When you assign a `struct` to a new variable or pass it to a function, it is **copied**. You get a brand new, independent instance. Changes to the copy **do not** affect the original. Think of it like making a photocopy of a document."
+          - type: "snippet"
+            content:
+              code: |
+                struct Point { var x: Int }
+                var pointA = Point(x: 10)
+                var pointB = pointA // pointB is a COPY of pointA
+
+                pointB.x = 20 // Change the copy
+
+                print(pointA.x) // Prints 10 (the original is unchanged)
+                print(pointB.x) // Prints 20
+          - type: "heading2"
+            content:
+              text: "Classes are Reference Types"
+          - type: "explanation"
+            content:
+              text: "When you assign a `class` instance, you get a **reference**—a pointer to the *same* object in memory. Both variables point to the exact same data. Changes made through one variable **will** affect the other. Think of it like sharing a link to a Google Doc."
+          - type: "snippet"
+            content:
+              code: |
+                class Person { var name: String; init(name: String) { self.name = name } }
+                var person1 = Person(name: "Alex")
+                var person2 = person1 // person2 points to the SAME object as person1
+
+                person2.name = "Maria" // Change the shared object
+
+                print(person1.name) // Prints "Maria" (the original has changed)
+                print(person2.name) // Prints "Maria"
+
+      - id: "8D6ED696-53B1-43FE-B027-D506F2347575"
+        module_name: "Introduction to Closures"
+        multipleChoice:
+          - question: "What is a closure?"
+            options:
+              - "A special type of class."
+              - "A variable that cannot be changed."
+              - "A self-contained block of code that can be passed around and used in your code."
+              - "A way to close your application."
+            answer: "A self-contained block of code that can be passed around and used in your code."
+          - question: "The `.map` function on an array does what?"
+            options:
+              - "It filters the array to find certain elements."
+              - "It sorts the array in place."
+              - "It transforms each element in an array into a new value, returning a new array."
+              - "It finds the location of an element on a map."
+            answer: "It transforms each element in an array into a new value, returning a new array."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Introduction to Closures"
+          - type: "explanation"
+            content:
+              text: "**Closures** are self-contained blocks of functionality that can be passed around and used in your code, similar to functions. You can think of them as functions without a name. They are used extensively in Swift, especially for working with collections."
+          - type: "heading2"
+            content:
+              text: "Closure Syntax"
+          - type: "explanation"
+            content:
+              text: "The basic syntax for a closure is `{ (parameters) -> return type in ... }`. The `in` keyword separates the definition from the closure's body."
+          - type: "snippet"
+            content:
+              code: |
+                let numbers = [1, 2, 3, 4, 5]
+
+                // Use the .map function with a closure to double every number.
+                // The closure is the code between the { ... }
+                let doubledNumbers = numbers.map({ (number: Int) -> Int in
+                    return number * 2
+                })
+
+                print(doubledNumbers) // Prints [2, 4, 6, 8, 10]
+          - type: "heading2"
+            content:
+              text: "Trailing Closure Syntax"
+          - type: "explanation"
+            content:
+              text: "Swift has a clean shortcut. If a closure is the last argument to a function, you can write it *after* the function's parentheses. This is called **trailing closure syntax** and is very common."
+          - type: "snippet"
+            content:
+              code: |
+                let names = ["Zoe", "Leo", "Ava"]
+
+                // Using trailing closure syntax with .sorted
+                let sortedNames = names.sorted { (s1: String, s2: String) -> Bool in
+                    return s1 < s2
+                }
+
+                print(sortedNames) // Prints ["Ava", "Leo", "Zoe"]
+
+    finalReview:
+      content_blocks:
+        - type: "heading1"
+          content:
+            text: "Chapter 4 Review"
+        - type: "explanation"
+          content:
+            text: "This chapter was a deep dive into the building blocks of a real Swift application. You've explored how to create powerful, custom types and learned about a new way to package up code."
+        - type: "heading2"
+          content:
+            text: "Key Concepts You've Mastered"
+        - type: "explanation"
+          content:
+            text: "**Advanced `struct`s:** You can now add computed properties to calculate values, methods to add functionality, and use the `mutating` keyword for methods that change properties."
+        - type: "explanation"
+          content:
+            text: "**`class`es:** You've learned about the other major custom type in Swift, which supports **inheritance**, allowing you to build new classes on top of existing ones. You also know how to write an `init()` method."
+        - type: "explanation"
+          content:
+            text: "**Value vs. Reference Types:** This is the big one! You understand that `struct`s are **value types** (they are copied), while `class`es are **reference types** (they are shared). This distinction is fundamental to Swift."
+        - type: "explanation"
+          content:
+            text: "**Closures:** You can now write anonymous, self-contained blocks of code. You've seen how they work with powerful array methods like `.map` and `.sorted` to transform data in a clean and concise way."

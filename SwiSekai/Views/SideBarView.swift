@@ -62,7 +62,7 @@ struct SideBarView: View {
         } detail: {
             switch selection {
             case .home:
-                Text("🏠 Home Content").font(.largeTitle)
+                HomeScreen()
             case .learn:
                 ModulesView()
             case .projects:

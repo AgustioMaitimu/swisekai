@@ -1,216 +1,280 @@
 chapters:
   - chapterName: "Chapter 1: The Basics"
     modules:
-    - id: "A4B2C1D0-E5F6-4A3B-8C7D-9E0F1A2B3C4D"
-      module_name: "Variable"
-      multipleChoice:
-      - question: "Which keyword should you use to store a user's date of birth, which will never change?"
-        options:
-        - "var"
-        - "let"
-        - "const"
-        - "static"
-        answer: "let"
-      - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
-        options:
-        - "5"
-        - "10"
-        - "The code will cause an error."
-        - "15"
-        answer: "10"
-      - question: "Which of the following is a valid constant declaration?"
-        options:
-        - "var name = \"Alice\""
-        - "let name = \"Alice\""
-        - "constant name = \"Alice\""
-        - "let name: String"
-        answer: "let name = \"Alice\""
-      content_blocks:
-      - type: "heading1"
-        content:
-          text: "Variable"
-      - type: "heading2"
-        content:
-          text: "Introduction to Variables"
-      - type: "explanation"
-        content:
-          text: "Variables are fundamental building blocks in Swift, allowing you to store and manipulate data. They act as containers for values that can change during the execution of your program. Understanding variables is crucial for writing dynamic and interactive applications."
-      - type: "heading2"
-        content:
-          text: "Declaring Variables"
-      - type: "explanation"
-        content:
-          text: "In Swift, you declare variables using the '**var**' keyword, followed by the variable name and an optional initial value. For example, **'var age = 25'** declares a variable named '**age**' and initializes it with the value 25."
-      - type: "snippet"
-        content:
-          code: |
-            var age = "25"
-      - type: "heading2"
-        content:
-          text: "Variable Types"
-      - type: "explanation"
-        content:
-          text: "Swift is a type-safe language, meaning that every variable has a specific type, such as '**Int**' for integers, '**String**' for text, or '**Bool**' for boolean values. You can explicitly specify the type of a variable using a colon, like '**var name: String = \"Sophia\"**', or let Swift infer the type from the initial value."
-      - type: "heading2"
-        content:
-          text: "Variable Naming Conventions"
-      - type: "explanation"
-        content:
-          text: "Choose descriptive names for your variables that reflect their purpose. Variable names should start with a lowercase letter and can contain letters, numbers, and underscores. For example, '**userName**', '**totalScore**', and '**isValid**' are valid variable names."
-    - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
-      module_name: "Variables and Constants"
-      multipleChoice:
-      - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
-        options:
-        - "5"
-        - "10"
-        - "The code will cause an error."
-        - "15"
-        answer: "10"
-      - question: "Which keyword should you use to store a user's date of birth, which will never change?"
-        options:
-        - "var"
-        - "let"
-        - "const"
-        - "static"
-        answer: "let"
-      - question: "Which of the following is a valid constant declaration?"
-        options:
-        - "var name = \"Alice\""
-        - "let name = \"Alice\""
-        - "constant name = \"Alice\""
-        - "let name: String"
-        answer: "let name = \"Alice\""
-      content_blocks:
-      - type: "explanation"
-        content:
-          text: "Here is an example of **bolded text**, *italicized text*, and ==highlighted text==."
-      - type: "explanation"
-        content:
-          text: "In Swift, we use 'variables' to store values that can change, and 'constants' for values that, once set, will never change. This is a key safety feature."
-      - type: "explanation"
-        content:
-          text: "We declare variables with the 'var' keyword and constants with the 'let' keyword."
-      - type: "explanation"
-        content:
-          text: "Let's try it! The best way to learn is by doing. Copy the code from the snippet below and paste it into a Swift Playground to see it in action. After you run it, try changing the value of 'score'. Then, try to change 'playerName' and see what kind of error Xcode gives you."
-      - type: "snippet"
-        content:
-          code: |
-            var score = 100
-            score = 110 // This is allowed.
-            let playerName = "Cyber-Cat"
-            print("The final score is: \(score)")
-            print("Welcome, \(playerName)!")
-    - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
-      module_name: "Introduction to Loops"
-      multipleChoice:
-      - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
-        options:
-        - "1"
-        - "4"
-        - "5"
-        - "6"
-        answer: "5"
-      content_blocks:
-      - type: "explanation"
-        content:
-          text: "Loops allow us to repeat a piece of code multiple times. The most common type in Swift is the 'for-in' loop, which is great for running code for each item in a collection or a range of numbers."
-      - type: "snippet"
-        content:
-          code: |
-            // This loop will print numbers 1 through 3
-            for i in 1...3 {
-                print("The number is \(i)")
-            }
-    - id: "B5C6D7E8-1A2B-4C3D-8E4F-A9B0C1D2E3F4"
-      module_name: "Data Storage in Swift"
-      multipleChoice:
-      - question: "Which keyword should you use to store a user's date of birth, which will never change?"
-        options:
-        - "var"
-        - "let"
-        - "const"
-        - "static"
-        answer: "let"
-      content_blocks:
-      - type: "explanation"
-        content:
-          text: "Here is an example of **bolded text**, *italicized text*, and ==highlighted text==."
-      - type: "explanation"
-        content:
-          text: "In Swift, we use 'variables' to store values that can change, and 'constants' for values that, once set, will never change. This is a key safety feature."
-      - type: "explanation"
-        content:
-          text: "We declare variables with the 'var' keyword and constants with the 'let' keyword."
-      - type: "explanation"
-        content:
-          text: "Let's try it! The best way to learn is by doing. Copy the code from the snippet below and paste it into a Swift Playground to see it in action. After you run it, try changing the value of 'score'. Then, try to change 'playerName' and see what kind of error Xcode gives you."
-      - type: "snippet"
-        content:
-          code: |
-            var score = 100
-            score = 110 // This is allowed.
-            let playerName = "Cyber-Cat"
-            print("The final score is: \(score)")
-            print("Welcome, \(playerName)!")
-    - id: "F1E2D3C4-B5A6-4E3D-9C2B-A1B0C9D8E7F6"
-      module_name: "Repeating Code with Loops"
-      multipleChoice:
-      - question: "How many times will the text 'Hello' be printed by this loop: for _ in 1...5 { print(\"Hello\") }?"
-        options:
-        - "1"
-        - "4"
-        - "5"
-        - "6"
-        answer: "5"
-      content_blocks:
-      - type: "explanation"
-        content:
-          text: "Loops allow us to repeat a piece of code multiple times. The most common type in Swift is the 'for-in' loop, which is great for running code for each item in a collection or a range of numbers."
-      - type: "snippet"
-        content:
-          code: |
-            // This loop will print numbers 1 through 3
-            for i in 1...3 {
-                print("The number is \(i)")
-            }
-    - id: "AABBCCDD-EEFF-4011-8222-334455667788"
-      module_name: "Understanding `let` and `var`"
-      multipleChoice:
-      - question: "Which keyword should you use to store a user's date of birth, which will never change?"
-        options:
-        - "var"
-        - "let"
-        - "const"
-        - "static"
-        answer: "let"
-      content_blocks:
-      - type: "explanation"
-        content:
-          text: "Here is an example of **bolded text**, *italicized text*, and ==highlighted text==."
-      - type: "explanation"
-        content:
-          text: "In Swift, we use 'variables' to store values that can change, and 'constants' for values that, once set, will never change. This is a key safety feature."
-      - type: "explanation"
-        content:
-          text: "We declare variables with the 'var' keyword and constants with the 'let' keyword."
-      - type: "explanation"
-        content:
-          text: "Let's try it! The best way to learn is by doing. Copy the code from the snippet below and paste it into a Swift Playground to see it in action. After you run it, try changing the value of 'score'. Then, try to change 'playerName' and see what kind of error Xcode gives you."
-      - type: "snippet"
-        content:
-          code: |
-            var score = 100
-            score = 110 // This is allowed.
-            let playerName = "Cyber-Cat"
-            print("The final score is: \(score)")
-            print("Welcome, \(playerName)!")
+      - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
+        module_name: "Storing Data: Variables and Constants"
+        multipleChoice:
+          - question: "Which keyword is used for a value that is expected to change?"
+            options:
+              - "let"
+              - "static"
+              - "const"
+              - "var"
+            answer: "var"
+          - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
+            options:
+              - "5"
+              - "10"
+              - "The code will cause an error."
+              - "15"
+            answer: "10"
+          - question: "Which line of code shows the correct way to explicitly declare a constant of type `String`?"
+            options:
+              - "var name: String = \"Leo\""
+              - "let name = String(\"Leo\")"
+              - "let name: String = \"Leo\""
+              - "let name = \"Leo\" as String"
+            answer: "let name: String = \"Leo\""
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Storing Data: Variables and Constants"
+          - type: "explanation"
+            content:
+              text: "In Swift, we use 'constants' (`let`) and 'variables' (`var`) to store information. Think of them as labeled boxes where you can keep data. It's a best practice to use `let` by default for safer code."
+          - type: "heading2"
+            content:
+              text: "Type Safety and Type Inference"
+          - type: "explanation"
+            content:
+              text: "Swift is a **type-safe** language. This means every variable and constant has a specific type, like `Int` for whole numbers, `Double` for numbers with decimals, or `String` for text. Swift is smart and can often figure out the type automatically. This is called **type inference**."
+          - type: "snippet"
+            content:
+              code: |
+                let planetName = "Earth" // Swift infers this is a String
+                var currentYear = 2025    // Swift infers this is an Int
+          - type: "heading2"
+            content:
+              text: "Explicit Type Annotation"
+          - type: "explanation"
+            content:
+              text: "Sometimes you want to be explicit about the type, or Swift can't infer it. You can declare the type using a colon (`:`) after the name. This is called **type annotation**."
+          - type: "snippet"
+            content:
+              code: |
+                let welcomeMessage: String = "Hello, world!"
+                var userAge: Int = 30
+          - type: "heading2"
+            content:
+              text: "Naming Conventions"
+          - type: "explanation"
+            content:
+              text: "Choose clear, descriptive names. In Swift, the convention is to use **camelCase**, where the first word is lowercase and subsequent words are capitalized. For example: `let numberOfUsers = 50`."
+
+      - id: "C9B8A7D6-E5F4-A3B2-C1D0-E9F8A7B6C5D4"
+        module_name: "Basic Operators"
+        multipleChoice:
+          - question: "What is the value of `result` after this code runs? `let result = 10 + 5 * 2`"
+            options:
+              - "30"
+              - "20"
+              - "25"
+              - "17"
+            answer: "20"
+          - question: "Which operator is used to find the remainder of a division?"
+            options:
+              - "/"
+              - "*"
+              - "%"
+              - "!"
+            answer: "%"
+          - question: "If `score` is 100, what is its value after `score -= 10`?"
+            options:
+              - "100"
+              - "110"
+              - "90"
+              - "The code will error."
+            answer: "90"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Basic Operators"
+          - type: "explanation"
+            content:
+              text: "Operators are special symbols that you use to check, change, or combine values. They are the essential tools for making your data do things."
+          - type: "heading2"
+            content:
+              text: "Arithmetic Operators"
+          - type: "explanation"
+            content:
+              text: "Swift supports the standard arithmetic operators for all number types: `+` (addition), `-` (subtraction), `*` (multiplication), and `/` (division). Remember that order of operations (PEMDAS/BODMAS) applies!"
+          - type: "snippet"
+            content:
+              code: |
+                let sum = 10 + 5       // 15
+                let difference = 20 - 8  // 12
+                let product = 4 * 7      // 28
+                let quotient = 30 / 3    // 10
+          - type: "heading2"
+            content:
+              text: "Remainder Operator"
+          - type: "explanation"
+            content:
+              text: "The remainder operator (`%`), also known as the modulo operator, gives you the value left over after a division. It's incredibly useful for tasks like checking if a number is even or odd."
+          - type: "snippet"
+            content:
+              code: |
+                let remainder = 9 % 4 // result is 1, because 4 fits into 9 twice with 1 left over.
+                let isEven = 10 % 2   // result is 0, so the number is even.
+          - type: "heading2"
+            content:
+              text: "Compound Assignment Operators"
+          - type: "explanation"
+            content:
+              text: "These are convenient shortcuts that combine an operation with an assignment. For example, `+=` adds and then assigns the result back to the variable."
+          - type: "snippet"
+            content:
+              code: |
+                var score = 100
+                score += 5 // score is now 105 (same as score = score + 5)
+
+                var countdown = 10
+                countdown -= 1 // countdown is now 9
+
+      - id: "D1E2F3A4-B5C6-D7E8-F9A0-B1C2D3E4F5A6"
+        module_name: "Working with Text: Strings"
+        multipleChoice:
+          - question: "How do you combine `firstName` and `lastName` into a full name with a space?"
+            options:
+              - "`\"\\(firstName) \\(lastName)\"`"
+              - "`firstName...lastName`"
+              - "`firstName.add(lastName)`"
+              - "`\"firstName\" + \"lastName\"`"
+            answer: "`\"\\(firstName) \\(lastName)\"`"
+          - question: "Which syntax is used to create a multi-line string?"
+            options:
+              - "`'...'`"
+              - "`\"\"\"...\"\"\"`"
+              - "`<string>...</string>`"
+              - "`//...`"
+            answer: "`\"\"\"...\"\"\"`"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Working with Text: Strings"
+          - type: "explanation"
+            content:
+              text: "A `String` is a series of characters, like \"hello\". You'll use strings constantly to show text to the user, work with user input, and more."
+          - type: "heading2"
+            content:
+              text: "String Interpolation"
+          - type: "explanation"
+            content:
+              text: "String interpolation is the easiest way to build a string by including constants, variables, or expressions inside it. You just wrap the item in parentheses and prefix it with a backslash: `\\(...)`."
+          - type: "snippet"
+            content:
+              code: |
+                let name = "Alex"
+                var age = 28
+                let message = "My name is \(name) and I am \(age) years old."
+                // message is "My name is Alex and I am 28 years old."
+          - type: "heading2"
+            content:
+              text: "String Concatenation"
+          - type: "explanation"
+            content:
+              text: "You can also join strings together using the addition operator `+`. This is called concatenation."
+          - type: "snippet"
+            content:
+              code: |
+                let part1 = "Hello, "
+                let part2 = "world!"
+                let greeting = part1 + part2 // greeting is "Hello, world!"
+          - type: "heading2"
+            content:
+              text: "Multi-line Strings"
+          - type: "explanation"
+            content:
+              text: "For strings that span multiple lines, use three double quotation marks (`\"\"\"`). This makes long text much easier to read in your code."
+          - type: "snippet"
+            content:
+              code: |
+                let longString = """
+                This is a message
+                that spans across
+                several lines.
+                """
+
+      - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
+        module_name: "Repeating Code: For-In Loops"
+        multipleChoice:
+          - question: "How many times will a loop with the range `1..<5` execute?"
+            options:
+              - "3"
+              - "4"
+              - "5"
+              - "6"
+            answer: "4"
+          - question: "Which line would correctly print each name from the `names` array?"
+            options:
+              - "`for i in names { print(name) }`"
+              - "`for name in names { print(name) }`"
+              - "`for name in 1...names.count { print(name) }`"
+              - "`loop name in names { print(name) }`"
+            answer: "`for name in names { print(name) }`"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Repeating Code: For-In Loops"
+          - type: "explanation"
+            content:
+              text: "Loops allow us to repeat a block of code multiple times. The most common type in Swift is the **`for-in`** loop."
+          - type: "heading2"
+            content:
+              text: "Looping Through Number Ranges"
+          - type: "explanation"
+            content:
+              text: "You can loop over a range of numbers using the **closed range operator** (`...`), which includes the last number, or the **half-open range operator** (`..<`), which goes up to but *does not include* the last number."
+          - type: "snippet"
+            content:
+              code: |
+                // Using the closed range operator (1, 2, 3)
+                for i in 1...3 {
+                    print("Number is \(i)")
+                }
+
+                // Using the half-open range operator (1, 2)
+                for i in 1..<3 {
+                    print("Half-open number is \(i)")
+                }
+          - type: "heading2"
+            content:
+              text: "Looping Through a Collection"
+          - type: "explanation"
+            content:
+              text: "The most powerful use of `for-in` loops is to iterate over a collection of items, like an **Array**. An Array is an ordered list of values. The loop will run once for each item in the array."
+          - type: "snippet"
+            content:
+              code: |
+                let names = ["Anna", "Brian", "Clara"]
+                for name in names {
+                    print("Hello, \(name)!")
+                }
+                // This will print:
+                // Hello, Anna!
+                // Hello, Brian!
+                // Hello, Clara!
+
     finalReview:
       content_blocks:
-      - type: "heading1"
-        content:
-          text: "Chapter 1 Review"
-      - type: "explanation"
-        content:
-          text: "This is a placeholder for the final review of Chapter 1."
+        - type: "heading1"
+          content:
+            text: "Chapter 1 Review"
+        - type: "explanation"
+          content:
+            text: "Excellent work! You've learned the fundamental building blocks of Swift. This is a huge step. Let's recap what we covered."
+        - type: "heading2"
+          content:
+            text: "Key Concepts You've Mastered"
+        - type: "explanation"
+          content:
+            text: "**Storing Data (`let` vs. `var`):** You know how to declare constants for values that don't change and variables for values that do. You also know how to add explicit type annotations like `: String`."
+        - type: "explanation"
+          content:
+            text: "**Basic Operators:** You can perform calculations with arithmetic (`+`, `-`, `*`, `/`), find remainders (`%`), and use compound assignment operators (`+=`) as shortcuts."
+        - type: "explanation"
+          content:
+            text: "**Working with Strings:** You can create strings, seamlessly embed variables and constants inside them using interpolation (`\\(...)`), and combine them with `+`."
+        - type: "explanation"
+          content:
+            text: "**For-In Loops:** You can repeat code by iterating over ranges of numbers (`1...5` and `1..<5`) and, most importantly, by looping through each item in a collection like an Array."

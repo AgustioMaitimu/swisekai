@@ -1,0 +1,256 @@
+chapters:
+  - chapterName: "Chapter 3: Functions, Optionals, and Structures"
+    modules:
+      - id: "4A328ED1-BDBA-40FE-9EE7-A5A784BB1408"
+        module_name: "Organizing Code: Functions"
+        multipleChoice:
+          - question: "What is the primary benefit of using functions?"
+            options:
+              - "To make your code run faster."
+              - "To group reusable code and avoid repetition."
+              - "To store large amounts of data."
+              - "To create new data types."
+            answer: "To group reusable code and avoid repetition."
+          - question: "In the function `func greet(name: String)`, what is `name: String`?"
+            options:
+              - "A return value"
+              - "A parameter"
+              - "A variable"
+              - "A function call"
+            answer: "A parameter"
+          - question: "How do you indicate that a function will send back a value?"
+            options:
+              - "By using the `send` keyword."
+              - "By adding an arrow `->` followed by the data type before the curly braces."
+              - "By declaring a `var` inside the function."
+              - "The function automatically returns the last variable created."
+            answer: "By adding an arrow `->` followed by the data type before the curly braces."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Organizing Code: Functions"
+          - type: "explanation"
+            content:
+              text: "As your programs grow, you'll find yourself writing the same lines of code over and over. **Functions** are named blocks of reusable code that you can set up to perform a specific task. This practice is known as **DRY** (Don't Repeat Yourself) and is a cornerstone of good programming."
+          - type: "heading2"
+            content:
+              text: "Defining and Calling Functions"
+          - type: "explanation"
+            content:
+              text: "You declare a function using the `func` keyword, followed by its name, a pair of parentheses `()`, and a set of curly braces `{}` containing the function's code. To run the function, you **call** it by writing its name followed by parentheses."
+          - type: "snippet"
+            content:
+              code: |
+                // Defining the function
+                func showWelcomeMessage() {
+                    print("Hello! Welcome to the app.")
+                    print("We're glad you're here.")
+                }
+
+                // Calling the function
+                showWelcomeMessage()
+          - type: "heading2"
+            content:
+              text: "Passing Data with Parameters"
+          - type: "explanation"
+            content:
+              text: "Functions become even more powerful when you can pass data into them. These pieces of data are called **parameters**. You define them inside the parentheses, giving each one a name and a type."
+          - type: "snippet"
+            content:
+              code: |
+                func printPersonalizedGreeting(name: String) {
+                    print("Hello, \(name)! Welcome.")
+                }
+
+                printPersonalizedGreeting(name: "Maria") // Prints "Hello, Maria! Welcome."
+                printPersonalizedGreeting(name: "Chen")  // Prints "Hello, Chen! Welcome."
+          - type: "heading2"
+            content:
+              text: "Returning Values"
+          - type: "explanation"
+            content:
+              text: "Functions can also perform a task and then send a value back to the code that called it. This is called a **return value**. You specify the type of data it will return using an arrow `->`."
+          - type: "snippet"
+            content:
+              code: |
+                func add(a: Int, b: Int) -> Int {
+                    let sum = a + b
+                    return sum
+                }
+
+                let result = add(a: 5, b: 3) // `result` is now 8
+
+      - id: "1B1A5215-7D5D-40C6-A142-B17AE1F8E849"
+        module_name: "Understanding Nil and Optionals"
+        multipleChoice:
+          - question: "What does `nil` represent in Swift?"
+            options:
+              - "The number zero."
+              - "An empty string."
+              - "The absence of a value."
+              - "An error in the code."
+            answer: "The absence of a value."
+          - question: "How do you declare a variable that is allowed to hold `nil`?"
+            options:
+              - "By adding a `?` after its type."
+              - "By adding a `!` after its type."
+              - "By using the `optional` keyword."
+              - "All variables can hold `nil` by default."
+            answer: "By adding a `?` after its type."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Understanding Nil and Optionals"
+          - type: "explanation"
+            content:
+              text: "What happens when you ask for a user's age, but they haven't entered it yet? In some languages, this could lead to a crash. Swift solves this problem with a core concept called **Optionals**. An optional is a wrapper that says 'there might be a value here, or there might be nothing'."
+          - type: "heading2"
+            content:
+              text: "The Concept of `nil`"
+          - type: "explanation"
+            content:
+              text: "The state of 'nothing' is represented by the special value `nil`. An optional is like a box: it can either contain a value (like an `Int` or a `String`), or it can be empty (`nil`)."
+          - type: "heading2"
+            content:
+              text: "Declaring Optionals"
+          - type: "explanation"
+            content:
+              text: "You declare a type as an optional by adding a question mark `?` to the end. By doing this, you are telling the Swift compiler that it's okay for this variable to hold `nil`."
+          - type: "snippet"
+            content:
+              code: |
+                // A regular Int CANNOT be nil
+                var regularNumber: Int = 100
+
+                // An optional Int CAN be nil
+                var optionalNumber: Int? = 100
+                optionalNumber = nil // This is allowed!
+
+      - id: "1C11A348-B2E8-48DF-B4F4-FF22144FBE1C"
+        module_name: "Working with Optionals: Unwrapping"
+        multipleChoice:
+          - question: "What is the safest way to get the value from an optional?"
+            options:
+              - "Forced unwrapping with `!`"
+              - "The nil-coalescing operator `??`"
+              - "Optional binding with `if let`"
+              - "All methods are equally safe."
+            answer: "Optional binding with `if let`"
+          - question: "What will `name` be? `let optionalName: String? = nil; let name = optionalName ?? \"Guest\"`"
+            options:
+              - "nil"
+              - "The code will crash."
+              - "\"Guest\""
+              - "\"optionalName\""
+            answer: "\"Guest\""
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Working with Optionals: Unwrapping"
+          - type: "explanation"
+            content:
+              text: "Since an optional might contain `nil`, Swift won't let you use it like a normal value. You must first safely check if a value exists and get it out. This process is called **unwrapping**."
+          - type: "heading2"
+            content:
+              text: "Optional Binding (`if let`)"
+          - type: "explanation"
+            content:
+              text: "This is the most common and safest way to unwrap an optional. `if let` checks if the optional has a value. If it does, it unwraps it into a temporary constant and runs a block of code. If it's `nil`, the code block is skipped."
+          - type: "snippet"
+            content:
+              code: |
+                var loggedInUsername: String? = "EcoCoder"
+                // loggedInUsername = nil // Uncomment this line to see the `else` block run
+
+                if let username = loggedInUsername {
+                    print("Welcome back, \(username)!")
+                } else {
+                    print("Please log in.")
+                }
+          - type: "heading2"
+            content:
+              text: "Nil-Coalescing Operator (`??`)"
+          - type: "explanation"
+            content:
+              text: "This operator provides a **default value** to use if the optional is `nil`. It's incredibly concise: `a ?? b` means 'if `a` has a value, use it; otherwise, use `b`'."
+          - type: "snippet"
+            content:
+              code: |
+                let customNickname: String? = nil
+                let displayName = customNickname ?? "Anonymous" // displayName is "Anonymous"
+          - type: "heading2"
+            content:
+              text: "Forced Unwrapping (`!`)"
+          - type: "explanation"
+            content:
+              text: "You can force unwrap an optional by adding an exclamation mark `!` at the end. **This is dangerous!** If you force unwrap an optional that is `nil`, your app will crash. Only use this if you are 100% certain a value exists."
+
+      - id: "38AC5364-8D9B-4B76-8957-CA4E241A06D9"
+        module_name: "Creating Custom Types: Structures"
+        multipleChoice:
+          - question: "What is the keyword used to define a structure?"
+            options:
+              - "struct"
+              - "structure"
+              - "type"
+              - "class"
+            answer: "struct"
+          - question: "Given `struct Book { var title: String }`, how do you create a new instance of `Book`?"
+            options:
+              - "`let myBook = Book.new(\"Moby Dick\")`"
+              - "`let myBook = Book(title: \"Moby Dick\")`"
+              - "`let myBook = new Book { title: \"Moby Dick\" }`"
+              - "`let myBook: Book = \"Moby Dick\"`"
+            answer: "`let myBook = Book(title: \"Moby Dick\")`"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Creating Custom Types: Structures"
+          - type: "explanation"
+            content:
+              text: "Swift lets you build your own custom, complex data types out of basic ones like `String` and `Int`. The most common way to do this is with a **Structure**, or `struct`. Structs allow you to group related properties and behaviors together into a meaningful blueprint."
+          - type: "heading2"
+            content:
+              text: "Defining and Using a Struct"
+          - type: "explanation"
+            content:
+              text: "Imagine you're building an app for a library. You need to store a book's title, author, and page count together. A `struct` is perfect for this. You define the blueprint with the `struct` keyword, and then create an **instance** (a concrete value) from that blueprint."
+          - type: "snippet"
+            content:
+              code: |
+                // 1. Define the blueprint
+                struct Book {
+                    var title: String
+                    var author: String
+                    var pageCount: Int
+                }
+
+                // 2. Create an instance from the blueprint
+                let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
+
+                // 3. Access its properties using dot syntax
+                print("My favorite book is \(favoriteBook.title) by \(favoriteBook.author).")
+
+    finalReview:
+      content_blocks:
+        - type: "heading1"
+          content:
+            text: "Chapter 3 Review"
+        - type: "explanation"
+          content:
+            text: "This was a big chapter! You've learned some of the most important and powerful concepts in the Swift language. These tools will allow you to write much cleaner, safer, and more organized code."
+        - type: "heading2"
+          content:
+            text: "Key Concepts You've Mastered"
+        - type: "explanation"
+          content:
+            text: "**Functions (`func`):** You can now bundle your code into reusable blocks. You know how to pass data into them with **parameters** and get data out with **return values**."
+        - type: "explanation"
+          content:
+            text: "**Optionals (`?`):** You understand how Swift handles the absence of a value (`nil`) safely. You know that an optional is a wrapper that can either contain a value or be empty."
+        - type: "explanation"
+          content:
+            text: "**Unwrapping:** You have learned the safe ways to access the value inside an optional, using **optional binding** (`if let`) to check for a value and the **nil-coalescing operator** (`??`) to provide a default."
+        - type: "explanation"
+          content:
+            text: "**Structures (`struct`):** You are no longer limited to basic types! You can now define your own custom data types, grouping related data together into a clean, logical blueprint."
