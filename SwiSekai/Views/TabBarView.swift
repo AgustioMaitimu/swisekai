@@ -17,7 +17,7 @@ struct TabBarView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // take all space
-            .background(Color.gray.opacity(0.1))
+//            .background(Color.gray.opacity(0.1))
 
             // Tab bar at bottom
             HStack {
