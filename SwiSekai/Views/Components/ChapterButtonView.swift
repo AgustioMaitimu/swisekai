@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ChapterButton: View {
+    let chapterName: String
     @State private var isPressed = false
 
     var body: some View {
@@ -12,12 +13,7 @@ struct ChapterButton: View {
                     .font(.system(size: 45))
                 
                 VStack(alignment: .leading) {
-                    Text("Chapter 1, Unit 1")
-                        .font(Font.custom("SF Pro", size: 17))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                    
-                    Text("Swift Datatype")
+                    Text(chapterName)
                         .font(Font.custom("SF Pro", size: 24).weight(.bold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
