@@ -21,7 +21,7 @@ struct SwiSekaiApp: App {
 //							.onAppear(perform: checkLogin)
 //							.background(.mainBackground)
 			//			ContentView()
-			//				.onAppear(perform: checkLogin)
+//							.onAppear(perform: checkLogin)
 						test_balls()
 							.background(.mainBackground)
 							.onAppear(perform: checkLogin)

@@ -7,10 +7,12 @@
 
 import SwiftData
 import SwiftUI
+import SwiftData
 
 // MARK: - Main Level View
 struct ModulesView: View {
     // MARK: - Data
+	
     var chapters = DataManager.shared.chapterCollection.chapters
     @Environment(\.modelContext) private var modelContext
     @Query private var userDataItems: [UserData]

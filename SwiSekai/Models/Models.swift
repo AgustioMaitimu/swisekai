@@ -30,10 +30,10 @@ struct Module: Codable, Identifiable {
 }
 
 struct FinalReview: Codable {
-    let contentBlocks: [ContentBlock]
-    enum CodingKeys: String, CodingKey {
-        case contentBlocks = "content_blocks"
-    }
+	let contentBlocks: [ContentBlock]
+	enum CodingKeys: String, CodingKey {
+		case contentBlocks = "content_blocks"
+	}
 }
 
 struct ProjectCollection: Codable {

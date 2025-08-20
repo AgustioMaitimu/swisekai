@@ -16,7 +16,6 @@ class DataManager {
         var allChapters: [Chapter] = []
                 
         if let chapterURLs = Bundle.main.urls(forResourcesWithExtension: "yaml", subdirectory: nil) {
-            // Filter to only get chapter files (exclude projects.yaml)
             let chapterFiles = chapterURLs.filter { url in
                 url.lastPathComponent.hasPrefix("chapter_")
             }

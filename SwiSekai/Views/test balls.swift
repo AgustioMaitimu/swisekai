@@ -17,6 +17,7 @@ struct test_balls: View {
                 SideBarView(selection: $selection)
             } else {
                 TabBarView(selection: $selection)
+					.scrollContentBackground(.hidden)
             }
         }
     }
