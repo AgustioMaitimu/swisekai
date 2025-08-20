@@ -6,7 +6,7 @@ enum QuizStatus {
 }
 
 struct QuizIconView: View {
-    var status: QuizStatus = .unavailable // placeholder until database logic comes in
+    var status: QuizStatus // placeholder until database logic comes in
     
     var body: some View {
         VStack(spacing: 8) {

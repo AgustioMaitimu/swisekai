@@ -5,10 +5,16 @@
 //  Created by Agustio Maitimu on 12/08/25.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ModuleDetailView: View {
     let module: Module
+    @Environment(\.modelContext) private var modelContext
+    @Query private var userDataItems: [UserData]
+    private var userData: UserData {
+        userDataItems.first ?? UserData.shared(in: modelContext)
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -19,7 +25,7 @@ struct ModuleDetailView: View {
                     HStack {
                         Spacer()
                         
-                        NavigationLink(destination: MultipleChoiceView(module: module)) {
+                        NavigationLink(destination: MultipleChoiceView(module: module, userData: userData)) {
                             Text("Next")
                                 .font(geometry.size.width < 700 ? .title3.bold() : .title2.bold())
                                 .padding(.horizontal, geometry.size.width < 700 ? 40 : 55)

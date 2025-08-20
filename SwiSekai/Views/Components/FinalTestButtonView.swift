@@ -9,7 +9,7 @@ enum FinalTestStatus {
 
 
 struct FinalTestButton: View {
-    @State private var status: FinalTestStatus = .available //placeholder, change later when data is available
+    let status: FinalTestStatus 
     @State private var isPressed = false
     
     var body: some View {
