@@ -14,258 +14,242 @@ struct HomeScreen: View {
         case inactive
     }
     
-    // This will eventually be replaced by data from your database
+    // This will eventually be replaced by data from your database.
     @State private var learningActivity: [DayStatus] = [
-        .active, .inactive, .active, .inactive, .active, .active, .inactive, .active
+        .active, .inactive, .active, .inactive, .active, .active, .inactive,
+        .active, .active, .active, .inactive, .active, .active
     ]
     
-    // Computed property to calculate the number of active days
+    // --- Data for Total Progress ---
+    // This will also be replaced by data from your database
+    @State private var completedModules: Int = 12
+    @State private var totalModules: Int = 48
+    
+    // A computed property that returns only the last 7 days for display.
+    private var recentActivity: [DayStatus] {
+        Array(learningActivity.suffix(7))
+    }
+    
+    // This still calculates the total from the *entire* activity list.
     private var activeDays: Int {
         learningActivity.filter { $0 == .active }.count
     }
     
+    // --- Computed Properties for Progress ---
+    private var progress: Double {
+        return Double(completedModules) / Double(totalModules)
+    }
+    
+    private var progressSubtitle: String {
+        return "You have completed \(completedModules) out of \(totalModules) modules!"
+    }
+    
+    private var progressPercentageText: String {
+        return "\(Int(progress * 100))%"
+    }
+    
+    // Define columns for the responsive grid
+    private let columns = [GridItem(.adaptive(minimum: 350))]
+    
     var body: some View {
-        ScrollView{
-            
-            Text("Home")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 5)
-            
-            // Title 2/Emphasized
-            Text("Apply your Swift skills by building real-world application")
-              .font(
-                Font.custom("Inter", size: 17)
-                  .weight(.bold)
-              )
-              .foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-              .frame(maxWidth: .infinity, alignment: .leading)
-              .padding(.bottom, 35)
-            
+        GeometryReader { geometry in
+            ScrollView (showsIndicators: false){
                 
-
+                Text("Home")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 5)
                 
-          
-            
-            
-            
-            Text("For you")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .padding(.bottom, 50)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // horizontal 1
-            HStack{
-                // item 1
-                VStack{
-                    Text("Item 1")
+                // Title 2/Emphasized
+                Text("Apply your Swift skills by building real-world application")
+                  .font(
+                    Font.custom("Inter", size: 17)
+                      .weight(.bold)
+                  )
+                  .foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+                  .frame(maxWidth: .infinity, alignment: .leading)
+                  .padding(.bottom, 35)
+                
+                Text("For you")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // Adaptive grid for "For you" cards
+                LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
+                    progressCard()
+                    activeLearningCard()
                 }
-                // item 2
-                VStack{
-                    Text("Item 2")
+                .padding(.bottom, 35)
+                
+                
+                Text("Resources")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // Adaptive grid for "Resources" cards
+                LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
+                    resourceCard()
+                    // You can add more resourceCard() here and they will adapt automatically
                 }
-                // item 3
-                VStack{
-                    Text("Item 3")
-                    
-                }
-              
+                
             }
-            .padding(.bottom, 35)
+            .padding(.horizontal, 40)
+            .padding(.vertical, 20)
+            .background(Color.mainBackground)
+        }
+    }
+    
+    func progressCard() -> some View {
+        VStack(alignment: .leading){
+            Text("Total Progress")
+                .font(.title3.weight(.bold))
+                .foregroundColor(.white)
             
-            // horizontal 2
+            Text(progressSubtitle)
+                .font(.title3)
+                .foregroundColor(.white.opacity(0.8))
+                .padding(.top, 1)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer()
+            
             HStack{
-                // item 1
-                VStack{
-                            Text("Total Progress")
-                                .font(
-                                    Font.custom("SF Pro", size: 20)
-                                        .weight(.bold)
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(.white)
+                            .frame(height: 16)
+                            .cornerRadius(10)
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    stops: [
+                                        Gradient.Stop(color: Color(red: 0.99, green: 0.25, blue: 0), location: 0.00),
+                                        Gradient.Stop(color: Color(red: 1, green: 0.49, blue: 0.25), location: 1.00),
+                                    ],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
                                 )
-                            
-                                .foregroundColor(.white)
-                            
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading)
-                            
-                            Text("You have completed 12 out of 48 modules!")
-                                .font(Font.custom("SF Pro", size: 20))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading)
-                            
-                            
-                            HStack{
-                                
-                                
-                                ZStack(alignment: .leading)
-                                {
-                                    Rectangle()
-                                        .fill(.white)
-                                        .frame(width: 337, height: 16)
-                                        .cornerRadius(10)
-                                    Rectangle()
-                                        .fill(
-                                            LinearGradient(
-                                                stops: [
-                                                    Gradient.Stop(color: Color(red: 0.99, green: 0.25, blue: 0), location: 0.00),
-                                                    Gradient.Stop(color: Color(red: 1, green: 0.49, blue: 0.25), location: 1.00),
-                                                ],
-                                                startPoint: .leading,
-                                                endPoint: .trailing
-                                            )
-                                        )
-                                        .frame(width: 120, height: 16)
-                                        .cornerRadius(10)
-                                    
-                                }
-                                Text("25%")
-                                  .font(
-                                    Font.custom("SF Pro", size: 20)
-                                      .weight(.bold)
-                                  )
-                                  .multilineTextAlignment(.trailing)
-                                  .foregroundColor(.white)
-                                
-                            }.frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading)
-                                
-                            
-                        }
-                    .frame(height: 132)
-                    .background(Color(red: 0.19, green: 0.2, blue: 0.21))
-                    .cornerRadius(8)
+                            )
+                            .frame(width: geo.size.width * CGFloat(progress), height: 16)
+                            .cornerRadius(10)
+                    }
+                }
                 
+                Text(progressPercentageText)
+                  .font(.title2.weight(.bold))
+                  .multilineTextAlignment(.trailing)
+                  .foregroundColor(.white)
+            }
+            .frame(height: 16)
+        }
+        .padding()
+        .frame(minHeight: 132)
+        .background(Color(red: 0.19, green: 0.2, blue: 0.21))
+        .cornerRadius(12)
+    }
+    
+    func activeLearningCard() -> some View {
+        HStack {
+            VStack(alignment: .leading){
+                Text("Active Learning")
+                    .font(.title3.weight(.bold))
+                    .foregroundColor(.white)
+                    .padding(.bottom, 20)
+                
+               
                 
                 HStack{
-                            VStack{
-                                
-                                
-                                Text("Active Learning")
-                                    .font(
-                                        Font.custom("SF Pro", size: 20)
-                                            .weight(.bold)
-                                    )
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 16)
-                                
-                                HStack{
-                                    ForEach(learningActivity.indices, id: \.self) { index in
-                                        Rectangle()
-                                            .fill(learningActivity[index] == .active ?
-                                                  LinearGradient(
-                                                      stops: [
-                                                          Gradient.Stop(color: Color(red: 0.99, green: 0.25, blue: 0), location: 0.00),
-                                                          Gradient.Stop(color: Color(red: 1, green: 0.49, blue: 0.25), location: 1.00),
-                                                      ],
-                                                      startPoint: UnitPoint(x: 0.5, y: 0),
-                                                      endPoint: UnitPoint(x: 0.5, y: 1)
-                                                  ) : LinearGradient(
-                                                    stops: [Gradient.Stop(color: .white, location: 0.00)],
-                                                    startPoint: .top,
-                                                    endPoint: .bottom
-                                                  )
-                                            )
-                                            .frame(width: 28, height: 28)
-                                            .cornerRadius(3)
-                                    }
-                                    
-                                }.frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 16)
-
-                            }
-                                
-                            Text("\(activeDays) Days")
-                              .font(
-                                Font.custom("SF Pro", size: 38)
-                                  .weight(.bold)
-                              )
-                              .multilineTextAlignment(.trailing)
-                              .foregroundColor(.white)
-                              .padding(.trailing, 60)
-                        }
-                    .frame(height: 132)
-                    .background(Color(red: 0.19, green: 0.2, blue: 0.21))
-                    .cornerRadius(8)
-               
-               
-              
-            }
-            .padding(.bottom, 35)
-            
-            Text("Resources")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .padding(.bottom, 50)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            //horizontal 3
-            HStack{
-                VStack{
-                          Rectangle()
-                              .fill(.gray)
-                        
-                              .frame(width:356, height:152)
-                              
-                              .cornerRadius(8)
-                              
-                          Text("WWDC25")
-                            .font(
-                              Font.custom("SF Pro", size: 20)
-                                .weight(.bold)
-                                
+                    ForEach(recentActivity.indices, id: \.self) { index in
+                        Rectangle()
+                            .fill(recentActivity[index] == .active ?
+                                  LinearGradient(
+                                      stops: [
+                                          Gradient.Stop(color: Color(red: 0.99, green: 0.25, blue: 0), location: 0.00),
+                                          Gradient.Stop(color: Color(red: 1, green: 0.49, blue: 0.25), location: 1.00),
+                                      ],
+                                      startPoint: UnitPoint(x: 0.5, y: 0),
+                                      endPoint: UnitPoint(x: 0.5, y: 1)
+                                  ) : LinearGradient(
+                                    stops: [Gradient.Stop(color: .white, location: 0.00)],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                  )
                             )
-                            .padding(.top,10)
-                            .padding(.bottom ,4)
-                            .foregroundColor(.white)
-                            .frame(maxWidth:.infinity, alignment: .leading)
-                            .padding(.leading,15)
-                          
-                          Text("Access 100+ new videos with sessions,transcripts, docs, and sample code all in one place.")
-                            .font(Font.custom("SF Pro", size: 12.29729))
-                            .frame(maxWidth:.infinity, alignment: .leading)
-                            .foregroundColor(.gray)
-                            .padding(.leading,15)
-                            .padding(.bottom,4)
-                          
-                          HStack{
-                              Text("􀄔 OPEN")
-                                .font(
-                                  Font.custom("SF Pro", size: 13.17567)
-                                    .weight(.medium)
-                                )
-                                .foregroundColor(.white)
-                          }.frame(width:356, height:42)
-                              .background(.blue)
-                              .cornerRadius(8)
-                         
-                          
-                          
-                      
-                          
-                      }
-                      .frame(width:392, height:336)
-                      .background(.black)
-              
-               
-              
+                            .aspectRatio(1, contentMode: .fit)
+                            .cornerRadius(4)
+                    }
+                }
             }
-            .cornerRadius(8)
             
+          
             
-            
+            VStack {
+               
+                Text("\(activeDays) Days")
+                    .font(.system(size: 38, weight: .bold,))
+                  .multilineTextAlignment(.trailing)
+                  .foregroundColor(.white)
+                  .padding(.horizontal, 40)
+                
+            }
         }
-        .padding(.horizontal, 40)
-        .padding(.vertical, 20)
-        .background(Color.mainBackground)
-       
-        
+        .padding()
+        .frame(minHeight: 132)
+        .background(Color(red: 0.19, green: 0.2, blue: 0.21))
+        .cornerRadius(12)
+    }
+    
+    func resourceCard() -> some View {
+        VStack {
+            Rectangle()
+                .fill(.gray)
+                .aspectRatio(16/9, contentMode: .fit)
+                .cornerRadius(8)
+            
+            Text("WWDC25")
+                .font(.title2.weight(.bold))
+                .padding(.top,10)
+                .padding(.bottom ,4)
+                .foregroundColor(.white)
+                .frame(maxWidth:.infinity, alignment: .leading)
+            
+            Text("Access 100+ new videos with sessions,transcripts, docs, and sample code all in one place.")
+                .font(.body)
+                .frame(maxWidth:.infinity, alignment: .leading)
+                .foregroundColor(.gray)
+                .padding(.bottom,4)
+            
+            Spacer()
+            
+            Button(action: {}) {
+                HStack{
+                    Spacer()
+                    Image(systemName: "arrow.up.forward.app.fill")
+                    Text("OPEN")
+                    Spacer()
+                }
+                .font(.headline.weight(.medium))
+                .foregroundColor(.white)
+                .padding()
+                .frame(height: 42)
+                .background(.blue)
+                .cornerRadius(8)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding()
+        .background(.black.opacity(0.3))
+        .cornerRadius(12)
+        .frame(maxWidth: 400) // This is the new line that constrains the width
     }
 }
 
