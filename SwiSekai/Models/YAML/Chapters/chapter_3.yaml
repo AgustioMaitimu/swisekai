@@ -3,7 +3,8 @@ chapters:
     modules:
       - id: "4A328ED1-BDBA-40FE-9EE7-A5A784BB1408"
         module_name: "Organizing Code: Functions"
-        multipleChoice:
+        module_number: 9
+        multiple_choice:
           - question: "What is the primary benefit of using functions?"
             options:
               - "To make your code run faster."
@@ -82,7 +83,8 @@ chapters:
 
       - id: "1B1A5215-7D5D-40C6-A142-B17AE1F8E849"
         module_name: "Understanding Nil and Optionals"
-        multipleChoice:
+        module_number: 10
+        multiple_choice:
           - question: "What does `nil` represent in Swift?"
             options:
               - "The number zero."
@@ -128,7 +130,8 @@ chapters:
 
       - id: "1C11A348-B2E8-48DF-B4F4-FF22144FBE1C"
         module_name: "Working with Optionals: Unwrapping"
-        multipleChoice:
+        module_number: 11
+        multiple_choice:
           - question: "What is the safest way to get the value from an optional?"
             options:
               - "Forced unwrapping with `!`"
@@ -187,7 +190,8 @@ chapters:
 
       - id: "38AC5364-8D9B-4B76-8957-CA4E241A06D9"
         module_name: "Creating Custom Types: Structures"
-        multipleChoice:
+        module_number: 12
+        multiple_choice:
           - question: "What is the keyword used to define a structure?"
             options:
               - "struct"

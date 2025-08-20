@@ -3,7 +3,8 @@ chapters:
     modules:
       - id: "279EA8BE-7E25-4D21-B01E-13A9407D6102"
         module_name: "Advanced Structures"
-        multipleChoice:
+        module_number: 13
+        multiple_choice:
           - question: "A function that belongs to a struct is called a what?"
             options:
               - "Parameter"
@@ -82,7 +83,8 @@ chapters:
 
       - id: "D11CD83B-813C-453F-B804-18131BD48BBC"
         module_name: "Introduction to Classes"
-        multipleChoice:
+        module_number: 14
+        multiple_choice:
           - question: "What is the main feature that classes have but structs do not?"
             options:
               - "Properties"
@@ -150,7 +152,8 @@ chapters:
 
       - id: "9D87E8F1-F14B-4889-A14C-9281FCA178A6"
         module_name: "Value vs. Reference Types"
-        multipleChoice:
+        module_number: 15
+        multiple_choice:
           - question: "If you assign a struct instance to a new variable, what happens?"
             options:
               - "The data is shared between the two variables."
@@ -209,7 +212,8 @@ chapters:
 
       - id: "8D6ED696-53B1-43FE-B027-D506F2347575"
         module_name: "Introduction to Closures"
-        multipleChoice:
+        module_number: 16
+        multiple_choice:
           - question: "What is a closure?"
             options:
               - "A special type of class."

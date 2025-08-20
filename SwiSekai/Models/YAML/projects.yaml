@@ -13,43 +13,43 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "In this project, you'll create a basic score tracking system for a game. This is a classic beginner project that teaches the difference between values that can change and values that should not. You'll use Swift's `var` for the score and `let` for the player's name."
+          text: "This project practices the core skill of storing data. You'll use a **constant** (`let`) for a value that won't change (the player's name) and a **variable** (`var`) for a value that will (the player's score)."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "To build our score tracker, we need to store values. We use **'variables'** for values that can change, like a player's score. We use **'constants'** for values that won't change, like a player's name. In Swift, this is done with the `var` and `let` keywords, respectively."
+          text: "This project is based on **Module 1: Storing Data**. We will use `let` to declare a constant and `var` to declare a variable. We will also add **explicit type annotations** (e.g., `: String`) to be clear about the kind of data we are storing, even though Swift could figure it out through **type inference**."
       - type: "heading2"
         content:
           text: "Implementation"
       - type: "snippet"
         content:
           code: |
-            // A player's name is set once, so we use a constant.
-            let playerName = "Cyber-Cat"
-            print("Welcome, \(playerName)!")
+            // Use 'let' for a value that never changes.
+            // We also add a type annotation `: String` for clarity.
+            let playerName: String = "Cyber-Cat"
 
-            // The score will change, so it's a variable.
-            var currentScore = 100
-            print("Your starting score is: \(currentScore)")
+            // Use 'var' for a value that is expected to change.
+            // Swift can infer this is an Int, but we'll be explicit.
+            var currentScore: Int = 0
+            print("Welcome, \(playerName)! Your score is \(currentScore).")
 
-            // The player finds a bonus item!
+            // The player gains points, so we update the variable.
             currentScore = 150
-            print("Your new score is: \(currentScore)")
+            print("\(playerName) scored! New score is \(currentScore).")
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "Try expanding this project. Can you add another player? Can you create a high score that only updates if the `currentScore` is greater than the `highScore`?"
-
+          text: "Add a new constant called `highScoreGoal` of type `Int` and set it to 1000. After the player scores, print a message showing how many more points they need to reach the goal."
 
   - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
     project_name: "Simple Tip Calculator"
     project_description: "Create a program to calculate the tip and total for a restaurant bill. This will teach you how to perform basic math operations in your code."
     project_difficulty: "Easy"
-    level_prerequisite: 1
+    level_prerequisite: 2
     content_blocks:
       - type: "heading1"
         content:
@@ -59,13 +59,13 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "This project will walk you through creating a practical tool for calculating tips. You'll work with numbers and basic arithmetic operations, which are fundamental to almost every app."
+          text: "This project lets you practice using mathematical operators to perform calculations, a fundamental task in programming."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "Any useful app needs to perform calculations. Swift supports the standard arithmetic operators (+, -, *, /) for performing math. We can use these to build our tip calculator. We'll also use the modulo operator (%) to find remainders, which is useful for tasks like splitting a bill."
+          text: "Based on **Module 2: Basic Operators**, this project uses standard **arithmetic operators** like multiplication (`*`) and addition (`+`). You will also use a **compound assignment operator** (`+=`) as a convenient shortcut to modify a variable."
       - type: "heading2"
         content:
           text: "Implementation"
@@ -75,32 +75,31 @@ projects:
             let billAmount = 58.50
             let tipPercentage = 0.20 // 20% tip
 
+            // Use the multiplication operator '*' to calculate the tip.
             let tipAmount = billAmount * tipPercentage
-            let totalBill = billAmount + tipAmount
+
+            // Start with the bill amount.
+            var totalBill = billAmount
+
+            // Use the compound assignment operator '+=' to add the tip.
+            // This is a shortcut for: totalBill = totalBill + tipAmount
+            totalBill += tipAmount
 
             print("Bill: $\(billAmount)")
             print("Tip: $\(tipAmount)")
             print("Total: $\(totalBill)")
-
-            // How to split the bill between 2 people?
-            let numberOfPeople = 2
-            let totalInCents = Int(totalBill * 100)
-            let splitAmountInCents = totalInCents / numberOfPeople
-            let remainderInCents = totalInCents % numberOfPeople
-            print("Each person pays: $\(Double(splitAmountInCents) / 100.0)")
-            print("Remaining cents: \(remainderInCents)")
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "How could you make this more interactive? Think about how you might get the `billAmount` and `tipPercentage` from user input. What if the number of people changes?"
+          text: "Use the **remainder operator** (`%`) to determine if a number is even or odd. Create a variable `numberOfDiners` and check if it's an even number before printing a message about splitting the bill."
 
   - id: "DA8A2B6C-6246-4482-A4A6-18CB39851B24"
     project_name: "Greeting Card Generator"
     project_description: "Make a personalized greeting message by combining text with variables. You'll learn how to create dynamic strings for any occasion."
     project_difficulty: "Easy"
-    level_prerequisite: 1
+    level_prerequisite: 3
     content_blocks:
       - type: "heading1"
         content:
@@ -110,13 +109,13 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "In this project, you will create a simple program that generates a personalized greeting. This will introduce you to the concept of string interpolation, a powerful feature in Swift for embedding variables directly within a string."
+          text: "This project demonstrates the different ways to build strings in Swift, which is essential for displaying any kind of text to a user."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "To create a personalized greeting, we need to embed dynamic values like a name and an event into a string. Swift's **string interpolation** `\\(expression)` is perfect for this. We can also join separate pieces of text together, a process called **concatenation**, using the '+' operator."
+          text: "From **Module 3: Working with Text**, this project uses **string interpolation** `\\(...)` to easily embed variables inside a string. You will also use **multi-line strings** (`\"\"\"`) for creating text that spans several lines."
       - type: "heading2"
         content:
           text: "Implementation"
@@ -124,28 +123,34 @@ projects:
         content:
           code: |
             let recipientName = "Alex"
-            let event = "Birthday"
-            let senderName = "Blake"
+            let event = "Graduation"
 
-            // Using string interpolation
-            let message = "Happy \(event), \(recipientName)! Hope you have a great day."
+            // Use string interpolation to build a dynamic message.
+            let message = "Congratulations on your \(event), \(recipientName)!"
             print(message)
 
-            // Using concatenation
-            let signOff = "From, " + senderName
-            print(signOff)
+            // Use multi-line strings for longer, formatted text.
+            let longerMessage = """
+            It's been a long journey,
+            and you've worked so hard.
+
+            We are all incredibly proud of you!
+
+            - The Swift Team
+            """
+            print(longerMessage)
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "Can you create a function that takes the recipient's name and the event as arguments and returns the greeting message? This would make your code more reusable."
+          text: "Create two string constants, `part1` and `part2`. Join them together using the addition operator `+` (concatenation) and store the result in a new constant called `fullQuote`."
 
   - id: "4F1B3E3D-4A2D-4B9A-8C3D-1B9E0F7B5D9E"
     project_name: "Smart Thermostat"
     project_description: "Build the logic for a smart thermostat that provides a message based on the current temperature. This project introduces how to make decisions in code."
     project_difficulty: "Easy"
-    level_prerequisite: 2
+    level_prerequisite: 7
     content_blocks:
       - type: "heading1"
         content:
@@ -155,39 +160,43 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "This project simulates the logic of a smart thermostat. You will learn to use conditional statements to make decisions in your code, a fundamental concept in programming."
+          text: "This project simulates the decision-making logic of a device. You will write code that follows different paths depending on the conditions it checks."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "A smart thermostat needs to react differently based on the temperature. We can achieve this using `if`, `else if`, and `else` statements. These allow your program to check a condition and run a specific block of code if that condition is true."
+          text: "Based on **Module 7: Conditionals**, this project uses `if`, `else if`, and `else` to create conditional logic. You'll use **comparison operators** like `<` (less than) and the **logical AND operator** (`&&`) to check if multiple conditions are true at the same time."
       - type: "heading2"
         content:
           text: "Implementation"
       - type: "snippet"
         content:
           code: |
-            let currentTempCelsius = 22
-            if currentTempCelsius > 30 {
-              print("It's hot! Turning on the AC.")
-            } else if currentTempCelsius < 15 {
+            let currentTempCelsius = 18
+            let isWindowOpen = false
+
+            if currentTempCelsius < 15 {
               print("It's chilly. Turning on the heat.")
+            } else if currentTempCelsius > 15 && isWindowOpen == true {
+              print("It's pleasant, but the window is open! Pausing climate control.")
+            } else if currentTempCelsius > 25 {
+              print("It's hot! Turning on the AC.")
             } else {
-              print("The temperature is pleasant. Maintaining current setting.")
+              print("Temperature is perfect. Maintaining settings.")
             }
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "How would you handle a temperature that is exactly 30 or 15? Modify the code to include these edge cases. You could also add more temperature ranges with different messages."
+          text: "Add another boolean variable called `isHome`. Modify the logic so that the heat or AC only turn on if `isHome` is true."
 
   - id: "9B6A1E3D-5F7C-4C6E-9B8A-1E3D5F7C9B6A"
     project_name: "To-Do List Manager"
     project_description: "Create and display a list of tasks. This project teaches you how to manage collections of items and perform an action for each one."
     project_difficulty: "Medium"
-    level_prerequisite: 2
+    level_prerequisite: 5
     content_blocks:
       - type: "heading1"
         content:
@@ -197,40 +206,45 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "In this project, you will create a simple to-do list manager. This will introduce you to arrays for storing collections of data and loops for iterating over them."
+          text: "This project shows you how to manage an ordered list of items. You'll create a list, add items, remove items, and check its contents, which are common tasks in app development."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "A to-do list is a collection of items. In Swift, we can store an ordered list of items in an **Array**. To display each task, we can iterate, or loop, through the array using a **for-in loop**, which is a clean and efficient way to process every item in a collection."
+          text: "From **Module 5: Arrays**, this project demonstrates how to create an **Array**, add elements with `.append()`, remove them with `.remove(at:)`, and check the number of items with `.count`."
       - type: "heading2"
         content:
           text: "Implementation"
       - type: "snippet"
         content:
           code: |
-            let todoList = ["Finish report", "Buy groceries", "Call the dentist", "Walk the dog"]
+            // Start with an empty array of Strings.
+            var todoList: [String] = []
+            print("You have \(todoList.count) tasks.")
 
-            print("--- My To-Do List ---")
-            var taskNumber = 1
-            for task in todoList {
-              print("\(taskNumber). \(task)")
-              taskNumber += 1
-            }
-            print("---------------------")
+            // Use .append() to add new items to the end.
+            todoList.append("Finish report")
+            todoList.append("Buy groceries")
+            todoList.append("Call the dentist")
+            print("Your tasks: \(todoList)")
+
+            // Use .remove(at:) to remove an item at a specific index.
+            // Remember, indices start at 0!
+            todoList.remove(at: 1) // Removes "Buy groceries"
+            print("Groceries bought! Remaining tasks: \(todoList)")
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "Try adding a new task to the `todoList` array. How would you remove a task? Explore the different methods available for Swift arrays."
+          text: "After removing the item, use a `for-in` loop (from Module 4) to print each of the remaining tasks on a new line."
 
   - id: "D4C4B5A6-9876-4321-ABCD-FE9876543210"
     project_name: "User Profile Creator"
     project_description: "Store and retrieve user information like name, email, and city. You'll learn to use Dictionaries, which are perfect for storing associated data."
     project_difficulty: "Medium"
-    level_prerequisite: 2
+    level_prerequisite: 6
     content_blocks:
       - type: "heading1"
         content:
@@ -240,13 +254,13 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "This project involves creating a user profile system. You will learn to use dictionaries to store key-value pairs, which is an efficient way to manage data with labels."
+          text: "This project involves creating a user profile using a data structure that stores information with labels, which is ideal for unordered but descriptive data."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "A user profile consists of pieces of information, each with a label (e.g., 'Email': 'user@example.com'). **Dictionaries** are perfect for this, storing data in **key-value pairs**. This allows you to look up a value using its unique key."
+          text: "Based on **Module 6: Dictionaries**, you'll create a **Dictionary** with `String` keys and `String` values. You'll practice adding, updating, and removing values by referencing their unique keys. Accessing a dictionary key returns an optional, because the key might not exist."
       - type: "heading2"
         content:
           text: "Implementation"
@@ -255,33 +269,33 @@ projects:
           code: |
             var userProfile: [String: String] = [
               "username": "CodeMaster",
-              "email": "codemaster@swift.dev",
-              "city": "San Francisco"
+              "status": "Online"
             ]
 
-            if let username = userProfile["username"] {
-                print("Profile for \(username):")
-            }
+            // Add a new key-value pair.
+            userProfile["email"] = "codemaster@swift.dev"
 
-            // Add a new piece of information
-            userProfile["status"] = "Online"
+            // Update an existing value using its key.
+            userProfile["status"] = "Away"
 
-            // Print all profile information
-            for (key, value) in userProfile {
-              print("  \(key): \(value)")
-            }
+            // Accessing a value returns an optional.
+            print("Username: \(userProfile["username"] ?? "N/A")")
+
+            // Remove a key-value pair by setting its value to nil.
+            userProfile["status"] = nil
+            print("Profile Data: \(userProfile)")
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "What other information could you add to the user profile? Try adding an age (which would be an `Int`, not a `String`). How does this change your dictionary declaration?"
+          text: "Try creating a dictionary where the values are `Int` instead of `String`, like `var userStats: [String: Int]`. Add keys for `gamesPlayed` and `score`."
 
   - id: "1E3D5F7C-9B6A-4C6E-9B8A-1E3D5F7C9B6A"
     project_name: "Unit Converter"
     project_description: "Build a set of reusable tools to convert between different units (like miles to kilometers). This project introduces the power of functions to organize code."
     project_difficulty: "Medium"
-    level_prerequisite: 3
+    level_prerequisite: 9
     content_blocks:
       - type: "heading1"
         content:
@@ -291,46 +305,46 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "In this project, you will create a set of functions to perform unit conversions. This will teach you how to write reusable code, which is a key principle of good software development."
+          text: "This project focuses on writing clean, reusable code by packaging logic into named blocks that you can call whenever you need them."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "Instead of writing the same conversion logic over and over, we can package it into a reusable block of code called a **function**. Functions can take input values (called **parameters**) and give back a result (a **return value**), making your code clean and efficient."
+          text: "Following **Module 9: Functions**, you will write a **function** using the `func` keyword. The function will accept an input value (a **parameter**) and, after performing its calculation, send back an output (a **return value**)."
       - type: "heading2"
         content:
           text: "Implementation"
       - type: "snippet"
         content:
           code: |
+            // A function with one Double parameter that returns a Double.
             func milesToKilometers(miles: Double) -> Double {
-              return miles * 1.60934
+              let conversionRate = 1.60934
+              return miles * conversionRate
             }
 
-            func celsiusToFahrenheit(celsius: Double) -> Double {
-              return (celsius * 9 / 5) + 32
+            // A function that prints but does not return a value.
+            func displayConversion(miles: Double) {
+                let kilometers = milesToKilometers(miles: miles)
+                print("\(miles) miles is equal to \(kilometers) kilometers.")
             }
 
-            let distanceInMiles = 100.0
-            let distanceInKm = milesToKilometers(miles: distanceInMiles)
-            print("\(distanceInMiles) miles is equal to \(distanceInKm) kilometers.")
-
-            let tempInCelsius = 25.0
-            let tempInFahrenheit = celsiusToFahrenheit(celsius: tempInCelsius)
-            print("\(tempInCelsius)°C is equal to \(tempInFahrenheit)°F.")
+            // Call the function to get the result.
+            displayConversion(miles: 100.0)
+            displayConversion(miles: 25.5)
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "Can you write a function to convert from kilometers to miles? What about Fahrenheit to Celsius? Creating pairs of conversion functions is a great way to practice."
+          text: "Write a new function called `kilometersToMiles` that takes kilometers as a parameter and returns the equivalent distance in miles. The conversion rate is `1 / 1.60934`."
 
   - id: "8C3D1B9E-0F7B-4A2D-4B9A-1B9E0F7B5D9E"
     project_name: "Book Catalog App"
     project_description: "Model a real-world object—a book—in your code. You'll create a custom data type that groups together a book's title, author, and page count."
     project_difficulty: "Medium"
-    level_prerequisite: 3
+    level_prerequisite: 12
     content_blocks:
       - type: "heading1"
         content:
@@ -340,43 +354,45 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "This project will guide you through creating a custom data type for a book. You will learn about structures, which are a fundamental way to model your own data in Swift."
+          text: "This project teaches you how to create your own custom data types, allowing you to group related information into a clean, logical blueprint."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "To represent a complex item like a book, we can create our own custom type using a **Structure** (or `struct`). A struct lets you group related properties (like `title` and `author`) and even behaviors (like a function to describe the book) into a single, neat package."
+          text: "From **Module 12: Structures**, this project involves defining a **`struct`** blueprint. You'll define its **properties** (the data it holds). Then, you'll create an **instance** of that struct, which is a concrete object made from the blueprint, and access its properties using dot syntax."
       - type: "heading2"
         content:
           text: "Implementation"
       - type: "snippet"
         content:
           code: |
+            // 1. Define the blueprint for a Book.
             struct Book {
-              var title: String
-              var author: String
-              var pageCount: Int
-
-              func getDescription() -> String {
-                return "'\(title)' by \(author) is \(pageCount) pages long."
-              }
+              // These are the properties of the struct.
+              let title: String
+              let author: String
+              let pageCount: Int
             }
 
+            // 2. Create a concrete instance of the Book.
+            // Swift provides a memberwise initializer automatically.
             let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
-            print(favoriteBook.getDescription())
+
+            // 3. Access the properties of the instance using dot syntax.
+            print("My favorite book is '\(favoriteBook.title)' by \(favoriteBook.author).")
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "Create a few more `Book` instances and store them in an array. Can you loop through the array and print the description of each book?"
+          text: "Create another struct called `Author` with properties `name` and `country`. Then, change the `author` property in the `Book` struct to be of type `Author` instead of `String`."
 
   - id: "C3A8E0B3-3C7B-4F1A-9A8E-8B3C1A7F0A9E"
     project_name: "Traffic Light Simulator"
     project_description: "Simulate the behavior of a traffic light. This project shows how to define a set of distinct, related states (red, yellow, green) to make your code safer and more readable."
     project_difficulty: "Medium"
-    level_prerequisite: 3
+    level_prerequisite: 8
     content_blocks:
       - type: "heading1"
         content:
@@ -386,44 +402,39 @@ projects:
           text: "Project Overview"
       - type: "explanation"
         content:
-          text: "In this project, you will model a traffic light system. This is a great way to learn about enumerations (`enum`), which are used to define a group of related values."
+          text: "This project demonstrates an alternative to `if/else` for handling different cases of a value. It's especially useful when you have a value that can be one of several distinct possibilities."
       - type: "heading2"
         content:
           text: "Core Concepts"
       - type: "explanation"
         content:
-          text: "A traffic light can only be in one of a few specific states. An **Enumeration** (or `enum`) is the perfect tool for this. It allows you to define a new type with a limited set of possible values, preventing you from accidentally using an invalid state (like 'blue')."
+          text: "From **Module 8: Switch Statements**, this project uses a **`switch`** statement to check a value against multiple possible `case`s. Swift `switch` statements must be **exhaustive**, meaning every possible value must be handled, either with a specific case or a `default` case."
       - type: "heading2"
         content:
           text: "Implementation"
       - type: "snippet"
         content:
           code: |
-            enum TrafficLightState {
-              case red
-              case yellow
-              case green
+            let httpStatusCode = 404
+            var message = ""
+
+            // Use a switch statement to check the value of httpStatusCode.
+            switch httpStatusCode {
+            case 200:
+              message = "OK"
+            case 404:
+              message = "Not Found"
+            case 500:
+              message = "Internal Server Error"
+            case 400...499: // You can also match against ranges.
+              message = "Client Error"
+            default:
+              message = "Unknown Code"
             }
-
-            var currentState = TrafficLightState.green
-
-            func getAction(for state: TrafficLightState) -> String {
-              switch state {
-              case .red:
-                return "Stop"
-              case .yellow:
-                return "Prepare to stop"
-              case .green:
-                return "Go"
-              }
-            }
-
-            print("The light is green. Action: \(getAction(for: currentState))")
-            currentState = .yellow
-            print("The light is now yellow. Action: \(getAction(for: currentState))")
+            print("Status: \(httpStatusCode), Message: \(message)")
       - type: "heading2"
         content:
           text: "Next Steps"
       - type: "explanation"
         content:
-          text: "Can you add a `.blinkingRed` case to the `TrafficLightState` enum? How would you update the `getAction` function to handle this new case?"
+          text: "Create a `String` variable called `color` and set it to `\"green\"`. Write a `switch` statement that prints \"Go\" if the color is green, \"Stop\" if it's red, and \"Slow down\" for yellow."
