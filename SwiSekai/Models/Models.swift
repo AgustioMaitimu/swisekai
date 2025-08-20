@@ -16,21 +16,21 @@ struct Chapter: Codable {
 struct Module: Codable, Identifiable {
 	let id: UUID
 	let moduleName: String
+	let moduleNumber: Int
 	let contentBlocks: [ContentBlock]
 	let multipleChoice: [MultipleChoice]
 	
 	enum CodingKeys: String, CodingKey {
 		case id
 		case moduleName = "module_name"
+		case moduleNumber = "module_number"
 		case contentBlocks = "content_blocks"
-		case multipleChoice = "multipleChoice"
+		case multipleChoice = "multiple_choice"
 	}
 }
 
 struct FinalReview: Codable {
 	let contentBlocks: [ContentBlock]
-	
-	// Add this to map the YAML key to the Swift property
 	enum CodingKeys: String, CodingKey {
 		case contentBlocks = "content_blocks"
 	}

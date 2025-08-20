@@ -1,7 +1,11 @@
-// SwiSekai/Views/ProjectsView.swift
-
 import SwiftUI
 import SwiftData
+
+class ProjectsUIState: ObservableObject {
+	static let shared = ProjectsUIState()
+	@Published var selectedProjectId: String?
+	@Published var selectedCategory: String = "All"
+}
 
 struct ProjectsView: View {
 	@Environment(\.modelContext) private var modelContext
@@ -9,10 +13,12 @@ struct ProjectsView: View {
 	private var userData: UserData { userDataItems.first ?? UserData.shared(in: modelContext) }
 	var projects = DataManager.shared.projectCollection.projects
 	var modules = DataManager.shared.moduleCollection.modules
-	var chapters = DataManager.shared.chapterCollection.chapters
 	
-	@State var projectId: String = "" // Initialize as empty
-	@State private var selectedCategory: String = "All"
+	@StateObject private var uiState = ProjectsUIState.shared
+	@State private var unlockedSectionExpanded: Bool = true
+	@State private var lockedSectionExpanded: Bool = true
+	@State private var completedSectionExpanded: Bool = true
+	
 	@State private var unlockedExpanded = true
 	@State private var lockedExpanded = false
 	@State private var completedExpanded = false
@@ -46,12 +52,13 @@ struct ProjectsView: View {
 	
 	var body: some View {
 		GeometryReader { geometry in
-			VStack {
+			VStack(spacing: 0) {
 				headerView(for: geometry.size.width)
-				if geometry.size.width < 580 {
-					verticalLayout
+				
+				if geometry.size.width < 700 {
+					verticalLayout(for: geometry.size.width)
 				} else {
-					HStack {
+					HStack(alignment: .top) {
 						Spacer()
 						horizontalLayout(for: geometry.size.width)
 						Spacer()
@@ -60,35 +67,56 @@ struct ProjectsView: View {
 			}
 			.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
 			.padding(.vertical, 36)
+			.background(Color("MainBackground"))
 		}
 		.onAppear {
-			if let firstUnlocked = unlockedProjects.first {
-				projectId = firstUnlocked.id.uuidString
-			} else if let firstLocked = lockedProjects.first {
-				projectId = firstLocked.id.uuidString
+			if uiState.selectedProjectId == nil {
+				if let firstUnlocked = unlockedProjects.first {
+					uiState.selectedProjectId = firstUnlocked.id.uuidString
+				} else if let firstLocked = lockedProjects.first {
+					uiState.selectedProjectId = firstLocked.id.uuidString
+				}
 			}
 		}
 	}
 	
-	private func headerView(for width: CGFloat) -> some View {
-		HStack {
-			Spacer()
-			VStack(alignment: .leading, spacing: 10) {
-				Text("Projects")
-					.font(width < 910 ? .title.bold() : .largeTitle.bold())
-				Text("Apply your Swift skills to real-world projects!")
-					.font(width < 910 ? .title3.bold() : .title2.bold())
-					.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+	private func verticalLayout(for width: CGFloat) -> some View {
+		VStack(spacing: 20) {
+			filterButtonsView()
+			
+			ScrollView(.vertical, showsIndicators: false) {
+				VStack(alignment: .leading, spacing: 20) {
+					if uiState.selectedCategory == "All" || uiState.selectedCategory == "Unlocked" {
+						verticalLayoutSection(
+							title: "Unlocked",
+							projects: unlockedProjects,
+							isExpanded: $unlockedSectionExpanded,
+							isLocked: false
+						)
+					}
+					
+					if uiState.selectedCategory == "All" || uiState.selectedCategory == "Locked" {
+						verticalLayoutSection(
+							title: "Locked",
+							projects: lockedProjects,
+							isExpanded: $lockedSectionExpanded,
+							isLocked: true
+						)
+					}
+					
+					if uiState.selectedCategory == "All" || uiState.selectedCategory == "Completed" {
+						verticalLayoutSection(
+							title: "Completed",
+							projects: completedProjects,
+							isExpanded: $completedSectionExpanded,
+							isLocked: false,
+							isCompleted: true
+						)
+					}
+				}
+				.padding(.bottom, 40)
 			}
-			Spacer()
-			Spacer()
-			Spacer()
 		}
-		.padding(.bottom, 16)
-	}
-	
-	private var verticalLayout: some View {
-		Text("Vertical Layout Placeholder")
 	}
 	
 	private func horizontalLayout(for width: CGFloat) -> some View {
@@ -100,11 +128,26 @@ struct ProjectsView: View {
 			.frame(maxWidth: 500)
 			.mask(linearGradientMask)
 			
-			if let project = projects.first(where: { $0.id.uuidString == projectId }) {
+			if let projectId = uiState.selectedProjectId, let project = projects.first(where: { $0.id.uuidString == projectId }) {
 				projectDetailView(for: project, width: width)
 					.frame(maxWidth: 400)
 			}
 		}
+	}
+	
+	private func headerView(for width: CGFloat) -> some View {
+		HStack {
+			VStack(alignment: .leading, spacing: 10) {
+				Text("Projects")
+					.font(width < 910 ? .title.bold() : .largeTitle.bold())
+					.foregroundColor(.white)
+				Text("Apply your Swift skills to real-world projects!")
+					.font(width < 910 ? .title3.bold() : .title2.bold())
+					.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+			}
+			Spacer()
+		}
+		.padding(.bottom, 16)
 	}
 	
 	private func projectCategoriesView(for width: CGFloat) -> some View {
@@ -112,7 +155,7 @@ struct ProjectsView: View {
 			ForEach(["All", "Unlocked", "Locked", "Completed"], id: \.self) { category in
 				Button(action: {
 					withAnimation(.easeInOut(duration: 0.3)) {
-						self.selectedCategory = category
+						uiState.selectedCategory = category
 					}
 				}) {
 					HStack(spacing: width < 910 ? 4 : 8) {
@@ -122,7 +165,7 @@ struct ProjectsView: View {
 								"checkmark.seal.fill")
 						.font(.system(size: width < 910 ? 28 : 40))
 						.foregroundStyle(
-							selectedCategory == category
+							uiState.selectedCategory == category
 							? AnyShapeStyle(activeGradient)
 							: AnyShapeStyle(Color.gray)
 						)
@@ -131,10 +174,11 @@ struct ProjectsView: View {
 						Rectangle()
 							.frame(width: 2, height: width < 910 ? 65 : 85)
 							.foregroundStyle(
-								(selectedCategory == category
-								 ? AnyShapeStyle(activeGradient)
-								 : AnyShapeStyle(Color.gray.opacity(0))).opacity(0.4)
+								uiState.selectedCategory == category
+								? AnyShapeStyle(activeGradient)
+								: AnyShapeStyle(Color.clear)
 							)
+							.opacity(uiState.selectedCategory == category ? 0.4 : 0)
 					}
 				}
 				.buttonStyle(.plain)
@@ -144,40 +188,40 @@ struct ProjectsView: View {
 	
 	private func projectsListView(for width: CGFloat) -> some View {
 		VStack(spacing: 20) {
-			if selectedCategory == "All" || selectedCategory == "Unlocked" {
+			if uiState.selectedCategory == "All" || uiState.selectedCategory == "Unlocked" {
 				ProjectSection(
 					title: "Unlocked",
 					projects: unlockedProjects,
 					icon: "circle",
 					iconColor: .gray,
 					isExpanded: $unlockedExpanded,
-					selectedProjectId: $projectId,
+					selectedProjectId: $uiState.selectedProjectId,
 					headerColor: .projectsUnlocked,
 					width: width
 				)
 			}
 			
-			if selectedCategory == "All" || selectedCategory == "Locked" {
+			if uiState.selectedCategory == "All" || uiState.selectedCategory == "Locked" {
 				ProjectSection(
 					title: "Locked",
 					projects: lockedProjects,
 					icon: "lock.circle.fill",
 					iconColor: .gray,
 					isExpanded: $lockedExpanded,
-					selectedProjectId: $projectId,
+					selectedProjectId: $uiState.selectedProjectId,
 					headerColor: .projectsLocked,
 					width: width
 				)
 			}
 			
-			if selectedCategory == "All" || selectedCategory == "Completed" {
+			if uiState.selectedCategory == "All" || uiState.selectedCategory == "Completed" {
 				ProjectSection(
 					title: "Completed",
 					projects: completedProjects,
 					icon: "checkmark.seal.fill",
 					iconColor: .green,
 					isExpanded: $completedExpanded,
-					selectedProjectId: $projectId,
+					selectedProjectId: $uiState.selectedProjectId,
 					headerColor: .projectsCompleted,
 					width: width
 				)
@@ -190,6 +234,7 @@ struct ProjectsView: View {
 		VStack(alignment: .leading, spacing: 9) {
 			Text(project.projectName)
 				.font(.system(size: width < 910 ? 32 : 48).weight(.bold))
+				.foregroundColor(.white)
 				.fixedSize(horizontal: false, vertical: true)
 			
 			HStack(spacing: 0) {
@@ -202,30 +247,25 @@ struct ProjectsView: View {
 			
 			Text(project.projectDescription)
 				.font(width < 910 ? .title3 : .title2)
+				.foregroundColor(.white)
 				.multilineTextAlignment(.leading)
 				.padding(.horizontal, 16)
 				.fixedSize(horizontal: false, vertical: true)
 			
 			if project.levelPrerequisite > userData.highestCompletedLevel {
 				let moduleName = modules[project.levelPrerequisite - 1].moduleName
-				HStack {
-					
-					HStack {
-						Text("Complete ")
-						+ Text(moduleName)
-							.fontWeight(.bold)
-							.underline()
-						+ Text(" to unlock.")
-					}
-					.padding(.vertical, width < 910 ? 18 : 24)
-					.padding(.horizontal, 18)
-					.frame(maxWidth: .infinity, alignment: .center)
-					.font(width < 910 ? .title3 : .title2)
-					.foregroundColor(.projectsButtonOff)
-					.background(.projectsLocked)
-					.clipShape(.rect(cornerRadius: 6))
-				}
-				.buttonStyle(.plain)
+				(Text("Complete ")
+				 + Text(moduleName)
+					.fontWeight(.bold)
+					.underline()
+				 + Text(" to unlock."))
+				.padding(.vertical, width < 910 ? 18 : 24)
+				.padding(.horizontal, 18)
+				.frame(maxWidth: .infinity, alignment: .center)
+				.font(width < 910 ? .title3 : .title2)
+				.foregroundColor(.projectsButtonOff)
+				.background(.projectsLocked)
+				.clipShape(.rect(cornerRadius: 6))
 				.padding(.top, 32)
 				.padding(.horizontal, 16)
 			}
@@ -259,8 +299,230 @@ struct ProjectsView: View {
 			.init(color: .clear, location: 0.97)
 		]), startPoint: .top, endPoint: .bottom)
 	}
+	
+	private func filterButtonsView() -> some View {
+		HStack {
+			ForEach(["All", "Unlocked", "Locked", "Completed"], id: \.self) { category in
+				Button(action: {
+					withAnimation { uiState.selectedCategory = category }
+				}) {
+					Text(category)
+						.fontWeight(.semibold)
+						.padding(.vertical, 8)
+						.frame(maxWidth: .infinity)
+						.background(uiState.selectedCategory == category ? Color.white : Color.clear)
+						.foregroundColor(uiState.selectedCategory == category ? .black : .gray)
+						.cornerRadius(8)
+				}
+				.buttonStyle(.plain)
+			}
+		}
+		.padding(4)
+		.background(Color.black.opacity(0.25))
+		.cornerRadius(10)
+	}
+	
+	@ViewBuilder
+	private func verticalLayoutSection(title: String, projects: [Project], isExpanded: Binding<Bool>, isLocked: Bool, isCompleted: Bool = false) -> some View {
+		if !projects.isEmpty {
+			VStack(spacing: 10) {
+				Button(action: { withAnimation { isExpanded.wrappedValue.toggle() }}) {
+					HStack {
+						Text(title)
+							.font(.title2.bold())
+							.foregroundStyle(.black)
+						Spacer()
+						Image(systemName: "chevron.right")
+							.rotationEffect(.degrees(isExpanded.wrappedValue ? 90 : 0))
+							.font(.title3)
+							.foregroundStyle(.white.opacity(0.85))
+					}
+					.padding(.horizontal)
+					.frame(height: 55)
+					.background(LinearGradient(
+						stops: [
+							.init(color: colorForCategory(title), location: 0.38),
+							.init(color: .gray.opacity(0), location: 1.0)
+						],
+						startPoint: .leading,
+						endPoint: .trailing
+					))
+					.foregroundStyle(.white)
+					.clipShape(.rect(cornerRadius: 8))
+				}
+				.buttonStyle(.plain)
+				
+				if isExpanded.wrappedValue {
+					VStack(spacing: 10) {
+						ForEach(projects) { project in
+							VerticalProjectRow(
+								project: project,
+								isLocked: isLocked,
+								isCompleted: isCompleted,
+								selectedProjectId: $uiState.selectedProjectId,
+								modules: modules,
+								userData: userData,
+								headerColor: colorForCategory(title)
+							)
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private func colorForCategory(_ category: String) -> Color {
+		switch category {
+		case "Unlocked": return .projectsUnlocked
+		case "Locked": return .projectsLocked
+		case "Completed": return .projectsCompleted
+		default: return .gray
+		}
+	}
 }
 
+private struct VerticalProjectRow: View {
+	let project: Project
+	let isLocked: Bool
+	let isCompleted: Bool
+	@Binding var selectedProjectId: String?
+	let modules: [Module]
+	let userData: UserData
+	let headerColor: Color
+	
+	var isExpanded: Bool {
+		selectedProjectId == project.id.uuidString
+	}
+	
+	private var icon: String {
+		isLocked ? "lock.circle.fill" : (isCompleted ? "checkmark.seal.fill" : "circle")
+	}
+	
+	private var iconColor: Color {
+		isLocked ? .gray : (isCompleted ? .green : .gray)
+	}
+	
+	// --- CHANGE: Updated background color logic ---
+	private var rowBackgroundColor: Color {
+		isExpanded ? Color("ProjectsButtonOn") : Color("ProjectsButtonOff")
+	}
+	
+	var body: some View {
+		HStack(alignment: .top, spacing: 12) {
+			VStack {
+				Rectangle()
+					.foregroundStyle(headerColor)
+					.frame(width: 4)
+					.clipShape(.rect(cornerRadius: 6))
+			}
+			.padding(.vertical, 6)
+			
+			VStack(alignment: .leading, spacing: 0) {
+				HStack {
+					ZStack(alignment: .center) {
+						Image(systemName: icon)
+							.font(.title)
+							.foregroundStyle(iconColor)
+							.background(rowBackgroundColor)
+							.padding(.vertical, 2)
+							.frame(width: 20)
+						
+						if isExpanded && icon == "circle" {
+							Circle()
+								.fill(headerColor)
+								.frame(width: 14, height: 14)
+								.padding(.top, 1)
+						}
+					}
+					
+					Text(project.projectName)
+						.fontWeight(.medium)
+						.foregroundColor(.white)
+					
+					Spacer()
+					
+					Image(systemName: "chevron.right")
+						.font(.body.weight(.semibold))
+						.foregroundColor(.gray)
+						.rotationEffect(.degrees(isExpanded ? 90 : 0))
+				}
+				.font(.headline)
+				.padding(.vertical)
+				.padding(.trailing)
+				.contentShape(Rectangle())
+				.onTapGesture {
+					withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+						selectedProjectId = isExpanded ? nil : project.id.uuidString
+					}
+				}
+				
+				if isExpanded {
+					VStack(alignment: .leading, spacing: 15) {
+						DifficultyBadge(difficulty: project.projectDifficulty)
+						
+						Text(project.projectDescription)
+							.font(.subheadline)
+							.foregroundColor(.white.opacity(0.8))
+							.lineSpacing(4)
+							.fixedSize(horizontal: false, vertical: true)
+						
+						if isLocked {
+							let moduleName = modules[project.levelPrerequisite - 1].moduleName
+							(Text("Complete ")
+							 + Text(moduleName)
+								.fontWeight(.bold)
+								.underline()
+							 + Text(" to unlock."))
+							.font(.subheadline)
+							.foregroundColor(.white.opacity(0.7))
+							.padding(.top, 8)
+							
+						} else {
+							NavigationLink(destination: ProjectDetailView(project: project)) {
+								Text(isCompleted ? "View Project" : "Start")
+									.fontWeight(.bold)
+									.foregroundColor(.white)
+									.padding(.vertical, 10)
+									.frame(maxWidth: .infinity)
+									.background(isCompleted ? Color.green.opacity(0.8) : Color.blue)
+									.cornerRadius(8)
+							}
+							.buttonStyle(.plain)
+						}
+					}
+					.padding(.trailing)
+					.padding(.bottom)
+					.transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .top)), removal: .opacity))
+				}
+			}
+		}
+		.padding(.leading, 6)
+		.background(rowBackgroundColor)
+		.cornerRadius(10)
+	}
+}
+
+private struct DifficultyBadge: View {
+	let difficulty: String
+	
+	private var color: Color {
+		switch difficulty {
+		case "Easy": return .green
+		case "Medium": return .yellow
+		default: return .red
+		}
+	}
+	
+	var body: some View {
+		Text(difficulty)
+			.font(.caption.weight(.bold))
+			.padding(.horizontal, 10)
+			.padding(.vertical, 4)
+			.background(color.opacity(0.8))
+			.foregroundColor(.white)
+			.cornerRadius(12)
+	}
+}
 
 struct ProjectSection: View {
 	let title: String
@@ -268,7 +530,7 @@ struct ProjectSection: View {
 	let icon: String
 	let iconColor: Color
 	@Binding var isExpanded: Bool
-	@Binding var selectedProjectId: String
+	@Binding var selectedProjectId: String?
 	let headerColor: Color
 	let width: CGFloat
 	
