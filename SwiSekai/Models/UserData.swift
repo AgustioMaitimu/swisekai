@@ -8,16 +8,13 @@ final class UserData {
 	@Attribute(.unique) var id: UUID
 	var highestCompletedLevel: Int
 	var completedProjects: [UUID]
-	var lastLogin: Date
-	var totalLogin: Int
+	var loginDayKeys: [String]
 	
 	init() {
 		self.id = UUID()
-		self.highestCompletedLevel = 3
+		self.highestCompletedLevel = 0
 		self.completedProjects = []
-		self.lastLogin = .distantPast
-		self.totalLogin = 0
-		self.addMockData()
+		self.loginDayKeys = []
 	}
 	
 	static func shared(in context: ModelContext) -> UserData {
@@ -30,11 +27,6 @@ final class UserData {
 		}
 	}
 	
-	private func addMockData() {
-		completeProject(id: UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!)
-		completeProject(id: UUID(uuidString: "C9B8A7D6-E5F4-A3B2-C1D0-E9F8A7B6C5D4")!)
-	}
-	
 	func completeLevel() {
 		self.highestCompletedLevel += 1
 	}
@@ -43,5 +35,35 @@ final class UserData {
 		if !self.completedProjects.contains(id) {
 			self.completedProjects.append(id)
 		}
+	}
+	
+	private func dayKey(_ date: Date = Date()) -> String {
+		let calendar = Calendar.autoupdatingCurrent
+		let components = calendar.dateComponents([.year, .month, .day], from: date)
+		guard let y = components.year, let m = components.month, let d = components.day else { return "0000-00-00" }
+		let mm = m < 10 ? "0\(m)" : "\(m)"
+		let dd = d < 10 ? "0\(d)" : "\(d)"
+		return "\(y)-\(mm)-\(dd)"
+	}
+	
+	func registerOpen() {
+		let key = dayKey()
+		if !loginDayKeys.contains(key) {
+			loginDayKeys.append(key)
+		}
+	}
+	
+	var last7DayActivity: [String] {
+		let calendar = Calendar.autoupdatingCurrent
+		let today = calendar.startOfDay(for: Date())
+		return (0..<7).reversed().map { offset in
+			let day = calendar.date(byAdding: .day, value: -offset, to: today)!
+			let key = dayKey(day)
+			return loginDayKeys.contains(key) ? "active" : "inactive"
+		}
+	}
+	
+	var totalActiveDays: Int {
+		loginDayKeys.count
 	}
 }
