@@ -14,8 +14,8 @@ struct ModulesView: View {
     var highestCompletedLevel: Int = 2
     
     // MARK: - Wave Settings
-    let waveAmplitude: CGFloat = 270
-    let verticalSpacing: CGFloat = 230
+    let waveAmplitude: CGFloat = 220
+    let verticalSpacing: CGFloat = 130
     
     var body: some View {
         NavigationStack {
@@ -41,7 +41,7 @@ struct ModulesView: View {
                     )
                     
                     let lastYPosition = positions.last?.y ?? 0
-                    let totalHeight = lastYPosition + verticalSpacing * 2
+                    let totalHeight = lastYPosition + verticalSpacing * 2.5
                     
                     ZStack {
                         GeometryReader { geo in
@@ -63,14 +63,18 @@ struct ModulesView: View {
                                 .buttonStyle(.plain)
                                 .position(
                                     x: geo.size.width / 2,
-                                    y: finalYOffset + 100
+                                    y: finalYOffset + 240
                                 )
                             }
                         }
-                        .offset(y: -40)
+                        .offset(y: -30)
+                        
+                  
                     }
                     .frame(height: totalHeight)
+                    .padding(.bottom, 200)
                 }
+                
             }
             .background(Color("BackgroundColor"))
             .navigationTitle("Learn")
@@ -173,6 +177,10 @@ struct ModulesView: View {
                 let nextModuleY = positions[i + 1].y
                 let quizY = (modulePosition.y + nextModuleY) / 2
                 
+                result.append((y: quizY, isPeak: false, isQuiz: true, index: i))
+            } else {
+                // Add quiz for the last module
+                let quizY = modulePosition.y + (verticalSpacing * 1.5) // Adjust this value for spacing
                 result.append((y: quizY, isPeak: false, isQuiz: true, index: i))
             }
         }
