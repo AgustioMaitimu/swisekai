@@ -13,7 +13,7 @@ final class UserData {
 	
 	init() {
 		self.id = UUID()
-		self.highestCompletedLevel = 2
+		self.highestCompletedLevel = 3
 		self.completedProjects = []
 		self.lastLogin = .distantPast
 		self.totalLogin = 0
@@ -32,7 +32,7 @@ final class UserData {
 	
 	private func addMockData() {
 		completeProject(id: UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!)
-		completeProject(id: UUID(uuidString: "0C8D23A7-522A-44C3-A33B-32825B3E144C")!)
+		completeProject(id: UUID(uuidString: "C9B8A7D6-E5F4-A3B2-C1D0-E9F8A7B6C5D4")!)
 	}
 	
 	func completeLevel() {

@@ -80,9 +80,40 @@ struct ProjectsView: View {
 		}
 	}
 	
+	private func headerView(for width: CGFloat) -> some View {
+		HStack {
+			VStack(alignment: .leading, spacing: 10) {
+				Text("Projects")
+					.font(width < 910 ? .title.bold() : .largeTitle.bold())
+					.foregroundColor(.white)
+				Text("Apply your Swift skills to real-world projects!")
+					.font(width < 910 ? .title3.bold() : .title2.bold())
+					.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+			}
+			Spacer()
+		}
+		.padding(.bottom, 16)
+	}
+	
+	private func horizontalLayout(for width: CGFloat) -> some View {
+		HStack(alignment: .top, spacing: width < 910 ? 12 : 20) {
+			horizontalCategoriesView(for: width)
+			ScrollView(showsIndicators: false) {
+				horizontalListView(for: width)
+			}
+			.frame(maxWidth: 500)
+			.mask(linearGradientMask)
+			
+			if let projectId = uiState.selectedProjectId, let project = projects.first(where: { $0.id.uuidString == projectId }) {
+				horizontalDetailView(for: project, width: width)
+					.frame(maxWidth: 400)
+			}
+		}
+	}
+	
 	private func verticalLayout(for width: CGFloat) -> some View {
 		VStack(spacing: 20) {
-			filterButtonsView()
+			verticalCategoriesView()
 			
 			ScrollView(.vertical, showsIndicators: false) {
 				VStack(alignment: .leading, spacing: 20) {
@@ -119,38 +150,7 @@ struct ProjectsView: View {
 		}
 	}
 	
-	private func horizontalLayout(for width: CGFloat) -> some View {
-		HStack(alignment: .top, spacing: width < 910 ? 12 : 20) {
-			projectCategoriesView(for: width)
-			ScrollView(showsIndicators: false) {
-				projectsListView(for: width)
-			}
-			.frame(maxWidth: 500)
-			.mask(linearGradientMask)
-			
-			if let projectId = uiState.selectedProjectId, let project = projects.first(where: { $0.id.uuidString == projectId }) {
-				projectDetailView(for: project, width: width)
-					.frame(maxWidth: 400)
-			}
-		}
-	}
-	
-	private func headerView(for width: CGFloat) -> some View {
-		HStack {
-			VStack(alignment: .leading, spacing: 10) {
-				Text("Projects")
-					.font(width < 910 ? .title.bold() : .largeTitle.bold())
-					.foregroundColor(.white)
-				Text("Apply your Swift skills to real-world projects!")
-					.font(width < 910 ? .title3.bold() : .title2.bold())
-					.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-			}
-			Spacer()
-		}
-		.padding(.bottom, 16)
-	}
-	
-	private func projectCategoriesView(for width: CGFloat) -> some View {
+	private func horizontalCategoriesView(for width: CGFloat) -> some View {
 		VStack(alignment: .center, spacing: 0) {
 			ForEach(["All", "Unlocked", "Locked", "Completed"], id: \.self) { category in
 				Button(action: {
@@ -186,10 +186,10 @@ struct ProjectsView: View {
 		}
 	}
 	
-	private func projectsListView(for width: CGFloat) -> some View {
+	private func horizontalListView(for width: CGFloat) -> some View {
 		VStack(spacing: 20) {
 			if uiState.selectedCategory == "All" || uiState.selectedCategory == "Unlocked" {
-				ProjectSection(
+				HorizontalProjectSection(
 					title: "Unlocked",
 					projects: unlockedProjects,
 					icon: "circle",
@@ -202,7 +202,7 @@ struct ProjectsView: View {
 			}
 			
 			if uiState.selectedCategory == "All" || uiState.selectedCategory == "Locked" {
-				ProjectSection(
+				HorizontalProjectSection(
 					title: "Locked",
 					projects: lockedProjects,
 					icon: "lock.circle.fill",
@@ -215,7 +215,7 @@ struct ProjectsView: View {
 			}
 			
 			if uiState.selectedCategory == "All" || uiState.selectedCategory == "Completed" {
-				ProjectSection(
+				HorizontalProjectSection(
 					title: "Completed",
 					projects: completedProjects,
 					icon: "checkmark.seal.fill",
@@ -230,7 +230,7 @@ struct ProjectsView: View {
 		.padding(.bottom, 100)
 	}
 	
-	private func projectDetailView(for project: Project, width: CGFloat) -> some View {
+	private func horizontalDetailView(for project: Project, width: CGFloat) -> some View {
 		VStack(alignment: .leading, spacing: 9) {
 			Text(project.projectName)
 				.font(.system(size: width < 910 ? 32 : 48).weight(.bold))
@@ -300,7 +300,7 @@ struct ProjectsView: View {
 		]), startPoint: .top, endPoint: .bottom)
 	}
 	
-	private func filterButtonsView() -> some View {
+	private func verticalCategoriesView() -> some View {
 		HStack {
 			ForEach(["All", "Unlocked", "Locked", "Completed"], id: \.self) { category in
 				Button(action: {
@@ -381,6 +381,116 @@ struct ProjectsView: View {
 	}
 }
 
+struct HorizontalProjectSection: View {
+	let title: String
+	let projects: [Project]
+	let icon: String
+	let iconColor: Color
+	@Binding var isExpanded: Bool
+	@Binding var selectedProjectId: String?
+	let headerColor: Color
+	let width: CGFloat
+	
+	var body: some View {
+		VStack(spacing: 10) {
+			Button(action: { withAnimation(.easeInOut(duration: 0.2)) { isExpanded.toggle() } }) {
+				HStack {
+					Text(title)
+						.font(width < 910 ? .title2.bold() : .title.bold())
+						.foregroundStyle(.black)
+					Spacer()
+					Image(systemName: "chevron.right")
+						.rotationEffect(.degrees(isExpanded ? 90 : 0))
+						.font(width < 910 ? .title3 : .title2)
+						.foregroundStyle(.white.opacity(0.85))
+				}
+				.padding(.horizontal)
+				.frame(height: 55)
+				.background(LinearGradient(
+					stops: [
+						.init(color: headerColor, location: 0.38),
+						.init(color: .gray.opacity(0), location: 1.0)
+					],
+					startPoint: .leading,
+					endPoint: .trailing
+				))
+				.foregroundStyle(.white)
+				.clipShape(.rect(cornerRadius: 8))
+			}
+			.buttonStyle(.plain)
+			
+			VStack(spacing: 10) {
+				if isExpanded {
+					ForEach(projects) { project in
+						HorizontalProjectRow(
+							project: project,
+							icon: icon,
+							iconColor: iconColor,
+							isSelected: selectedProjectId == project.id.uuidString,
+							headerColor: headerColor,
+							width: width
+						)
+						.onTapGesture {
+							withAnimation(.easeIn(duration: 0.1)) {
+								selectedProjectId = project.id.uuidString
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+struct HorizontalProjectRow: View {
+	let project: Project
+	let icon: String
+	let iconColor: Color
+	let isSelected: Bool
+	let headerColor: Color
+	let width: CGFloat
+	
+	private var rowBackgroundColor: Color {
+		isSelected ? Color("ProjectsButtonOn") : Color("ProjectsButtonOff")
+	}
+	
+	var body: some View {
+		HStack(spacing: 12) {
+			Rectangle()
+				.foregroundStyle(headerColor)
+				.frame(width: 4, height: 54)
+				.clipShape(.rect(cornerRadius: 6))
+				.padding(.vertical, 6)
+			
+			ZStack(alignment: .center) {
+				Image(systemName: icon)
+					.font(width < 910 ? .title : .largeTitle)
+					.foregroundStyle(iconColor)
+					.background(rowBackgroundColor)
+					.padding(.vertical, 2)
+					.frame(width: 20)
+				
+				if isSelected && icon == "circle" {
+					Circle()
+						.fill(headerColor)
+						.frame(width: 14, height: 14)
+						.padding(.top, 1)
+				}
+			}
+			
+			Text(project.projectName)
+				.foregroundStyle(.white)
+				.font(width < 910 ? .title2 : .title)
+			
+			Spacer()
+		}
+		.padding(.leading, 6)
+		.background(rowBackgroundColor)
+		.clipShape(.rect(cornerRadius: 10))
+	}
+}
+
 private struct VerticalProjectRow: View {
 	let project: Project
 	let isLocked: Bool
@@ -402,7 +512,6 @@ private struct VerticalProjectRow: View {
 		isLocked ? .gray : (isCompleted ? .green : .gray)
 	}
 	
-	// --- CHANGE: Updated background color logic ---
 	private var rowBackgroundColor: Color {
 		isExpanded ? Color("ProjectsButtonOn") : Color("ProjectsButtonOff")
 	}
@@ -521,115 +630,5 @@ private struct DifficultyBadge: View {
 			.background(color.opacity(0.8))
 			.foregroundColor(.white)
 			.cornerRadius(12)
-	}
-}
-
-struct ProjectSection: View {
-	let title: String
-	let projects: [Project]
-	let icon: String
-	let iconColor: Color
-	@Binding var isExpanded: Bool
-	@Binding var selectedProjectId: String?
-	let headerColor: Color
-	let width: CGFloat
-	
-	var body: some View {
-		VStack(spacing: 10) {
-			Button(action: { withAnimation(.easeInOut(duration: 0.2)) { isExpanded.toggle() } }) {
-				HStack {
-					Text(title)
-						.font(width < 910 ? .title2.bold() : .title.bold())
-						.foregroundStyle(.black)
-					Spacer()
-					Image(systemName: "chevron.right")
-						.rotationEffect(.degrees(isExpanded ? 90 : 0))
-						.font(width < 910 ? .title3 : .title2)
-						.foregroundStyle(.white.opacity(0.85))
-				}
-				.padding(.horizontal)
-				.frame(height: 55)
-				.background(LinearGradient(
-					stops: [
-						.init(color: headerColor, location: 0.38),
-						.init(color: .gray.opacity(0), location: 1.0)
-					],
-					startPoint: .leading,
-					endPoint: .trailing
-				))
-				.foregroundStyle(.white)
-				.clipShape(.rect(cornerRadius: 8))
-			}
-			.buttonStyle(.plain)
-			
-			VStack(spacing: 10) {
-				if isExpanded {
-					ForEach(projects) { project in
-						ProjectRow(
-							project: project,
-							icon: icon,
-							iconColor: iconColor,
-							isSelected: selectedProjectId == project.id.uuidString,
-							headerColor: headerColor,
-							width: width
-						)
-						.onTapGesture {
-							withAnimation(.easeIn(duration: 0.1)) {
-								selectedProjectId = project.id.uuidString
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-
-struct ProjectRow: View {
-	let project: Project
-	let icon: String
-	let iconColor: Color
-	let isSelected: Bool
-	let headerColor: Color
-	let width: CGFloat
-	
-	private var rowBackgroundColor: Color {
-		isSelected ? Color("ProjectsButtonOn") : Color("ProjectsButtonOff")
-	}
-	
-	var body: some View {
-		HStack(spacing: 12) {
-			Rectangle()
-				.foregroundStyle(headerColor)
-				.frame(width: 4, height: 54)
-				.clipShape(.rect(cornerRadius: 6))
-				.padding(.vertical, 6)
-			
-			ZStack(alignment: .center) {
-				Image(systemName: icon)
-					.font(width < 910 ? .title : .largeTitle)
-					.foregroundStyle(iconColor)
-					.background(rowBackgroundColor)
-					.padding(.vertical, 2)
-					.frame(width: 20)
-				
-				if isSelected && icon == "circle" {
-					Circle()
-						.fill(headerColor)
-						.frame(width: 14, height: 14)
-						.padding(.top, 1)
-				}
-			}
-			
-			Text(project.projectName)
-				.foregroundStyle(.white)
-				.font(width < 910 ? .title2 : .title)
-			
-			Spacer()
-		}
-		.padding(.leading, 6)
-		.background(rowBackgroundColor)
-		.clipShape(.rect(cornerRadius: 10))
 	}
 }

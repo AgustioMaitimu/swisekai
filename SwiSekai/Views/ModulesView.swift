@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 // MARK: - Main Level View
 struct ModulesView: View {
     // MARK: - Data
+	
     var chapters = DataManager.shared.chapterCollection.chapters
     var highestCompletedLevel: Int = 2
     
