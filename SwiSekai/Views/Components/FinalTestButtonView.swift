@@ -9,7 +9,7 @@ enum FinalTestStatus {
 
 
 struct FinalTestButton: View {
-    @State private var status: FinalTestStatus = .available //placeholder, change later when data is available
+    let status: FinalTestStatus 
     @State private var isPressed = false
     
     var body: some View {
@@ -32,6 +32,14 @@ struct FinalTestButton: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)
                 .frame(width: 139, alignment: .top)
+                .padding(.bottom, 50)
+               
+            
+            Rectangle()
+              .foregroundColor(.clear)
+              .frame(width: 453, height: 2)
+              .background(.white.opacity(0.2))
+              
         }
     }
     

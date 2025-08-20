@@ -12,6 +12,7 @@ struct MultipleChoiceView: View {
     
     // The view now accepts a Module
     let module: Module
+    let userData: UserData
     
     // State to track the current question index
     @State private var currentQuestionIndex = 0
@@ -107,6 +108,10 @@ struct MultipleChoiceView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .sheet(isPresented: $isQuizFinished, onDismiss: {
+                if module.moduleNumber == userData.highestCompletedLevel {
+                    userData.highestCompletedLevel += 1
+                }
+                
                 dismiss()
                 dismiss()
             }) {
