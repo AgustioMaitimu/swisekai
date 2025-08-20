@@ -13,7 +13,7 @@ final class UserData {
 	
 	init() {
 		self.id = UUID()
-		self.highestCompletedLevel = 2
+		self.highestCompletedLevel = 5
 		self.completedProjects = []
 		self.lastLogin = .distantPast
 		self.totalLogin = 0
