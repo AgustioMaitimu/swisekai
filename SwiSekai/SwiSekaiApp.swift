@@ -1,4 +1,4 @@
-// SwiSekaiApp.swift
+// SwiSekai/SwiSekaiApp.swift
 
 import SwiftUI
 import SwiftData
@@ -17,29 +17,14 @@ struct SwiSekaiApp: App {
 	
 	var body: some Scene {
 		WindowGroup {
-//						ProjectsView()
-//							.onAppear(perform: checkLogin)
-//							.background(.mainBackground)
-			//			ContentView()
-//							.onAppear(perform: checkLogin)
-						test_balls()
-							.background(.mainBackground)
-							.onAppear(perform: checkLogin)
+			test_balls()
+				.background(.mainBackground)
+				.onAppear() {
+					let context = modelContainer.mainContext
+					let userData = UserData.shared(in: context)
+					userData.registerOpen()
+				}
 		}
 		.modelContainer(modelContainer)
-	}
-	
-	func checkLogin() {
-		let context = modelContainer.mainContext
-		let userData = UserData.shared(in: context)
-		
-		if !Calendar.current.isDateInToday(userData.lastLogin) {
-			userData.totalLogin += 1
-			userData.lastLogin = Date()
-			
-			print("Login counted for today! Total login days: \(userData.totalLogin)")
-		} else {
-			print("Already logged in today. Total login days: \(userData.totalLogin)")
-		}
 	}
 }
