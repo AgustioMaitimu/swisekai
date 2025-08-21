@@ -9,6 +9,10 @@ import SwiftData
 import SwiftUI
 import SwiftData
 
+struct ModuleScrollID: Hashable {
+    let id: Int
+}
+
 // MARK: - Main Level View
 struct ModulesView: View {
     // MARK: - Data
@@ -94,7 +98,8 @@ struct ModulesView: View {
                     withAnimation {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 withAnimation(.easeInOut(duration: 1)) {
-                                    proxy.scrollTo(currentLevel, anchor: .bottom)
+                                    let anchor: UnitPoint = currentLevel < 3 ? .top : .center
+                                    proxy.scrollTo(ModuleScrollID(id: currentLevel), anchor: anchor)
                                 }
                             }
                     }
@@ -163,7 +168,7 @@ struct ModulesView: View {
                         status: status
                     ))
                     .disabled(status == .unavailable)
-                    .id(module.moduleNumber)
+                    .id(ModuleScrollID(id: module.moduleNumber))
             )
             
             return content
