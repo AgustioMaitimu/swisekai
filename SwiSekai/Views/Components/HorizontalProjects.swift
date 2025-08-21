@@ -26,13 +26,13 @@ struct HorizontalProjects: View {
 	
 	private var unlockedProjects: [Project] {
 		projects
-			.filter { $0.levelPrerequisite <= userData.highestCompletedLevel && !userData.completedProjects.contains($0.id) }
+			.filter { $0.levelPrerequisite <= userData.currentLevel && !userData.completedProjects.contains($0.id) }
 			.sorted { $0.projectDifficulty < $1.projectDifficulty }
 	}
 	
 	private var lockedProjects: [Project] {
 		projects
-			.filter { $0.levelPrerequisite > userData.highestCompletedLevel }
+			.filter { $0.levelPrerequisite > userData.currentLevel }
 			.sorted { $0.projectDifficulty > $1.projectDifficulty }
 	}
 	
@@ -162,7 +162,7 @@ struct HorizontalProjects: View {
 				.padding(.horizontal, 16)
 				.fixedSize(horizontal: false, vertical: true)
 			
-			if project.levelPrerequisite > userData.highestCompletedLevel {
+			if project.levelPrerequisite > userData.currentLevel {
 				let moduleName = modules[project.levelPrerequisite - 1].moduleName
 				(Text("Complete ")
 				 + Text(moduleName)
@@ -180,7 +180,7 @@ struct HorizontalProjects: View {
 				.padding(.horizontal, 16)
 			}
 			
-			if project.levelPrerequisite <= userData.highestCompletedLevel {
+			if project.levelPrerequisite <= userData.currentLevel {
 				NavigationLink(destination: ProjectDetailView(project: project)) {
 					HStack {
 						Spacer()
