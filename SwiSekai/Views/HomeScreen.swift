@@ -55,250 +55,255 @@ struct HomeScreen: View {
 	
 	var body: some View {
 		GeometryReader { geometry in
-			ScrollView (showsIndicators: false){
-				
-				Text("Home")
-					.font(.largeTitle)
-					.fontWeight(.bold)
-					.foregroundColor(.white)
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.padding(.bottom, 5)
-				
-				// Title 2/Emphasized
-				Text("Apply your Swift skills by building real-world application")
-					.font(
-						Font.custom("Inter", size: 17)
-							.weight(.bold)
-					)
-					.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.padding(.bottom, 35)
-				
-                
-              
-                
-				Text("For you")
-					.font(.title2)
-					.fontWeight(.bold)
-					.foregroundColor(.white)
-					.padding(.bottom, 20)
-					.frame(maxWidth: .infinity, alignment: .leading)
-				
-                
-                HStack  {
-                    // card thingy
-                    VStack(alignment: .leading) {
-                                
-                                HStack{
-                                    VStack{
-                                        Text("Chapter 1")
-                                          .font(
-                                            Font.custom("SF Pro", size: 20)
-                                              .weight(.bold)
-                                          )
-                                          .foregroundColor(.white)
-                                          .frame(maxWidth: .infinity, alignment: .leading)
-                                        
-                                        Text("Swift Data Types")
-                                          .font(
-                                            Font.custom("SF Pro", size: 48)
-                                              .weight(.bold)
-                                          )
-                                          .foregroundColor(.white)
-                                          .frame(maxWidth: .infinity, alignment: .leading)
-                                        
-                                        Text("Variables & String")
-                                          .font(
-                                            Font.custom("SF Pro", size: 32)
-                                              .weight(.medium)
-                                          )
-                                          .foregroundColor(.white)
-                                          .frame(maxWidth: .infinity, alignment: .leading)
-                                        
-                                        
-                                    }
-                                    Image("logoswift")
-                                        .resizable()
-                                        .frame(width: 148, height: 148)
-                                }.padding(.bottom, 40)
-                              
-                               
-                                
-                                HStack{
-                                    Text("Continue")
-                                      .font(
-                                        Font.custom("SF Pro", size: 20)
-                                          .weight(.medium)
-                                      )
-                                      .multilineTextAlignment(.center)
-                                      .foregroundColor(.white)
-                                    
-                                      .frame(width: 150, height: 54)
-                                     
-                                      .background(Color.blue)
-                                      .cornerRadius(40)
-                                      .frame(maxWidth: .infinity, alignment: .trailing)
-                                }
-                               
-                            } .padding(30)
-                            .frame(width: 641, height: 328)
-                                .background(
-                                LinearGradient(
-                                stops: [
-                                Gradient.Stop(color: Color(red: 0.98, green: 0.63, blue: 0.25), location: 0.00),
-                                Gradient.Stop(color: Color(red: 0.94, green: 0.27, blue: 0.2), location: 1.00),
-                                ],
-                                startPoint: UnitPoint(x: 0.5, y: 0),
-                                endPoint: UnitPoint(x: 0.5, y: 1)
-                                )
-                                )
-                                .cornerRadius(20)
+            VStack {
+                ScrollView (showsIndicators: false){
                     
-                    //projetcs
-                    VStack{
-                        
-                        VStack{
-                            Text("Projects")
-                                .font(
-                                    Font.custom("SF Pro", size: 20)
-                                        .weight(.bold)
+                    Text("Home")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 5)
+                    
+                    // Title 2/Emphasized
+                    Text("Apply your Swift skills by building real-world application")
+                        .font(
+                            Font.custom("Inter", size: 17)
+                                .weight(.bold)
+                        )
+                        .foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 35)
+                    
+                    
+                    
+                    
+                    Text("For you")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    
+                    HStack  {
+                        // card thingy
+                        VStack(alignment: .leading) {
+                            
+                            HStack{
+                                VStack{
+                                    Text("Chapter 1")
+                                        .font(
+                                            Font.custom("SF Pro", size: 20)
+                                                .weight(.bold)
+                                        )
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Text("Swift Data Types")
+                                        .font(
+                                            Font.custom("SF Pro", size: 48)
+                                                .weight(.bold)
+                                        )
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Text("Variables & String")
+                                        .font(
+                                            Font.custom("SF Pro", size: 32)
+                                                .weight(.medium)
+                                        )
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    
+                                }
+                                Image("logoswift")
+                                    .resizable()
+                                    .frame(width: 148, height: 148)
+                            }.padding(.bottom, 40)
+                            
+                            
+                            
+                            HStack{
+                                Text("Continue")
+                                    .font(
+                                        Font.custom("SF Pro", size: 20)
+                                            .weight(.medium)
+                                    )
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                                
+                                    .frame(width: 150, height: 54)
+                                
+                                    .background(Color.blue)
+                                    .cornerRadius(40)
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
+                            
+                        } .padding(30)
+                            .frame(width: 641, height: 328)
+                            .background(
+                                LinearGradient(
+                                    stops: [
+                                        Gradient.Stop(color: Color(red: 0.98, green: 0.63, blue: 0.25), location: 0.00),
+                                        Gradient.Stop(color: Color(red: 0.94, green: 0.27, blue: 0.2), location: 1.00),
+                                    ],
+                                    startPoint: UnitPoint(x: 0.5, y: 0),
+                                    endPoint: UnitPoint(x: 0.5, y: 1)
                                 )
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 30)
+                            )
+                            .cornerRadius(20)
+                        
+                        //projetcs
+                        VStack{
+                            
+                            VStack{
+                                Text("Projects")
+                                    .font(
+                                        Font.custom("SF Pro", size: 20)
+                                            .weight(.bold)
+                                    )
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 30)
+                                
+                            }
+                            VStack(spacing: 16){
+                                HStack{
+                                    Text("Calculator")
+                                        .font(
+                                            Font.custom("SF Pro", size: 20)
+                                                .weight(.medium))
+                                        .foregroundStyle(.black)
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.black)
+                                        .padding(.trailing, 10)
+                                }.padding()
+                                    .frame(width: 314,height: 42, alignment: .leading)
+                                    .background(Color(red: 0.91, green: 0.91, blue: 0.91))
+                                    .cornerRadius(100)
+                                
+                                
+                                HStack{
+                                    Text("Algebra Abacus")
+                                        .font(
+                                            Font.custom("SF Pro", size: 20)
+                                                .weight(.medium))
+                                        .foregroundStyle(.black)
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.black)
+                                        .padding(.trailing, 10)
+                                }.padding()
+                                    .frame(width: 314,height: 42, alignment: .leading)
+                                    .background(Color(red: 0.91, green: 0.91, blue: 0.91))
+                                    .cornerRadius(100)
+                                
+                                HStack{
+                                    Text("J Word Pass")
+                                        .font(
+                                            Font.custom("SF Pro", size: 20)
+                                                .weight(.medium))
+                                        .foregroundStyle(.black)
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.black)
+                                        .padding(.trailing, 10)
+                                }.padding()
+                                    .frame(width: 314,height: 42, alignment: .leading)
+                                    .background(Color(red: 0.91, green: 0.91, blue: 0.91))
+                                    .cornerRadius(100)
+                                
+                            }.padding(.bottom, 30)
+                            HStack(spacing:40 ){
+                                Text("25%")
+                                    .font(Font.custom("SF Pro", size: 16))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth:.infinity, alignment: .leading)
+                                    .padding(.leading, 10)
+                                
+                                Text("12/48")
+                                    .font(Font.custom("SF Pro", size: 18))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth:.infinity, alignment: .leading)
+                                
+                                Text("All projects")
+                                    .font(
+                                        Font.custom("SF Pro", size: 20)
+                                            .weight(.medium)
+                                    )
+                                    .foregroundColor(.white)
+                                    .frame(width: 170, height: 54)
+                                    .background(Color(red: 0.04, green: 0.52, blue: 1))
+                                    .cornerRadius(100)
+                                
+                                
+                            }.frame(width: 314)
+                            
+                            
                             
                         }
-                        VStack(spacing: 16){
-                        HStack{
-                            Text("Calculator")
-                                .font(
-                                    Font.custom("SF Pro", size: 20)
-                                        .weight(.medium))
-                                .foregroundStyle(.black)
-                                Spacer()
-                                
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.black)
-                                .padding(.trailing, 10)
-                        }.padding()
-                            .frame(width: 314,height: 42, alignment: .leading)
-                            .background(Color(red: 0.91, green: 0.91, blue: 0.91))
-                            .cornerRadius(100)
+                        .frame(width:364, height: 328)
                         
-                       
-                            HStack{
-                                Text("Algebra Abacus")
-                                    .font(
-                                        Font.custom("SF Pro", size: 20)
-                                            .weight(.medium))
-                                    .foregroundStyle(.black)
-                                    Spacer()
-                                    
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.black)
-                                    .padding(.trailing, 10)
-                            }.padding()
-                                .frame(width: 314,height: 42, alignment: .leading)
-                                .background(Color(red: 0.91, green: 0.91, blue: 0.91))
-                                .cornerRadius(100)
-                            
-                            HStack{
-                                Text("J Word Pass")
-                                    .font(
-                                        Font.custom("SF Pro", size: 20)
-                                            .weight(.medium))
-                                    .foregroundStyle(.black)
-                                    Spacer()
-                                    
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.black)
-                                    .padding(.trailing, 10)
-                            }.padding()
-                                .frame(width: 314,height: 42, alignment: .leading)
-                                .background(Color(red: 0.91, green: 0.91, blue: 0.91))
-                                .cornerRadius(100)
-                            
-                        }.padding(.bottom, 30)
-                        HStack(spacing:40 ){
-                            Text("25%")
-                                .font(Font.custom("SF Pro", size: 16))
-                                .foregroundColor(.white)
-                                .frame(maxWidth:.infinity, alignment: .leading)
-                                .padding(.leading, 10)
-                            
-                            Text("12/48")
-                                .font(Font.custom("SF Pro", size: 18))
-                                .foregroundColor(.white)
-                                .frame(maxWidth:.infinity, alignment: .leading)
-
-                            Text("All projects")
-                                .font(
-                                    Font.custom("SF Pro", size: 20)
-                                        .weight(.medium)
-                                )
-                                .foregroundColor(.white)
-                                .frame(width: 170, height: 54)
-                                .background(Color(red: 0.04, green: 0.52, blue: 1))
-                                .cornerRadius(100)
-                            
-                            
-                        }.frame(width: 314)
-                         
-
+                        
+                        
+                        
                         
                     }
-                    .frame(width:364, height: 328)
+                    .padding(.bottom, 50)
                     
-                       
-                   
-                        
+                    Text("Progress")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
-                }
-                .padding(.bottom, 50)
-                
-                Text("Progress")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-				// Adaptive grid for "For you" cards
-				LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
-					progressCard()
-					activeLearningCard()
-				}
-				.padding(.bottom, 35)
-				
-				
-				Text("Resources")
-					.font(.title2)
-					.fontWeight(.bold)
-					.foregroundColor(.white)
-					.padding(.bottom, 20)
-					.frame(maxWidth: .infinity, alignment: .leading)
-				
-				// Adaptive grid for "Resources" cards
-                let rows = [
-                    GridItem()
-                ]
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHGrid(rows: rows, spacing: 50) {
-                        resourceCard()
-                        resourceCard()
-                        resourceCard()
-                        resourceCard()
-                        // Add more resourceCard() here
+                    // Adaptive grid for "For you" cards
+                    LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
+                        progressCard()
+                        activeLearningCard()
                     }
-                    .padding()
+                    .padding(.bottom, 35)
+                    
+                    
+                    Text("Resources")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    // Adaptive grid for "Resources" cards
+                    let rows = [
+                        GridItem()
+                    ]
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHGrid(rows: rows, spacing: 50) {
+                            resourceCard()
+                            resourceCard()
+                            resourceCard()
+                            resourceCard()
+                            // Add more resourceCard() here
+                        }
+                        .padding()
+                    }
+                    
+                    
                 }
-
-				
-			}
-			.padding(.horizontal, 100)
-			.padding(.vertical, 20)
-			.background(Color.mainBackground)
+               
+            }
+            .padding(.horizontal, 100)
+            .padding(.vertical, 20)
+            .background(Color.mainBackground)
+            
+          
             
 		}
 	}
