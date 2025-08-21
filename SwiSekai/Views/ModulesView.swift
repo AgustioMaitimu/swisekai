@@ -41,7 +41,7 @@ struct ModulesView: View {
                     ForEach(chapters.indices, id: \.self) { chapterIndex in
                         let chapter = chapters[chapterIndex]
                         
-                        ChapterButton(chapterName: chapter.chapterName)
+                        ChapterButton(chapterName: chapter.chapterName, status: chapterStatus(for: chapter))
                         
                         // ✅ CORRECT: The ZStack is now the only item here.
                         ZStack {
@@ -110,23 +110,6 @@ struct ModulesView: View {
         }
     }
     
-    private func finalTestStatus(for chapter: Chapter) -> FinalTestStatus {
-        // Safely get the number of the last module in the chapter.
-        // Use a guard to handle chapters with no modules.
-        guard let lastModuleNumberInChapter = chapter.modules.last?.moduleNumber, lastModuleNumberInChapter != 0 else {
-            return .unavailable
-        }
-        
-        // Now the logic is much simpler
-        if currentLevel > lastModuleNumberInChapter {
-            return .completed
-        } else if currentLevel >= lastModuleNumberInChapter {
-            return .available
-        } else {
-            return .unavailable
-        }
-    }
-    
     private func positionView(
         for pos: (y: CGFloat, isPeak: Bool, isQuiz: Bool, index: Int),
         in chapter: Chapter,
@@ -179,6 +162,20 @@ struct ModulesView: View {
         }
     }
     
+    // MARK: - Buttons status
+    private func chapterStatus(for chapter: Chapter) -> ChapterStatus {
+        guard let lastModuleNumberInChapter = chapter.modules.first?.moduleNumber, lastModuleNumberInChapter != 0 else {
+            return .unavailable
+        }
+        
+        // Now the logic is much simpler
+        if currentLevel >= lastModuleNumberInChapter {
+            return .available
+        } else {
+            return .unavailable
+        }
+    }
+    
     private func moduleStatus(for module: Module) -> ModuleStatus {
         if module.moduleNumber < currentLevel {
             return .finished
@@ -198,6 +195,23 @@ struct ModulesView: View {
             return .unavailable
         }
         
+    }
+    
+    private func finalTestStatus(for chapter: Chapter) -> FinalTestStatus {
+        // Safely get the number of the last module in the chapter.
+        // Use a guard to handle chapters with no modules.
+        guard let lastModuleNumberInChapter = chapter.modules.last?.moduleNumber, lastModuleNumberInChapter != 0 else {
+            return .unavailable
+        }
+        
+        // Now the logic is much simpler
+        if currentLevel > lastModuleNumberInChapter {
+            return .completed
+        } else if currentLevel >= lastModuleNumberInChapter {
+            return .available
+        } else {
+            return .unavailable
+        }
     }
     
     private func peakTroughPositions(for modules: [Module], waveFrequency: CGFloat) -> [(y: CGFloat, isPeak: Bool)] {
