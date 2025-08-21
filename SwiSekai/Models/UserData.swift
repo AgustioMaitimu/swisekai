@@ -12,7 +12,7 @@ final class UserData {
 	
 	init() {
 		self.id = UUID()
-		self.highestCompletedLevel = 0
+		self.highestCompletedLevel = 1
 		self.completedProjects = []
 		self.loginDayKeys = []
 	}

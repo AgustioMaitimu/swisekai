@@ -12,7 +12,7 @@ import SwiftData
 // MARK: - Main Level View
 struct ModulesView: View {
     // MARK: - Data
-	
+    
     var chapters = DataManager.shared.chapterCollection.chapters
     @Environment(\.modelContext) private var modelContext
     @Query private var userDataItems: [UserData]
@@ -30,65 +30,75 @@ struct ModulesView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                Spacer().frame(height: 30)
-                
-                ForEach(chapters.indices, id: \.self) { chapterIndex in
-                    let chapter = chapters[chapterIndex]
+            ScrollViewReader { proxy in
+                ScrollView {
+                    Spacer().frame(height: 30)
                     
-                    ChapterButton(chapterName: chapter.chapterName)
-                    
-                    // ✅ CORRECT: The ZStack is now the only item here.
-                    ZStack {
-                        // ✅ All calculations are moved INSIDE the ZStack.
-                        let itemCount = chapter.modules.count
-                        let tempHeightForFreq = verticalSpacing * CGFloat(max(itemCount + 2, 1))
-                        let cycleCount = CGFloat(max((itemCount - 1) / 2, 1))
-                        let waveFrequency = cycleCount * (2 * CGFloat.pi) / (tempHeightForFreq / verticalSpacing)
+                    ForEach(chapters.indices, id: \.self) { chapterIndex in
+                        let chapter = chapters[chapterIndex]
                         
-                        let positions = insertQuizzes(
-                            between: peakTroughPositions(
-                                for: chapter.modules,
-                                waveFrequency: waveFrequency
-                            ),
-                            verticalSpacing: verticalSpacing
-                        )
+                        ChapterButton(chapterName: chapter.chapterName)
                         
-                        let lastYPosition = positions.last?.y ?? 0
-                        let totalHeight = lastYPosition + verticalSpacing * 2.5
-                        
-                        GeometryReader { geo in
-                            ForEach(positions.indices, id: \.self) { i in
-                                positionView(
-                                    for: positions[i],
-                                    in: chapter,
-                                    geo: geo,
-                                    waveFrequency: waveFrequency
-                                )
-                            }
+                        // ✅ CORRECT: The ZStack is now the only item here.
+                        ZStack {
+                            // ✅ All calculations are moved INSIDE the ZStack.
+                            let itemCount = chapter.modules.count
+                            let tempHeightForFreq = verticalSpacing * CGFloat(max(itemCount + 2, 1))
+                            let cycleCount = CGFloat(max((itemCount - 1) / 2, 1))
+                            let waveFrequency = cycleCount * (2 * CGFloat.pi) / (tempHeightForFreq / verticalSpacing)
                             
-                            if let lastPos = positions.last {
-                                let finalTestStatus = self.finalTestStatus(for: chapter)
-                                
-                                NavigationLink(destination: FinalTestView(finalReview: chapter.finalReview)) {
-                                    FinalTestButton(status: finalTestStatus)
+                            let positions = insertQuizzes(
+                                between: peakTroughPositions(
+                                    for: chapter.modules,
+                                    waveFrequency: waveFrequency
+                                ),
+                                verticalSpacing: verticalSpacing
+                            )
+                            
+                            let lastYPosition = positions.last?.y ?? 0
+                            let totalHeight = lastYPosition + verticalSpacing * 2.5
+                            
+                            GeometryReader { geo in
+                                ForEach(positions.indices, id: \.self) { i in
+                                    positionView(
+                                        for: positions[i],
+                                        in: chapter,
+                                        geo: geo,
+                                        waveFrequency: waveFrequency
+                                    )
                                 }
-                                .buttonStyle(.plain)
-                                .disabled(finalTestStatus == .unavailable)
-                                .position(
-                                    x: geo.size.width / 2,
-                                    y: (lastPos.y + verticalSpacing) + 240
-                                )
+                                
+                                if let lastPos = positions.last {
+                                    let finalTestStatus = self.finalTestStatus(for: chapter)
+                                    
+                                    NavigationLink(destination: FinalTestView(finalReview: chapter.finalReview)) {
+                                        FinalTestButton(status: finalTestStatus)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .disabled(finalTestStatus == .unavailable)
+                                    .position(
+                                        x: geo.size.width / 2,
+                                        y: (lastPos.y + verticalSpacing) + 240
+                                    )
+                                }
                             }
+                            .offset(y: -30)
+                            
+                            // The frame modifier uses the calculated totalHeight.
+                            .frame(height: totalHeight)
                         }
-                        .offset(y: -30)
-                        
-                        // The frame modifier uses the calculated totalHeight.
-                        .frame(height: totalHeight)
+                        .padding(.bottom, 200)
                     }
-                    .padding(.bottom, 200)
                 }
-                
+                .onAppear {
+                    withAnimation {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                withAnimation(.easeInOut(duration: 1)) {
+                                    proxy.scrollTo(highestCompletedLevel, anchor: .bottom)
+                                }
+                            }
+                    }
+                }
             }
             .background(Color("BackgroundColor"))
             .navigationTitle("Learn")
@@ -124,15 +134,14 @@ struct ModulesView: View {
         
         if pos.isQuiz {
             let precedingModule = chapter.modules[pos.index]
-            let precedingModuleStatus = moduleStatus(for: precedingModule)
-            let quizIsAvailable = (precedingModuleStatus == .finished || precedingModuleStatus == .current)
+            let quizStatus = quizStatus(for: module)
             
             content = AnyView(
                 NavigationLink(destination: MultipleChoiceView(module: precedingModule, userData: userData)) {
-                    QuizIconView(status: quizIsAvailable ? .available : .unavailable)
+                    QuizIconView(status: quizStatus)
                 }
                     .buttonStyle(.plain)
-                    .disabled(!quizIsAvailable)
+                    .disabled(quizStatus == .unavailable)
             )
             
             return content
@@ -154,6 +163,7 @@ struct ModulesView: View {
                         status: status
                     ))
                     .disabled(status == .unavailable)
+                    .id(module.moduleNumber)
             )
             
             return content
@@ -172,6 +182,17 @@ struct ModulesView: View {
         } else {
             return .unavailable
         }
+    }
+    
+    private func quizStatus(for module: Module) -> QuizStatus {
+        if module.moduleNumber < highestCompletedLevel {
+            return .completed
+        } else if module.moduleNumber == highestCompletedLevel {
+            return .available
+        } else {
+            return .unavailable
+        }
+        
     }
     
     private func peakTroughPositions(for modules: [Module], waveFrequency: CGFloat) -> [(y: CGFloat, isPeak: Bool)] {
