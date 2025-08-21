@@ -25,13 +25,13 @@ struct ProjectsView: View {
 	
 	private var unlockedProjects: [Project] {
 		projects
-			.filter { $0.levelPrerequisite <= userData.highestCompletedLevel && !userData.completedProjects.contains($0.id) }
+			.filter { $0.levelPrerequisite <= userData.currentLevel && !userData.completedProjects.contains($0.id) }
 			.sorted { $0.projectDifficulty < $1.projectDifficulty }
 	}
 	
 	private var lockedProjects: [Project] {
 		projects
-			.filter { $0.levelPrerequisite > userData.highestCompletedLevel }
+			.filter { $0.levelPrerequisite > userData.currentLevel }
 			.sorted { $0.projectDifficulty > $1.projectDifficulty }
 	}
 	

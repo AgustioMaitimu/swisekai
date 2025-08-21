@@ -17,7 +17,7 @@ struct HomeScreen: View {
 	private var modules = DataManager.shared.moduleCollection.modules
 	
 	private var completedModules: Int {
-		userData.highestCompletedLevel
+		userData.currentLevel
 	}
 	
 	private var totalModules: Int {

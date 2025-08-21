@@ -6,13 +6,13 @@ import SwiftData
 @Model
 final class UserData {
 	@Attribute(.unique) var id: UUID
-	var highestCompletedLevel: Int
+	var currentLevel: Int
 	var completedProjects: [UUID]
 	var loginDayKeys: [String]
 	
 	init() {
 		self.id = UUID()
-		self.highestCompletedLevel = 0
+		self.currentLevel = 1
 		self.completedProjects = []
 		self.loginDayKeys = []
 	}
@@ -27,8 +27,8 @@ final class UserData {
 		}
 	}
 	
-	func completeLevel() {
-		self.highestCompletedLevel += 1
+	func incrementLevel() {
+		self.currentLevel += 1
 	}
 	
 	func completeProject(id: UUID) {
