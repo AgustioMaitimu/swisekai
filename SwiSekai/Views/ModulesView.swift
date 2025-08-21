@@ -20,8 +20,8 @@ struct ModulesView: View {
         userDataItems.first ?? UserData.shared(in: modelContext)
     }
     
-    var highestCompletedLevel: Int {
-        userData.highestCompletedLevel
+    var currentLevel: Int {
+        userData.currentLevel
     }
     
     // MARK: - Wave Settings
@@ -94,7 +94,7 @@ struct ModulesView: View {
                     withAnimation {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 withAnimation(.easeInOut(duration: 1)) {
-                                    proxy.scrollTo(highestCompletedLevel, anchor: .bottom)
+                                    proxy.scrollTo(currentLevel, anchor: .bottom)
                                 }
                             }
                     }
@@ -113,9 +113,9 @@ struct ModulesView: View {
         }
         
         // Now the logic is much simpler
-        if highestCompletedLevel > lastModuleNumberInChapter {
+        if currentLevel > lastModuleNumberInChapter {
             return .completed
-        } else if highestCompletedLevel >= lastModuleNumberInChapter {
+        } else if currentLevel >= lastModuleNumberInChapter {
             return .available
         } else {
             return .unavailable
@@ -175,9 +175,9 @@ struct ModulesView: View {
     }
     
     private func moduleStatus(for module: Module) -> ModuleStatus {
-        if module.moduleNumber < highestCompletedLevel {
+        if module.moduleNumber < currentLevel {
             return .finished
-        } else if module.moduleNumber == highestCompletedLevel {
+        } else if module.moduleNumber == currentLevel {
             return .current
         } else {
             return .unavailable
@@ -185,9 +185,9 @@ struct ModulesView: View {
     }
     
     private func quizStatus(for module: Module) -> QuizStatus {
-        if module.moduleNumber < highestCompletedLevel {
+        if module.moduleNumber < currentLevel {
             return .completed
-        } else if module.moduleNumber == highestCompletedLevel {
+        } else if module.moduleNumber == currentLevel {
             return .available
         } else {
             return .unavailable
