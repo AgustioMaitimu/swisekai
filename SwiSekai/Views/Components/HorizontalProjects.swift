@@ -101,6 +101,7 @@ struct HorizontalProjects: View {
 						.frame(maxWidth: 400)
 				}
 			}
+			.frame(maxWidth: .infinity, alignment: .center)
 		}
 	}
 	

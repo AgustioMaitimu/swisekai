@@ -38,7 +38,9 @@ struct ProjectsView: View {
 	var body: some View {
 		GeometryReader { geometry in
 			VStack(spacing: 0) {
-				headerView(for: geometry.size.width)
+				HStack {
+					headerView(for: geometry.size.width)
+				}
 				
 				if geometry.size.width < 700 {
 					VerticalProjects(
@@ -73,6 +75,7 @@ struct ProjectsView: View {
 	
 	private func headerView(for width: CGFloat) -> some View {
 		HStack {
+			Spacer()
 			VStack(alignment: .leading, spacing: 10) {
 				Text("Projects")
 					.font(width < 910 ? .title.bold() : .largeTitle.bold())
@@ -81,8 +84,11 @@ struct ProjectsView: View {
 					.font(width < 910 ? .title3.bold() : .title2.bold())
 					.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
 			}
+			.padding(.bottom, 16)
+			Spacer()
+			Spacer()
+			Spacer()
 			Spacer()
 		}
-		.padding(.bottom, 16)
 	}
 }

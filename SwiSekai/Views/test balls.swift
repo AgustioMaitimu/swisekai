@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct test_balls: View {
-    @State private var selection: NavigationItem = .home
+    @State var selection: NavigationItem = .home
     private let widthThreshold: CGFloat = 600
 
     var body: some View {
