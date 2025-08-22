@@ -9,7 +9,7 @@ struct TabBarView: View {
             Group {
                 switch selection {
                 case .home:
-                    HomeScreen()
+					HomeScreen(selection: $selection)
                 case .learn:
                     ModulesView()
                 case .projects:
