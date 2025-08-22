@@ -1,15 +1,15 @@
 import SwiftUI
 
 // this is just a placeholder, change later when the data is ready
-enum FinalTestStatus {
+enum FinalReviewStatus {
     case available
     case unavailable
     case completed
 }
 
 
-struct FinalTestButton: View {
-    let status: FinalTestStatus 
+struct FinalReviewButton: View {
+    let status: FinalReviewStatus 
     @State private var isPressed = false
     
     var body: some View {
@@ -43,11 +43,11 @@ struct FinalTestButton: View {
         }
     }
     
-    private func imageName(for status: FinalTestStatus) -> String {
+    private func imageName(for status: FinalReviewStatus) -> String {
         switch status {
-        case .available: return "FinalTestAvailable"
-        case .unavailable: return "FinalTestUnavailable"
-        case .completed: return "FinalTestCompleted"
+        case .available: return "FinalReviewAvailable"
+        case .unavailable: return "FinalReviewUnavailable"
+        case .completed: return "FinalReviewCompleted"
         }
     }
 }

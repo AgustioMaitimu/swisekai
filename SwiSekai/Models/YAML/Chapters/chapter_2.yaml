@@ -3,7 +3,7 @@ chapters:
     modules:
       - id: "E0653B81-CC42-40F8-8AE1-4A6A9858461D"
         module_name: "Collections: Arrays"
-        module_number: 5
+        module_number: 8
         multiple_choice:
           - question: "How do you access the first element in an array named `colors`?"
             options:
@@ -71,7 +71,7 @@ chapters:
 
       - id: "4AB37D43-A27C-453F-B632-A04B66868355"
         module_name: "Collections: Dictionaries"
-        module_number: 6
+        module_number: 9
         multiple_choice:
           - question: "Which of the following correctly defines a dictionary?"
             options:
@@ -132,7 +132,7 @@ chapters:
 
       - id: "2ACFC5F6-14BA-4676-BE6F-DA150139E326"
         module_name: "Making Decisions: Conditionals"
-        module_number: 7
+        module_number: 10
         multiple_choice:
           - question: "Which operator checks for equality between two values?"
             options:
@@ -196,7 +196,7 @@ chapters:
 
       - id: "13679815-F4BB-4DE9-903A-3F02C75D2536"
         module_name: "More Control Flow: Switch Statements"
-        module_number: 8
+        module_number: 11
         multiple_choice:
           - question: "What is the purpose of the `default` case in a switch statement?"
             options:

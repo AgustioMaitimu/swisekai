@@ -7,11 +7,6 @@
 
 import SwiftData
 import SwiftUI
-import SwiftData
-
-struct ModuleScrollID: Hashable {
-    let id: Int
-}
 
 // MARK: - Main Level View
 struct ModulesView: View {
@@ -43,9 +38,8 @@ struct ModulesView: View {
                         
                         ChapterButton(chapterName: chapter.chapterName, status: chapterStatus(for: chapter))
                         
-                        // ✅ CORRECT: The ZStack is now the only item here.
                         ZStack {
-                            // ✅ All calculations are moved INSIDE the ZStack.
+                            // Calculations remain the same
                             let itemCount = chapter.modules.count
                             let tempHeightForFreq = verticalSpacing * CGFloat(max(itemCount + 2, 1))
                             let cycleCount = CGFloat(max((itemCount - 1) / 2, 1))
@@ -73,13 +67,13 @@ struct ModulesView: View {
                                 }
                                 
                                 if let lastPos = positions.last {
-                                    let finalTestStatus = self.finalTestStatus(for: chapter)
+                                    let finalReviewStatus = self.finalReviewStatus(for: chapter)
                                     
-                                    NavigationLink(destination: FinalTestView(finalReview: chapter.finalReview)) {
-                                        FinalTestButton(status: finalTestStatus)
+                                    NavigationLink(destination: FinalReviewView(finalReview: chapter.finalReview)) {
+                                        FinalReviewButton(status: finalReviewStatus)
                                     }
                                     .buttonStyle(.plain)
-                                    .disabled(finalTestStatus == .unavailable)
+                                    .disabled(finalReviewStatus == .unavailable)
                                     .position(
                                         x: geo.size.width / 2,
                                         y: (lastPos.y + verticalSpacing) + 240
@@ -87,21 +81,9 @@ struct ModulesView: View {
                                 }
                             }
                             .offset(y: -30)
-                            
-                            // The frame modifier uses the calculated totalHeight.
                             .frame(height: totalHeight)
                         }
                         .padding(.bottom, 200)
-                    }
-                }
-                .onAppear {
-                    withAnimation {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                withAnimation(.easeInOut(duration: 1)) {
-                                    let anchor: UnitPoint = currentLevel < 3 ? .top : .center
-                                    proxy.scrollTo(ModuleScrollID(id: currentLevel), anchor: anchor)
-                                }
-                            }
                     }
                 }
             }
@@ -110,6 +92,7 @@ struct ModulesView: View {
         }
     }
     
+    @ViewBuilder
     private func positionView(
         for pos: (y: CGFloat, isPeak: Bool, isQuiz: Bool, index: Int),
         in chapter: Chapter,
@@ -117,59 +100,47 @@ struct ModulesView: View {
         waveFrequency: CGFloat
     ) -> some View {
         
-        let module = chapter.modules[pos.index]
-        let content: AnyView
-        
         if pos.isQuiz {
             let precedingModule = chapter.modules[pos.index]
-            let quizStatus = quizStatus(for: module)
+            let quizStatus = quizStatus(for: precedingModule) // Use precedingModule for status
             
-            content = AnyView(
-                NavigationLink(destination: MultipleChoiceView(module: precedingModule, userData: userData)) {
-                    QuizIconView(status: quizStatus)
-                }
-                    .buttonStyle(.plain)
-                    .disabled(quizStatus == .unavailable)
+            NavigationLink(destination: MultipleChoiceView(module: precedingModule, userData: userData)) {
+                QuizIconView(status: quizStatus)
+            }
+            .buttonStyle(.plain)
+            .disabled(quizStatus == .unavailable)
+            .position(
+                x: geo.size.width / 2,
+                y: pos.y + 50
             )
             
-            return content
-                .position(
-                    x: geo.size.width / 2,
-                    y: pos.y + 50
-                )
-            
         } else {
+            let module = chapter.modules[pos.index]
             let xOffset = -waveAmplitude * sin((pos.y / verticalSpacing) * waveFrequency)
             let status = moduleStatus(for: module)
             
-            content = AnyView(
-                NavigationLink(destination: ModuleDetailView(module: module)) {
-                    EmptyView()
-                }
-                    .buttonStyle(ModuleNavigationLinkStyle(
-                        moduleName: module.moduleName,
-                        status: status
-                    ))
-                    .disabled(status == .unavailable)
-                    .id(ModuleScrollID(id: module.moduleNumber))
+            NavigationLink(destination: ModuleDetailView(module: module)) {
+                EmptyView()
+            }
+            .buttonStyle(ModuleNavigationLinkStyle(
+                moduleName: module.moduleName,
+                status: status
+            ))
+            .disabled(status == .unavailable)
+            .position(
+                x: geo.size.width / 2 + xOffset,
+                y: pos.y + 50
             )
-            
-            return content
-                .position(
-                    x: geo.size.width / 2 + xOffset,
-                    y: pos.y + 50
-                )
         }
     }
     
     // MARK: - Buttons status
     private func chapterStatus(for chapter: Chapter) -> ChapterStatus {
-        guard let lastModuleNumberInChapter = chapter.modules.first?.moduleNumber, lastModuleNumberInChapter != 0 else {
+        guard let firstModuleNumber = chapter.modules.first?.moduleNumber else {
             return .unavailable
         }
         
-        // Now the logic is much simpler
-        if currentLevel >= lastModuleNumberInChapter {
+        if currentLevel >= firstModuleNumber {
             return .available
         } else {
             return .unavailable
@@ -187,6 +158,7 @@ struct ModulesView: View {
     }
     
     private func quizStatus(for module: Module) -> QuizStatus {
+        // The quiz is available if the user is currently ON the module it follows.
         if module.moduleNumber < currentLevel {
             return .completed
         } else if module.moduleNumber == currentLevel {
@@ -194,20 +166,17 @@ struct ModulesView: View {
         } else {
             return .unavailable
         }
-        
     }
     
-    private func finalTestStatus(for chapter: Chapter) -> FinalTestStatus {
-        // Safely get the number of the last module in the chapter.
-        // Use a guard to handle chapters with no modules.
-        guard let lastModuleNumberInChapter = chapter.modules.last?.moduleNumber, lastModuleNumberInChapter != 0 else {
+    // ✅ FIX 2: Renamed function from finalTestStatus to finalReviewStatus
+    private func finalReviewStatus(for chapter: Chapter) -> FinalReviewStatus {
+        guard let lastModuleNumberInChapter = chapter.modules.last?.moduleNumber else {
             return .unavailable
         }
         
-        // Now the logic is much simpler
         if currentLevel > lastModuleNumberInChapter {
             return .completed
-        } else if currentLevel >= lastModuleNumberInChapter {
+        } else if currentLevel == lastModuleNumberInChapter + 1 { // Available after the final quiz
             return .available
         } else {
             return .unavailable
@@ -246,22 +215,14 @@ struct ModulesView: View {
             
             result.append((y: modulePosition.y, isPeak: modulePosition.isPeak, isQuiz: false, index: i))
             
-            if i < positions.count - 1 {
-                let nextModuleY = positions[i + 1].y
-                let quizY = (modulePosition.y + nextModuleY) / 2
-                
-                result.append((y: quizY, isPeak: false, isQuiz: true, index: i))
-            } else {
-                // Add quiz for the last module
-                let quizY = modulePosition.y + (verticalSpacing * 1.5) // Adjust this value for spacing
-                result.append((y: quizY, isPeak: false, isQuiz: true, index: i))
-            }
+            // The last item in the result list is now a module, so add its quiz
+            let quizY = result.last!.y + (verticalSpacing * 1.5)
+            result.append((y: quizY, isPeak: false, isQuiz: true, index: i))
         }
         
         return result
     }
 }
-
 struct ModuleNavigationLinkStyle: ButtonStyle {
     let moduleName: String
     let status: ModuleStatus
