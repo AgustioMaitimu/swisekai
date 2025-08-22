@@ -3,7 +3,7 @@ chapters:
     modules:
       - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
         module_name: "Storing Data: Variables and Constants"
-        module_number: 1
+        module_number: 4
         multiple_choice:
           - question: "Which keyword is used for a value that is expected to change?"
             options:
@@ -64,7 +64,7 @@ chapters:
 
       - id: "C9B8A7D6-E5F4-A3B2-C1D0-E9F8A7B6C5D4"
         module_name: "Basic Operators"
-        module_number: 2
+        module_number: 5
         multiple_choice:
           - question: "What is the value of `result` after this code runs? `let result = 10 + 5 * 2`"
             options:
@@ -135,7 +135,7 @@ chapters:
 
       - id: "D1E2F3A4-B5C6-D7E8-F9A0-B1C2D3E4F5A6"
         module_name: "Working with Text: Strings"
-        module_number: 3
+        module_number: 6
         multiple_choice:
           - question: "How do you combine `firstName` and `lastName` into a full name with a space?"
             options:
@@ -200,7 +200,7 @@ chapters:
 
       - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
         module_name: "Repeating Code: For-In Loops"
-        module_number: 4
+        module_number: 7
         multiple_choice:
           - question: "How many times will a loop with the range `1..<5` execute?"
             options:

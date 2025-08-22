@@ -1,5 +1,5 @@
 //
-//  FinalTestView.swift
+//  FinalReviewView.swift
 //  SwiSekai
 //
 //  Created by Ryan Hangralim on 19/08/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FinalTestView: View {
+struct FinalReviewView: View {
     let finalReview: FinalReview
 
         var body: some View {

@@ -3,7 +3,7 @@ chapters:
     modules:
       - id: "C4E2A1B0-3D9F-4B8A-9C7E-5F6A1B2C3D4E"
         module_name: "Protocols"
-        module_number: 17
+        module_number: 20
         multiple_choice:
           - question: "What is a protocol?"
             options:
@@ -73,7 +73,7 @@ chapters:
 
       - id: "B8D7C6A5-4E3F-2A1B-0C9D-8F7E6A5B4C3D"
         module_name: "Protocol Extensions"
-        module_number: 18
+        module_number: 21
         multiple_choice:
           - question: "What is a major benefit of using a protocol extension?"
             options:
@@ -135,7 +135,7 @@ chapters:
 
       - id: "A2B3C4D5-6E7F-8A9B-0C1D-2E3F4A5B6C7D"
         module_name: "Introduction to Generics"
-        module_number: 19
+        module_number: 22
         multiple_choice:
           - question: "What is the primary purpose of generics?"
             options:
