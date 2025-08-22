@@ -113,17 +113,26 @@ struct HorizontalProjects: View {
 					}
 				}) {
 					HStack(spacing: width < 910 ? 4 : 8) {
-						Image(systemName: category == "All" ? "square.grid.2x2.fill" :
-								category == "Unlocked" ? "bookmark.fill" :
-								category == "Locked" ? "lock.fill" :
-								"checkmark.seal.fill")
-						.font(.system(size: width < 910 ? 28 : 40))
-						.foregroundStyle(
-							uiState.selectedCategory == category
-							? AnyShapeStyle(activeCategoryGradient)
-							: AnyShapeStyle(Color.gray)
-						)
-						.frame(width: width < 910 ? 40: 55)
+                        VStack{
+                            Image(systemName: category == "All" ? "square.grid.2x2.fill" :
+                                    category == "Unlocked" ? "bookmark.fill" :
+                                    category == "Locked" ? "lock.fill" :
+                                    "checkmark.seal.fill")
+                            .font(.system(size: width < 910 ? 28 : 40))
+                            .foregroundStyle(
+                                uiState.selectedCategory == category
+                                ? AnyShapeStyle(activeCategoryGradient)
+                                : AnyShapeStyle(Color.gray)
+                            )
+                            .frame(width: width < 910 ? 40: 55)
+                            
+                            Text(category)
+                                .foregroundStyle(
+                                    uiState.selectedCategory == category
+                                    ? AnyShapeStyle(activeCategoryGradient)
+                                    : AnyShapeStyle(Color.gray)
+                                )
+                        }
 						
 						Rectangle()
 							.frame(width: 2, height: width < 910 ? 65 : 85)
