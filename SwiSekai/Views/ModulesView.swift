@@ -8,7 +8,11 @@
 import SwiftData
 import SwiftUI
 
-// MARK: - Main Level View
+struct ModuleScrollID: Hashable {
+    let id: Int
+}
+
+// MARK: - Main Level View (Refactored)
 struct ModulesView: View {
     // MARK: - Data
     
@@ -23,9 +27,9 @@ struct ModulesView: View {
         userData.currentLevel
     }
     
-    // MARK: - Wave Settings
-    let waveAmplitude: CGFloat = 220
-    let verticalSpacing: CGFloat = 130
+    // MARK: - Layout Settings
+    // Controls the "waviness" or how far left/right the buttons go.
+    let horizontalPadding: CGFloat = 60
     
     var body: some View {
         NavigationStack {
@@ -33,57 +37,74 @@ struct ModulesView: View {
                 ScrollView {
                     Spacer().frame(height: 30)
                     
+                    // Loop through each chapter
                     ForEach(chapters.indices, id: \.self) { chapterIndex in
                         let chapter = chapters[chapterIndex]
                         
                         ChapterButton(chapterName: chapter.chapterName, status: chapterStatus(for: chapter))
                         
-                        ZStack {
-                            // Calculations remain the same
-                            let itemCount = chapter.modules.count
-                            let tempHeightForFreq = verticalSpacing * CGFloat(max(itemCount + 2, 1))
-                            let cycleCount = CGFloat(max((itemCount - 1) / 2, 1))
-                            let waveFrequency = cycleCount * (2 * CGFloat.pi) / (tempHeightForFreq / verticalSpacing)
-                            
-                            let positions = insertQuizzes(
-                                between: peakTroughPositions(
-                                    for: chapter.modules,
-                                    waveFrequency: waveFrequency
-                                ),
-                                verticalSpacing: verticalSpacing
-                            )
-                            
-                            let lastYPosition = positions.last?.y ?? 0
-                            let totalHeight = lastYPosition + verticalSpacing * 2.5
-                            
-                            GeometryReader { geo in
-                                ForEach(positions.indices, id: \.self) { i in
-                                    positionView(
-                                        for: positions[i],
-                                        in: chapter,
-                                        geo: geo,
-                                        waveFrequency: waveFrequency
-                                    )
-                                }
+                        // Use a VStack for the main vertical layout of modules and quizzes
+                        VStack(spacing: 30) {
+                            // Loop through the modules to place them and their corresponding quizzes
+                            ForEach(chapter.modules.indices, id: \.self) { moduleIndex in
+                                let module = chapter.modules[moduleIndex]
+                                let status = moduleStatus(for: module)
                                 
-                                if let lastPos = positions.last {
-                                    let finalReviewStatus = self.finalReviewStatus(for: chapter)
-                                    
-                                    NavigationLink(destination: FinalReviewView(finalReview: chapter.finalReview)) {
-                                        FinalReviewButton(status: finalReviewStatus)
+                                // MARK: - Module Button Row
+                                // Use an HStack to control horizontal alignment
+                                HStack {
+                                    // Even-indexed modules align left
+                                    if moduleIndex % 2 == 0 {
+                                        moduleNavigationLink(for: module, status: status)
+                                        Spacer()
+                                    } else {
+                                        // Odd-indexed modules align right
+                                        Spacer()
+                                        moduleNavigationLink(for: module, status: status)
+                                    }
+                                }
+                                .padding(.horizontal, horizontalPadding)
+                                
+                                // MARK: - Quiz Button Row
+                                let quizStatus = quizStatus(for: module)
+                                HStack {
+                                    Spacer() // Center the quiz button
+                                    NavigationLink(destination: MultipleChoiceView(module: module, userData: userData)) {
+                                        QuizIconView(status: quizStatus)
                                     }
                                     .buttonStyle(.plain)
-                                    .disabled(finalReviewStatus == .unavailable)
-                                    .position(
-                                        x: geo.size.width / 2,
-                                        y: (lastPos.y + verticalSpacing) + 240
-                                    )
+                                    .disabled(quizStatus == .unavailable)
+                                    Spacer()
                                 }
                             }
-                            .offset(y: -30)
-                            .frame(height: totalHeight)
+                            
+                            // MARK: - Final Review Button
+                            let finalReviewStatus = self.finalReviewStatus(for: chapter)
+                            HStack {
+                                Spacer() // Center the final review
+                                NavigationLink(destination: FinalReviewView(finalReview: chapter.finalReview)) {
+                                    FinalReviewButton(status: finalReviewStatus)
+                                }
+                                .buttonStyle(.plain)
+                                .disabled(finalReviewStatus == .unavailable)
+                                Spacer()
+                            }
+                            .padding(.top, 30) // Add some extra space before the final review
+                            
                         }
-                        .padding(.bottom, 200)
+                        .padding(.vertical, 40)
+                        .padding(.bottom, 50)
+                        .frame(maxWidth: 650)
+                    }
+                }
+                
+                .onAppear {
+                    // Scroll logic remains the same and works perfectly
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        withAnimation(.easeInOut(duration: 1)) {
+                            let anchor: UnitPoint = currentLevel < 3 ? .top : .center
+                            proxy.scrollTo(ModuleScrollID(id: currentLevel), anchor: anchor)
+                        }
                     }
                 }
             }
@@ -92,46 +113,20 @@ struct ModulesView: View {
         }
     }
     
+    /// Helper view builder for creating the module navigation link and its style.
     @ViewBuilder
-    private func positionView(
-        for pos: (y: CGFloat, isPeak: Bool, isQuiz: Bool, index: Int),
-        in chapter: Chapter,
-        geo: GeometryProxy,
-        waveFrequency: CGFloat
-    ) -> some View {
-        
-        if pos.isQuiz {
-            let precedingModule = chapter.modules[pos.index]
-            let quizStatus = quizStatus(for: precedingModule) // Use precedingModule for status
-            
-            NavigationLink(destination: MultipleChoiceView(module: precedingModule, userData: userData)) {
-                QuizIconView(status: quizStatus)
-            }
-            .buttonStyle(.plain)
-            .disabled(quizStatus == .unavailable)
-            .position(
-                x: geo.size.width / 2,
-                y: pos.y + 50
-            )
-            
-        } else {
-            let module = chapter.modules[pos.index]
-            let xOffset = -waveAmplitude * sin((pos.y / verticalSpacing) * waveFrequency)
-            let status = moduleStatus(for: module)
-            
-            NavigationLink(destination: ModuleDetailView(module: module)) {
-                EmptyView()
-            }
-            .buttonStyle(ModuleNavigationLinkStyle(
-                moduleName: module.moduleName,
-                status: status
-            ))
-            .disabled(status == .unavailable)
-            .position(
-                x: geo.size.width / 2 + xOffset,
-                y: pos.y + 50
-            )
+    private func moduleNavigationLink(for module: Module, status: ModuleStatus) -> some View {
+        NavigationLink(destination: ModuleDetailView(module: module)) {
+            // EmptyView is used because the visual representation is defined in the ButtonStyle
+            EmptyView()
         }
+        .buttonStyle(ModuleNavigationLinkStyle(
+            moduleName: module.moduleName,
+            status: status,
+            num: module.moduleNumber
+        ))
+        .disabled(status == .unavailable)
+        .id(ModuleScrollID(id: module.moduleNumber)) // Attach the ID here for ScrollViewReader
     }
     
     // MARK: - Buttons status
@@ -168,7 +163,6 @@ struct ModulesView: View {
         }
     }
     
-    // ✅ FIX 2: Renamed function from finalTestStatus to finalReviewStatus
     private func finalReviewStatus(for chapter: Chapter) -> FinalReviewStatus {
         guard let lastModuleNumberInChapter = chapter.modules.last?.moduleNumber else {
             return .unavailable
@@ -182,57 +176,22 @@ struct ModulesView: View {
             return .unavailable
         }
     }
-    
-    private func peakTroughPositions(for modules: [Module], waveFrequency: CGFloat) -> [(y: CGFloat, isPeak: Bool)] {
-        var positions: [(y: CGFloat, isPeak: Bool)] = []
-        
-        for n in 0..<modules.count {
-            let y = (verticalSpacing / waveFrequency) * (CGFloat(n) * CGFloat.pi + (CGFloat.pi / 2.0))
-            let isPeak = n % 2 == 0
-            positions.append((y: y, isPeak: isPeak))
-        }
-        
-        guard let firstY = positions.first?.y else {
-            return []
-        }
-        
-        let startingGap: CGFloat = 100.0
-        
-        return positions.map { (y, isPeak) in
-            return (y: y - firstY + startingGap, isPeak: isPeak)
-        }
-    }
-    
-    private func insertQuizzes(
-        between positions: [(y: CGFloat, isPeak: Bool)],
-        verticalSpacing: CGFloat
-    ) -> [(y: CGFloat, isPeak: Bool, isQuiz: Bool, index: Int)] {
-        
-        var result: [(y: CGFloat, isPeak: Bool, isQuiz: Bool, index: Int)] = []
-        
-        for i in 0..<positions.count {
-            let modulePosition = positions[i]
-            
-            result.append((y: modulePosition.y, isPeak: modulePosition.isPeak, isQuiz: false, index: i))
-            
-            // The last item in the result list is now a module, so add its quiz
-            let quizY = result.last!.y + (verticalSpacing * 1.5)
-            result.append((y: quizY, isPeak: false, isQuiz: true, index: i))
-        }
-        
-        return result
-    }
 }
+
+// ModuleNavigationLinkStyle and Preview remain the same
 struct ModuleNavigationLinkStyle: ButtonStyle {
     let moduleName: String
     let status: ModuleStatus
+    let num: Int
     
     func makeBody(configuration: Configuration) -> some View {
-        ModuleIconView(
-            moduleName: moduleName,
-            status: status,
-            isPressed: configuration.isPressed
-        )
+        HStack{
+            ModuleIconView(
+                moduleName: moduleName,
+                status: status,
+                isPressed: configuration.isPressed
+            )
+        }
     }
 }
 

@@ -14,25 +14,41 @@ class DataManager {
     private init() {
         let decoder = YAMLDecoder()
         var allChapters: [Chapter] = []
-                
+        
         if let chapterURLs = Bundle.main.urls(forResourcesWithExtension: "yaml", subdirectory: nil) {
             let chapterFiles = chapterURLs.filter { url in
                 url.lastPathComponent.hasPrefix("chapter_")
             }
             
-            print("✅ Found \(chapterFiles.count) chapter YAML files:")
-            for url in chapterFiles {
+            let sortedChapterFiles = chapterFiles.sorted { url1, url2 in
+                // Helper function to extract the integer from the filename
+                func getChapterNumber(from url: URL) -> Int {
+                    let filename = url.lastPathComponent
+                    // Removes "chapter_" and ".yaml" to isolate the number
+                    let numberString = filename
+                        .replacingOccurrences(of: "chapter_", with: "")
+                        .replacingOccurrences(of: ".yaml", with: "")
+                    // Convert to Int, defaulting to 0 if something goes wrong
+                    return Int(numberString) ?? 0
+                }
+                
+                // Compare the two numbers
+                return getChapterNumber(from: url1) < getChapterNumber(from: url2)
+            }
+            
+            print("✅ Found \(sortedChapterFiles.count) chapter YAML files (sorted):")
+            for url in sortedChapterFiles {
                 print("   - \(url.lastPathComponent)")
             }
             
-            for url in chapterFiles {
+            for url in sortedChapterFiles {
                 do {
                     let yamlString = try String(contentsOf: url, encoding: .utf8)
                     let collectionFromFile = try decoder.decode(ChapterCollection.self, from: yamlString)
                     allChapters.append(contentsOf: collectionFromFile.chapters)
                     
                     print("✅ Successfully loaded \(collectionFromFile.chapters.count) chapter(s) from \(url.lastPathComponent)")
-
+                    
                 } catch {
                     print("======================================================")
                     print("🚨 FAILED TO DECODE: \(url.lastPathComponent)")

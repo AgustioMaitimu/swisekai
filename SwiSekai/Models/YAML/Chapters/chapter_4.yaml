@@ -1,25 +1,18 @@
 chapters:
-  - chapterName: "Chapter 4: Deeper Types and Closures"
+  - chapterName: "Chapter 4: Advanced Automata"
     modules:
-      - id: "279EA8BE-7E25-4D21-B01E-13A9407D6102"
-        module_name: "Advanced Structures"
-        module_number: 16
+      - id: "E9D8C7B6-A5B4-4C3D-B2E1-F0A9B8A7E6D5"
+        module_name: "Intelligent Blueprints"
+        module_number: 18
         multiple_choice:
-          - question: "A function that belongs to a struct is called a what?"
+          - question: "A command that is part of a blueprint (struct) is called a what?"
             options:
               - "Parameter"
               - "Method"
               - "Property"
               - "Type"
             answer: "Method"
-          - question: "What is a computed property?"
-            options:
-              - "A property that is stored in memory."
-              - "A property that calculates its value rather than storing it."
-              - "A property that cannot be changed."
-              - "A special type of method."
-            answer: "A property that calculates its value rather than storing it."
-          - question: "What keyword must you use for a method that changes a struct's properties?"
+          - question: "What special keyword must be used for a method that changes a struct's own properties?"
             options:
               - "static"
               - "change"
@@ -29,268 +22,274 @@ chapters:
         content_blocks:
           - type: "heading1"
             content:
-              text: "Advanced Structures"
+              text: "Advanced Structure Design"
           - type: "explanation"
             content:
-              text: "You've learned how to create `struct`s to group related data. Now, let's make them more powerful by adding functionality directly to them."
+              text: "You have learned to forge `struct` blueprints to hold elements. Now, let's imbue these blueprints with life and intelligence, giving them behaviors of their own."
           - type: "heading2"
             content:
-              text: "Computed Properties"
+              text: "Calculated Properties"
           - type: "explanation"
             content:
-              text: "Sometimes you need a property that is calculated from other properties. A **computed property** doesn't store a value itself; instead, it provides a 'getter' to retrieve a calculated value and an optional 'setter' to change other properties indirectly."
+              text: "Sometimes, a property of your blueprint shouldn't be stored, but calculated on the fly. A **computed property** doesn't store an element itself; instead, it runs a small calculation to produce a value whenever you ask for it. It's a property that is always perfectly up-to-date."
           - type: "snippet"
             content:
               code: |
-                struct User {
-                    var firstName: String
-                    var lastName: String
-
-                    // This is a computed property
-                    var fullName: String {
-                        return "\(firstName) \(lastName)"
+                struct Circle {
+                    var radius: Double
+                    // 'circumference' is not stored. It's calculated when needed.
+                    var circumference: Double {
+                        return 2 * 3.14159 * radius
                     }
                 }
-
-                let user = User(firstName: "Taylor", lastName: "Swift")
-                print(user.fullName) // Prints "Taylor Swift"
+                let portal = Circle(radius: 5.0)
+                print("The portal's circumference is \\(portal.circumference).")
           - type: "heading2"
             content:
-              text: "Methods (Functions in a Struct)"
+              text: "Actions and Behaviors (Methods)"
           - type: "explanation"
             content:
-              text: "Functions that are part of a `struct` are called **methods**. They have access to the struct's properties and can add behavior to your custom type. If a method needs to change one of the struct's properties, it must be marked with the `mutating` keyword."
+              text: "Commands that are part of a `struct` blueprint are called **methods**. They are actions the creation can perform. If a method needs to change one of the struct's own properties (like health or mana), it's a significant act. You must mark it with the `mutating` keyword. This is a safety rune that signals the struct's internal state will be altered."
           - type: "snippet"
             content:
               code: |
-                struct Player {
-                    var score = 0
-                    var health = 100
-
-                    func displayStatus() {
-                        print("Score: \(score), Health: \(health)%")
-                    }
-
-                    // This method changes the 'score' property
-                    mutating func gainPoints(_ points: Int) {
-                        score += points
+                struct ManaCrystal {
+                    var charge: Int = 100
+                    // This method must be 'mutating' because it changes 'charge'.
+                    mutating func drain(amount: Int) {
+                        charge -= amount
                     }
                 }
+                // The crystal must be a 'var' to call mutating methods on it.
+                var powerSource = ManaCrystal()
+                powerSource.drain(amount: 15)
+                print("Remaining charge: \\(powerSource.charge)") // Prints "Remaining charge: 85"
 
-                var playerOne = Player()
-                playerOne.gainPoints(10)
-                playerOne.displayStatus() // Prints "Score: 10, Health: 100%"
-
-      - id: "D11CD83B-813C-453F-B804-18131BD48BBC"
-        module_name: "Introduction to Classes"
-        module_number: 17
-        multiple_choice:
-          - question: "What is the main feature that classes have but structs do not?"
-            options:
-              - "Properties"
-              - "Methods"
-              - "Inheritance"
-              - "Initializers"
-            answer: "Inheritance"
-          - question: "What is the name of a special method that prepares a new class instance for use?"
-            options:
-              - "setup()"
-              - "start()"
-              - "init()"
-              - "main()"
-            answer: "init()"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Introduction to Classes"
-          - type: "explanation"
-            content:
-              text: "**Classes** are the second way to build custom data types in Swift. They look very similar to `struct`s but have a few key differences that make them incredibly powerful."
-          - type: "heading2"
-            content:
-              text: "Initializers"
-          - type: "explanation"
-            content:
-              text: "Unlike `struct`s, classes don't automatically get a memberwise initializer. You must create your own special method called an **initializer** (using `init`) to ensure all properties have a starting value when a new instance is created."
-          - type: "heading2"
-            content:
-              text: "Inheritance"
-          - type: "explanation"
-            content:
-              text: "The most important feature of classes is **inheritance**. A class can be based on another class, inheriting all of its properties and methods. The original class is the **superclass**, and the new class is the **subclass**. This allows you to build on existing code without starting from scratch."
-          - type: "snippet"
-            content:
-              code: |
-                // 1. Superclass (the parent)
-                class Vehicle {
-                    var wheels: Int
-                    var speed = 0
-
-                    init(wheels: Int) {
-                        self.wheels = wheels
-                    }
-
-                    func accelerate() {
-                        speed += 10
-                    }
-                }
-
-                // 2. Subclass (the child)
-                // Car inherits `wheels`, `speed`, and `accelerate()` from Vehicle
-                class Car: Vehicle {
-                    var hasSunroof: Bool
-
-                    init(hasSunroof: Bool) {
-                        self.hasSunroof = hasSunroof
-                        super.init(wheels: 4) // Call the parent's initializer
-                    }
-                }
-
-                let myCar = Car(hasSunroof: true)
-                myCar.accelerate()
-                print("My car has \(myCar.wheels) wheels and is going \(myCar.speed) km/h.")
-
-      - id: "9D87E8F1-F14B-4889-A14C-9281FCA178A6"
-        module_name: "Value vs. Reference Types"
-        module_number: 18
-        multiple_choice:
-          - question: "If you assign a struct instance to a new variable, what happens?"
-            options:
-              - "The data is shared between the two variables."
-              - "The data is copied to the new variable."
-              - "It creates a link to the original variable."
-              - "The code produces an error."
-            answer: "The data is copied to the new variable."
-          - question: "Classes are which type of type?"
-            options:
-              - "Value Type"
-              - "Data Type"
-              - "Shared Type"
-              - "Reference Type"
-            answer: "Reference Type"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Value vs. Reference Types: `struct` vs. `class`"
-          - type: "explanation"
-            content:
-              text: "This is the most critical difference between `struct`s and `class`es. Understanding this concept is key to writing correct and efficient Swift code."
-          - type: "heading2"
-            content:
-              text: "Structs are Value Types"
-          - type: "explanation"
-            content:
-              text: "When you assign a `struct` to a new variable or pass it to a function, it is **copied**. You get a brand new, independent instance. Changes to the copy **do not** affect the original. Think of it like making a photocopy of a document."
-          - type: "snippet"
-            content:
-              code: |
-                struct Point { var x: Int }
-                var pointA = Point(x: 10)
-                var pointB = pointA // pointB is a COPY of pointA
-
-                pointB.x = 20 // Change the copy
-
-                print(pointA.x) // Prints 10 (the original is unchanged)
-                print(pointB.x) // Prints 20
-          - type: "heading2"
-            content:
-              text: "Classes are Reference Types"
-          - type: "explanation"
-            content:
-              text: "When you assign a `class` instance, you get a **reference**—a pointer to the *same* object in memory. Both variables point to the exact same data. Changes made through one variable **will** affect the other. Think of it like sharing a link to a Google Doc."
-          - type: "snippet"
-            content:
-              code: |
-                class Person { var name: String; init(name: String) { self.name = name } }
-                var person1 = Person(name: "Alex")
-                var person2 = person1 // person2 points to the SAME object as person1
-
-                person2.name = "Maria" // Change the shared object
-
-                print(person1.name) // Prints "Maria" (the original has changed)
-                print(person2.name) // Prints "Maria"
-
-      - id: "8D6ED696-53B1-43FE-B027-D506F2347575"
-        module_name: "Introduction to Closures"
+      - id: "1F0A9B8A-7E6D-4C3D-B2E1-E9D8C7B6A5B4"
+        module_name: "Living Code: Closures"
         module_number: 19
         multiple_choice:
-          - question: "What is a closure?"
+          - question: "What is a Closure?"
             options:
-              - "A special type of class."
-              - "A variable that cannot be changed."
-              - "A self-contained block of code that can be passed around and used in your code."
-              - "A way to close your application."
-            answer: "A self-contained block of code that can be passed around and used in your code."
-          - question: "The `.map` function on an array does what?"
-            options:
-              - "It filters the array to find certain elements."
-              - "It sorts the array in place."
-              - "It transforms each element in an array into a new value, returning a new array."
-              - "It finds the location of an element on a map."
-            answer: "It transforms each element in an array into a new value, returning a new array."
+              - "A special type of Automaton (Class)."
+              - "An unchangeable container."
+              - "A self-contained block of commands that can be passed around and executed."
+              - "A command to end your program."
+            answer: "A self-contained block of commands that can be passed around and executed."
         content_blocks:
           - type: "heading1"
             content:
               text: "Introduction to Closures"
           - type: "explanation"
             content:
-              text: "**Closures** are self-contained blocks of functionality that can be passed around and used in your code, similar to functions. You can think of them as functions without a name. They are used extensively in Swift, especially for working with collections."
+              text: "**Closures** are like small, independent spirits of code. They are self-contained blocks of commands, similar to functions, but they have no name. You can store them in containers, pass them as inputs to your mechanisms, and have them execute their task at a later time. They are one of the most powerful and flexible tools in an architect's arsenal."
           - type: "heading2"
             content:
-              text: "Closure Syntax"
+              text: "The Anatomy of a Closure"
           - type: "explanation"
             content:
-              text: "The basic syntax for a closure is `{ (parameters) -> return type in ... }`. The `in` keyword separates the definition from the closure's body."
+              text: "The basic form of a closure is `{ (inputs) -> output in commands... }`. The `in` keyword is the barrier between the closure's definition and its executable body."
           - type: "snippet"
             content:
               code: |
-                let numbers = [1, 2, 3, 4, 5]
-
-                // Use the .map function with a closure to double every number.
-                // The closure is the code between the { ... }
-                let doubledNumbers = numbers.map({ (number: Int) -> Int in
-                    return number * 2
+                let numbers = [10, 20, 30, 40]
+                // The .map command takes a closure as its input.
+                // This closure's job is to transform one number.
+                let transformedNumbers = numbers.map({ (number: Int) -> String in
+                    return "Value is \\(number)"
                 })
-
-                print(doubledNumbers) // Prints [2, 4, 6, 8, 10]
+                // transformedNumbers is now ["Value is 10", "Value is 20", ...]
           - type: "heading2"
             content:
-              text: "Trailing Closure Syntax"
+              text: "The Trailing Closure Ritual"
           - type: "explanation"
             content:
-              text: "Swift has a clean shortcut. If a closure is the last argument to a function, you can write it *after* the function's parentheses. This is called **trailing closure syntax** and is very common."
+              text: "SwiftCraft offers an elegant ritual for clarity. If a closure is the very last input to a function (as it is for `.map`), you can write it *after* the function's parentheses. This is **trailing closure syntax** and is the preferred style among Master Architects."
           - type: "snippet"
             content:
               code: |
-                let names = ["Zoe", "Leo", "Ava"]
-
-                // Using trailing closure syntax with .sorted
-                let sortedNames = names.sorted { (s1: String, s2: String) -> Bool in
-                    return s1 < s2
+                let names = ["Elara", "Gideon", "Seraphina"]
+                // Using trailing closure syntax with the .sorted command
+                let sortedNames = names.sorted { (name1: String, name2: String) -> Bool in
+                    return name1 < name2
                 }
+                // sortedNames is now ["Elara", "Gideon", "Seraphina"]
 
-                print(sortedNames) // Prints ["Ava", "Leo", "Zoe"]
+      - id: "2A1B0E9D-8C7B-4A5B-B4C3-D2E1F0A9B8A7"
+        module_name: "The Scribe's Shorthand: Concise Closures"
+        module_number: 20
+        multiple_choice:
+          - question: "In a closure, what does `$0` represent?"
+            options:
+              - "The number zero."
+              - "The first input parameter provided to the closure."
+              - "A boolean value for 'false'."
+              - "An error."
+            answer: "The first input parameter provided to the closure."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Writing Elegant Closures"
+          - type: "explanation"
+            content:
+              text: "Master Architects value clarity and brevity. SwiftCraft provides several ways to make your closures more concise, removing unnecessary text so the pure logic can shine through."
+          - type: "heading2"
+            content:
+              text: "Inferring Types and Return"
+          - type: "explanation"
+            content:
+              text: "Swift can often infer the types of the inputs and the output of a closure, just like it does for variables. If a closure has only one line of code, you can also omit the `return` keyword."
+          - type: "snippet"
+            content:
+              code: |
+                let names = ["Elara", "Gideon", "Seraphina"]
+                // Full form for comparison
+                let sortedLong = names.sorted { (name1: String, name2: String) -> Bool in
+                    return name1 < name2
+                }
+                // The types and 'return' can be inferred and removed.
+                let sortedMedium = names.sorted { name1, name2 in
+                    name1 < name2
+                }
+          - type: "heading2"
+            content:
+              text: "Shorthand Argument Names"
+          - type: "explanation"
+            content:
+              text: "Swift provides an even shorter way. Instead of naming your inputs, you can refer to them by their position: `$0` for the first input, `$1` for the second, and so on. When you use this, you can remove the entire `name1, name2 in` part."
+          - type: "snippet"
+            content:
+              code: |
+                let names = ["Elara", "Gideon", "Seraphina"]
+                // The most concise form, using shorthand argument names.
+                // $0 is the first name, $1 is the second name.
+                let sortedShort = names.sorted { $0 < $1 }
+                print(sortedShort) // Prints ["Elara", "Gideon", "Seraphina"]
+
+      - id: "F0E9D8C7-B6A5-4B4C-B3D2-E1F0A9B8A7E6"
+        module_name: "True Automata: Classes"
+        module_number: 21
+        multiple_choice:
+          - question: "What is the primary power that Classes have but Structs do not?"
+            options:
+              - "Properties"
+              - "Methods"
+              - "Inheritance"
+              - "Initializers"
+            answer: "Inheritance"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Building Complex Automata with Classes"
+          - type: "explanation"
+            content:
+              text: "**Classes** are the second way to forge your own blueprints. They are similar to `struct`s, but are designed for building the complex, stateful core of your creations—true Automata that can have a lineage and a shared existence."
+          - type: "heading2"
+            content:
+              text: "The Awakening Ritual (Initializers)"
+          - type: "explanation"
+            content:
+              text: "Unlike simple `struct` blueprints, an Automaton does not get a default forging command. You must define your own awakening ritual, called an **initializer** (`init`), to ensure all its core properties are given a value when it is first created."
+          - type: "heading2"
+            content:
+              text: "Lineage and Inheritance"
+          - type: "explanation"
+            content:
+              text: "This is the most defining power of classes. An Automaton (`class`) can inherit all properties and methods from a parent class. The parent is the **superclass**, and the child is the **subclass**. This allows you to build specialized versions of your creations without starting from scratch."
+          - type: "snippet"
+            content:
+              code: |
+                // 1. The parent blueprint (Superclass)
+                class Monster {
+                    var health = 100
+                    func takeDamage(amount: Int) {
+                        health -= amount
+                    }
+                }
+                // 2. The child blueprint (Subclass)
+                // Dragon inherits 'health' and 'takeDamage' from Monster.
+                class Dragon: Monster {
+                    var canBreatheFire: Bool
+                    // Dragons need their own awakening ritual
+                    init(canBreatheFire: Bool) {
+                        self.canBreatheFire = canBreatheFire
+                    }
+                }
+                let smaug = Dragon(canBreatheFire: true)
+                smaug.takeDamage(amount: 25) // This method was inherited!
+                print("Smaug's health: \\(smaug.health)") // Prints "Smaug's health: 75"
+
+      - id: "A1B0E9D8-C7B6-4A5B-B4C3-D2E1F0A9B8A7"
+        module_name: "The Great Divide: Copy vs. Reference"
+        module_number: 22
+        multiple_choice:
+          - question: "When you assign a `struct` instance to a new container, what happens?"
+            options:
+              - "The two containers share the same instance."
+              - "A completely new, independent copy of the instance is made."
+              - "A magical link is created to the original instance."
+              - "The command produces an error."
+            answer: "A completely new, independent copy of the instance is made."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Value vs. Reference Types"
+          - type: "explanation"
+            content:
+              text: "This is the most profound and critical difference between `struct`s and `class`es. It defines how they exist in the world of SwiftCraft. The distinction lies in what happens when you copy them."
+          - type: "heading2"
+            content:
+              text: "Structs are Value Types (They are Copied)"
+          - type: "explanation"
+            content:
+              text: "When you assign a `struct` to a new container, the entire thing is **copied**. You get a brand new, independent instance. Changes to the copy **do not** affect the original. Think of it like a magical blueprint: you can use it to create many identical, but separate, houses."
+          - type: "snippet"
+            content:
+              code: |
+                struct Blueprint { var version: Int }
+                var blueprintA = Blueprint(version: 1)
+                var blueprintB = blueprintA // blueprintB is a perfect COPY.
+                blueprintB.version = 2 // This only changes the copy.
+                print(blueprintA.version) // Prints 1 (the original is untouched)
+                print(blueprintB.version) // Prints 2
+          - type: "heading2"
+            content:
+              text: "Classes are Reference Types (They are Shared)"
+          - type: "explanation"
+            content:
+              text: "When you assign a `class` instance, you are not copying the Automaton. You are forging a new **reference**—another control rod for the *exact same* Automaton. Both containers point to the same object in memory. A command given through one control rod **will** affect the other. There is only one Automaton, but multiple ways to command it."
+          - type: "snippet"
+            content:
+              code: |
+                class Automaton { var id: String; init(id: String) { self.id = id } }
+                var automaton1_controller = Automaton(id: "Alpha")
+                // This creates a SECOND controller for the SAME Automaton.
+                var automaton2_controller = automaton1_controller
+                // Use the second controller to change the Automaton's ID.
+                automaton2_controller.id = "Omega"
+                // Check the ID using the first controller. It has changed!
+                print(automaton1_controller.id) // Prints "Omega"
 
     finalReview:
       content_blocks:
         - type: "heading1"
           content:
-            text: "Chapter 4 Review"
+            text: "Chapter 4 Review: The Automata Architect"
         - type: "explanation"
           content:
-            text: "This chapter was a deep dive into the building blocks of a real Swift application. You've explored how to create powerful, custom types and learned about a new way to package up code."
+            text: "You have now mastered the arts of advanced construction. You can build blueprints with their own intelligence, command the living spirits of code, and forge true Automata with lineage and shared existence."
         - type: "heading2"
           content:
-            text: "Key Concepts You've Mastered"
+            text: "Arts You Have Mastered"
         - type: "explanation"
           content:
-            text: "**Advanced `struct`s:** You can now add computed properties to calculate values, methods to add functionality, and use the `mutating` keyword for methods that change properties."
+            text: "**Intelligent Blueprints:** You can add computed properties and methods (actions) to your `struct`s, using `mutating` to signify changes of state."
         - type: "explanation"
           content:
-            text: "**`class`es:** You've learned about the other major custom type in Swift, which supports **inheritance**, allowing you to build new classes on top of existing ones. You also know how to write an `init()` method."
+            text: "**Living Code (Closures):** You can write, store, and pass around anonymous blocks of commands, using shorthand syntax like `$0` for elegance and brevity."
         - type: "explanation"
           content:
-            text: "**Value vs. Reference Types:** This is the big one! You understand that `struct`s are **value types** (they are copied), while `class`es are **reference types** (they are shared). This distinction is fundamental to Swift."
+            text: "**True Automata (Classes):** You can build complex `class` objects that support **inheritance**, allowing you to create specialized children from a parent blueprint."
         - type: "explanation"
           content:
-            text: "**Closures:** You can now write anonymous, self-contained blocks of code. You've seen how they work with powerful array methods like `.map` and `.sorted` to transform data in a clean and concise way."
+            text: "**The Great Divide:** You understand the fundamental difference between `struct`s (**value types** that are copied) and `class`es (**reference types** that are shared)."

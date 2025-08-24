@@ -1,0 +1,155 @@
+chapters:
+  - chapterName: "Chapter 8: The Bonds of Memory (Memory Management)"
+    modules:
+      - id: "A0B9C8D7-6E5F-4C3D-B2D1-F0A9B8A7B6A5"
+        module_name: "The Great Tally: ARC"
+        module_number: 33
+        multiple_choice:
+          - question: "What does ARC stand for?"
+            options:
+              - "Automatic Resource Control"
+              - "Associated Reference Counting"
+              - "Automatic Reference Counting"
+              - "Automated Resource Compilation"
+            answer: "Automatic Reference Counting"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Automatic Reference Counting"
+          - type: "explanation"
+            content:
+              text: "Every Automaton (`class` instance) you forge consumes a bit of the realm's life force (memory) to exist. If old, unused Automata are never dismissed, they will linger forever, draining the realm's energy. SwiftCraft has a guardian spirit called **ARC** (Automatic Reference Counting) that handles this for you. You rarely see it, but you must understand its laws."
+          - type: "heading2"
+            content:
+              text: "How ARC Works"
+          - type: "explanation"
+            content:
+              text: "Think of every container (variable or constant) that holds onto an Automaton as a 'control rod'. ARC keeps a tally of how many control rods are currently pointing to each Automaton. When you create a new control rod, the count goes up by one. When a control rod is destroyed (e.g., a function ends), the count goes down by one. **When the count reaches zero, ARC knows the Automaton is no longer needed and dismisses it, freeing its life force.**"
+          - type: "snippet"
+            content:
+              code: |
+                class Golem {}
+                var controller1: Golem? = Golem() // Golem is created. Reference count is 1.
+                var controller2 = controller1     // Reference count is now 2.
+                var controller3 = controller1     // Reference count is now 3.
+                controller1 = nil // Count is 2.
+                controller2 = nil // Count is 1.
+                controller3 = nil // Count is 0. The Golem is now dismissed.
+
+      - id: "B1C0A9B8-7F6A-4D4E-B3E2-A1B0C9D8E7B6"
+        module_name: "The Cycle of Eternity: Retain Cycles"
+        module_number: 34
+        multiple_choice:
+          - question: "What is a 'strong reference cycle' or 'retain cycle'?"
+            options:
+              - "A fast loop in your code."
+              - "When two class instances hold strong, non-optional references to each other."
+              - "A special type of error."
+              - "A secure way to store data."
+            answer: "When two class instances hold strong, non-optional references to each other."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Strong Reference Cycles"
+          - type: "explanation"
+            content:
+              text: "ARC's law is simple, but it can be tricked. A **strong reference cycle** (or retain cycle) occurs when two Automata hold strong control rods to each other. They essentially say, 'I'm keeping you alive!' and 'No, I'm keeping *you* alive!' Even if all other control rods to them are destroyed, their reference counts will never drop to zero. They become ghosts, trapped in memory forever, causing a 'memory leak'."
+          - type: "heading2"
+            content:
+              text: "A Classic Example: The Architect and the Tower"
+          - type: "explanation"
+            content:
+              text: "Imagine an Architect who has a tower, and the Tower knows who its architect is. If both properties are standard (strong) references, you create a cycle."
+          - type: "snippet"
+            content:
+              code: |
+                class Architect {
+                    var tower: Tower?
+                }
+                class Tower {
+                    var architect: Architect?
+                }
+                var aragorn: Architect? = Architect()
+                var minasTirith: Tower? = Tower()
+                // The Architect now has a reference to their Tower.
+                aragorn?.tower = minasTirith
+                // The Tower has a reference back to its Architect.
+                // This creates the strong reference cycle!
+                minasTirith?.architect = aragorn
+                // Now, even if we release our external control rods...
+                aragorn = nil
+                minasTirith = nil
+                // ...the Architect and the Tower keep each other alive. Their memory is leaked.
+
+      - id: "C2D1B0A9-8A7B-4E5F-B4F3-B2C1A0E9D8C7"
+        module_name: "Breaking the Cycle: `weak` and `unowned`"
+        module_number: 35
+        multiple_choice:
+          - question: "Which keyword is most commonly used to break a strong reference cycle?"
+            options:
+              - "optional"
+              - "strong"
+              - "weak"
+              - "cycle"
+            answer: "weak"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Resolving Reference Cycles"
+          - type: "explanation"
+            content:
+              text: "To break this eternal bond, you must declare one of the control rods in the cycle as being **weak**. A weak reference is a special type of control rod that points to an Automaton but **does not increase its reference count**. It does not claim ownership."
+          - type: "heading2"
+            content:
+              text: "The `weak` Keyword"
+          - type: "explanation"
+            content:
+              text: "You mark a property with the `weak` keyword. Because the object it points to could be dismissed at any time (since the weak reference isn't keeping it alive), a `weak` reference must always be an Optional `var`. If the object it points to is deallocated, the weak reference automatically becomes `nil`."
+          - type: "snippet"
+            content:
+              code: |
+                class Architect {
+                    var tower: Tower?
+                }
+                class Tower {
+                    // The Tower's reference to its architect is 'weak'.
+                    // It doesn't own the architect.
+                    weak var architect: Architect?
+                }
+                var aragorn: Architect? = Architect()
+                var minasTirith: Tower? = Tower()
+                aragorn?.tower = minasTirith
+                minasTirith?.architect = aragorn // This link no longer increases the count.
+                aragorn = nil
+                minasTirith = nil
+                // Now, both are successfully dismissed. No memory leak!
+          - type: "heading2"
+            content:
+              text: "The `unowned` Keyword"
+          - type: "explanation"
+            content:
+              text: "`unowned` is similar to `weak` in that it doesn't increase the reference count, but it is not an optional. You use it when you can absolutely guarantee that the reference will not be `nil` during its lifetime. It's a performance optimization but is more dangerous; if you're wrong, your app will crash. When in doubt, use `weak`."
+
+    finalReview:
+      content_blocks:
+        - type: "heading1"
+          content:
+            text: "Chapter 8 Review: The Keeper of Memory"
+        - type: "explanation"
+          content:
+            text: "You have peered into the invisible world that sustains your creations. Understanding the laws of memory is the final step in becoming a truly responsible and masterful architect, capable of building powerful, efficient, and immortal constructs that do not burden the realm."
+        - type: "heading2"
+          content:
+            text: "Arts You Have Mastered"
+        - type: "explanation"
+          content:
+            text: "**Automatic Reference Counting (ARC):** You understand the guardian spirit ARC, which automatically manages memory by tracking the number of strong references to your Automata."
+        - type: "explanation"
+          content:
+            text: "**Strong Reference Cycles:** You can now identify the dangerous 'Cycle of Eternity,' where two objects hold strong references to each other, causing a memory leak."
+        - type: "explanation"
+          content:
+            text: "**Breaking Cycles with `weak`:** You know how to use the `weak` keyword to create a non-owning reference, the primary and safest tool for breaking reference cycles."
+        - type: "explanation"
+          content:
+            text: "**`unowned` References:** You are aware of the `unowned` keyword as a more advanced alternative to `weak` for situations where an object's existence is guaranteed."
