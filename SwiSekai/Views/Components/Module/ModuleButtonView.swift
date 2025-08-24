@@ -15,7 +15,6 @@ struct ModuleIconView: View {
                 .font(.system(size: 22, weight: .bold))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-                .lineLimit(2) // Allow up to 2 lines
                 .fixedSize(horizontal: false, vertical: true) // Wrap vertically
                 .frame(width: 150) // match icon width
         }

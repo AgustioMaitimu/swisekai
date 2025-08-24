@@ -1,0 +1,189 @@
+chapters:
+  - chapterName: "Chapter 7: Taming Unstable Magic (Error Handling)"
+    modules:
+      - id: "6E5F4D3C-2A1B-4E9D-B8F7-B6C5F4E3D2C1"
+        module_name: "Representing Failure"
+        module_number: 29
+        multiple_choice:
+          - question: "To create a custom error type in SwiftCraft, what contract must your blueprint conform to?"
+            options:
+              - "CaseIterable"
+              - "Equatable"
+              - "Error"
+              - "Failure"
+            answer: "Error"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Error Handling: Preparing for the Worst"
+          - type: "explanation"
+            content:
+              text: "Not all commands succeed. A potion might require an ingredient you don't have. A blacksmith might strike the anvil too hard and shatter the blade. In SwiftCraft, these failures are called **errors**. A novice's creation crumbles at the first sign of an error. A master's creation anticipates them and handles them gracefully."
+          - type: "heading2"
+            content:
+              text: "Defining Your Failures"
+          - type: "explanation"
+            content:
+              text: "The first step is to define what can go wrong. The best way to do this is with an `enum` that conforms to the universal `Error` contract. This gives you a clear, specific list of all possible failure states for a given operation."
+          - type: "snippet"
+            content:
+              code: |
+                // A blueprint for all the ways forging a sword could fail.
+                enum ForgingError: Error {
+                    case outOfIron
+                    case forgeNotHotEnough
+                    case quenchedTooSoon
+                }
+
+      - id: "7F6A5E4D-3B2C-4F0E-B9A8-C7D6A5F4E3D2"
+        module_name: "Risky Operations: Throwing Errors"
+        module_number: 30
+        multiple_choice:
+          - question: "What keyword do you add to a function's signature to indicate it can fail and throw an error?"
+            options:
+              - "error"
+              - "fail"
+              - "catch"
+              - "throws"
+            answer: "throws"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Functions That Can Throw Errors"
+          - type: "explanation"
+            content:
+              text: "Now that you've defined your errors, you need to create mechanisms that can signal when one of these failures occurs. You do this by creating a **throwing function**."
+          - type: "heading2"
+            content:
+              text: "The `throws` and `throw` Keywords"
+          - type: "explanation"
+            content:
+              text: "You mark a function that can fail with the `throws` keyword in its signature. This is a warning to any who would call it: 'This operation is risky!' Inside the function, if a failure condition is met, you use the `throw` keyword to send the specific error back."
+          - type: "snippet"
+            content:
+              code: |
+                // This function is marked with 'throws', indicating it might fail.
+                func forgeLegendarySword(ironIngots: Int, forgeTemp: Int) throws {
+                    if ironIngots < 10 {
+                        // Throw a specific error to signal what went wrong.
+                        throw ForgingError.outOfIron
+                    }
+                    if forgeTemp < 1500 {
+                        throw ForgingError.forgeNotHotEnough
+                    }
+                    // If no errors were thrown, the forging succeeds.
+                    print("The legendary sword is forged!")
+                }
+
+      - id: "8A7B6F5E-4C3D-4A1F-A0B9-D8E7B6A5F4E3"
+        module_name: "Handling the Fallout: Do-Try-Catch"
+        module_number: 31
+        multiple_choice:
+          - question: "What is the purpose of a `do-catch` block?"
+            options:
+              - "To run code multiple times."
+              - "To call a function that might throw an error and handle any failures that occur."
+              - "To create a new type of error."
+              - "To check if two values are equal."
+            answer: "To call a function that might throw an error and handle any failures that occur."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Catching and Handling Errors"
+          - type: "explanation"
+            content:
+              text: "When you call a throwing function, you must acknowledge the risk. The most powerful way to do this is with a `do-catch` block. It provides a safe chamber (`do`) to attempt the risky operation, and one or more recovery chambers (`catch`) to handle any errors that are thrown."
+          - type: "heading2"
+            content:
+              text: "The `do-try-catch` Ritual"
+          - type: "explanation"
+            content:
+              text: "You place the risky command inside the `do` block and prefix it with the `try` keyword. The `try` keyword is your acknowledgement of the danger. If an error is thrown, execution immediately jumps to the `catch` block, where you can inspect the error and decide how to recover."
+          - type: "snippet"
+            content:
+              code: |
+                // We attempt the risky forging operation.
+                do {
+                    // We must use 'try' to call a throwing function.
+                    try forgeLegendarySword(ironIngots: 5, forgeTemp: 1600)
+                } catch ForgingError.outOfIron {
+                    // This block runs only if the specific 'outOfIron' error was thrown.
+                    print("Failure: We need more iron ingots!")
+                } catch ForgingError.forgeNotHotEnough {
+                    print("Failure: The forge is not hot enough to melt the star-metal!")
+                } catch {
+                    // A general 'catch' block will handle any other error.
+                    print("An unknown forging error occurred: \\(error)")
+                }
+                // Prints "Failure: We need more iron ingots!"
+
+      - id: "9B8C7A6F-5D4E-4B2A-B1C0-E9F8A7B6A5F4"
+        module_name: "Simpler Error Handling"
+        module_number: 32
+        multiple_choice:
+          - question: "If you call a throwing function with `try?`, what will the result be if an error is thrown?"
+            options:
+              - "The program will crash."
+              - "The function will run again."
+              - "It will return `nil`."
+              - "It will return the error itself."
+            answer: "It will return `nil`."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Concise Error Handling: `try?` and `try!`"
+          - type: "explanation"
+            content:
+              text: "A full `do-catch` block is powerful, but sometimes you don't need to know *why* an operation failed, only *if* it failed. SwiftCraft provides two simpler runes for these situations."
+          - type: "heading2"
+            content:
+              text: "Converting Errors to Optionals with `try?`"
+          - type: "explanation"
+            content:
+              text: "Using `try?` converts the outcome of a throwing function into an Optional. If the function succeeds, you get the return value wrapped in an optional. If it throws an error, you simply get back `nil`. The error itself is discarded."
+          - type: "snippet"
+            content:
+              code: |
+                // This function returns a String, but can throw.
+                func fetchAncientScroll(name: String) throws -> String {
+                    if name == "Forbidden" { throw ForgingError.quenchedTooSoon }
+                    return "The scroll reads..."
+                }
+                // If fetch succeeds, scrollContent will be an optional String.
+                // If it fails, scrollContent will be nil.
+                let scrollContent = try? fetchAncientScroll(name: "Forbidden")
+          - type: "heading2"
+            content:
+              text: "Disabling Error Handling with `try!`"
+          - type: "explanation"
+            content:
+              text: "Just like force-unwrapping an optional, `try!` is a dangerous command. It tells SwiftCraft, 'I am absolutely certain this throwing function will not throw an error.' If you are wrong and an error is thrown, your creation will shatter (the app will crash). It should be used only in rare situations where failure is truly impossible."
+          - type: "snippet"
+            content:
+              code: |
+                // We are certain this will succeed.
+                let safeScroll = try! fetchAncientScroll(name: "Safe")
+
+    finalReview:
+      content_blocks:
+        - type: "heading1"
+          content:
+            text: "Chapter 7 Review: The Resilient Architect"
+        - type: "explanation"
+          content:
+            text: "You have learned one of the most important arts: resilience. Your creations are no longer fragile things that shatter at the first sign of trouble. You can now build constructs that anticipate failure and handle it with grace and logic."
+        - type: "heading2"
+          content:
+            text: "Arts You Have Mastered"
+        - type: "explanation"
+          content:
+            text: "**Representing Failure:** You can define a clear, type-safe list of possible failures by creating an `enum` that conforms to the `Error` contract."
+        - type: "explanation"
+          content:
+            text: "**Throwing Functions:** You can create mechanisms that can signal failure by marking them with `throws` and using `throw` to send a specific error."
+        - type: "explanation"
+          content:
+            text: "**Do-Try-Catch:** You have mastered the full ritual for handling errors, allowing you to `try` risky operations and `catch` specific failures to recover gracefully."
+        - type: "explanation"
+          content:
+            text: "**Concise Handling:** You know how to use `try?` to convert a potential failure into a simple `nil` value, and the dangerous `try!` for situations where you are certain of success."

@@ -1,286 +1,301 @@
 chapters:
-  - chapterName: "Chapter 2: Collection Types and Control Flow"
+  - chapterName: "Chapter 2: Constructing with Logic"
     modules:
-      - id: "E0653B81-CC42-40F8-8AE1-4A6A9858461D"
-        module_name: "Collections: Arrays"
-        module_number: 8
+      - id: "C1B0A9D8-E7F6-4D5C-B4A3-9E8D7C6B5A49"
+        module_name: "The Ordered Satchel: Arrays"
+        module_number: 9
         multiple_choice:
-          - question: "How do you access the first element in an array named `colors`?"
+          - question: "How do you retrieve the first gem from an Array named `gems`?"
             options:
-              - "colors.first"
-              - "colors[1]"
-              - "colors[0]"
-              - "colors.get(0)"
-            answer: "colors[0]"
-          - question: "What method is used to add a new element to the end of an array?"
+              - "gems.first"
+              - "gems[1]"
+              - "gems[0]"
+              - "gems.get(0)"
+            answer: "gems[0]"
+          - question: 'If you have a satchel defined as `let ingredients = ["Moon Dust", "Sun Dew"]`, what is the value of `ingredients.count`?'
             options:
-              - ".add()"
-              - ".insert()"
-              - ".push()"
-              - ".append()"
-            answer: ".append()"
-          - question: "If `let numbers = [10, 20, 30]`, what is the value of `numbers.count`?"
-            options:
+              - "1"
               - "2"
-              - "3"
-              - "30"
-              - "The code will error."
-            answer: "3"
+              - "The command will fail."
+              - "0"
+            answer: "2"
         content_blocks:
           - type: "heading1"
             content:
-              text: "Collections: Arrays"
+              text: "Organizing Your Elements: Arrays"
           - type: "explanation"
             content:
-              text: "An **Array** is an ordered collection that stores multiple values of the same type. Think of it as a numbered list of items. The order you put them in is the order they stay in."
+              text: "An architect with scattered elements is an architect of chaos. To build great things, you must be organized. An **Array** is an enchanted satchel that holds a list of items of the same type in a specific order. The order you place them in is the order they remain."
           - type: "heading2"
             content:
-              text: "Creating and Typing Arrays"
+              text: "Crafting an Array"
           - type: "explanation"
             content:
-              text: "You create an array by putting values in square brackets `[]`, separated by commas. Swift can often infer the type, but you can be explicit by writing the type in brackets, like `[String]` or `[Int]`."
+              text: "You craft an Array by placing your elements within square brackets `[]`, separated by commas. Every element in the satchel must be of the same type."
           - type: "snippet"
             content:
               code: |
-                // Swift infers this is an array of Strings: [String]
-                let team_members = ["Zoe", "Leo", "Ava"]
-
-                // Creating an empty array requires an explicit type
-                var scores: [Int] = []
+                // An Array of Strings, inferred by SwiftCraft.
+                let partyMembers = ["Arion the Brave", "Lyra the Swift", "Bax the Strong"]
+                // To craft an empty satchel, you must declare the type of item it will hold.
+                var collectedGems: [String] = []
           - type: "heading2"
             content:
-              text: "Accessing and Modifying Arrays"
+              text: "Accessing and Modifying Your Satchel"
           - type: "explanation"
             content:
-              text: "You access elements by their position, or **index**, which starts at **0**. You can use common properties and methods like `.count` to get the number of items, `.append()` to add an item to the end, and `.remove(at:)` to remove an item at a specific index."
+              text: "You retrieve items by their position, or **index**. This is a crucial law of SwiftCraft: **indexing always starts at 0**. The first item is at index 0, the second at 1, and so on. To add a new item, you `.append()` it to the end."
           - type: "snippet"
             content:
               code: |
-                var planets = ["Mercury", "Venus", "Earth"]
+                var potions = ["Health", "Mana", "Stamina"]
+                // Retrieve the first potion (at index 0)
+                let firstPotion = potions[0] // "Health"
+                // Add a new potion to the end
+                potions.append("Invisibility")
+                // Remove the Mana potion (at index 1)
+                potions.remove(at: 1)
+                // Ask the satchel how many items it holds
+                print("You have \\(potions.count) potions left.") // Prints "You have 3 potions left."
 
-                // Access the first planet (index 0)
-                let first_planet = planets[0] // "Mercury"
-
-                // Add a new planet to the end
-                planets.append("Mars")
-
-                // Remove Venus (at index 1)
-                planets.remove(at: 1)
-
-                print("There are \(planets.count) planets.") // Prints "There are 3 planets."
-
-      - id: "4AB37D43-A27C-453F-B632-A04B66868355"
-        module_name: "Collections: Dictionaries"
-        module_number: 9
+      - id: "D2C1B0A9-F8E7-4D6C-B5A4-A9E8D7C6B5A4"
+        module_name: "The Labeled Chest: Dictionaries"
+        module_number: 10
         multiple_choice:
-          - question: "Which of the following correctly defines a dictionary?"
+          - question: "Which of the following correctly describes a Dictionary?"
             options:
               - "An ordered list of values."
               - "An unordered collection of key-value pairs."
-              - "A collection that can only store Strings."
+              - "A collection that can only store text."
               - "A fixed-size list of items."
             answer: "An unordered collection of key-value pairs."
-          - question: "How would you get the value associated with the key `\"age\"` from a dictionary named `user`?"
+          - question: 'How would you look up the capital city for the key `"Rohan"` in a Dictionary named `kingdoms`?'
             options:
-              - "user.get(\"age\")"
-              - "user[0]"
-              - "user[\"age\"]"
-              - "user.age"
-            answer: "user[\"age\"]"
+              - 'kingdoms.get("Rohan")'
+              - "kingdoms[0]"
+              - 'kingdoms["Rohan"]'
+              - "kingdoms.Rohan"
+            answer: 'kingdoms["Rohan"]'
         content_blocks:
           - type: "heading1"
             content:
-              text: "Collections: Dictionaries"
+              text: "Storing by Label: Dictionaries"
           - type: "explanation"
             content:
-              text: "A **Dictionary** is an unordered collection that stores associations between **keys** and **values**. Each value is linked to a unique key, just like how a word in a real dictionary is linked to its definition. Keys must be unique."
+              text: "While a satchel is an ordered list, a **Dictionary** is like a great chest with many labeled drawers. It's an unordered collection where each item (the **value**) is stored with a unique label (the **key**). Dictionaries are incredibly fast for finding an item when you know its label, without having to search through a list."
           - type: "heading2"
             content:
-              text: "Creating Dictionaries"
+              text: "Crafting a Dictionary"
           - type: "explanation"
             content:
-              text: "You create dictionaries using square brackets, with a colon separating each key and its value. The type of a dictionary is written as `[KeyType: ValueType]`."
+              text: "You craft a Dictionary with square brackets, using a colon `:` to link a key to its value. Its type is declared as `[KeyType: ValueType]`."
           - type: "snippet"
             content:
               code: |
-                // A dictionary mapping String keys to Int values
-                var populations: [String: Int] = [
-                    "Tokyo": 37_000_000,
-                    "Delhi": 32_000_000,
-                    "Shanghai": 28_000_000
+                // A Dictionary mapping character names (String keys) to their power level (Int values)
+                var heroLevels: [String: Int] = [
+                    "Arion": 10,
+                    "Lyra": 12,
+                    "Bax": 9
                 ]
           - type: "heading2"
             content:
-              text: "Accessing and Modifying Dictionaries"
+              text: "Accessing and Modifying Your Chest"
           - type: "explanation"
             content:
-              text: "You use the key to access, change, or add values. If you try to access a key that doesn't exist, you'll get back `nil`, which means 'no value'."
+              text: "You use the key in square brackets to find, change, or add new items. If you search for a key that doesn't exist, the chest returns `nil`—a wisp of smoke signifying 'nothing found'."
           - type: "snippet"
             content:
               code: |
-                // Accessing the population of Tokyo
-                let tokyo_pop = populations["Tokyo"] // 37_000_000
+                // Find Arion's level
+                let arionsLevel = heroLevels["Arion"] // The result is 10
+                // Add a new hero to the chest
+                heroLevels["Fenrir"] = 15
+                // Lyra leveled up! Update her value.
+                heroLevels["Lyra"] = 13
+                // To remove an entry, assign its key to nil
+                heroLevels["Bax"] = nil
 
-                // Adding a new key-value pair
-                populations["Cairo"] = 22_000_000
-
-                // Updating an existing value
-                populations["Shanghai"] = 29_000_000
-
-                // Removing a pair by setting its value to nil
-                populations["Delhi"] = nil
-
-      - id: "2ACFC5F6-14BA-4676-BE6F-DA150139E326"
-        module_name: "Making Decisions: Conditionals"
-        module_number: 10
+      - id: "9F8A7B6C-5D4E-4A3B-B2C1-D0E9F8A7B6C5"
+        module_name: "Truth Glyphs and Logic"
+        module_number: 11
         multiple_choice:
-          - question: "Which operator checks for equality between two values?"
+          - question: "What will `canProceed` be? `let canProceed = (10 > 5)`"
             options:
-              - "="
+              - "10"
+              - "true"
+              - "false"
+              - "The command will fail."
+            answer: "true"
+          - question: "Which comparison glyph means 'not equal to'?"
+            options:
               - "=="
+              - "!"
+              - "!=="
               - "!="
-              - "&&"
-            answer: "=="
-          - question: "What will this code print?\nlet temperature = 30\nif temperature > 25 { print(\"It's hot.\") } else { print(\"It's not hot.\") }"
-            options:
-              - "It's hot."
-              - "It's not hot."
-              - "It will print both."
-              - "It will print nothing."
-            answer: "It's hot."
-          - question: "Which operator represents a logical AND?"
-            options:
-              - "OR"
-              - "||"
-              - "AND"
-              - "&&"
-            answer: "&&"
+            answer: "!="
         content_blocks:
           - type: "heading1"
             content:
-              text: "Making Decisions: Conditionals"
+              text: "The Foundation of Logic"
           - type: "explanation"
             content:
-              text: "So far, our code runs from top to bottom. But what if we want to run code only if a certain condition is true? That's where **conditionals** come in. They allow your program to make decisions and follow different paths."
+              text: "To make your creations intelligent, they must be able to ask questions and understand the answers. In SwiftCraft, these answers are always `Bool` elements: either `true` or `false`. This logic is the soul of any smart construct."
           - type: "heading2"
             content:
-              text: "The `if` Statement"
+              text: "Comparison Glyphs"
           - type: "explanation"
             content:
-              text: "The `if` statement checks a condition. If the condition is `true`, a block of code runs. If it's `false`, the block is skipped. We use **comparison operators** like `>` (greater than), `<` (less than), and `==` (equal to) to form the conditions."
+              text: "These glyphs compare two values and produce a `Bool` result."
+          - type: "unorderedList"
+            content:
+              items:
+                - "`==` : Is equal to?"
+                - "`!=` : Is not equal to?"
+                - "`>` : Is greater than?"
+                - "`<` : Is less than?"
+                - "`>=` : Is greater than or equal to?"
+                - "`<=` : Is less than or equal to?"
           - type: "snippet"
             content:
               code: |
-                let user_age = 18
-                if user_age >= 18 {
-                    print("You are eligible to vote.")
+                let yourLevel = 10
+                let requiredLevel = 8
+                let canEnterDungeon = yourLevel >= requiredLevel // This becomes true
+                let isMaxLevel = yourLevel == 100             // This becomes false
+          - type: "heading2"
+            content:
+              text: "Combining Logic: AND and OR Runes"
+          - type: "explanation"
+            content:
+              text: "You can ask more complex questions by combining truth glyphs."
+          - type: "unorderedList"
+            content:
+              items:
+                - "`&&` (**AND**): Is true only if **both** conditions are true. (Do you have the key AND is the gate unlocked?)"
+                - "`||` (**OR**): Is true if **at least one** condition is true. (Is the enemy weak to fire OR ice?)"
+          - type: "snippet"
+            content:
+              code: |
+                let hasSilverKey = true
+                let hasGoldenKey = false
+                let canOpenFinalChest = hasSilverKey && hasGoldenKey // false (needs both)
+                let canOpenSideDoor = hasSilverKey || hasGoldenKey  // true (only needs one)
+
+      - id: "E3D2C1B0-A9F8-4D7C-B6A5-BA9E8D7C6B5A"
+        module_name: "The Forking Path: `if`, `else`"
+        module_number: 12
+        multiple_choice:
+          - question: 'What will this construct say? `let weather = "Rain"; if weather == "Rain" { print("Take an umbrella.") } else { print("Enjoy the sun.") }`'
+            options:
+              - "Take an umbrella."
+              - "Enjoy the sun."
+              - "It will say both."
+              - "It will say nothing."
+            answer: "Take an umbrella."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Conditional Construction"
+          - type: "explanation"
+            content:
+              text: "So far, your commands are executed in a straight line. But an intelligent creation must react differently to different situations. **Conditionals** use the `Bool` logic you just learned to create forking paths, allowing your code to make decisions."
+          - type: "heading2"
+            content:
+              text: "The `if` Command"
+          - type: "explanation"
+            content:
+              text: "The `if` command poses a question. If the answer is `true`, it executes the block of code that follows. If `false`, it skips the block entirely."
+          - type: "snippet"
+            content:
+              code: |
+                let playerHealth = 15
+                if playerHealth <= 20 {
+                    print("Health is low! Use a healing potion.")
                 }
           - type: "heading2"
             content:
               text: "`else` and `else if`"
           - type: "explanation"
             content:
-              text: "You can provide an alternative path for when the condition is `false` using an `else` block. For more complex choices, you can chain multiple checks together with `else if`."
+              text: "You can provide an alternative path for when the `if` question is `false` using an `else` block. For a path with many forks, you can chain multiple questions with `else if`."
           - type: "snippet"
             content:
               code: |
-                let score = 85
-                if score >= 90 {
-                    print("Grade: A")
-                } else if score >= 80 {
-                    print("Grade: B")
+                let monsterType = "Dragon"
+                if monsterType == "Dragon" {
+                    print("Weak against Ice spells!")
+                } else if monsterType == "Golem" {
+                    print("Weak against Crushing blows!")
                 } else {
-                    print("Grade: C or below")
+                    print("Weakness is unknown.")
                 }
-                // Prints "Grade: B"
+                // Prints "Weak against Ice spells!"
 
-      - id: "13679815-F4BB-4DE9-903A-3F02C75D2536"
-        module_name: "More Control Flow: Switch Statements"
-        module_number: 11
+      - id: "F4E3D2C1-BAA9-4D8C-B7A6-CBA9E8D7C6B5"
+        module_name: "The Circle of Choice: Switch"
+        module_number: 13
         multiple_choice:
-          - question: "What is the purpose of the `default` case in a switch statement?"
+          - question: "In a `switch` statement, what is the purpose of the `default` case?"
             options:
-              - "It's the first case that runs."
-              - "It's optional and rarely used."
-              - "It runs if no other case matches the value."
-              - "It sets the default value for the variable."
-            answer: "It runs if no other case matches the value."
-          - question: "Which feature is unique to Swift's switch statements compared to many other languages?"
-            options:
-              - "They only work with numbers."
-              - "They must be exhaustive (cover all possible values)."
-              - "They do not need a `default` case."
-              - "They cannot match against ranges."
-            answer: "They must be exhaustive (cover all possible values)."
+              - "It's the first option checked."
+              - "It's an optional case, rarely used."
+              - "It runs if no other case matches the value being checked."
+              - "It defines the value for the variable."
+            answer: "It runs if no other case matches the value being checked."
         content_blocks:
           - type: "heading1"
             content:
-              text: "More Control Flow: Switch Statements"
+              text: "Handling Many Possibilities: Switch"
           - type: "explanation"
             content:
-              text: "A **`switch`** statement is another way to control your program's flow. It's often cleaner and more powerful than a long `if-else if` chain, especially when you are checking a single value against many possible conditions."
+              text: "A **`switch`** statement is like a Runic Circle of Choice. It's often a cleaner and more powerful way to handle decisions than a long `if-else if` chain, especially when you are checking one value against many possible outcomes."
           - type: "heading2"
             content:
-              text: "Basic Syntax"
+              text: "Using the Circle of Choice"
           - type: "explanation"
             content:
-              text: "You provide a value to `switch` on, and then define several `case`s that the value might match. Swift checks them in order. A powerful feature of Swift is that `switch` statements must be **exhaustive**, meaning you must provide a `case` for every possible value, or include a `default` case to handle anything not explicitly listed."
+              text: "You provide a value to the `switch` statement. It then checks this value against each `case` you've defined. A core law of SwiftCraft is that `switch` statements must be **exhaustive**: you must account for every possible outcome, or provide a `default` case to handle any unforeseen possibilities."
           - type: "snippet"
             content:
               code: |
-                let http_status_code = 404
-
-                switch http_status_code {
-                case 200:
-                    print("OK")
-                case 404:
-                    print("Not Found")
-                case 500:
-                    print("Internal Server Error")
+                let compassDirection = "North"
+                switch compassDirection {
+                case "North":
+                    print("You are heading towards the Frostfang Mountains.")
+                case "South":
+                    print("You are heading towards the Sunstone Desert.")
+                case "East":
+                    print("You are heading towards the Whispering Woods.")
+                case "West":
+                    print("You are heading towards the Azure Sea.")
                 default:
-                    print("Unknown status code")
+                    print("You are lost!")
                 }
-                // Prints "Not Found"
-          - type: "heading2"
-            content:
-              text: "Matching Ranges"
-          - type: "explanation"
-            content:
-              text: "You're not limited to matching single values. You can also match against number ranges, which makes `switch` incredibly versatile."
-          - type: "snippet"
-            content:
-              code: |
-                let year = 2025
-                switch year {
-                case ..<2000:
-                    print("In the 20th Century")
-                case 2000...2024:
-                    print("In the early 21st Century")
-                default:
-                    print("The present or the future")
-                }
-                // Prints "The present or the future"
 
     finalReview:
       content_blocks:
         - type: "heading1"
           content:
-            text: "Chapter 2 Review"
+            text: "Chapter 2 Review: An Architect of Logic"
         - type: "explanation"
           content:
-            text: "Fantastic progress! You've moved beyond single values and now have the tools to manage collections of data and control the logical flow of your programs."
+            text: "You have progressed from a mere handler of elements to an architect of logic. You can now build creations that organize themselves and react to the world with intention."
         - type: "heading2"
           content:
-            text: "Key Concepts You've Mastered"
+            text: "Arts You Have Mastered"
         - type: "explanation"
           content:
-            text: "**Arrays:** You know how to create and manage ordered lists of data. You can access elements by their index (starting at 0) and modify the list with methods like `.append()` and `.remove(at:)`."
+            text: "**Arrays:** You can craft Ordered Satchels to store lists of items, retrieving them by their index (starting at 0)."
         - type: "explanation"
           content:
-            text: "**Dictionaries:** You learned how to store data as key-value pairs, perfect for when you need to look up a value without knowing its position. Remember that they are unordered!"
+            text: "**Dictionaries:** You can forge Labeled Chests to store items by a unique key, allowing for instant retrieval."
         - type: "explanation"
           content:
-            text: "**`if`, `else if`, `else`:** You can now write code that makes decisions. By checking conditions with comparison operators (`==`, `>`, `!=`, etc.), you can direct your program to execute different blocks of code."
+            text: "**Truth Glyphs and Logic:** You can ask questions with comparison glyphs (`==`, `>`, `!=`) and forge complex logic with `&&` (AND) and `||` (OR)."
         - type: "explanation"
           content:
-            text: "**`switch` Statements:** You have a powerful and clean alternative to `if` statements for checking a single value against multiple possible conditions, including ranges. You also learned that they must be exhaustive."
+            text: "**Conditional Construction:** You can use `if`, `else if`, and `else` to create forking paths, giving your creations the ability to decide."
+        - type: "explanation"
+          content:
+            text: "**The Circle of Choice:** You can use a `switch` statement as a powerful and clean way to handle a value with many possible outcomes."

@@ -1,0 +1,199 @@
+chapters:
+  - chapterName: "Chapter 6: The Power of Enumeration"
+    modules:
+      - id: "3B2C1A0E-9D8C-4B6A-B5C4-E3D2F1B0A9B8"
+        module_name: "Defining a Set of Choices"
+        module_number: 26
+        multiple_choice:
+          - question: "What is an enumeration (`enum`) primarily used for?"
+            options:
+              - "To store a list of ordered items."
+              - "To group a related set of distinct values."
+              - "To perform mathematical calculations."
+              - "To inherit capabilities from a parent."
+            answer: "To group a related set of distinct values."
+          - question: "How do you access a specific case of an enum named `Season`?"
+            options:
+              - "Season(winter)"
+              - 'Season["winter"]'
+              - "Season.winter"
+              - "winter.Season"
+            answer: "Season.winter"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Enumerations: Blueprints of Choice"
+          - type: "explanation"
+            content:
+              text: "As an architect, you often need to represent a concept that has a limited, finite set of possibilities. For example, a compass has four cardinal directions; a character class might be one of a few options; a potion might have a specific elemental type. An **enumeration**, or `enum`, is a blueprint you design for exactly this purpose. It allows you to define a new type that can only be one of a few specific values you define."
+          - type: "heading2"
+            content:
+              text: "Forging a Basic Enum"
+          - type: "explanation"
+            content:
+              text: "You forge an enum with the `enum` keyword, and inside, you list all possible choices, known as **cases**. This creates a new, custom type. By using an enum instead of a plain `String`, you prevent typos and make your code safer and clearer. The compiler now knows all the possible valid values."
+          - type: "snippet"
+            content:
+              code: |
+                // A blueprint for the four seasons.
+                enum Season {
+                    case spring
+                    case summer
+                    case autumn
+                    case winter
+                }
+                // Create a container that can only hold a Season.
+                var currentSeason: Season = .summer
+                // You can change it to another valid season.
+                currentSeason = .autumn
+                // This would cause an error, as "rainy" is not a defined case.
+                // currentSeason = .rainy
+          - type: "heading2"
+            content:
+              text: "Using Enums in a Switch Statement"
+          - type: "explanation"
+            content:
+              text: "Enums are perfectly suited for the Runic Circle of Choice (`switch`). Because the compiler knows all possible cases, it can ensure you've handled every single one, making your logic complete and safe."
+          - type: "snippet"
+            content:
+              code: |
+                switch currentSeason {
+                case .spring:
+                    print("The world awakens.")
+                case .summer:
+                    print("The sun reigns supreme.")
+                case .autumn:
+                    print("The leaves turn to gold.")
+                case .winter:
+                    print("The land sleeps under a blanket of snow.")
+                }
+                // Prints "The leaves turn to gold."
+
+      - id: "4C3D2B1A-0E9D-4C7B-B6D5-F4E3D2C1B0A9"
+        module_name: "Attaching Data to Choices"
+        module_number: 27
+        multiple_choice:
+          - question: "What is the term for extra information attached to an enum case?"
+            options:
+              - "Raw Value"
+              - "Associated Value"
+              - "Parameter"
+              - "Property"
+            answer: "Associated Value"
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Enums with Associated Values"
+          - type: "explanation"
+            content:
+              text: "Sometimes, knowing the choice isn't enough; you need more specific information *about* that choice. **Associated values** allow you to attach extra data to an enum case. This is an incredibly powerful feature that lets you store nuanced information in a clear, type-safe way."
+          - type: "heading2"
+            content:
+              text: "A Tale of Two Barcodes"
+          - type: "explanation"
+            content:
+              text: "Imagine you are cataloging items. Some have a simple 1D barcode with a number. Others have a modern 2D QR code with a string of text. An enum with associated values can represent both possibilities within a single, clean type."
+          - type: "snippet"
+            content:
+              code: |
+                enum Barcode {
+                    // This case holds an Int
+                    case upc(Int)
+                    // This case holds a String
+                    case qrCode(String)
+                }
+                var productBarcode = Barcode.upc(123456789)
+                // The same container can now hold a different case with different data
+                productBarcode = .qrCode("ABCDEFGHIJKLMNOP")
+          - type: "heading2"
+            content:
+              text: "Unwrapping Associated Values"
+          - type: "explanation"
+            content:
+              text: "You can use a `switch` statement to check which case the enum is and extract the associated value at the same time."
+          - type: "snippet"
+            content:
+              code: |
+                switch productBarcode {
+                case .upc(let code):
+                    print("This is a UPC barcode with the number: \\(code)")
+                case .qrCode(let text):
+                    print("This is a QR code with the text: \\(text)")
+                }
+                // Prints "This is a QR code with the text: ABCDEFGHIJKLMNOP"
+
+      - id: "5D4E3C2B-1F0E-4D8C-B7E6-A5B4E3D2C1B0"
+        module_name: "Stored Values and Iteration"
+        module_number: 28
+        multiple_choice:
+          - question: "What is a 'raw value' in an enum?"
+            options:
+              - "A value that can change over time."
+              - "A pre-populated, fixed value for each case, like a number or string."
+              - "Another name for an associated value."
+              - "The first case in the enum declaration."
+            answer: "A pre-populated, fixed value for each case, like a number or string."
+        content_blocks:
+          - type: "heading1"
+            content:
+              text: "Raw Values and Case Iteration"
+          - type: "explanation"
+            content:
+              text: "While associated values add custom data to a specific instance, sometimes you want every case to have a fixed, underlying value. This is called a **raw value**."
+          - type: "heading2"
+            content:
+              text: "Assigning Raw Values"
+          - type: "explanation"
+            content:
+              text: "You can assign raw values (like `Int`s or `String`s) to your enum cases. This is useful for interoperating with other systems, like a database or a web service, that might represent your choices as numbers or text."
+          - type: "snippet"
+            content:
+              code: |
+                // This enum has a raw value of type String
+                enum Planet: String {
+                    case mercury = "Closest to the sun"
+                    case venus = "Shrouded in clouds"
+                    case earth = "Our home"
+                }
+                // You can access the raw value of a case
+                let earthDescription = Planet.earth.rawValue
+                // earthDescription is "Our home"
+                // You can also try to create an enum instance from a raw value
+                let maybePlanet = Planet(rawValue: "Our home") // This is an optional Planet
+          - type: "heading2"
+            content:
+              text: "The Rite of Iteration"
+          - type: "explanation"
+            content:
+              text: "Sometimes, you need a list of all possible choices defined in your enum. By making your enum conform to the `CaseIterable` contract, SwiftCraft will automatically grant you an `allCases` property, giving you an array of all its cases."
+          - type: "snippet"
+            content:
+              code: |
+                enum Element: CaseIterable {
+                    case fire, water, earth, air
+                }
+                // The 'allCases' property is now available
+                for element in Element.allCases {
+                    print("Discovered element: \\(element)")
+                }
+
+    finalReview:
+      content_blocks:
+        - type: "heading1"
+          content:
+            text: "Chapter 6 Review: The Power of Defined Choice"
+        - type: "explanation"
+          content:
+            text: "You have mastered a new kind of blueprint, one that brings immense clarity and safety to your creations. By defining finite sets of choices, you eliminate ambiguity and protect your constructs from impossible states."
+        - type: "heading2"
+          content:
+            text: "Arts You Have Mastered"
+        - type: "explanation"
+          content:
+            text: "**Basic Enums:** You can forge a new type that represents a finite group of related values, making your code safer and more expressive."
+        - type: "explanation"
+          content:
+            text: "**Associated Values:** You know how to attach specific, contextual data to an enum case, allowing you to represent complex, varied states with precision."
+        - type: "explanation"
+          content:
+            text: "**Raw Values & Case Iteration:** You can assign a fixed underlying value to each case and, by conforming to `CaseIterable`, you can loop through all possible choices your enum defines."

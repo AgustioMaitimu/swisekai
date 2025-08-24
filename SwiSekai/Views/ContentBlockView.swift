@@ -123,6 +123,7 @@ struct SnippetView: View {
             Text(highlightrManager.highlight(code, as: "swift"))
                 .font(.system(.body, design: .monospaced))
                 .lineSpacing(8)
+                .lineLimit(nil) // <-- ADD THIS LINE
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .textSelection(.enabled)
                 .padding()
