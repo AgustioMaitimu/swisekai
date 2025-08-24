@@ -44,7 +44,7 @@ struct ModuleContentView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView {
+			ScrollView(showsIndicators: false) {
                 VStack(alignment: .center) {
                     // Button is now part of the scrolling content
                     HStack {

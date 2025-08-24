@@ -36,38 +36,40 @@ struct ProjectsView: View {
 	}
 	
 	var body: some View {
-		GeometryReader { geometry in
-			VStack(spacing: 0) {
-				HStack {
-					headerView(for: geometry.size.width)
+		NavigationStack {
+			GeometryReader { geometry in
+				VStack(spacing: 0) {
+					HStack {
+						headerView(for: geometry.size.width)
+					}
+					
+					if geometry.size.width < 700 {
+						VerticalProjects(
+							selectedProjectId: $uiState.selectedProjectId,
+							projects: projects,
+							userData: userData,
+							modules: modules
+						)
+					} else {
+						HorizontalProjects(
+							selectedProjectId: $uiState.selectedProjectId,
+							projects: projects,
+							userData: userData,
+							modules: modules
+						)
+					}
 				}
-				
-				if geometry.size.width < 700 {
-					VerticalProjects(
-						selectedProjectId: $uiState.selectedProjectId,
-						projects: projects,
-						userData: userData,
-						modules: modules
-					)
-				} else {
-					HorizontalProjects(
-						selectedProjectId: $uiState.selectedProjectId,
-						projects: projects,
-						userData: userData,
-						modules: modules
-					)
-				}
+				.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
+				.padding(.vertical, 36)
+				.background(Color("MainBackground"))
 			}
-			.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
-			.padding(.vertical, 36)
-			.background(Color("MainBackground"))
-		}
-		.onAppear {
-			if uiState.selectedProjectId == nil {
-				if let firstUnlocked = unlockedProjects.first {
-					uiState.selectedProjectId = firstUnlocked.id.uuidString
-				} else if let firstLocked = lockedProjects.first {
-					uiState.selectedProjectId = firstLocked.id.uuidString
+			.onAppear {
+				if uiState.selectedProjectId == nil {
+					if let firstUnlocked = unlockedProjects.first {
+						uiState.selectedProjectId = firstUnlocked.id.uuidString
+					} else if let firstLocked = lockedProjects.first {
+						uiState.selectedProjectId = firstLocked.id.uuidString
+					}
 				}
 			}
 		}

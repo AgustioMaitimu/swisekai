@@ -26,5 +26,6 @@ struct SwiSekaiApp: App {
 				}
 		}
 		.modelContainer(modelContainer)
+		.windowStyle(.hiddenTitleBar)
 	}
 }
