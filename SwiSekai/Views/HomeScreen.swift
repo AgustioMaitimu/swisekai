@@ -103,97 +103,99 @@ struct HomeScreen: View {
 	private let columns = [GridItem(.adaptive(minimum: 350))]
 	
 	var body: some View {
-		// 1. Use a ZStack to manage the background and content layers
-		VStack {
-			// 2. Set a background that fills the entire screen, including safe areas
-			//         Color.mainBackground // Make sure "mainBackground" is in your asset catalog
-			//             .ignoresSafeArea()
-			
-			// 3. Your original ScrollView now acts as the main content block
-			ScrollView(showsIndicators: false) {
-				VStack {
-					// --- All your original content goes inside this VStack ---
-					
-					Text("Home")
-						.font(.largeTitle)
-						.fontWeight(.bold)
-						.foregroundColor(.white)
-						.frame(maxWidth: .infinity, alignment: .leading)
-						.padding(.bottom, 5)
-					
-					// Title 2/Emphasized
-					Text("Apply your Swift skills by building real-world application")
-						.font(
-							Font.custom("Inter", size: 17)
-								.weight(.bold)
-						)
-						.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-						.frame(maxWidth: .infinity, alignment: .leading)
-						.padding(.bottom, 50)
-					
-					Text("For you")
-						.font(.title2)
-						.fontWeight(.bold)
-						.foregroundColor(.white)
-					
-						.frame(maxWidth: .infinity, alignment: .leading)
-					
-					
-					// --- First responsive section ---
-					ResponsiveStack {
-						cardThingy(
-							selection: $selection,
-							chapterNumber: currentChapterNumber,
-							chapterTitle: currentChapterTitle,
-							levelTitle: currentLevelTitle
-						)
-						projectsView(selection: $selection, projects: projects, userData: userData)
-					}
-					.padding(.bottom, 53)
-					
-					Text("Progress")
-						.font(.title2)
-						.fontWeight(.bold)
-						.foregroundColor(.white)
-					
-						.frame(maxWidth: .infinity, alignment: .leading)
-					
-					
-					// --- Second responsive section ---
-					ResponsiveStack {
-						progressCard()
-						activeLearningCard()
-					}
-					.padding(.bottom, 110)
-					
-					Text("Resources")
-						.font(.title2)
-						.fontWeight(.bold)
-						.foregroundColor(.white)
-					
-						.frame(maxWidth: .infinity, alignment: .leading)
-					
-					
-					let rows = [
-						GridItem()
-					]
-					
-					ScrollView(.horizontal, showsIndicators: false) {
-						LazyHGrid(rows: rows, spacing: 50) {
-							resourceCard()
-							resourceCard()
-							resourceCard()
-							resourceCard()
-							
+		NavigationStack{
+			// 1. Use a ZStack to manage the background and content layers
+			VStack {
+				// 2. Set a background that fills the entire screen, including safe areas
+				//         Color.mainBackground // Make sure "mainBackground" is in your asset catalog
+				//             .ignoresSafeArea()
+				
+				// 3. Your original ScrollView now acts as the main content block
+				ScrollView(showsIndicators: false) {
+					VStack {
+						// --- All your original content goes inside this VStack ---
+						
+						Text("Home")
+							.font(.largeTitle)
+							.fontWeight(.bold)
+							.foregroundColor(.white)
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.padding(.bottom, 5)
+						
+						// Title 2/Emphasized
+						Text("Apply your Swift skills by building real-world application")
+							.font(
+								Font.custom("Inter", size: 17)
+									.weight(.bold)
+							)
+							.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.padding(.bottom, 50)
+						
+						Text("For you")
+							.font(.title2)
+							.fontWeight(.bold)
+							.foregroundColor(.white)
+						
+							.frame(maxWidth: .infinity, alignment: .leading)
+						
+						
+						// --- First responsive section ---
+						ResponsiveStack {
+							cardThingy(
+								selection: $selection,
+								chapterNumber: currentChapterNumber,
+								chapterTitle: currentChapterTitle,
+								levelTitle: currentLevelTitle
+							)
+							projectsView(selection: $selection, projects: projects, userData: userData)
 						}
-						.padding()
+						.padding(.bottom, 53)
+						
+						Text("Progress")
+							.font(.title2)
+							.fontWeight(.bold)
+							.foregroundColor(.white)
+						
+							.frame(maxWidth: .infinity, alignment: .leading)
+						
+						
+						// --- Second responsive section ---
+						ResponsiveStack {
+							progressCard()
+							activeLearningCard()
+						}
+						.padding(.bottom, 110)
+						
+						Text("Resources")
+							.font(.title2)
+							.fontWeight(.bold)
+							.foregroundColor(.white)
+						
+							.frame(maxWidth: .infinity, alignment: .leading)
+						
+						
+						let rows = [
+							GridItem()
+						]
+						
+						ScrollView(.horizontal, showsIndicators: false) {
+							LazyHGrid(rows: rows, spacing: 50) {
+								resourceCard()
+								resourceCard()
+								resourceCard()
+								resourceCard()
+								
+							}
+							.padding()
+						}
 					}
 				}
+				
+				.frame(maxWidth: 1200)
+				.padding(.vertical, 20)
+				.padding(.horizontal, 20)
 			}
-			
-			.frame(maxWidth: 1200)
-			.padding(.vertical, 20)
-			.padding(.horizontal, 20)
 		}
 	}
 	

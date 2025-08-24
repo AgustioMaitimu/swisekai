@@ -82,6 +82,7 @@ struct VerticalProjects: View {
 				.padding(.bottom, 40)
 			}
 		}
+		.frame(maxWidth: 450)
 	}
 	
 	private func categoryPicker() -> some View {

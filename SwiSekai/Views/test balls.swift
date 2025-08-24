@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct test_balls: View {
-    @State var selection: NavigationItem = .home
-    private let widthThreshold: CGFloat = 600
-
-    var body: some View {
-        GeometryReader { geo in
-            if geo.size.width > widthThreshold {
-                SideBarView(selection: $selection)
-            } else {
-                TabBarView(selection: $selection)
+	@State var selection: NavigationItem = .home
+	
+	private let widthThreshold: CGFloat = 600
+	
+	var body: some View {
+		GeometryReader { geo in
+			if geo.size.width > widthThreshold {
+				SideBarView(selection: $selection)
+					.onAppear()
+			} else {
+				TabBarView(selection: $selection)
 					.scrollContentBackground(.hidden)
-            }
-        }
-    }
+			}
+		}
+		.background(.mainBackground)
+	}
 }
-
-
-#Preview {
-    test_balls()
-}
+	
