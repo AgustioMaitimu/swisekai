@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatbotSidebarView: View {
+    @Binding var isShowing: Bool
     let botResponse = """
         In Swift, you use `var` for variables that can change and `let` for constants that cannot.
 
@@ -27,16 +28,33 @@ struct ChatbotSidebarView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            HStack{
+                Button(action: {
+                    withAnimation {
+                        isShowing = false
+                    }
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.title)
+                }
+                .buttonStyle(.plain)
+                
+                Spacer()
+            }
+            .padding(.top)
+            .padding(.leading)
+            
             HeaderView()
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 12) {
                     UserMessageView(text: "Can you explain variables in Swift with a brief example? I want to know how it works and why it works ahouklsjflkasjdlfkjalsdjlfjsfdlkjdslakjflksajdf")
                     
                     let parsedContent = parseBotResponse(rawText: botResponse)
                                     
                     BotMessageView(contents: parsedContent)
-                        .padding()
+                    
+                    UserMessageView(text: "I see brev, can you now give me excuses to not attend the exhibition?")
                 }
                 .padding()
             }
@@ -46,7 +64,8 @@ struct ChatbotSidebarView: View {
             MessageInputView()
         }
         .background(Color("ChatbotBackground"))
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.bottom)
+
     }
 }
 
@@ -126,10 +145,10 @@ struct MessageInputView: View {
     }
 }
 
-
-// A preview provider to see the UI in Xcode.
-struct ChatbotSidebarView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatbotSidebarView()
-    }
-}
+//
+//// A preview provider to see the UI in Xcode.
+//struct ChatbotSidebarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChatbotSidebarView(isShowing: true)
+//    }
+//}
