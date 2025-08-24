@@ -34,7 +34,7 @@ struct ModulesView: View {
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-                ScrollView {
+				ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 30)
                     
                     // Loop through each chapter

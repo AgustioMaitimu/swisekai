@@ -47,7 +47,7 @@ struct HorizontalProjects: View {
 	
 	var body: some View {
 		GeometryReader { geometry in
-			HStack(alignment: .top, spacing: geometry.size.width < 910 ? 12 : 20) {
+			HStack(alignment: .top, spacing: geometry.size.width < 910 ? 15 : 20) {
 				categoryPicker(width: geometry.size.width)
 				
 				ScrollView(showsIndicators: false) {
