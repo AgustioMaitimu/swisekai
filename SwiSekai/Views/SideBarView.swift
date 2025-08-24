@@ -21,42 +21,30 @@ struct SideBarView: View {
 					.padding(.leading, 14)
 					.padding(.bottom, 7)
 				
-				VStack(alignment: .leading, spacing: 10) {
-					ForEach(NavigationItem.allCases, id: \.self) { item in
-						let isSelected = selection == item
-						
-						Button {
-							selection = item
-							nav.reset(item)
-						} label: {
-							HStack {
-								Label(item.rawValue, systemImage: item.systemImage)
-									.frame(maxWidth: .infinity, alignment: .leading)
-							}
-							.padding(.vertical, 10)
-							.padding(.horizontal, 8)
-							.contentShape(Rectangle())
-						}
-						.buttonStyle(.plain)
-						.background(
-							Group {
-								if isSelected {
-									RoundedRectangle(cornerRadius: 8)
-										.fill(Color.white)
-								}
-							}
-						)
-						.foregroundStyle(isSelected ? .black : .white)
-						.padding(.horizontal, 12)
-						.accessibilityAddTraits(isSelected ? .isSelected : [])
+				List(NavigationItem.allCases, id: \.self, selection: $selection) { item in
+					let isSelected = selection == item
+					HStack {
+						Label(item.rawValue, systemImage: item.systemImage)
+						Spacer(minLength: 0)
 					}
+					.listRowBackground(Color.projectsButtonOff)
+					.foregroundStyle(isSelected ? .black : .white)
+					.padding(.vertical, 14)
+					.padding(.leading, 18)
+					.background(isSelected ? .white : .clear)
+					.clipShape(.rect(cornerRadius: 8))
+					.onTapGesture {
+						selection = item
+						nav.reset(item)
+					}
+					.listRowSeparator(.hidden)
 				}
-				.padding(.top, 2)
-				
-				Spacer(minLength: 0)
+				.listStyle(.plain)
+				.scrollContentBackground(.hidden)
 			}
-			.navigationSplitViewColumnWidth(180)
+			.padding(.horizontal, 12)
 			.background(.projectsButtonOff)
+			.navigationSplitViewColumnWidth(220)
 		} detail: {
 			ZStack {
 				if selection == .home {
