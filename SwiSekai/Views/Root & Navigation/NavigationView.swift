@@ -18,14 +18,17 @@ struct NavigationView: View {
 						NavigationStack(path: $nav.homePath) {
 							HomeScreen(selection: $selection)
 						}
+						.accessibilityHint(Text("Go to Home"))
 					} else if selection == .learn {
 						NavigationStack(path: $nav.learnPath) {
 							ModulesView()
 						}
+						.accessibilityHint(Text("Go to Learn"))
 					} else if selection == .projects {
 						NavigationStack(path: $nav.projectsPath) {
 							ProjectsView()
 						}
+						.accessibilityHint(Text("Go to Projects"))
 					}
 					
 					if geometry.size.width < 900 {

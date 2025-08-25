@@ -34,7 +34,7 @@ struct ModulesView: View {
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-				ScrollView(showsIndicators: false) {
+                ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 30)
                     
                     // Loop through each chapter
@@ -69,11 +69,7 @@ struct ModulesView: View {
                                 let quizStatus = quizStatus(for: module)
                                 HStack {
                                     Spacer() // Center the quiz button
-                                    NavigationLink(destination: MultipleChoiceView(module: module, userData: userData)) {
-                                        QuizIconView(status: quizStatus)
-                                    }
-                                    .buttonStyle(.plain)
-                                    .disabled(quizStatus == .unavailable)
+                                    quizNavigationLink(for: module, with: quizStatus)
                                     Spacer()
                                 }
                             }
@@ -127,6 +123,15 @@ struct ModulesView: View {
         ))
         .disabled(status == .unavailable)
         .id(ModuleScrollID(id: module.moduleNumber)) // Attach the ID here for ScrollViewReader
+    }
+
+    @ViewBuilder
+    private func quizNavigationLink(for module: Module, with status: QuizStatus) -> some View {
+        NavigationLink(destination: MultipleChoiceView(module: module, userData: userData)) {
+            EmptyView()
+        }
+        .buttonStyle(QuizNavigationLinkStyle(status: status))
+        .disabled(status == .unavailable)
     }
     
     // MARK: - Buttons status
