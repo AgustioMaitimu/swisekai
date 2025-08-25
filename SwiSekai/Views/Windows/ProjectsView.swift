@@ -60,7 +60,7 @@ struct ProjectsView: View {
 					}
 				}
 				.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
-				.padding(.vertical, 36)
+				.padding(.top, 36)
 				.background(Color("MainBackground"))
 			}
 			.onAppear {
