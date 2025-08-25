@@ -7,15 +7,13 @@ struct SideBarView: View {
 	var body: some View {
 		NavigationSplitView {
 			VStack(alignment: .leading, spacing: 0) {
-				
-				Text("SwiSekai")
-					.font(.title3)
-					.fontWeight(.bold)
-					.padding(.horizontal, 20)
+				Image("SidebarIcon")
+					.padding(.horizontal, 5)
 					.padding(.top, 20)
 					.padding(.bottom, 30)
+                    .accessibilityLabel(Text("Sidebar Icon"))
 				
-				Text("Main")
+				Text("MAIN")
 					.font(.caption)
 					.opacity(0.4)
 					.padding(.leading, 14)
