@@ -34,6 +34,7 @@ struct ModuleDetailView: View {
                     .transition(.move(edge: .trailing)) // Keep the slide animation
             }
         }
+		.toolbar(.hidden)
     }
 }
 
