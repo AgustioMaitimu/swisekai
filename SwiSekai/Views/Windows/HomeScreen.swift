@@ -199,7 +199,7 @@ struct HomeScreen: View {
 									}
 									.padding(.horizontal) // optional, just to not stick to screen edge
 								}
-								.frame(maxWidth: geo.size.width < 1235 ? 800 : .infinity)
+								.frame(maxWidth: geo.size.width < 801 ? 800 : .infinity)
 								
 								
 							}
