@@ -1,0 +1,208 @@
+chapters:
+- chapterName: 'Chapter 0: Getting Started'
+  modules:
+  - id: 2398C0CA-60F8-49DF-A0FB-008536F32A94
+    module_name: Creating Your First Playground
+    module_number: 1
+    multiple_choice:
+    - question: Before creating a Swift Playground, what essential application must
+        be installed from the Mac App Store?
+      options:
+      - Swift Playgrounds
+      - Xcode
+      - Visual Studio Code
+      - Sublime Text
+      answer: Xcode
+    - question: In Xcode, what is the menu path to start creating a new Playground?
+      options:
+      - File > New > Project...
+      - Edit > Create > Playground...
+      - File > New > Playground...
+      - Window > New > Playground...
+      answer: File > New > Playground...
+    - question: When creating a new Playground, which template provides a clean slate
+        for writing code?
+      options:
+      - Game
+      - Map
+      - Single View App
+      - Blank
+      answer: Blank
+    content_blocks:
+    - type: heading1
+      content:
+        text: Creating Your First Swift Playground
+    - type: explanation
+      content:
+        text: 'Imagine opening a sketchbook where your ideas come alive the moment
+          you draw them. That’s a Swift Playground: a safe place to try code, see
+          results instantly, and learn by doing—no setup headaches.'
+    - type: heading2
+      content:
+        text: 'Step 1: Install Xcode'
+    - type: explanation
+      content:
+        text: Open the Mac App Store, search for Xcode, then install it. It’s your
+          all‑in‑one toolbox for Apple development. First launch might ask to install
+          extra components—allow it.
+    - type: heading2
+      content:
+        text: 'Step 2: Create a Playground'
+    - type: explanation
+      content:
+        text: 'In Xcode’s menu bar, choose the following:'
+    - type: snippet
+      content:
+        code: File > New > Playground...
+    - type: explanation
+      content:
+        text: Pick the iOS tab, choose the Blank template, then continue.
+    - type: heading2
+      content:
+        text: 'Step 3: Name and Save'
+    - type: explanation
+      content:
+        text: Give it a friendly name like MyFirstPlayground, choose a location you’ll
+          remember, and create it. You’re ready to write your first line of Swift.
+  - id: D768DDD4-842D-4CDC-BD14-FFA54EA76AC1
+    module_name: Exploring the Playground Interface
+    module_number: 2
+    multiple_choice:
+    - question: In the Playground interface, what is the main area where you write
+        your Swift code?
+      options:
+      - Results Sidebar
+      - Debug Area
+      - Code Editor
+      - Console
+      answer: Code Editor
+    - question: Which part of the interface provides instant feedback by showing the
+        value of each line of code as it runs?
+      options:
+      - The Console
+      - The Code Editor
+      - The Menu Bar
+      - The Results Sidebar
+      answer: The Results Sidebar
+    - question: Where would you look to see the output from print() statements and
+        any error messages?
+      options:
+      - The Results Sidebar
+      - The Debug Area / Console
+      - A new pop‑up window
+      - The top of the Code Editor
+      answer: The Debug Area / Console
+    content_blocks:
+    - type: heading1
+      content:
+        text: Exploring the Playground Interface
+    - type: explanation
+      content:
+        text: 'Think of your playground like a cozy studio: one space to write, one
+          to peek at results, and one to hear what your program is saying.'
+    - type: heading2
+      content:
+        text: The Key Areas
+    - type: explanation
+      content:
+        text: '1) Code Editor: the big canvas on the left—this is where you write
+          Swift.
+
+          2) Results Sidebar: the slim panel to the right—each line shows its value
+          here.
+
+          3) Debug Area (Console): the bottom panel—messages from print() and errors
+          appear here.
+
+          4) Run ▶︎: runs the whole script from top to bottom.'
+    - type: heading2
+      content:
+        text: Tidy Your Space
+    - type: explanation
+      content:
+        text: Use the view buttons at the top‑right of Xcode to show or hide panes.
+          Keep what you need, hide what you don’t—focus is a superpower.
+  - id: 33FCF334-F3B1-4801-B83C-C1F1F669ADAE
+    module_name: Writing and Running Code
+    module_number: 3
+    multiple_choice:
+    - question: What does the line let greeting = "Hello" do?
+      options:
+      - It prints to the console.
+      - It creates a variable named greeting.
+      - It creates a constant named greeting holding the text "Hello".
+      - It causes an error.
+      answer: It creates a constant named greeting holding the text "Hello".
+    - question: After running let message = "Welcome", where might you see "Welcome"
+        appear automatically in a playground?
+      options:
+      - Only in the Debug Area
+      - Nowhere unless you print it
+      - In the Results Sidebar next to that line
+      - In the menu bar
+      answer: In the Results Sidebar next to that line
+    - question: What is the result of running print("Swift is fun!") in a Playground?
+      options:
+      - Shows in the Results Sidebar
+      - Shows in the Code Editor
+      - Shows in the Debug Area / Console
+      - Creates a new constant
+      answer: Shows in the Debug Area / Console
+    content_blocks:
+    - type: heading1
+      content:
+        text: Writing and Running Your First Code
+    - type: explanation
+      content:
+        text: 'Time to say hello. Your first line won’t change the world—but it will
+          change how you feel about coding: confident.'
+    - type: heading2
+      content:
+        text: 'Step 1: Create a Constant'
+    - type: explanation
+      content:
+        text: 'Type the following in the Code Editor to store a short message:'
+    - type: snippet
+      content:
+        code: let greeting = "Hello, Playground!"
+    - type: heading2
+      content:
+        text: 'Step 2: Run'
+    - type: explanation
+      content:
+        text: Press the Run ▶︎ button. Swift evaluates your code, and the Results
+          Sidebar shows the value beside the line.
+    - type: heading2
+      content:
+        text: 'Step 3: Print to Console'
+    - type: explanation
+      content:
+        text: 'Use print() when you want a clear message in the console:'
+    - type: snippet
+      content:
+        code: print(greeting)
+    - type: explanation
+      content:
+        text: Run again, then check the Debug Area at the bottom—you’ll see your message
+          echoed there.
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 0 Review
+    - type: explanation
+      content:
+        text: You set up your tools, created a playground, learned the interface,
+          and wrote your first line of Swift. That’s a full victory lap for Day Zero.
+    - type: heading2
+      content:
+        text: You Can Now
+    - type: explanation
+      content:
+        text: '• Install and open Xcode
+
+          • Create and save a Playground
+
+          • Identify the Code Editor, Results Sidebar, and Console
+
+          • Run code and print messages confidently'

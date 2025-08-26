@@ -254,12 +254,13 @@ struct CollapsibleSectionView: View {
     @State private var isExpanded: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 10) {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isExpanded.toggle()
                 }
-            }) {
+            }
+            ) {
                 HStack {
                     Text(title)
                         .font(.headline)
@@ -281,10 +282,10 @@ struct CollapsibleSectionView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom)
-                .background(Color("SnippetBackgroundColor"))
+//                .background(Color("SnippetBackgroundColor"))
             }
         }
-        .background(Color("SnippetBackgroundColor"))
+//        .background(Color("SnippetBackgroundColor"))
         .cornerRadius(12)
         .padding(.vertical, 8)
     }

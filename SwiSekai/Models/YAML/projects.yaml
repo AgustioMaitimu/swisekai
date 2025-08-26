@@ -1,449 +1,1291 @@
 projects:
-  - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
-    project_name: "Player Score Tracker"
-    project_description: "Build a simple score tracker for a game. You'll learn the fundamental concept of storing data that can change (the score) and data that stays the same (the player's name)."
-    project_difficulty: "Easy"
-    level_prerequisite: 1
-    content_blocks:
-      - type: "heading1"
+- id: C868C4EB-F0A1-429F-9EDB-601AE8BA08A1
+  project_name: Quick Habit Tracker
+  project_description: Track a habit with a fixed name and an evolving streak, and
+    print friendly progress updates.
+  project_difficulty: Easy
+  level_prerequisite: 4
+  content_blocks:
+  - type: heading1
+    content:
+      text: Quick Habit Tracker
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: 'You’ll model a real habit with two values: a **name** that never changes
+        and a **streak** that increases over time. This builds muscle memory for constants
+        vs. variables and for small, safe mutations.'
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 4 (Variables & Constants)**: prefer `let` for data that
+        shouldn’t change (habit name), `var` for data that will (streak). Use **string
+        interpolation** to print clear feedback.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
         content:
-          text: "Player Score Tracker"
-      - type: "heading2"
+          text: '**Step 1 — Declare your data:** Use a constant for the habit name
+            and a variable for the streak.'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project practices the core skill of storing data. You'll use a **constant** (`let`) for a value that won't change (the player's name) and a **variable** (`var`) for a value that will (the player's score)."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "This project is based on **Module 1: Storing Data**. We will use `let` to declare a constant and `var` to declare a variable. We will also add **explicit type annotations** (e.g., `: String`) to be clear about the kind of data we are storing, even though Swift could figure it out through **type inference**."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  // Use 'let' for a value that never changes.
-                  // We also add a type annotation `: String` for clarity.
-                  let playerName: String = "Cyber-Cat"
+          code: 'let habitName: String = "Read"
 
-                  // Use 'var' for a value that is expected to change.
-                  // Swift can infer this is an Int, but we'll be explicit.
-                  var currentScore: Int = 0
-                  print("Welcome, \(playerName)! Your score is \(currentScore).")
+            var streak: Int = 0
 
-                  // The player gains points, so we update the variable.
-                  currentScore = 150
-                  print("\(playerName) scored! New score is \(currentScore).")
-      - type: "heading2"
+            print("Habit: \(habitName) • Streak: \(streak) day(s)")'
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 2 — Update the streak:** Simulate a completed day by incrementing
+            the streak.'
+      - type: snippet
         content:
-          text: "Add a new constant called `highScoreGoal` of type `Int` and set it to 1000. After the player scores, print a message showing how many more points they need to reach the goal."
+          code: 'streak += 1
 
-  - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
-    project_name: "Simple Tip Calculator"
-    project_description: "Create a program to calculate the tip and total for a restaurant bill. This will teach you how to perform basic math operations in your code."
-    project_difficulty: "Easy"
-    level_prerequisite: 2
-    content_blocks:
-      - type: "heading1"
+            print("Nice! You''ve kept \(habitName) for \(streak) day(s)")'
+      - type: explanation
         content:
-          text: "Simple Tip Calculator"
-      - type: "heading2"
+          text: '**Step 3 — Add a goal and report progress:** Compare the current
+            streak to a goal and show how far you are.'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project lets you practice using mathematical operators to perform calculations, a fundamental task in programming."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "Based on **Module 2: Basic Operators**, this project uses standard **arithmetic operators** like multiplication (`*`) and addition (`+`). You will also use a **compound assignment operator** (`+=`) as a convenient shortcut to modify a variable."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  let billAmount = 58.50
-                  let tipPercentage = 0.20 // 20% tip
+          code: 'let streakGoal: Int = 7
 
-                  // Use the multiplication operator '*' to calculate the tip.
-                  let tipAmount = billAmount * tipPercentage
+            let remaining = max(0, streakGoal - streak)
 
-                  // Start with the bill amount.
-                  var totalBill = billAmount
+            print(remaining == 0 ? "Goal met!" : "\(remaining) day(s) to reach \(streakGoal)")'
+      - type: explanation
+        content:
+          text: '**Step 4 — Reset logic (optional):** If you miss a day, reset the
+            streak and print a supportive message.'
+      - type: snippet
+        content:
+          code: "let missedToday = false\nif missedToday {\n  streak = 0\n  print(\"\
+            No worries! Restart \\(habitName) tomorrow \U0001F4AA\")\n}"
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: 'Add a celebratory message for specific milestones (e.g., 3, 7, 30). Consider
+        pluralization: “1 day” vs “2 days”.'
+- id: BAB04F4F-571D-47CF-8F7B-83D34C6C5818
+  project_name: Profile Badge
+  project_description: Build a one-line badge from typed values and make the text
+    friendly for humans.
+  project_difficulty: Easy
+  level_prerequisite: 6
+  content_blocks:
+  - type: heading1
+    content:
+      text: Profile Badge
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: You’ll combine multiple basic types into a readable string. This simulates
+        real UI text like profile headers or status labels.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: Grounded in **Module 6 (String Interpolation)** and type basics. Let Swift
+        format values with `\(value)` instead of manual conversions. Add tiny logic
+        (ternary) to produce friendly labels.
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define the data:** Choose realistic values so your output
+            reads like a real app.'
+      - type: snippet
+        content:
+          code: 'let name: String = "Mina"
 
-                  // Use the compound assignment operator '+=' to add the tip.
-                  // This is a shortcut for: totalBill = totalBill + tipAmount
-                  totalBill += tipAmount
+            let age: Int = 20
 
-                  print("Bill: $\(billAmount)")
-                  print("Tip: $\(tipAmount)")
-                  print("Total: $\(totalBill)")
-      - type: "heading2"
+            let isPro: Bool = false'
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 2 — First pass badge:** Print a basic badge using interpolation.'
+      - type: snippet
         content:
-          text: "Use the **remainder operator** (`%`) to determine if a number is even or odd. Create a variable `numberOfDiners` and check if it's an even number before printing a message about splitting the bill."
+          code: 'let badge = "User: \(name) • Age: \(age) • Pro: \(isPro)"
 
-  - id: "DA8A2B6C-6246-4482-A4A6-18CB39851B24"
-    project_name: "Greeting Card Generator"
-    project_description: "Make a personalized greeting message by combining text with variables. You'll learn how to create dynamic strings for any occasion."
-    project_difficulty: "Easy"
-    level_prerequisite: 3
-    content_blocks:
-      - type: "heading1"
+            print(badge)'
+      - type: explanation
         content:
-          text: "Greeting Card Generator"
-      - type: "heading2"
+          text: '**Step 3 — Friendlier status label:** Map your boolean to human language.'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project demonstrates the different ways to build strings in Swift, which is essential for displaying any kind of text to a user."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "From **Module 3: Working with Text**, this project uses **string interpolation** `\\(...)` to easily embed variables inside a string. You will also use **multi-line strings** (`\"\"\"`) for creating text that spans several lines."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  let recipientName = "Alex"
-                  let event = "Graduation"
+          code: 'let status = isPro ? "Pro Member" : "Free Member"
 
-                  // Use string interpolation to build a dynamic message.
-                  let message = "Congratulations on your \(event), \(recipientName)!"
-                  print(message)
+            print("Status: \(status)")'
+      - type: explanation
+        content:
+          text: '**Step 4 — Refine the copy:** Show a natural sentence and handle
+            pluralization.'
+      - type: snippet
+        content:
+          code: 'let years = age == 1 ? "year" : "years"
 
-                  // Use multi-line strings for longer, formatted text.
-                  let longerMessage = """
-                  It's been a long journey,
-                  and you've worked so hard.
+            print("\(name) is \(age) \(years) old.")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Show an upsell line only when `isPro == false` (e.g., “Upgrade to Pro
+        for more features!”). Try adding a `credits` Int and show it with a coin symbol.
+- id: 0BFE530C-2F9B-4765-BDB1-171DC160F518
+  project_name: Shopping List
+  project_description: Create, update, sort, and summarize a shopping list with safe
+    index access.
+  project_difficulty: Easy
+  level_prerequisite: 7
+  content_blocks:
+  - type: heading1
+    content:
+      text: Shopping List
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Arrays are perfect for ordered lists in apps. You’ll practice add/remove,
+        count checks, sorting, and safe subscripting.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 7 (Arrays)**: use `.append`, `.remove(at:)`, `.count`,
+        `.isEmpty`, and `sorted()` for a tidy experience.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Start with a list:** Print count and contents so you see
+            state changes.'
+      - type: snippet
+        content:
+          code: 'var list: [String] = ["Milk", "Eggs"]
 
-                  We are all incredibly proud of you!
+            print("Count: \(list.count) • Items: \(list)")'
+      - type: explanation
+        content:
+          text: '**Step 2 — Add and remove safely:** Always check the index exists
+            before removing.'
+      - type: snippet
+        content:
+          code: "list.append(\"Bread\")\nif list.indices.contains(1) {\n  let removed\
+            \ = list.remove(at: 1)\n  print(\"Removed: \\(removed)\")\n}\nprint(\"\
+            Now: \\(list)\")"
+      - type: explanation
+        content:
+          text: '**Step 3 — Present nicely:** Print each item on its own line with
+            a bullet.'
+      - type: snippet
+        content:
+          code: for item in list { print("• \(item)") }
+      - type: explanation
+        content:
+          text: '**Step 4 — Sort for a tidy UI:** Show the sorted list as final output.'
+      - type: snippet
+        content:
+          code: 'let sortedList = list.sorted()
 
-                  - The Swift Team
-                  """
-                  print(longerMessage)
-      - type: "heading2"
+            print("Sorted: \(sortedList)")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Add a `hasItem(_:)` helper using `contains` and guard against empty input
+        when removing.
+- id: 2A9173DE-5B4F-4CE1-AE5E-5E68B92B0D67
+  project_name: Student Directory
+  project_description: Use a dictionary for labeled homerooms and a set for unique
+    house colors.
+  project_difficulty: Medium
+  level_prerequisite: 9
+  content_blocks:
+  - type: heading1
+    content:
+      text: Student Directory
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Dictionaries provide fast key→value lookups, and sets ensure items are
+        unique—both appear everywhere in app data models.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Modules 8–9 (Dictionaries & Sets)**: use subscripts to add/update,
+        `??` for safe reads, and sets to deduplicate automatically.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 1 — Define the structures:** Seed with a couple of values.'
+      - type: snippet
         content:
-          text: "Create two string constants, `part1` and `part2`. Join them together using the addition operator `+` (concatenation) and store the result in a new constant called `fullQuote`."
+          code: 'var homeroom: [String: String] = ["Kai":"A2"]
 
-  - id: "4F1B3E3D-4A2D-4B9A-8C3D-1B9E0F7B5D9E"
-    project_name: "Smart Thermostat"
-    project_description: "Build the logic for a smart thermostat that provides a message based on the current temperature. This project introduces how to make decisions in code."
-    project_difficulty: "Easy"
-    level_prerequisite: 7
-    content_blocks:
-      - type: "heading1"
+            var houseColors: Set<String> = ["Red", "Blue", "Red"]'
+      - type: explanation
         content:
-          text: "Smart Thermostat"
-      - type: "heading2"
+          text: '**Step 2 — Add/update entries:** Subscripts both insert and modify
+            by key.'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project simulates the decision-making logic of a device. You will write code that follows different paths depending on the conditions it checks."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "Based on **Module 7: Conditionals**, this project uses `if`, `else if`, and `else` to create conditional logic. You'll use **comparison operators** like `<` (less than) and the **logical AND operator** (`&&`) to check if multiple conditions are true at the same time."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  let currentTempCelsius = 18
-                  let isWindowOpen = false
+          code: 'homeroom["Zoe"] = "B1"   // insert
 
-                  if currentTempCelsius < 15 {
-                    print("It's chilly. Turning on the heat.")
-                  } else if currentTempCelsius > 15 && isWindowOpen == true {
-                    print("It's pleasant, but the window is open! Pausing climate control.")
-                  } else if currentTempCelsius > 25 {
-                    print("It's hot! Turning on the AC.")
-                  } else {
-                    print("Temperature is perfect. Maintaining settings.")
-                  }
-      - type: "heading2"
+            homeroom["Kai"] = "A3"   // update'
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 3 — Safe reads return optionals:** Provide a default for missing
+            keys.'
+      - type: snippet
         content:
-          text: "Add another boolean variable called `isHome`. Modify the logic so that the heat or AC only turn on if `isHome` is true."
+          code: 'print("Kai’s room: \(homeroom["Kai"] ?? "N/A")")'
+      - type: explanation
+        content:
+          text: '**Step 4 — Sets remove duplicates automatically:**'
+      - type: snippet
+        content:
+          code: 'print("House colors: \(houseColors)")
 
-  - id: "9B6A1E3D-5F7C-4C6E-9B8A-1E3D5F7C9B6A"
-    project_name: "To-Do List Manager"
-    project_description: "Create and display a list of tasks. This project teaches you how to manage collections of items and perform an action for each one."
-    project_difficulty: "Medium"
-    level_prerequisite: 5
-    content_blocks:
-      - type: "heading1"
-        content:
-          text: "To-Do List Manager"
-      - type: "heading2"
-        content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project shows you how to manage an ordered list of items. You'll create a list, add items, remove items, and check its contents, which are common tasks in app development."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "From **Module 5: Arrays**, this project demonstrates how to create an **Array**, add elements with `.append()`, remove them with `.remove(at:)`, and check the number of items with `.count`."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  // Start with an empty array of Strings.
-                  var todoList: [String] = []
-                  print("You have \(todoList.count) tasks.")
+            houseColors.insert("Green")
 
-                  // Use .append() to add new items to the end.
-                  todoList.append("Finish report")
-                  todoList.append("Buy groceries")
-                  todoList.append("Call the dentist")
-                  print("Your tasks: \(todoList)")
+            print("Updated colors: \(houseColors)")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Iterate over all keys and print a roster. If a student transfers, update
+        their room and log the change.
+- id: CA8D4E9B-4CC5-4660-8B2F-8A3A2C58A2EB
+  project_name: Fitness Points Calculator
+  project_description: Compute daily points with arithmetic and conditions, then explain
+    the bonuses.
+  project_difficulty: Easy
+  level_prerequisite: 10
+  content_blocks:
+  - type: heading1
+    content:
+      text: Fitness Points Calculator
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: You’ll combine math with comparisons to award bonuses. Clear printouts
+        help users understand why they got a score.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 10 (Operators)**: arithmetic (+, -, *, /), comparison (>=),
+        and simple boolean logic with `&&`.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Inputs and base score:** Start from simple numbers for
+            easy testing.'
+      - type: snippet
+        content:
+          code: 'let steps = 6500
 
-                  // Use .remove(at:) to remove an item at a specific index.
-                  // Remember, indices start at 0!
-                  todoList.remove(at: 1) // Removes "Buy groceries"
-                  print("Groceries bought! Remaining tasks: \(todoList)")
-      - type: "heading2"
-        content:
-          text: "Next Steps"
-      - type: "explanation"
-        content:
-          text: "After removing the item, use a `for-in` loop (from Module 4) to print each of the remaining tasks on a new line."
+            let workouts = 1
 
-  - id: "D4C4B5A6-9876-4321-ABCD-FE9876543210"
-    project_name: "User Profile Creator"
-    project_description: "Store and retrieve user information like name, email, and city. You'll learn to use Dictionaries, which are perfect for storing associated data."
-    project_difficulty: "Medium"
-    level_prerequisite: 6
-    content_blocks:
-      - type: "heading1"
-        content:
-          text: "User Profile Creator"
-      - type: "heading2"
-        content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project involves creating a user profile using a data structure that stores information with labels, which is ideal for unordered but descriptive data."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "Based on **Module 6: Dictionaries**, you'll create a **Dictionary** with `String` keys and `String` values. You'll practice adding, updating, and removing values by referencing their unique keys. Accessing a dictionary key returns an optional, because the key might not exist."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  var userProfile: [String: String] = [
-                    "username": "CodeMaster",
-                    "status": "Online"
-                  ]
+            var points = (steps / 1000) * 2 + (workouts * 5)
 
-                  // Add a new key-value pair.
-                  userProfile["email"] = "codemaster@swift.dev"
+            print("Base points: \(points)")'
+      - type: explanation
+        content:
+          text: '**Step 2 — Goals and bonuses:** Apply a step bonus when the goal
+            is met.'
+      - type: snippet
+        content:
+          code: if steps >= 8000 { points += 3; print("Step goal bonus +3") }
+      - type: explanation
+        content:
+          text: '**Step 3 — Stretch bonus:** Combine conditions with AND.'
+      - type: snippet
+        content:
+          code: if steps >= 8000 && workouts >= 2 { points += 5; print("Combo bonus
+            +5") }
+      - type: explanation
+        content:
+          text: '**Step 4 — Final message:** Provide clear feedback.'
+      - type: snippet
+        content:
+          code: 'print(points >= 15 ? "Great day! \(points) pts" : "Keep going: \(points)
+            pts")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Extract the bonus logic into functions for easier testing and reuse.
+- id: CE8F3500-9C02-4B5B-AFBE-DEF9DEB06621
+  project_name: Access Gate
+  project_description: Validate ticket first with `guard`, then branch on age.
+  project_difficulty: Easy
+  level_prerequisite: 11
+  content_blocks:
+  - type: heading1
+    content:
+      text: Access Gate
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: This shows how early‑exit validation keeps your main path unindented and
+        easier to read.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 11 (Conditions)**: prefer `guard` for required conditions
+        and `if/else` for branching choices.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Model inputs:** Keep them easy to tweak while testing.'
+      - type: snippet
+        content:
+          code: 'let age = 17
 
-                  // Update an existing value using its key.
-                  userProfile["status"] = "Away"
+            let hasTicket = true'
+      - type: explanation
+        content:
+          text: '**Step 2 — Gate function with guard:** Exit early if the requirement
+            fails.'
+      - type: snippet
+        content:
+          code: "func enter(age: Int, hasTicket: Bool) {\n  guard hasTicket else {\
+            \ print(\"Ticket required\"); return }\n  if age >= 18 { print(\"Welcome!\"\
+            ) } else { print(\"Need an adult\") }\n}\nenter(age: age, hasTicket: hasTicket)"
+      - type: explanation
+        content:
+          text: '**Step 3 — Variations:** Try different values to ensure each branch
+            prints correctly.'
+      - type: snippet
+        content:
+          code: 'enter(age: 20, hasTicket: true)
 
-                  // Accessing a value returns an optional.
-                  print("Username: \(userProfile["username"] ?? "N/A")")
+            enter(age: 16, hasTicket: false)'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Add a `vip` flag that bypasses age checks, but still requires a ticket.
+- id: DAA35ED6-38D8-468E-A54F-3DAE637DA865
+  project_name: Countdown Display
+  project_description: Compare `for-in`, `while`, and `repeat-while` to print short
+    sequences.
+  project_difficulty: Easy
+  level_prerequisite: 12
+  content_blocks:
+  - type: heading1
+    content:
+      text: Countdown Display
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Repetition is everywhere—learn which loop fits which scenario and how
+        to keep loop logic simple.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 12 (Loops)**: ranges for fixed loops; `while` for pre-check;
+        `repeat-while` for do‑then‑check.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — for‑in with a reversed range:** Perfect for fixed cycles.'
+      - type: snippet
+        content:
+          code: 'for n in (1...3).reversed() { print(n) }
 
-                  // Remove a key-value pair by setting its value to nil.
-                  userProfile["status"] = nil
-                  print("Profile Data: \(userProfile)")
-      - type: "heading2"
+            print("Go!")'
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 2 — while for pre‑check conditions:** Runs zero or more times.'
+      - type: snippet
         content:
-          text: "Try creating a dictionary where the values are `Int` instead of `String`, like `var userStats: [String: Int]`. Add keys for `gamesPlayed` and `score`."
+          code: 'var i = 0
 
-  - id: "1E3D5F7C-9B6A-4C6E-9B8A-1E3D5F7C9B6A"
-    project_name: "Unit Converter"
-    project_description: "Build a set of reusable tools to convert between different units (like miles to kilometers). This project introduces the power of functions to organize code."
-    project_difficulty: "Medium"
-    level_prerequisite: 9
-    content_blocks:
-      - type: "heading1"
+            while i < 3 { print(i); i += 1 }'
+      - type: explanation
         content:
-          text: "Unit Converter"
-      - type: "heading2"
+          text: '**Step 3 — repeat‑while for at‑least‑once:** Useful for prompt loops.'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
-        content:
-          text: "This project focuses on writing clean, reusable code by packaging logic into named blocks that you can call whenever you need them."
-      - type: "heading2"
-        content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "Following **Module 9: Functions**, you will write a **function** using the `func` keyword. The function will accept an input value (a **parameter**) and, after performing its calculation, send back an output (a **return value**)."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  // A function with one Double parameter that returns a Double.
-                  func milesToKilometers(miles: Double) -> Double {
-                    let conversionRate = 1.60934
-                    return miles * conversionRate
-                  }
+          code: 'var n = 0
 
-                  // A function that prints but does not return a value.
-                  func displayConversion(miles: Double) {
-                      let kilometers = milesToKilometers(miles: miles)
-                      print("\(miles) miles is equal to \(kilometers) kilometers.")
-                  }
+            repeat { print(n); n += 1 } while n < 1'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Print only even numbers from 0...10 using a loop of your choice.
+- id: FE3C5A42-96CA-46CB-938A-44E74F83EB9F
+  project_name: Math Toolkit
+  project_description: Create small, reusable helpers and test them with sample data.
+  project_difficulty: Medium
+  level_prerequisite: 13
+  content_blocks:
+  - type: heading1
+    content:
+      text: Math Toolkit
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Functions make logic reusable and testable—great for calculators, utilities,
+        and pipeline steps.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 13 (Functions)**: keep functions small, name them clearly,
+        and prefer returning values over printing inside.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define helpers:** Start with simple, testable functions.'
+      - type: snippet
+        content:
+          code: 'func isEven(_ n:Int) -> Bool { n % 2 == 0 }
 
-                  // Call the function to get the result.
-                  displayConversion(miles: 100.0)
-                  displayConversion(miles: 25.5)
-      - type: "heading2"
+            func cube(_ n:Int) -> Int { n*n*n }'
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 2 — Try them out:**'
+      - type: snippet
         content:
-          text: "Write a new function called `kilometersToMiles` that takes kilometers as a parameter and returns the equivalent distance in miles. The conversion rate is `1 / 1.60934`."
+          code: 'print(isEven(4))  // true
 
-  - id: "8C3D1B9E-0F7B-4A2D-4B9A-1B9E0F7B5D9E"
-    project_name: "Book Catalog App"
-    project_description: "Model a real-world object—a book—in your code. You'll create a custom data type that groups together a book's title, author, and page count."
-    project_difficulty: "Medium"
-    level_prerequisite: 12
-    content_blocks:
-      - type: "heading1"
+            print(cube(3))    // 27'
+      - type: explanation
         content:
-          text: "Book Catalog App"
-      - type: "heading2"
+          text: '**Step 3 — Extend the set:** Add an average helper for arrays.'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
+          code: "func average(_ values:[Double]) -> Double {\n  guard !values.isEmpty\
+            \ else { return 0 }\n  var total = 0.0\n  for v in values { total += v\
+            \ }\n  return total / Double(values.count)\n}\nprint(average([1,2,3,4]))\
+            \  // 2.5"
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Write `clamp(_ value:min:max:)` that limits a number into a range.
+- id: 170F58E0-3F63-472A-800A-D5B17CC72B86
+  project_name: Readable Moves
+  project_description: Make calls that read like sentences using external parameter
+    labels.
+  project_difficulty: Medium
+  level_prerequisite: 14
+  content_blocks:
+  - type: heading1
+    content:
+      text: Readable Moves
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Well‑named labels make call sites self‑documenting and reduce mistakes.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 14 (Parameters & Return Values)**: use labels like `from:`
+        and `to:` and return tuples for multi‑value results.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
         content:
-          text: "This project teaches you how to create your own custom data types, allowing you to group related information into a clean, logical blueprint."
-      - type: "heading2"
+          text: '**Step 1 — Define the API:** Return both distance and direction.'
+      - type: snippet
         content:
-          text: "Core Concepts"
-      - type: "explanation"
+          code: "func move(from start:Int, to end:Int) -> (distance:Int, direction:String)\
+            \ {\n  let d = end - start\n  let dir = d >= 0 ? \"forward\" : \"back\"\
+            \n  return (abs(d), dir)\n}"
+      - type: explanation
         content:
-          text: "From **Module 12: Structures**, this project involves defining a **`struct`** blueprint. You'll define its **properties** (the data it holds). Then, you'll create an **instance** of that struct, which is a concrete object made from the blueprint, and access its properties using dot syntax."
-      - type: "collapsible_section"
+          text: '**Step 2 — Call naturally:**'
+      - type: snippet
         content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  // 1. Define the blueprint for a Book.
-                  struct Book {
-                    // These are the properties of the struct.
-                    let title: String
-                    let author: String
-                    let pageCount: Int
-                  }
+          code: 'let result = move(from: 3, to: 10)
 
-                  // 2. Create a concrete instance of the Book.
-                  // Swift provides a memberwise initializer automatically.
-                  let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
+            print("Moved \(result.distance) steps \(result.direction)")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Add a label `by steps:` to shift a position and return the new coordinate.
+- id: 6A50F863-A56C-4AF8-AFDC-1C77620F80F9
+  project_name: File Loader (Mock)
+  project_description: Practice error modeling and recovery without needing real files.
+  project_difficulty: Medium
+  level_prerequisite: 15
+  content_blocks:
+  - type: heading1
+    content:
+      text: File Loader (Mock)
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Good error handling shows the happy path and the recovery path clearly,
+        keeping both readable.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 15 (Error Handling)**: model errors with an `enum`, use
+        `throws`, and handle with `do/try/catch`. Prefer `try?` for quick optional
+        fallbacks.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define errors:** Make failures explicit.'
+      - type: snippet
+        content:
+          code: 'enum LoadError: Error { case missing, unreadable }'
+      - type: explanation
+        content:
+          text: '**Step 2 — Throwing function:** Signal failure with `throws`.'
+      - type: snippet
+        content:
+          code: func load(name:String) throws -> String { throw LoadError.missing
+            }
+      - type: explanation
+        content:
+          text: '**Step 3 — Handle outcomes:** Separate success from recovery.'
+      - type: snippet
+        content:
+          code: "do {\n  let _ = try load(name:\"data.json\")\n  print(\"Loaded\"\
+            )\n} catch LoadError.missing {\n  print(\"File not found\")\n} catch {\n\
+            \  print(\"Unknown error: \\(error)\")\n}"
+      - type: explanation
+        content:
+          text: '**Step 4 — Optional shortcut:**'
+      - type: snippet
+        content:
+          code: 'let maybe = try? load(name:"config.json")
 
-                  // 3. Access the properties of the instance using dot syntax.
-                  print("My favorite book is '\(favoriteBook.title)' by \(favoriteBook.author).")
-      - type: "heading2"
+            print(maybe ?? "Using defaults")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Extend `LoadError` with another case and handle it with a custom message.
+- id: 86F3BB46-19E5-45A2-AA4B-4C864ABEFEC1
+  project_name: Action Queue
+  project_description: Collect closures and run them later like queued tasks.
+  project_difficulty: Medium
+  level_prerequisite: 16
+  content_blocks:
+  - type: heading1
+    content:
+      text: Action Queue
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Closures package behavior. Storing them lets you trigger actions at the
+        right moment (e.g., button callbacks).
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 16 (Intro to Closures)**: declare `() -> Void` closures,
+        store in arrays, and execute with `forEach`.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 1 — Define actions:** Start with a couple of closures.'
+      - type: snippet
         content:
-          text: "Create another struct called `Author` with properties `name` and `country`. Then, change the `author` property in the `Book` struct to be of type `Author` instead of `String`."
+          code: 'let say = { print("Hi") }
 
-  - id: "C3A8E0B3-3C7B-4F1A-9A8E-8B3C1A7F0A9E"
-    project_name: "Traffic Light Simulator"
-    project_description: "Simulate the behavior of a traffic light. This project shows how to define a set of distinct, related states (red, yellow, green) to make your code safer and more readable."
-    project_difficulty: "Medium"
-    level_prerequisite: 8
-    content_blocks:
-      - type: "heading1"
+            let shout: () -> Void = { print("HEY!") }'
+      - type: explanation
         content:
-          text: "Traffic Light Simulator"
-      - type: "heading2"
+          text: '**Step 2 — Queue & run:**'
+      - type: snippet
         content:
-          text: "Project Overview"
-      - type: "explanation"
+          code: '[say, shout].forEach { $0() }'
+      - type: explanation
         content:
-          text: "This project demonstrates an alternative to `if/else` for handling different cases of a value. It's especially useful when you have a value that can be one of several distinct possibilities."
-      - type: "heading2"
+          text: '**Step 3 — Parameterized action:**'
+      - type: snippet
         content:
-          text: "Core Concepts"
-      - type: "explanation"
-        content:
-          text: "From **Module 8: Switch Statements**, this project uses a **`switch`** statement to check a value against multiple possible `case`s. Swift `switch` statements must be **exhaustive**, meaning every possible value must be handled, either with a specific case or a `default` case."
-      - type: "collapsible_section"
-        content:
-          title: "View Implementation"
-          blocks:
-            - type: "snippet"
-              content:
-                code: |
-                  let httpStatusCode = 404
-                  var message = ""
+          code: 'let echo: (String) -> Void = { text in print("• " + text) }
 
-                  // Use a switch statement to check the value of httpStatusCode.
-                  switch httpStatusCode {
-                  case 200:
-                    message = "OK"
-                  case 404:
-                    message = "Not Found"
-                  case 500:
-                    message = "Internal Server Error"
-                  case 400...499: // You can also match against ranges.
-                    message = "Client Error"
-                  default:
-                    message = "Unknown Code"
-                  }
-                  print("Status: \(httpStatusCode), Message: \(message)")
-      - type: "heading2"
+            echo("Swift")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: 'Make a function `schedule(_ action: @escaping () -> Void)` and call it
+        later.'
+- id: 6EDCA7B1-F517-4638-94FF-2385C7ABFF76
+  project_name: Personal Counter
+  project_description: Return a closure that remembers and updates its own count.
+  project_difficulty: Medium
+  level_prerequisite: 17
+  content_blocks:
+  - type: heading1
+    content:
+      text: Personal Counter
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Captured values let closures hold state between calls—ideal for counters,
+        throttles, or memoization.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 17 (Capturing Values)**: closures keep captured variables
+        alive even after the outer function returns.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
         content:
-          text: "Next Steps"
-      - type: "explanation"
+          text: '**Step 1 — Factory function:** Create a counter that remembers.'
+      - type: snippet
         content:
-          text: "Create a `String` variable called `color` and set it to `\"green\"`. Write a `switch` statement that prints \"Go\" if the color is green, \"Stop\" if it's red, and \"Slow down\" for yellow."
+          code: func makeCounter() -> () -> Int { var n=0; return { n += 1; return
+            n } }
+      - type: explanation
+        content:
+          text: '**Step 2 — Independent instances:** Each capture is isolated.'
+      - type: snippet
+        content:
+          code: 'let c1 = makeCounter(); print(c1(), c1())
+
+            let c2 = makeCounter(); print(c2())'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: 'Return `(next: () -> Int, reset: () -> Void)` so you can clear the count.'
+- id: 5F3FF8EB-672C-4258-BA74-8DFD6E09DBA4
+  project_name: Scoreboard Redux
+  project_description: Transform, filter, and summarize a list of scores with higher‑order
+    functions.
+  project_difficulty: Medium
+  level_prerequisite: 18
+  content_blocks:
+  - type: heading1
+    content:
+      text: Scoreboard Redux
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: map/filter/reduce make data pipelines concise and readable—great for dashboards
+        and analytics.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 18 (Higher‑Order Functions)**: chain transformations for
+        clarity and fewer temp variables.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Transform:** Add a small bonus.'
+      - type: snippet
+        content:
+          code: 'let scores = [10,25,40]
+
+            let bonus = scores.map { $0 + 5 }'
+      - type: explanation
+        content:
+          text: '**Step 2 — Filter:** Keep only passing scores.'
+      - type: snippet
+        content:
+          code: let passing = bonus.filter { $0 >= 20 }
+      - type: explanation
+        content:
+          text: '**Step 3 — Reduce:** Combine into a total.'
+      - type: snippet
+        content:
+          code: 'let total = passing.reduce(0,+)
+
+            print(passing, total)'
+      - type: explanation
+        content:
+          text: '**Step 4 — Rank:**'
+      - type: snippet
+        content:
+          code: 'let sorted = passing.sorted(by: >)
+
+            print("Top: \(sorted.first ?? 0)")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Compute the average of `passing` with `reduce` and `Double` conversion.
+- id: E6C3E232-749B-475A-9D75-1A4D45E10AE6
+  project_name: Contact Card
+  project_description: Model a contact with value semantics and print a friendly line.
+  project_difficulty: Medium
+  level_prerequisite: 19
+  content_blocks:
+  - type: heading1
+    content:
+      text: Contact Card
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Struct copies mean changes don’t leak between variables, which avoids
+        spooky action at a distance.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 19 (Structs)**: define properties, create instances, and
+        observe copy‑on‑assign behavior.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define the model:**'
+      - type: snippet
+        content:
+          code: struct Contact { var name:String; var city:String }
+      - type: explanation
+        content:
+          text: '**Step 2 — Copy and edit:**'
+      - type: snippet
+        content:
+          code: 'var a = Contact(name:"Rin", city:"Osaka")
+
+            var b = a
+
+            b.city = "Kyoto"
+
+            print(a.city, b.city)  // Osaka Kyoto'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: 'Add a `display()` method that prints: “Name — City”. Try copying and
+        editing again.'
+- id: A38CBC4E-7C5C-4F8A-BF1D-CF51D1A5EFDF
+  project_name: Speed Gauge
+  project_description: Practice computed properties, mutating methods, and static
+    members.
+  project_difficulty: Medium
+  level_prerequisite: 20
+  content_blocks:
+  - type: heading1
+    content:
+      text: Speed Gauge
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Computed properties derive values from other state, and mutating methods
+        let structs evolve safely.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 20 (Properties & Methods)**: combine `mutating` methods
+        with `static` members for shared facts.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define the gauge:**'
+      - type: snippet
+        content:
+          code: struct Gauge { var speed:Double; var isFast:Bool { speed > 80 } }
+      - type: explanation
+        content:
+          text: '**Step 2 — Change state:**'
+      - type: snippet
+        content:
+          code: 'extension Gauge { mutating func boost(){ speed += 20 } }
+
+            var g = Gauge(speed:70)
+
+            print(g.isFast)
+
+            g.boost()
+
+            print(g.isFast)'
+      - type: explanation
+        content:
+          text: '**Step 3 — Shared limits:**'
+      - type: snippet
+        content:
+          code: 'extension Gauge { static let maxSafeSpeed = 110.0 }
+
+            print(Gauge.maxSafeSpeed)'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Add a `normalized` computed property that returns `speed / maxSafeSpeed`.
+- id: 99936854-CFDB-46A1-A794-81842BCA2523
+  project_name: Pet Zoo
+  project_description: Share common behavior via inheritance and override specifics.
+  project_difficulty: Medium
+  level_prerequisite: 21
+  content_blocks:
+  - type: heading1
+    content:
+      text: Pet Zoo
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Use inheritance only when shared state/behavior makes sense; otherwise
+        protocols + composition are often better.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 21 (Classes & Inheritance)**: override methods and observe
+        reference semantics.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Base class + override:**'
+      - type: snippet
+        content:
+          code: 'class Animal { func speak(){ print("...") } }
+
+            class Cat: Animal { override func speak(){ print("Meow") } }'
+      - type: explanation
+        content:
+          text: '**Step 2 — Reference semantics:**'
+      - type: snippet
+        content:
+          code: 'let d1 = Cat(); let d2 = d1
+
+            d2.speak(); d1.speak()  // same instance'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Create a `Bird` subclass with `chirp` and call both `speak()` and `chirp()`.
+- id: 47671A9A-FD87-4C71-B9D8-07B119358B1D
+  project_name: Drive & Stop
+  project_description: Compose abilities with protocols and implement them on multiple
+    types.
+  project_difficulty: Medium
+  level_prerequisite: 22
+  content_blocks:
+  - type: heading1
+    content:
+      text: Drive & Stop
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Protocols define capabilities you can mix and match without inheritance.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 22 (Protocols)**: define a protocol and conform from several
+        types.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define capability:**'
+      - type: snippet
+        content:
+          code: protocol Drivable { func drive() }
+      - type: explanation
+        content:
+          text: '**Step 2 — Conform multiple types:**'
+      - type: snippet
+        content:
+          code: 'struct Car: Drivable { func drive(){ print("Vroom") } }
+
+            struct Bike: Drivable { func drive(){ print("Pedal") } }'
+      - type: explanation
+        content:
+          text: '**Step 3 — Use polymorphically:**'
+      - type: snippet
+        content:
+          code: '[Car(), Bike()].forEach{ $0.drive() }'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Add `Refuelable` with `refuel()`; make `Car` adopt it and call `refuel()`.
+- id: C6FEA736-2BBB-44FD-AAE5-740330043DA3
+  project_name: String Goodies
+  project_description: Add small conveniences to String without subclassing.
+  project_difficulty: Medium
+  level_prerequisite: 23
+  content_blocks:
+  - type: heading1
+    content:
+      text: String Goodies
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Extensions let you add focused helpers while keeping your code organized.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 23 (Extensions)**: add methods and computed properties
+        in an `extension` file.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Add utilities:**'
+      - type: snippet
+        content:
+          code: extension String { var reversedString:String { String(self.reversed())
+            } }
+      - type: explanation
+        content:
+          text: '**Step 2 — Add a method with a side effect:**'
+      - type: snippet
+        content:
+          code: 'extension String { func times(_ n:Int){ for _ in 0..<n { print(self)
+            } } }
+
+            "Hi".times(2)
+
+            print("Swift".reversedString)'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: 'Create an `Int` extension `isEven: Bool` and print a message depending
+        on its value.'
+- id: B391B01D-ADAA-4145-B03E-A70D4A077AEB
+  project_name: Describable Default
+  project_description: Provide default behavior to every conforming type via protocol
+    extensions.
+  project_difficulty: Medium
+  level_prerequisite: 24
+  content_blocks:
+  - type: heading1
+    content:
+      text: Describable Default
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Protocol extensions enable broad code reuse while allowing customization
+        in specific types.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 24 (Protocol Extensions)**: give a default method body
+        that types can override.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Contract + default:**'
+      - type: snippet
+        content:
+          code: 'protocol Describable { func describe() }
+
+            extension Describable { func describe(){ print("Just something...") }
+            }'
+      - type: explanation
+        content:
+          text: '**Step 2 — Conform and use:**'
+      - type: snippet
+        content:
+          code: 'struct Box: Describable {}
+
+            Box().describe()  // default impl'
+      - type: explanation
+        content:
+          text: '**Step 3 — Customize:**'
+      - type: snippet
+        content:
+          code: 'struct FancyBox: Describable { func describe(){ print("A very fancy
+            box ✨") } }
+
+            FancyBox().describe()'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Make another type conform to `Describable` and test both outputs.
+- id: 92348F8B-469A-43E1-B951-B88A973884F9
+  project_name: Nickname Helper
+  project_description: Handle missing nicknames with safe unwrapping and clear messages.
+  project_difficulty: Medium
+  level_prerequisite: 25
+  content_blocks:
+  - type: heading1
+    content:
+      text: Nickname Helper
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: 'Optionals make absence explicit. Your job: unwrap safely and present
+        helpful output—never crash.'
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 25 (Optionals)**: use `if let` / `guard let` for safe paths;
+        avoid `!` unless guaranteed non‑nil.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Optional variable:**'
+      - type: snippet
+        content:
+          code: 'var nick: String? = nil
+
+            nick = "Ace"'
+      - type: explanation
+        content:
+          text: '**Step 2 — if let:**'
+      - type: snippet
+        content:
+          code: if let n = nick { print("Hi, \(n)") } else { print("No nick") }
+      - type: explanation
+        content:
+          text: '**Step 3 — guard let in a function:**'
+      - type: snippet
+        content:
+          code: "func greet(_ name:String?) {\n  guard let n = name else { print(\"\
+            Missing name\"); return }\n  print(\"Yo, \\(n)\")\n}\ngreet(nick)"
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Return a greeting `String` from `greet(_:)` instead of printing so you
+        can use it in UI.
+- id: 731BA00A-EE23-464B-A4FC-B2DCA6BD6E00
+  project_name: Shape Casting
+  project_description: Inspect mixed values and act based on runtime type safely.
+  project_difficulty: Medium
+  level_prerequisite: 26
+  content_blocks:
+  - type: heading1
+    content:
+      text: Shape Casting
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: When working with `Any`, you’ll need to check and cast carefully—prefer
+        `as?` plus conditionals.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 26 (Typecasting)**: use `is` to check, `as?` to cast safely,
+        and avoid `as!` unless certain.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Mixed bag:**'
+      - type: snippet
+        content:
+          code: let items:[Any] = ["Hi", 5, 2.0]
+      - type: explanation
+        content:
+          text: '**Step 2 — Inspect and handle:**'
+      - type: snippet
+        content:
+          code: "for item in items {\n  if let n = item as? Int { print(n * 2) }\n\
+            \  else if let s = item as? String { print(\"Text: \\(s)\") }\n  else\
+            \ { print(\"Other\") }\n}"
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Add a `Drawable` protocol with `draw()` and call it only when `item as?
+        Drawable` succeeds.
+- id: 79CEAEBC-6917-4655-BA2F-C2DFAEAF5E94
+  project_name: Lazy Gallery
+  project_description: Load expensive data only when first accessed, then reuse it.
+  project_difficulty: Medium
+  level_prerequisite: 27
+  content_blocks:
+  - type: heading1
+    content:
+      text: Lazy Gallery
+  - type: heading2
+    content:
+      text: Project Overview
+  - type: explanation
+    content:
+      text: Lazy properties defer cost until needed—great for caches, images, or computations.
+  - type: heading2
+    content:
+      text: Core Concepts
+  - type: explanation
+    content:
+      text: 'From **Module 27 (Access Control & Laziness)**: use `lazy` with a closure
+        initializer and show the first‑access effect.'
+  - type: collapsible_section
+    content:
+      title: Step-by-Step Implementation
+      blocks:
+      - type: explanation
+        content:
+          text: '**Step 1 — Define the loader:**'
+      - type: snippet
+        content:
+          code: "struct Gallery {\n  lazy var images:[String] = {\n    print(\"Loading...\"\
+            )\n    return [\"a\",\"b\",\"c\"]\n  }()\n}"
+      - type: explanation
+        content:
+          text: '**Step 2 — Demonstrate laziness:**'
+      - type: snippet
+        content:
+          code: 'var g = Gallery()
+
+            print("Before access")
+
+            print(g.images)   // triggers load
+
+            print("After access")'
+  - type: heading2
+    content:
+      text: Next Steps
+  - type: explanation
+    content:
+      text: Move the load logic into a separate function, then call it from the lazy
+        property for better testability.

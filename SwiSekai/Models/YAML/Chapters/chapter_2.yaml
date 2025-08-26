@@ -1,267 +1,235 @@
 chapters:
-  - chapterName: "Chapter 2: Collection Types and Control Flow"
-    modules:
-      - id: "E0653B81-CC42-40F8-8AE1-4A6A9858461D"
-        module_name: "Collections: Arrays"
-        module_number: 8
-        multiple_choice:
-          - question: "How do you access the first element in an array named `colors`?"
-            options:
-              - "colors.first"
-              - "colors[1]"
-              - "colors[0]"
-              - "colors.get(0)"
-            answer: "colors[0]"
-          - question: "What method is used to add a new element to the end of an array?"
-            options:
-              - ".add()"
-              - ".insert()"
-              - ".push()"
-              - ".append()"
-            answer: ".append()"
-          - question: "If `let numbers = [10, 20, 30]`, what is the value of `numbers.count`?"
-            options:
-              - "2"
-              - "3"
-              - "30"
-              - "The code will error."
-            answer: "3"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Collections: Arrays"
-          - type: "explanation"
-            content:
-              text: "Arrays are like your favorite playlist – a tidy, ordered list of items you can shuffle through. Whether it’s names, scores, or colors, arrays keep things lined up and ready to use."
-          - type: "heading2"
-            content:
-              text: "Creating and Typing Arrays"
-          - type: "explanation"
-            content:
-              text: "Make an array by tossing items into square brackets, separated by commas. Swift usually guesses the type, but you can spell it out with `[String]` or `[Int]` for clarity."
-          - type: "snippet"
-            content:
-              code: |
-                let team_members = ["Zoe", "Leo", "Ava"] // Swift knows it’s [String]
-                var scores: [Int] = [] // Empty array needs a type
-          - type: "heading2"
-            content:
-              text: "Accessing and Modifying Arrays"
-          - type: "explanation"
-            content:
-              text: "Grab items by their index (starting at 0, like first in line). Use `.count` for the total, `.append()` to add to the end, or `.remove(at:)` to pull something out."
-          - type: "snippet"
-            content:
-              code: |
-                var planets = ["Mercury", "Venus", "Earth"]
-                let first_planet = planets[0] // "Mercury"
-                planets.append("Mars")
-                planets.remove(at: 1) // Bye, Venus
-                print("There are \(planets.count) planets.") // Prints "There are 3 planets."
+- chapterName: 'Chapter 2: Collections'
+  modules:
+  - id: 1FBBBD10-F753-4863-A963-F61A53E4EB66
+    module_name: Arrays
+    module_number: 7
+    multiple_choice:
+    - question: How do you access the first element of an array?
+      options:
+      - array(1)
+      - array[0]
+      - first(array)
+      - array.first()
+      answer: array[0]
+    - question: Which property gives the total number of items in an array?
+      options:
+      - .length
+      - .count
+      - .size
+      - .items
+      answer: .count
+    - question: 'Arrays in Swift are:'
+      options:
+      - Ordered
+      - Unordered
+      - Key-Value
+      - Immutable only
+      answer: Ordered
+    content_blocks:
+    - type: heading1
+      content:
+        text: Arrays
+    - type: explanation
+      content:
+        text: An array is like a row of lockers—each item has an index starting at
+          0. They’re great for storing ordered lists of values.
+    - type: heading2
+      content:
+        text: Creating arrays
+    - type: snippet
+      content:
+        code: 'var fruits = ["Apple", "Banana", "Cherry"]
 
-      - id: "4AB37D43-A27C-453F-B632-A04B66868355"
-        module_name: "Collections: Dictionaries"
-        module_number: 9
-        multiple_choice:
-          - question: "Which of the following correctly defines a dictionary?"
-            options:
-              - "An ordered list of values."
-              - "An unordered collection of key-value pairs."
-              - "A collection that can only store Strings."
-              - "A fixed-size list of items."
-            answer: "An unordered collection of key-value pairs."
-          - question: "How would you get the value associated with the key `\"age\"` from a dictionary named `user`?"
-            options:
-              - "user.get(\"age\")"
-              - "user[0]"
-              - "user[\"age\"]"
-              - "user.age"
-            answer: "user[\"age\"]"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Collections: Dictionaries"
-          - type: "explanation"
-            content:
-              text: "Dictionaries are like a treasure map – each key points to a specific value. No order, just fast lookups when you know the key, like finding a phone number by name."
-          - type: "heading2"
-            content:
-              text: "Creating Dictionaries"
-          - type: "explanation"
-            content:
-              text: "Build them with square brackets, linking keys and values with colons. The type is `[KeyType: ValueType]` – simple but powerful."
-          - type: "snippet"
-            content:
-              code: |
-                var populations: [String: Int] = [
-                    "Tokyo": 37_000_000,
-                    "Delhi": 32_000_000,
-                    "Shanghai": 28_000_000
-                ]
-          - type: "heading2"
-            content:
-              text: "Accessing and Modifying Dictionaries"
-          - type: "explanation"
-            content:
-              text: "Use the key to grab or change values. No key? You get `nil` – like an empty treasure chest."
-          - type: "snippet"
-            content:
-              code: |
-                let tokyo_pop = populations["Tokyo"] // 37_000_000
-                populations["Cairo"] = 22_000_000 // Add new pair
-                populations["Shanghai"] = 29_000_000 // Update
-                populations["Delhi"] = nil // Remove
+          print(fruits[0])  // Apple'
+    - type: explanation
+      content:
+        text: Square brackets [] hold multiple values. Use index numbers to access
+          them.
+    - type: heading2
+      content:
+        text: Array properties
+    - type: snippet
+      content:
+        code: 'print(fruits.count)   // 3
 
-      - id: "2ACFC5F6-14BA-4676-BE6F-DA150139E326"
-        module_name: "Making Decisions: Conditionals"
-        module_number: 10
-        multiple_choice:
-          - question: "Which operator checks for equality between two values?"
-            options:
-              - "="
-              - "=="
-              - "!="
-              - "&&"
-            answer: "=="
-          - question: "What will this code print?\nlet temperature = 30\nif temperature > 25 { print(\"It's hot.\") } else { print(\"It's not hot.\") }"
-            options:
-              - "It's hot."
-              - "It's not hot."
-              - "It will print both."
-              - "It will print nothing."
-            answer: "It's hot."
-          - question: "Which operator represents a logical AND?"
-            options:
-              - "OR"
-              - "||"
-              - "AND"
-              - "&&"
-            answer: "&&"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Making Decisions: Conditionals"
-          - type: "explanation"
-            content:
-              text: "Your code needs to think on its feet sometimes. Conditionals are like decision points – 'if this, do that; otherwise, try this.' They make your programs smart and responsive."
-          - type: "heading2"
-            content:
-              text: "The `if` Statement"
-          - type: "explanation"
-            content:
-              text: "`if` checks a condition – if it’s true, the code runs; if not, it skips. Use operators like `>` or `==` to ask the question."
-          - type: "snippet"
-            content:
-              code: |
-                let user_age = 18
-                if user_age >= 18 {
-                    print("You are eligible to vote.")
-                }
-          - type: "heading2"
-            content:
-              text: "`else` and `else if`"
-          - type: "explanation"
-            content:
-              text: "Need a fallback? `else` handles the ‘nope’ cases. Want more options? Chain `else if` for extra checks – like a choose-your-own-adventure!"
-          - type: "snippet"
-            content:
-              code: |
-                let score = 85
-                if score >= 90 {
-                    print("Grade: A")
-                } else if score >= 80 {
-                    print("Grade: B")
-                } else {
-                    print("Grade: C or below")
-                }
-                // Prints "Grade: B"
+          print(fruits.isEmpty) // false'
+    - type: explanation
+      content:
+        text: Use .count to know how many items, .isEmpty to check if it’s empty.
+    - type: heading2
+      content:
+        text: Adding & removing
+    - type: snippet
+      content:
+        code: 'fruits.append("Mango")
 
-      - id: "13679815-F4BB-4DE9-903A-3F02C75D2536"
-        module_name: "More Control Flow: Switch Statements"
-        module_number: 11
-        multiple_choice:
-          - question: "What is the purpose of the `default` case in a switch statement?"
-            options:
-              - "It's the first case that runs."
-              - "It's optional and rarely used."
-              - "It runs if no other case matches the value."
-              - "It sets the default value for the variable."
-            answer: "It runs if no other case matches the value."
-          - question: "Which feature is unique to Swift's switch statements compared to many other languages?"
-            options:
-              - "They only work with numbers."
-              - "They must be exhaustive (cover all possible values)."
-              - "They do not need a `default` case."
-              - "They cannot match against ranges."
-            answer: "They must be exhaustive (cover all possible values)."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "More Control Flow: Switch Statements"
-          - type: "explanation"
-            content:
-              text: "Got one value with lots of possibilities? A `switch` is cleaner than a pile of `if`s – it’s like a menu picking the perfect match for your value."
-          - type: "heading2"
-            content:
-              text: "Basic Syntax"
-          - type: "explanation"
-            content:
-              text: "Give `switch` a value and list `case`s to match. Swift checks them in order and demands you cover every possibility – either with cases or a `default` catch-all."
-          - type: "snippet"
-            content:
-              code: |
-                let http_status_code = 404
-                switch http_status_code {
-                case 200:
-                    print("OK")
-                case 404:
-                    print("Not Found")
-                case 500:
-                    print("Internal Server Error")
-                default:
-                    print("Unknown status code")
-                }
-                // Prints "Not Found"
-          - type: "heading2"
-            content:
-              text: "Matching Ranges"
-          - type: "explanation"
-            content:
-              text: "Switches can handle ranges too – super handy for numbers. It’s like grouping years into decades!"
-          - type: "snippet"
-            content:
-              code: |
-                let year = 2025
-                switch year {
-                case ..<2000:
-                    print("In the 20th Century")
-                case 2000...2024:
-                    print("In the early 21st Century")
-                default:
-                    print("The present or the future")
-                }
-                // Prints "The present or the future"
+          fruits.remove(at: 1)
 
-    finalReview:
-      content_blocks:
-        - type: "heading1"
-          content:
-            text: "Chapter 2 Review"
-        - type: "explanation"
-          content:
-            text: "You’re killing it! You’ve gone from single values to wrangling collections and steering your code’s flow like a pro. Let’s high-five over your progress."
-        - type: "heading2"
-          content:
-            text: "Your New Superpowers"
-        - type: "explanation"
-          content:
-            text: "**Arrays:** You’re a master at ordered lists – accessing by index (0’s the start!) and tweaking with `.append()` or `.remove(at:)`."
-        - type: "explanation"
-          content:
-            text: "**Dictionaries:** Key-value pairs are your thing – unordered but quick for lookups. Perfect for connecting data like a pro."
-        - type: "explanation"
-          content:
-            text: "**`if`, `else if`, `else`:** Your code’s making decisions with `==`, `>`, and more, branching like a choose-your-path story."
-        - type: "explanation"
-          content:
-            text: "**`switch` Statements:** You’ve got a sleek way to handle multiple options, even ranges, with that must-cover-all rule keeping things tight."
+          print(fruits) // [Apple, Cherry, Mango]'
+    - type: explanation
+      content:
+        text: append adds to the end, remove(at:) deletes by index.
+    - type: explanation
+      content:
+        text: 'Tip: Arrays keep order. Great for sequences, tasks, or playlists.'
+  - id: E6953028-F269-40A3-A481-C648F69FEBD4
+    module_name: Dictionaries & Sets
+    module_number: 8
+    multiple_choice:
+    - question: 'Dictionaries store values as:'
+      options:
+      - Index-Value
+      - Key-Value
+      - Ordered List
+      - Unique Only
+      answer: Key-Value
+    - question: 'Sets automatically:'
+      options:
+      - Allow duplicates
+      - Remove duplicates
+      - Keep order
+      - Require indexes
+      answer: Remove duplicates
+    - question: How do you read the value for key "Sam"?
+      options:
+      - dict.Sam
+      - dict[Sam]
+      - dict["Sam"]
+      - dict->Sam
+      answer: dict["Sam"]
+    content_blocks:
+    - type: heading1
+      content:
+        text: Dictionaries & Sets
+    - type: explanation
+      content:
+        text: Dictionaries are like labeled jars—each key points to a value. Sets
+          are bags of unique items—no duplicates allowed.
+    - type: heading2
+      content:
+        text: Dictionaries
+    - type: snippet
+      content:
+        code: 'var ages = ["Sam": 20, "Kim": 22]
+
+          print(ages["Sam"])  // Optional(20)'
+    - type: explanation
+      content:
+        text: Dictionaries pair keys with values. Keys must be unique.
+    - type: heading2
+      content:
+        text: Updating dictionaries
+    - type: snippet
+      content:
+        code: 'ages["Alex"] = 25
+
+          ages["Sam"] = 21'
+    - type: explanation
+      content:
+        text: You can add or update values by key.
+    - type: heading2
+      content:
+        text: Sets
+    - type: snippet
+      content:
+        code: 'var colors: Set = ["Red", "Blue", "Green", "Red"]
+
+          print(colors)  // [Red, Blue, Green]'
+    - type: explanation
+      content:
+        text: Sets remove duplicates automatically and don’t guarantee order.
+    - type: explanation
+      content:
+        text: 'Tip: Use dictionaries for labeled data, sets for uniqueness tests.'
+  - id: 6CEE41C2-A58E-4C2D-8270-9C4AF86614FB
+    module_name: Enums
+    module_number: 9
+    multiple_choice:
+    - question: Which keyword defines an enum?
+      options:
+      - enum
+      - struct
+      - class
+      - case
+      answer: enum
+    - question: How do you reference case east?
+      options:
+      - east
+      - Direction.east
+      - Direction->east
+      - case east
+      answer: Direction.east
+    - question: 'Enums help prevent:'
+      options:
+      - Typos
+      - Options
+      - Safety
+      - Values
+      answer: Typos
+    content_blocks:
+    - type: heading1
+      content:
+        text: Enums
+    - type: explanation
+      content:
+        text: Enums (short for enumerations) define a group of related values—like
+          fixed menu options.
+    - type: heading2
+      content:
+        text: Basic enum
+    - type: snippet
+      content:
+        code: 'enum Direction { case north, south, east, west }
+
+          var move = Direction.north'
+    - type: explanation
+      content:
+        text: You declare all possible cases. Variables can only be set to one of
+          them.
+    - type: heading2
+      content:
+        text: Switch with enums
+    - type: snippet
+      content:
+        code: 'switch move {
+
+          case .north: print("Up")
+
+          case .south: print("Down")
+
+          case .east: print("Right")
+
+          case .west: print("Left")
+
+          }'
+    - type: explanation
+      content:
+        text: Switch ensures you cover all cases—no forgotten branches.
+    - type: heading2
+      content:
+        text: Associated values
+    - type: snippet
+      content:
+        code: 'enum Result { case success(data: String), failure(error: String) }
+
+          let output = Result.success(data: "File loaded")'
+    - type: explanation
+      content:
+        text: Cases can store extra data—making enums flexible and safe.
+    - type: explanation
+      content:
+        text: 'Tip: Use enums when choices are known and finite.'
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 2 Review
+    - type: explanation
+      content:
+        text: You explored arrays for ordered lists, dictionaries for key-value pairs,
+          sets for unique collections, and enums for fixed choices.
+    - type: explanation
+      content:
+        text: 'Rule of thumb: arrays for order, dictionaries for labels, sets for
+          uniqueness, enums for safe predefined options.'

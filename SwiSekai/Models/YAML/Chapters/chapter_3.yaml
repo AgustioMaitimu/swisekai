@@ -1,245 +1,232 @@
 chapters:
-  - chapterName: "Chapter 3: Functions, Optionals, and Structures"
-    modules:
-      - id: "4A328ED1-BDBA-40FE-9EE7-A5A784BB1408"
-        module_name: "Organizing Code: Functions"
-        module_number: 12
-        multiple_choice:
-          - question: "What is the primary benefit of using functions?"
-            options:
-              - "To make your code run faster."
-              - "To group reusable code and avoid repetition."
-              - "To store large amounts of data."
-              - "To create new data types."
-            answer: "To group reusable code and avoid repetition."
-          - question: "In the function `func greet(name: String)`, what is `name: String`?"
-            options:
-              - "A return value"
-              - "A parameter"
-              - "A variable"
-              - "A function call"
-            answer: "A parameter"
-          - question: "How do you indicate that a function will send back a value?"
-            options:
-              - "By using the `send` keyword."
-              - "By adding an arrow `->` followed by the data type before the curly braces."
-              - "By declaring a `var` inside the function."
-              - "The function automatically returns the last variable created."
-            answer: "By adding an arrow `->` followed by the data type before the curly braces."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Organizing Code: Functions"
-          - type: "explanation"
-            content:
-              text: "As your code grows, you’ll notice you’re repeating yourself. Functions are like your code’s best buddy – they bundle up tasks so you can reuse them without typing the same thing twice. It’s the ‘work smart, not hard’ way!"
-          - type: "heading2"
-            content:
-              text: "Defining and Calling Functions"
-          - type: "explanation"
-            content:
-              text: "Use `func` to create a named task, add parentheses, and curly braces for the action. To use it? Just call its name with parentheses – like ringing a bell for help."
-          - type: "snippet"
-            content:
-              code: |
-                func showWelcomeMessage() {
-                    print("Hello! Welcome to the app.")
-                    print("We're glad you're here.")
-                }
-                showWelcomeMessage()
-          - type: "heading2"
-            content:
-              text: "Passing Data with Parameters"
-          - type: "explanation"
-            content:
-              text: "Make functions flexible with **parameters** – inputs that customize the job. Name and type them in the parentheses."
-          - type: "snippet"
-            content:
-              code: |
-                func printPersonalizedGreeting(name: String) {
-                    print("Hello, \(name)! Welcome.")
-                }
-                printPersonalizedGreeting(name: "Maria") // Prints "Hello, Maria! Welcome."
-                printPersonalizedGreeting(name: "Chen")  // Prints "Hello, Chen! Welcome."
-          - type: "heading2"
-            content:
-              text: "Returning Values"
-          - type: "explanation"
-            content:
-              text: "Functions can hand back results with `->`. It’s like ordering a pizza and getting it delivered – you get something back!"
-          - type: "snippet"
-            content:
-              code: |
-                func add(a: Int, b: Int) -> Int {
-                    let sum = a + b
-                    return sum
-                }
-                let result = add(a: 5, b: 3) // `result` is 8
+- chapterName: 'Chapter 3: Logic & Control Flow'
+  modules:
+  - id: 76261605-1686-466C-966F-06819B04C7AF
+    module_name: Operators
+    module_number: 10
+    multiple_choice:
+    - question: What does == check?
+      options:
+      - Assignment
+      - Equality
+      - Inequality
+      - Reference
+      answer: Equality
+    - question: Which operator means not equal?
+      options:
+      - '!='
+      - ==
+      - <>
+      - '!'
+      answer: '!='
+    - question: Which operator adds two numbers?
+      options:
+      - +
+      - '-'
+      - '*'
+      - /
+      answer: +
+    content_blocks:
+    - type: heading1
+      content:
+        text: Operators
+    - type: explanation
+      content:
+        text: Operators are the small symbols that let you do math and comparisons
+          in Swift.
+    - type: heading2
+      content:
+        text: Math operators
+    - type: snippet
+      content:
+        code: 'let sum = 5 + 3    // 8
 
-      - id: "1B1A5215-7D5D-40C6-A142-B17AE1F8E849"
-        module_name: "Understanding Nil and Optionals"
-        module_number: 13
-        multiple_choice:
-          - question: "What does `nil` represent in Swift?"
-            options:
-              - "The number zero."
-              - "An empty string."
-              - "The absence of a value."
-              - "An error in the code."
-            answer: "The absence of a value."
-          - question: "How do you declare a variable that is allowed to hold `nil`?"
-            options:
-              - "By adding a `?` after its type."
-              - "By adding a `!` after its type."
-              - "By using the `optional` keyword."
-              - "All variables can hold `nil` by default."
-            answer: "By adding a `?` after its type."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Understanding Nil and Optionals"
-          - type: "explanation"
-            content:
-              text: "What if a user skips a question in your app? Swift’s got you covered with **optionals** – a way to say ‘this might have a value, or it might be nothing.’ It’s like a maybe box that keeps your code safe."
-          - type: "heading2"
-            content:
-              text: "The Concept of `nil`"
-          - type: "explanation"
-            content:
-              text: "`nil` means ‘nothing here.’ An optional is like a package – it might hold a `String` or an `Int`, or it could be empty (`nil`)."
-          - type: "heading2"
-            content:
-              text: "Declaring Optionals"
-          - type: "explanation"
-            content:
-              text: "Add a `?` after the type to say ‘this can be `nil`.’ It’s Swift’s way of knowing it’s okay to have an empty box."
-          - type: "snippet"
-            content:
-              code: |
-                var regularNumber: Int = 100 // Can’t be nil
-                var optionalNumber: Int? = 100 // Can be nil
-                optionalNumber = nil // Totally fine!
+          let diff = 5 - 3   // 2
 
-      - id: "1C11A348-B2E8-48DF-B4F4-FF22144FBE1C"
-        module_name: "Working with Optionals: Unwrapping"
-        module_number: 14
-        multiple_choice:
-          - question: "What is the safest way to get the value from an optional?"
-            options:
-              - "Forced unwrapping with `!`"
-              - "The nil-coalescing operator `??`"
-              - "Optional binding with `if let`"
-              - "All methods are equally safe."
-            answer: "Optional binding with `if let`"
-          - question: "What will `name` be? `let optionalName: String? = nil; let name = optionalName ?? \"Guest\"`"
-            options:
-              - "nil"
-              - "The code will crash."
-              - "\"Guest\""
-              - "\"optionalName\""
-            answer: "\"Guest\""
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Working with Optionals: Unwrapping"
-          - type: "explanation"
-            content:
-              text: "Optionals are like wrapped presents – you can’t use them until you check what’s inside. Swift’s tools let you peek safely without breaking anything."
-          - type: "heading2"
-            content:
-              text: "Optional Binding (`if let`)"
-          - type: "explanation"
-            content:
-              text: "`if let` is your safest bet – it checks for a value, unwraps it if there, and lets you use it. No value? It skips without drama."
-          - type: "snippet"
-            content:
-              code: |
-                var loggedInUsername: String? = "EcoCoder"
-                if let username = loggedInUsername {
-                    print("Welcome back, \(username)!")
-                } else {
-                    print("Please log in.")
-                }
-          - type: "heading2"
-            content:
-              text: "Nil-Coalescing Operator (`??`)"
-          - type: "explanation"
-            content:
-              text: "The `??` operator is a quick fix – it says ‘use this value if there’s one; otherwise, here’s a backup.’ Short and sweet!"
-          - type: "snippet"
-            content:
-              code: |
-                let customNickname: String? = nil
-                let displayName = customNickname ?? "Anonymous" // displayName is "Anonymous"
-          - type: "heading2"
-            content:
-              text: "Forced Unwrapping (`!`)"
-          - type: "explanation"
-            content:
-              text: "Using `!` is like ripping open the package – risky! If it’s `nil`, your app crashes. Save this for when you’re 100% sure there’s something inside."
+          let prod = 5 * 3   // 15
 
-      - id: "38AC5364-8D9B-4B76-8957-CA4E241A06D9"
-        module_name: "Creating Custom Types: Structures"
-        module_number: 15
-        multiple_choice:
-          - question: "What is the keyword used to define a structure?"
-            options:
-              - "struct"
-              - "structure"
-              - "type"
-              - "class"
-            answer: "struct"
-          - question: "Given `struct Book { var title: String }`, how do you create a new instance of `Book`?"
-            options:
-              - "`let myBook = Book.new(\"Moby Dick\")`"
-              - "`let myBook = Book(title: \"Moby Dick\")`"
-              - "`let myBook = new Book { title: \"Moby Dick\" }`"
-              - "`let myBook: Book = \"Moby Dick\"`"
-            answer: "`let myBook = Book(title: \"Moby Dick\")`"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Creating Custom Types: Structures"
-          - type: "explanation"
-            content:
-              text: "Why settle for basic types? **Structures** (structs) let you craft your own, bundling related data like a book’s title and author. It’s like designing your own Lego set!"
-          - type: "heading2"
-            content:
-              text: "Defining and Using a Struct"
-          - type: "explanation"
-            content:
-              text: "Building a library app? Use a struct to group book details. Define it with `struct`, then create instances like stamping out custom items."
-          - type: "snippet"
-            content:
-              code: |
-                struct Book {
-                    var title: String
-                    var author: String
-                    var pageCount: Int
-                }
-                let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
-                print("My favorite book is \(favoriteBook.title) by \(favoriteBook.author).")
+          let div = 10 / 2   // 5'
+    - type: explanation
+      content:
+        text: Use +, -, *, / for basic arithmetic just like in normal math.
+    - type: heading2
+      content:
+        text: Comparison operators
+    - type: snippet
+      content:
+        code: 'let a = 5
 
-    finalReview:
-      content_blocks:
-        - type: "heading1"
-          content:
-            text: "Chapter 3 Review"
-        - type: "explanation"
-          content:
-            text: "You’ve tackled some big ideas! These tools are like the gears of a well-oiled Swift machine, making your code cleaner and safer. Great job!"
-        - type: "heading2"
-          content:
-            text: "Your New Superpowers"
-        - type: "explanation"
-          content:
-            text: "**Functions (`func`):** You’re bundling tasks with **parameters** and **returns**, keeping your code reusable and tidy."
-        - type: "explanation"
-          content:
-            text: "**Optionals (`?`):** You’re handling ‘maybe’ values like a pro, keeping `nil` from causing trouble."
-        - type: "explanation"
-          content:
-            text: "**Unwrapping:** Safely accessing optional values with `if let` or `??` – no crashes here!"
-        - type: "explanation"
-          content:
-            text: "**Structures (`struct`):** You’re building custom types, grouping data like a boss to create your own blueprints."
+          let b = 8
+
+          print(a == b)  // false
+
+          print(a != b)  // true
+
+          print(a < b)   // true'
+    - type: explanation
+      content:
+        text: Comparison operators return Bool values—true or false—based on the relation.
+    - type: heading2
+      content:
+        text: Logical operators
+    - type: snippet
+      content:
+        code: 'let loggedIn = true
+
+          let isAdmin = false
+
+          print(loggedIn && isAdmin)  // false
+
+          print(loggedIn || isAdmin) // true'
+    - type: explanation
+      content:
+        text: Use && for AND, || for OR, ! for NOT.
+    - type: explanation
+      content:
+        text: 'Tip: Operators are the glue for logic and math—practice mixing them
+          with conditions.'
+  - id: 92A063D4-055D-41D0-A286-BB8A72BBD5D9
+    module_name: Conditions
+    module_number: 11
+    multiple_choice:
+    - question: Which keyword starts a conditional?
+      options:
+      - if
+      - for
+      - while
+      - guard
+      answer: if
+    - question: Which keyword provides fallback if if fails?
+      options:
+      - else
+      - elif
+      - then
+      - default
+      answer: else
+    - question: Which operator is used for AND?
+      options:
+      - '&&'
+      - '||'
+      - and
+      - +
+      answer: '&&'
+    content_blocks:
+    - type: heading1
+      content:
+        text: Conditions
+    - type: explanation
+      content:
+        text: Conditions let your program decide what to do, like traffic lights guiding
+          cars.
+    - type: heading2
+      content:
+        text: If statements
+    - type: snippet
+      content:
+        code: "let age = 20\nif age >= 18 {\n  print(\"Adult\")\n} else {\n  print(\"\
+          Minor\")\n}"
+    - type: explanation
+      content:
+        text: If checks a condition; if true, it runs the first block. Else handles
+          the other case.
+    - type: heading2
+      content:
+        text: Else if for multiple choices
+    - type: snippet
+      content:
+        code: "let score = 75\nif score > 90 {\n  print(\"A\")\n} else if score >\
+          \ 70 {\n  print(\"B\")\n} else {\n  print(\"C\")\n}"
+    - type: explanation
+      content:
+        text: Else if lets you test more than two paths.
+    - type: heading2
+      content:
+        text: Guard for early exit
+    - type: snippet
+      content:
+        code: "func enter(clubAge: Int) {\n  guard clubAge >= 18 else {\n    print(\"\
+          Go home\")\n    return\n  }\n  print(\"Welcome in!\")\n}"
+    - type: explanation
+      content:
+        text: 'Guard is the opposite: it ensures a condition is true, otherwise it
+          exits early.'
+    - type: explanation
+      content:
+        text: 'Tip: Use if for branching logic, guard for validation and cleaner code.'
+  - id: FC30AF60-360C-4BDA-880C-5CDFB2719212
+    module_name: Loops
+    module_number: 12
+    multiple_choice:
+    - question: Which loop runs a set number of times?
+      options:
+      - for-in
+      - while
+      - repeat-while
+      - switch
+      answer: for-in
+    - question: Which loop checks its condition before running?
+      options:
+      - while
+      - repeat-while
+      - for
+      - check
+      answer: while
+    - question: Which loop runs the body at least once?
+      options:
+      - repeat-while
+      - while
+      - for-in
+      - switch
+      answer: repeat-while
+    content_blocks:
+    - type: heading1
+      content:
+        text: Loops
+    - type: explanation
+      content:
+        text: Loops let you repeat code without copy-pasting—perfect for lists and
+          counters.
+    - type: heading2
+      content:
+        text: For-in loop
+    - type: snippet
+      content:
+        code: "for i in 1...3 {\n  print(\"Iteration \\(i)\")\n}"
+    - type: explanation
+      content:
+        text: for-in repeats for a fixed range or over a collection.
+    - type: heading2
+      content:
+        text: While loop
+    - type: snippet
+      content:
+        code: "var count = 0\nwhile count < 3 {\n  print(count)\n  count += 1\n}"
+    - type: explanation
+      content:
+        text: While checks condition first; runs only if it’s true.
+    - type: heading2
+      content:
+        text: Repeat-while loop
+    - type: snippet
+      content:
+        code: "var n = 0\nrepeat {\n  print(n)\n  n += 1\n} while n < 3"
+    - type: explanation
+      content:
+        text: Repeat-while runs at least once before checking the condition.
+    - type: explanation
+      content:
+        text: 'Tip: Use for-in when you know how many times, while/repeat-while when
+          you don’t.'
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 3 Review
+    - type: explanation
+      content:
+        text: You used operators for math and logic, conditions for branching, and
+          loops for repetition.
+    - type: explanation
+      content:
+        text: 'Rule of thumb: operators connect values, conditions guide paths, loops
+          repeat work.'

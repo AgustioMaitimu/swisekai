@@ -1,270 +1,224 @@
 chapters:
-  - chapterName: "Chapter 4: Deeper Types and Closures"
-    modules:
-      - id: "279EA8BE-7E25-4D21-B01E-13A9407D6102"
-        module_name: "Advanced Structures"
-        module_number: 16
-        multiple_choice:
-          - question: "A function that belongs to a struct is called a what?"
-            options:
-              - "Parameter"
-              - "Method"
-              - "Property"
-              - "Type"
-            answer: "Method"
-          - question: "What is a computed property?"
-            options:
-              - "A property that is stored in memory."
-              - "A property that calculates its value rather than storing it."
-              - "A property that cannot be changed."
-              - "A special type of method."
-            answer: "A property that calculates its value rather than storing it."
-          - question: "What keyword must you use for a method that changes a struct's properties?"
-            options:
-              - "static"
-              - "change"
-              - "mutating"
-              - "override"
-            answer: "mutating"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Advanced Structures"
-          - type: "explanation"
-            content:
-              text: "You’ve got structs down – now let’s make them shine! Add some brains with functions and dynamic properties to turn your structs into coding superstars."
-          - type: "heading2"
-            content:
-              text: "Computed Properties"
-          - type: "explanation"
-            content:
-              text: "Computed properties are like live calculators – they figure out values on the spot using other properties, no storage needed. Fresh data every time!"
-          - type: "snippet"
-            content:
-              code: |
-                struct User {
-                    var firstName: String
-                    var lastName: String
-                    var fullName: String {
-                        return "\(firstName) \(lastName)"
-                    }
-                }
-                let user = User(firstName: "Taylor", lastName: "Swift")
-                print(user.fullName) // Prints "Taylor Swift"
-          - type: "heading2"
-            content:
-              text: "Methods (Functions in a Struct)"
-          - type: "explanation"
-            content:
-              text: "Functions in structs are called **methods**, and they can tap into properties for custom actions. Need to change something? Use `mutating` to keep things legit."
-          - type: "snippet"
-            content:
-              code: |
-                struct Player {
-                    var score = 0
-                    var health = 100
-                    func displayStatus() {
-                        print("Score: \(score), Health: \(health)%")
-                    }
-                    mutating func gainPoints(_ points: Int) {
-                        score += points
-                    }
-                }
-                var playerOne = Player()
-                playerOne.gainPoints(10)
-                playerOne.displayStatus() // Prints "Score: 10, Health: 100%"
+- chapterName: 'Chapter 4: Functions & Errors'
+  modules:
+  - id: 797D9ED5-51AC-40FB-9063-9810E4C972FB
+    module_name: Functions
+    module_number: 13
+    multiple_choice:
+    - question: Which keyword starts a function in Swift?
+      options:
+      - func
+      - function
+      - def
+      - fn
+      answer: func
+    - question: What symbol introduces the return type?
+      options:
+      - ->
+      - ':'
+      - =>
+      - returns
+      answer: ->
+    - question: What is a good reason to use a function?
+      options:
+      - To repeat code everywhere
+      - To group reusable logic
+      - To slow your program
+      - To avoid parameters
+      answer: To group reusable logic
+    content_blocks:
+    - type: heading1
+      content:
+        text: Functions
+    - type: explanation
+      content:
+        text: 'A function is a reusable recipe: give it inputs, get a result. It keeps
+          code tidy and avoids repetition.'
+    - type: heading2
+      content:
+        text: Declaring a function
+    - type: snippet
+      content:
+        code: "func greet() {\n  print(\"Hello!\")\n}\ngreet()"
+    - type: explanation
+      content:
+        text: Use func name() { ... } for functions without inputs or outputs.
+    - type: heading2
+      content:
+        text: Returning a value
+    - type: snippet
+      content:
+        code: "func square(of number: Int) -> Int {\n  return number * number\n}\n\
+          let nine = square(of: 3)  // 9"
+    - type: explanation
+      content:
+        text: Use -> Type to describe the result. return sends the value back.
+    - type: heading2
+      content:
+        text: Why functions matter
+    - type: explanation
+      content:
+        text: They reduce duplication, clarify intent, and make testing easier.
+    - type: heading2
+      content:
+        text: Tips
+    - type: unorderedList
+      content:
+        items:
+        - Use clear names that read like sentences.
+        - Keep functions small—do one thing well.
+        - Prefer returning values over printing inside.
+  - id: 9EB0B2D1-9835-4FC4-A0E5-9CD92A86FBA3
+    module_name: Parameters & Return Values
+    module_number: 14
+    multiple_choice:
+    - question: Where do parameters go in a Swift function?
+      options:
+      - Inside parentheses after the name
+      - Before func
+      - After ->
+      - In curly braces
+      answer: Inside parentheses after the name
+    - question: 'What is the external parameter label in func move(from start: Int,
+        to end: Int)?'
+      options:
+      - start and end
+      - from and to
+      - (none)
+      - move
+      answer: from and to
+    - question: Which statement returns a value from a function?
+      options:
+      - give
+      - out
+      - return
+      - yield
+      answer: return
+    content_blocks:
+    - type: heading1
+      content:
+        text: Parameters & Return Values
+    - type: explanation
+      content:
+        text: Parameters are inputs to your recipe. Labels make calls read naturally;
+          the return value hands back the result.
+    - type: heading2
+      content:
+        text: Defining parameters
+    - type: snippet
+      content:
+        code: "func add(_ a: Int, _ b: Int) -> Int {\n  return a + b\n}\nlet sum =\
+          \ add(2, 3)  // 5"
+    - type: explanation
+      content:
+        text: Using _ removes external labels at the call site for brevity.
+    - type: heading2
+      content:
+        text: Readable calls with labels
+    - type: snippet
+      content:
+        code: "func move(from start: Int, to end: Int) {\n  print(\"Move from \\(start)\
+          \ to \\(end)\")\n}\nmove(from: 1, to: 5)"
+    - type: explanation
+      content:
+        text: External labels (from:, to:) make usage self-documenting.
+    - type: heading2
+      content:
+        text: Multiple returns
+    - type: snippet
+      content:
+        code: "func minMax(_ numbers: [Int]) -> (min: Int, max: Int)? {\n  guard let\
+          \ first = numbers.first else { return nil }\n  var minVal = first\n  var\
+          \ maxVal = first\n  for n in numbers {\n    if n < minVal { minVal = n }\n\
+          \    if n > maxVal { maxVal = n }\n  }\n  return (minVal, maxVal)\n}\nlet\
+          \ result = minMax([3,8,2,9])  // (min: 2, max: 9)"
+    - type: explanation
+      content:
+        text: Tuples let you return several values at once. Optionals handle empty
+          input.
+    - type: explanation
+      content:
+        text: 'Tip: Choose labels that explain the role of each parameter.'
+  - id: 49D8CEC2-5FCC-4185-94BA-D10B25C54390
+    module_name: Error Handling
+    module_number: 15
+    multiple_choice:
+    - question: Which keyword marks a function that can throw?
+      options:
+      - throw
+      - throws
+      - try
+      - catch
+      answer: throws
+    - question: Which keyword attempts a throwing call?
+      options:
+      - try
+      - attempt
+      - do
+      - guard
+      answer: try
+    - question: Which block handles errors when thrown?
+      options:
+      - catch
+      - else
+      - finally
+      - guard
+      answer: catch
+    content_blocks:
+    - type: heading1
+      content:
+        text: Error Handling
+    - type: explanation
+      content:
+        text: Things go wrong—files missing, networks down. Swift uses throws/try/catch
+          to handle failures cleanly.
+    - type: heading2
+      content:
+        text: Defining errors
+    - type: snippet
+      content:
+        code: 'enum FileError: Error { case notFound, unreadable }'
+    - type: explanation
+      content:
+        text: Conform to Error with an enum so cases are explicit and type-safe.
+    - type: heading2
+      content:
+        text: Throwing and catching
+    - type: snippet
+      content:
+        code: "func loadFile(named: String) throws -> String {\n  throw FileError.notFound\n\
+          }\n\ndo {\n  let _ = try loadFile(named: \"notes.txt\")\n} catch FileError.notFound\
+          \ {\n  print(\"Missing file\")\n} catch {\n  print(\"Unknown error: \\(error)\"\
+          )\n}"
+    - type: explanation
+      content:
+        text: Use do/try/catch to separate the success path from recovery logic.
+    - type: heading2
+      content:
+        text: try?, try!
+    - type: snippet
+      content:
+        code: 'let maybe = try? loadFile(named: "notes.txt")   // Optional
 
-      - id: "D11CD83B-813C-453F-B804-18131BD48BBC"
-        module_name: "Introduction to Classes"
-        module_number: 17
-        multiple_choice:
-          - question: "What is the main feature that classes have but structs do not?"
-            options:
-              - "Properties"
-              - "Methods"
-              - "Inheritance"
-              - "Initializers"
-            answer: "Inheritance"
-          - question: "What is the name of a special method that prepares a new class instance for use?"
-            options:
-              - "setup()"
-              - "start()"
-              - "init()"
-              - "main()"
-            answer: "init()"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Introduction to Classes"
-          - type: "explanation"
-            content:
-              text: "Classes are like structs’ cooler cousins – similar vibe, but with extra powers. They’re perfect for building complex, connected systems in your app."
-          - type: "heading2"
-            content:
-              text: "Initializers"
-          - type: "explanation"
-            content:
-              text: "Classes need a setup crew – that’s the `init` method. It gets all properties ready before the class hits the stage."
-          - type: "heading2"
-            content:
-              text: "Inheritance"
-          - type: "explanation"
-            content:
-              text: "Classes can inherit from others, grabbing their properties and methods like a family heirloom. The parent (superclass) passes down goodies to the child (subclass)."
-          - type: "snippet"
-            content:
-              code: |
-                class Vehicle {
-                    var wheels: Int
-                    var speed = 0
-                    init(wheels: Int) {
-                        self.wheels = wheels
-                    }
-                    func accelerate() {
-                        speed += 10
-                    }
-                }
-                class Car: Vehicle {
-                    var hasSunroof: Bool
-                    init(hasSunroof: Bool) {
-                        self.hasSunroof = hasSunroof
-                        super.init(wheels: 4)
-                    }
-                }
-                let myCar = Car(hasSunroof: true)
-                myCar.accelerate()
-                print("My car has \(myCar.wheels) wheels and is going \(myCar.speed) km/h.")
-
-      - id: "9D87E8F1-F14B-4889-A14C-9281FCA178A6"
-        module_name: "Value vs. Reference Types"
-        module_number: 18
-        multiple_choice:
-          - question: "If you assign a struct instance to a new variable, what happens?"
-            options:
-              - "The data is shared between the two variables."
-              - "The data is copied to the new variable."
-              - "It creates a link to the original variable."
-              - "The code produces an error."
-            answer: "The data is copied to the new variable."
-          - question: "Classes are which type of type?"
-            options:
-              - "Value Type"
-              - "Data Type"
-              - "Shared Type"
-              - "Reference Type"
-            answer: "Reference Type"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Value vs. Reference Types: `struct` vs. `class`"
-          - type: "explanation"
-            content:
-              text: "This is the big showdown between structs and classes – how they handle data changes everything. Get this, and you’ll avoid coding headaches!"
-          - type: "heading2"
-            content:
-              text: "Structs are Value Types"
-          - type: "explanation"
-            content:
-              text: "Structs make copies when assigned – change one, the other stays put. It’s like photocopying a drawing; edits don’t touch the original."
-          - type: "snippet"
-            content:
-              code: |
-                struct Point { var x: Int }
-                var pointA = Point(x: 10)
-                var pointB = pointA // Copy
-                pointB.x = 20
-                print(pointA.x) // 10
-                print(pointB.x) // 20
-          - type: "heading2"
-            content:
-              text: "Classes are Reference Types"
-          - type: "explanation"
-            content:
-              text: "Classes share the same data – assign one, and both point to it. Change one, and the other feels it, like editing a shared online doc."
-          - type: "snippet"
-            content:
-              code: |
-                class Person { var name: String; init(name: String) { self.name = name } }
-                var person1 = Person(name: "Alex")
-                var person2 = person1 // Same object
-                person2.name = "Maria"
-                print(person1.name) // "Maria"
-                print(person2.name) // "Maria"
-
-      - id: "8D6ED696-53B1-43FE-B027-D506F2347575"
-        module_name: "Introduction to Closures"
-        module_number: 19
-        multiple_choice:
-          - question: "What is a closure?"
-            options:
-              - "A special type of class."
-              - "A variable that cannot be changed."
-              - "A self-contained block of code that can be passed around and used in your code."
-              - "A way to close your application."
-            answer: "A self-contained block of code that can be passed around and used in your code."
-          - question: "The `.map` function on an array does what?"
-            options:
-              - "It filters the array to find certain elements."
-              - "It sorts the array in place."
-              - "It transforms each element in an array into a new value, returning a new array."
-              - "It finds the location of an element on a map."
-            answer: "It transforms each element in an array into a new value, returning a new array."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Introduction to Closures"
-          - type: "explanation"
-            content:
-              text: "Closures are like portable mini-functions – no name, just pure action you can pass around. They’re Swift’s secret weapon for working with collections and more."
-          - type: "heading2"
-            content:
-              text: "Closure Syntax"
-          - type: "explanation"
-            content:
-              text: "Closures look like `{ (parameters) -> return type in ... }`. The `in` splits the setup from the action – like a tiny recipe for code."
-          - type: "snippet"
-            content:
-              code: |
-                let numbers = [1, 2, 3, 4, 5]
-                let doubledNumbers = numbers.map({ (number: Int) -> Int in
-                    return number * 2
-                })
-                print(doubledNumbers) // [2, 4, 6, 8, 10]
-          - type: "heading2"
-            content:
-              text: "Trailing Closure Syntax"
-          - type: "explanation"
-            content:
-              text: "If a closure’s the last argument, you can write it after the parentheses – it’s called **trailing closure syntax** and it’s super clean."
-          - type: "snippet"
-            content:
-              code: |
-                let names = ["Zoe", "Leo", "Ava"]
-                let sortedNames = names.sorted { (s1: String, s2: String) -> Bool in
-                    return s1 < s2
-                }
-                print(sortedNames) // ["Ava", "Leo", "Zoe"]
-
-    finalReview:
-      content_blocks:
-        - type: "heading1"
-          content:
-            text: "Chapter 4 Review"
-        - type: "explanation"
-          content:
-            text: "You’ve dived deep into Swift’s building blocks! You’re crafting complex types and slick code chunks like a pro. Let’s recap your epic skills."
-        - type: "heading2"
-          content:
-            text: "Your New Superpowers"
-        - type: "explanation"
-          content:
-            text: "**Advanced `struct`s:** You’re adding computed properties and `mutating` methods to make structs dynamic and powerful."
-        - type: "explanation"
-          content:
-            text: "**`class`es:** You’re rocking inheritance and `init` methods, building connected type families."
-        - type: "explanation"
-          content:
-            text: "**Value vs. Reference Types:** You know structs copy, classes share – a key to glitch-free code."
-        - type: "explanation"
-          content:
-            text: "**Closures:** You’re wielding anonymous code blocks, transforming arrays with `.map` and `.sorted` like a coding ninja."
+          let forced = try! loadFile(named: "notes.txt")  // Crashes if it throws'
+    - type: explanation
+      content:
+        text: try? converts errors to nil; try! crashes on error. Prefer do/try/catch
+          unless you’re certain it can’t fail.
+    - type: explanation
+      content:
+        text: 'Tip: Model only real errors as throwing. Use optionals for expected
+          absence.'
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 4 Review
+    - type: explanation
+      content:
+        text: You wrote functions to bundle logic, used parameters and return values
+          for clarity, and handled failure paths with throws/try/catch.
+    - type: explanation
+      content:
+        text: 'Rules of thumb: small focused functions, descriptive parameter labels,
+          and precise error modeling.'
