@@ -64,7 +64,9 @@ struct ModuleContentView: View {
 						.onTapGesture {
 							dismiss()
 						}
+						
                         Spacer()
+						
                         Button(action: onChatButtonTapped) {
                             ChatBotButtonView()
                         }
