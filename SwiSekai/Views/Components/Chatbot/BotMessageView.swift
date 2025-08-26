@@ -21,7 +21,7 @@ struct BotMessageView: View {
                 HStack(spacing: 8) {
                     Text("Taylor")
                         .fontWeight(.semibold)
-                    Text("08.58")
+                    Text(getCurrentTime())
                 }
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -31,7 +31,7 @@ struct BotMessageView: View {
                     switch content {
                     case .text(let message):
                         // Display a standard text block
-                        Text(message)
+                        Text(LocalizedStringKey(message))
                             .multilineTextAlignment(.leading)
                         
                     case .code(let snippet):
@@ -39,11 +39,6 @@ struct BotMessageView: View {
                         SnippetView(code: snippet, highlightrManager: HighlightrManager())
                     }
                 }
-                
-                // This footer part remains the same
-                Text("Ask anything about var vs let, optionals, or type inference.")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
             }
             .padding()
             .background(Color("ChatbotMessageColor"))

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EF0BEE72E5C40C9009AD09A /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF0BEE62E5C40C9009AD09A /* GoogleGenerativeAI */; };
 		7C11CC5D2E4C2EDF00B36D14 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 7C11CC5C2E4C2EDF00B36D14 /* Highlightr */; };
 		FA4891522E4A561300C51050 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891512E4A561300C51050 /* Yams */; };
 		FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891722E4AB5F500C51050 /* HighlightSwift */; };
@@ -32,6 +33,7 @@
 				FA4891522E4A561300C51050 /* Yams in Frameworks */,
 				7C11CC5D2E4C2EDF00B36D14 /* Highlightr in Frameworks */,
 				FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */,
+				6EF0BEE72E5C40C9009AD09A /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +79,7 @@
 				FA4891512E4A561300C51050 /* Yams */,
 				FA4891722E4AB5F500C51050 /* HighlightSwift */,
 				7C11CC5C2E4C2EDF00B36D14 /* Highlightr */,
+				6EF0BEE62E5C40C9009AD09A /* GoogleGenerativeAI */,
 			);
 			productName = SwiSekai;
 			productReference = FA4891412E4A55A900C51050 /* SwiSekai.app */;
@@ -110,6 +113,7 @@
 				FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */,
 				FA4891712E4AB5F500C51050 /* XCRemoteSwiftPackageReference "highlightswift" */,
 				7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */,
+				6EF0BEE52E5C40C9009AD09A /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA4891422E4A55A900C51050 /* Products */;
@@ -275,7 +279,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 25C6TYUK25;
+				DEVELOPMENT_TEAM = 68D4P32AKJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -306,7 +310,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 25C6TYUK25;
+				DEVELOPMENT_TEAM = 68D4P32AKJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -350,6 +354,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6EF0BEE52E5C40C9009AD09A /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google-gemini/deprecated-generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
 		7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/raspu/Highlightr/";
@@ -377,6 +389,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6EF0BEE62E5C40C9009AD09A /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EF0BEE52E5C40C9009AD09A /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
+		};
 		7C11CC5C2E4C2EDF00B36D14 /* Highlightr */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */;

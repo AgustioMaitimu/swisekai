@@ -18,7 +18,7 @@ struct UserMessageView: View {
                     Text("You")
                         .fontWeight(.semibold)
                     
-                    Text("08.58")
+                    Text(getCurrentTime())
                 }
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -30,9 +30,15 @@ struct UserMessageView: View {
             .padding()
             .background(Color("UserMessageColor"))
             .cornerRadius(12)
-            .frame(maxWidth: 400, alignment: .leading)
+            .frame(maxWidth: 400, alignment: .trailing)
         }
     }
+}
+
+func getCurrentTime() -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "HH:mm"
+    return formatter.string(from: Date())
 }
 
 #Preview {
