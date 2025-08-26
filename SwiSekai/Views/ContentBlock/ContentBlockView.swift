@@ -56,6 +56,8 @@ struct ContentBlockView: View {
                     ListView(items: items, isOrdered: false)
                 case .fillBlank:
                     FillBlankView()
+                case .collapsibleSection(let title, let blocks):
+                    CollapsibleSectionView(title: title, blocks: blocks)
                 }
             }
         }
@@ -243,5 +245,47 @@ extension String {
             attributedString.font = baseFont
             return attributedString
         }
+    }
+}
+
+struct CollapsibleSectionView: View {
+    let title: String
+    let blocks: [ContentBlock]
+    @State private var isExpanded: Bool = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    isExpanded.toggle()
+                }
+            }) {
+                HStack {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(.white.opacity(0.9))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.bold))
+                        .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                }
+                .padding()
+                .background(Color("SnippetBackgroundColor"))
+                .contentShape(Rectangle()) // Makes the whole area tappable
+            }
+            .buttonStyle(.plain)
+
+            if isExpanded {
+                VStack(alignment: .leading) {
+                    ContentBlockView(blocks: blocks)
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
+                .background(Color("SnippetBackgroundColor"))
+            }
+        }
+        .background(Color("SnippetBackgroundColor"))
+        .cornerRadius(12)
+        .padding(.vertical, 8)
     }
 }

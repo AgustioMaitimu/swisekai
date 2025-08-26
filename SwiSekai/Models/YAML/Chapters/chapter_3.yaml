@@ -1,226 +1,245 @@
 chapters:
-  - chapterName: "Chapter 3: Designing Mechanisms"
+  - chapterName: "Chapter 3: Functions, Optionals, and Structures"
     modules:
-      - id: "A5B4C3D2-E1F0-4D9C-B8A7-9E8D7C6B5A49"
-        module_name: "Reusable Mechanisms: Functions"
-        module_number: 14
+      - id: "4A328ED1-BDBA-40FE-9EE7-A5A784BB1408"
+        module_name: "Organizing Code: Functions"
+        module_number: 12
         multiple_choice:
-          - question: "What is the primary benefit of creating a Function?"
+          - question: "What is the primary benefit of using functions?"
             options:
-              - "To make your commands execute faster."
-              - "To package a reusable sequence of commands and avoid repetition."
+              - "To make your code run faster."
+              - "To group reusable code and avoid repetition."
               - "To store large amounts of data."
-              - "To create new types of elements."
-            answer: "To package a reusable sequence of commands and avoid repetition."
+              - "To create new data types."
+            answer: "To group reusable code and avoid repetition."
+          - question: "In the function `func greet(name: String)`, what is `name: String`?"
+            options:
+              - "A return value"
+              - "A parameter"
+              - "A variable"
+              - "A function call"
+            answer: "A parameter"
+          - question: "How do you indicate that a function will send back a value?"
+            options:
+              - "By using the `send` keyword."
+              - "By adding an arrow `->` followed by the data type before the curly braces."
+              - "By declaring a `var` inside the function."
+              - "The function automatically returns the last variable created."
+            answer: "By adding an arrow `->` followed by the data type before the curly braces."
         content_blocks:
           - type: "heading1"
             content:
-              text: "Crafting Reusable Code with Functions"
+              text: "Organizing Code: Functions"
           - type: "explanation"
             content:
-              text: "A Master Architect doesn't rebuild the same staircase for every floor. They create a single, perfect blueprint for 'staircase' and reuse it. A **Function** is exactly that: a named, reusable mechanism of commands. You build it once, and then you can call upon it anytime, anywhere."
+              text: "As your code grows, you’ll notice you’re repeating yourself. Functions are like your code’s best buddy – they bundle up tasks so you can reuse them without typing the same thing twice. It’s the ‘work smart, not hard’ way!"
           - type: "heading2"
             content:
-              text: "Defining and Calling a Function"
+              text: "Defining and Calling Functions"
           - type: "explanation"
             content:
-              text: "You define the mechanism using the `func` keyword. To activate it, you **call** it by its name."
+              text: "Use `func` to create a named task, add parentheses, and curly braces for the action. To use it? Just call its name with parentheses – like ringing a bell for help."
           - type: "snippet"
             content:
               code: |
-                // Define the function (the blueprint for the mechanism)
-                func igniteCampfire() {
-                    print("The logs crackle to life.")
-                    print("The fire is lit. You are safe for now.")
+                func showWelcomeMessage() {
+                    print("Hello! Welcome to the app.")
+                    print("We're glad you're here.")
                 }
-                // Call the function to activate the mechanism
-                igniteCampfire()
+                showWelcomeMessage()
           - type: "heading2"
             content:
-              text: "Providing Inputs (Parameters)"
+              text: "Passing Data with Parameters"
           - type: "explanation"
             content:
-              text: "Your mechanisms become far more versatile if you can give them different inputs each time. These inputs are called **parameters**."
+              text: "Make functions flexible with **parameters** – inputs that customize the job. Name and type them in the parentheses."
           - type: "snippet"
             content:
               code: |
-                // 'recipient' is a parameter of type String
-                func sendRaven(to recipient: String) {
-                    print("A raven is sent to \\(recipient)...")
+                func printPersonalizedGreeting(name: String) {
+                    print("Hello, \(name)! Welcome.")
                 }
-                sendRaven(to: "Winterfell")
-                sendRaven(to: "The Citadel")
+                printPersonalizedGreeting(name: "Maria") // Prints "Hello, Maria! Welcome."
+                printPersonalizedGreeting(name: "Chen")  // Prints "Hello, Chen! Welcome."
           - type: "heading2"
             content:
-              text: "Producing an Output (Return Values)"
+              text: "Returning Values"
           - type: "explanation"
             content:
-              text: "Some mechanisms don't just perform an action; they produce a result. This is a **return value**. You specify the type of element it will return using an arrow `->`."
+              text: "Functions can hand back results with `->`. It’s like ordering a pizza and getting it delivered – you get something back!"
           - type: "snippet"
             content:
               code: |
-                // This function promises to return an Int
-                func rollDice() -> Int {
-                    // A simple dice roll from 1 to 6
-                    return Int.random(in: 1...6)
+                func add(a: Int, b: Int) -> Int {
+                    let sum = a + b
+                    return sum
                 }
-                let diceRollResult = rollDice()
-                print("You rolled a \\(diceRollResult).")
+                let result = add(a: 5, b: 3) // `result` is 8
 
-      - id: "B6A5B4C3-D2E1-4F0A-B9B8-A7E6D5C4B3A2"
-        module_name: "Peering into the Void: Optionals"
-        module_number: 15
+      - id: "1B1A5215-7D5D-40C6-A142-B17AE1F8E849"
+        module_name: "Understanding Nil and Optionals"
+        module_number: 13
         multiple_choice:
-          - question: "In SwiftCraft, what does `nil` represent?"
+          - question: "What does `nil` represent in Swift?"
             options:
               - "The number zero."
-              - "An empty text."
-              - "The absence of a value; the Void."
-              - "A flawed command."
-            answer: "The absence of a value; the Void."
+              - "An empty string."
+              - "The absence of a value."
+              - "An error in the code."
+            answer: "The absence of a value."
+          - question: "How do you declare a variable that is allowed to hold `nil`?"
+            options:
+              - "By adding a `?` after its type."
+              - "By adding a `!` after its type."
+              - "By using the `optional` keyword."
+              - "All variables can hold `nil` by default."
+            answer: "By adding a `?` after its type."
         content_blocks:
           - type: "heading1"
             content:
-              text: "Handling Uncertainty with Optionals"
+              text: "Understanding Nil and Optionals"
           - type: "explanation"
             content:
-              text: "What happens when you search for a treasure that isn't there? In lesser realms, this could cause your entire creation to crumble. SwiftCraft handles this with a profound concept: **Optionals**. An Optional is an enchanted container that acknowledges uncertainty. It says, 'I might contain a treasure, or I might contain nothing but the Void.'"
+              text: "What if a user skips a question in your app? Swift’s got you covered with **optionals** – a way to say ‘this might have a value, or it might be nothing.’ It’s like a maybe box that keeps your code safe."
           - type: "heading2"
             content:
               text: "The Concept of `nil`"
           - type: "explanation"
             content:
-              text: "The state of 'nothing' is represented by the special value `nil`. It is the Void—the confirmed absence of a value."
+              text: "`nil` means ‘nothing here.’ An optional is like a package – it might hold a `String` or an `Int`, or it could be empty (`nil`)."
           - type: "heading2"
             content:
               text: "Declaring Optionals"
           - type: "explanation"
             content:
-              text: "You declare a container as an Optional by adding a question mark `?` to its type. This is your way of telling SwiftCraft, 'I understand this container might be empty, and I will handle it with care.' A non-optional container is guaranteed to *never* be empty."
+              text: "Add a `?` after the type to say ‘this can be `nil`.’ It’s Swift’s way of knowing it’s okay to have an empty box."
           - type: "snippet"
             content:
               code: |
-                // A standard container for a hero's name. It CANNOT be nil.
-                let heroName: String = "Gideon"
-                // An optional container for a pet's name. A hero might not have a pet.
-                var petName: String? = "Shadow"
-                petName = nil // The pet ran away. This is now valid.
+                var regularNumber: Int = 100 // Can’t be nil
+                var optionalNumber: Int? = 100 // Can be nil
+                optionalNumber = nil // Totally fine!
 
-      - id: "C7B6A5B4-C3D2-4E1F-A0B9-B8A7E6D5C4B3"
-        module_name: "Binding the Void: Unwrapping"
-        module_number: 16
+      - id: "1C11A348-B2E8-48DF-B4F4-FF22144FBE1C"
+        module_name: "Working with Optionals: Unwrapping"
+        module_number: 14
         multiple_choice:
-          - question: "What is the safest ritual for retrieving a value from an Optional?"
+          - question: "What is the safest way to get the value from an optional?"
             options:
-              - "Forceful Dispelling with `!`"
-              - "The Void-Coalescing Operator `??`"
-              - "Void Binding with `if let`"
-              - "All rituals are equally safe."
-            answer: "Void Binding with `if let`"
+              - "Forced unwrapping with `!`"
+              - "The nil-coalescing operator `??`"
+              - "Optional binding with `if let`"
+              - "All methods are equally safe."
+            answer: "Optional binding with `if let`"
+          - question: "What will `name` be? `let optionalName: String? = nil; let name = optionalName ?? \"Guest\"`"
+            options:
+              - "nil"
+              - "The code will crash."
+              - "\"Guest\""
+              - "\"optionalName\""
+            answer: "\"Guest\""
         content_blocks:
           - type: "heading1"
             content:
-              text: "Safely Handling Optionals: Unwrapping"
+              text: "Working with Optionals: Unwrapping"
           - type: "explanation"
             content:
-              text: "Because an Optional might contain `nil`, SwiftCraft protects you from using it directly. You must first perform a ritual to safely check its contents and extract the value. This is called **unwrapping**."
+              text: "Optionals are like wrapped presents – you can’t use them until you check what’s inside. Swift’s tools let you peek safely without breaking anything."
           - type: "heading2"
             content:
-              text: "Void Binding (`if let`)"
+              text: "Optional Binding (`if let`)"
           - type: "explanation"
             content:
-              text: "This is the most revered and safest ritual. `if let` peers into the Optional. If it finds a value, it binds it to a temporary, non-optional container and executes your code. If it finds only the `nil` void, it simply skips your code."
+              text: "`if let` is your safest bet – it checks for a value, unwraps it if there, and lets you use it. No value? It skips without drama."
           - type: "snippet"
             content:
               code: |
-                var treasureFound: String? = "Amulet of Power"
-                // treasureFound = nil // Uncomment this line to see the 'else' path activate
-                if let treasure = treasureFound {
-                    // This code only runs if a treasure was actually found
-                    print("You found the \\(treasure)!")
+                var loggedInUsername: String? = "EcoCoder"
+                if let username = loggedInUsername {
+                    print("Welcome back, \(username)!")
                 } else {
-                    // This code runs only if treasureFound was nil
-                    print("The chest is empty.")
+                    print("Please log in.")
                 }
           - type: "heading2"
             content:
-              text: "Void-Coalescing Operator (`??`)"
+              text: "Nil-Coalescing Operator (`??`)"
           - type: "explanation"
             content:
-              text: "This elegant command provides a **default value** to use if the Optional is empty. The command `a ?? b` means 'try to unwrap `a`; if you can't, use `b` instead'."
+              text: "The `??` operator is a quick fix – it says ‘use this value if there’s one; otherwise, here’s a backup.’ Short and sweet!"
           - type: "snippet"
             content:
               code: |
-                let customPlayerTitle: String? = nil
-                // If customPlayerTitle is nil, use "Adventurer" as the default.
-                let displayTitle = customPlayerTitle ?? "Adventurer"
-                print("Welcome, \\(displayTitle).") // Prints "Welcome, Adventurer."
+                let customNickname: String? = nil
+                let displayName = customNickname ?? "Anonymous" // displayName is "Anonymous"
           - type: "heading2"
             content:
-              text: "Forceful Dispelling (`!`)"
+              text: "Forced Unwrapping (`!`)"
           - type: "explanation"
             content:
-              text: "You can forcefully tear the value from an Optional with `!`. **This is dangerous and rarely advised.** It is a promise to the realm of SwiftCraft that you are 100% certain a value exists. If you are wrong, and it contains `nil`, your entire creation will shatter (the app will crash)."
+              text: "Using `!` is like ripping open the package – risky! If it’s `nil`, your app crashes. Save this for when you’re 100% sure there’s something inside."
 
-      - id: "D8C7B6A5-B4C3-4D2E-B1F0-A9B8A7E6D5C4"
-        module_name: "Custom Blueprints: Structures"
-        module_number: 17
+      - id: "38AC5364-8D9B-4B76-8957-CA4E241A06D9"
+        module_name: "Creating Custom Types: Structures"
+        module_number: 15
         multiple_choice:
-          - question: "What is the keyword used to define a custom blueprint?"
+          - question: "What is the keyword used to define a structure?"
             options:
               - "struct"
               - "structure"
               - "type"
               - "class"
             answer: "struct"
+          - question: "Given `struct Book { var title: String }`, how do you create a new instance of `Book`?"
+            options:
+              - "`let myBook = Book.new(\"Moby Dick\")`"
+              - "`let myBook = Book(title: \"Moby Dick\")`"
+              - "`let myBook = new Book { title: \"Moby Dick\" }`"
+              - "`let myBook: Book = \"Moby Dick\"`"
+            answer: "`let myBook = Book(title: \"Moby Dick\")`"
         content_blocks:
           - type: "heading1"
             content:
-              text: "Structures: Designing Your Own Components"
+              text: "Creating Custom Types: Structures"
           - type: "explanation"
             content:
-              text: "You are no longer limited to the core elements. You can now design your own blueprints for custom components. The most common way is with a **Structure**, or `struct`. A `struct` is a blueprint that groups related elements together to represent a single, meaningful concept."
+              text: "Why settle for basic types? **Structures** (structs) let you craft your own, bundling related data like a book’s title and author. It’s like designing your own Lego set!"
           - type: "heading2"
             content:
-              text: "Designing and Forging a Struct"
+              text: "Defining and Using a Struct"
           - type: "explanation"
             content:
-              text: "Imagine you're building a world. You need to represent a Hero. A hero has a name, a class, and a level. A `struct` is the perfect blueprint for this. You define the blueprint, and then you can forge an **instance** (a real, living hero) from it."
+              text: "Building a library app? Use a struct to group book details. Define it with `struct`, then create instances like stamping out custom items."
           - type: "snippet"
             content:
               code: |
-                // 1. Design the blueprint for a Hero component
-                struct Hero {
-                    var name: String
-                    var heroClass: String
-                    var level: Int
+                struct Book {
+                    var title: String
+                    var author: String
+                    var pageCount: Int
                 }
-                // 2. Forge a real instance from the blueprint
-                // SwiftCraft provides a basic forging command automatically.
-                let arion = Hero(name: "Arion", heroClass: "Warrior", level: 10)
-                // 3. Access the properties of your creation with dot syntax
-                print("\\(arion.name) is a level \\(arion.level) \\(arion.heroClass).")
+                let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
+                print("My favorite book is \(favoriteBook.title) by \(favoriteBook.author).")
 
     finalReview:
       content_blocks:
         - type: "heading1"
           content:
-            text: "Chapter 3 Review: The Mechanism Designer"
+            text: "Chapter 3 Review"
         - type: "explanation"
           content:
-            text: "You have made a great leap, Apprentice. You have learned the arts of a true designer, capable of crafting reusable mechanisms and handling the uncertainties of creation."
+            text: "You’ve tackled some big ideas! These tools are like the gears of a well-oiled Swift machine, making your code cleaner and safer. Great job!"
         - type: "heading2"
           content:
-            text: "Arts You Have Mastered"
+            text: "Your New Superpowers"
         - type: "explanation"
           content:
-            text: "**Functions (`func`):** You can now craft reusable mechanisms, providing inputs with **parameters** and receiving outputs with **return values**."
+            text: "**Functions (`func`):** You’re bundling tasks with **parameters** and **returns**, keeping your code reusable and tidy."
         - type: "explanation"
           content:
-            text: "**Optionals (`?`):** You understand how SwiftCraft safely handles the Void (`nil`) by wrapping it in a protective container."
+            text: "**Optionals (`?`):** You’re handling ‘maybe’ values like a pro, keeping `nil` from causing trouble."
         - type: "explanation"
           content:
-            text: "**Unwrapping:** You have mastered the safe rituals for handling Optionals, using **Void Binding** (`if let`) to check for a value and the **Void-Coalescing Operator** (`??`) to provide a default."
+            text: "**Unwrapping:** Safely accessing optional values with `if let` or `??` – no crashes here!"
         - type: "explanation"
           content:
-            text: "**Structures (`struct`):** You can now design your own custom blueprints, grouping related elements into a single, logical component."
+            text: "**Structures (`struct`):** You’re building custom types, grouping data like a boss to create your own blueprints."
