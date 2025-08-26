@@ -60,7 +60,7 @@ struct SideBarComponent: View {
 		.clipShape(
 			UnevenRoundedRectangle(bottomTrailingRadius: 28, topTrailingRadius: 28)
 		)
-		.shadow(color: .black.opacity(0.15), radius: 8, x: 4, y: 0)
+		.shadow(color: .black.opacity(0.22), radius: 8, x: 4, y: 0)
 	}
 }
 

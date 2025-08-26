@@ -8,10 +8,19 @@
 import SwiftUI
 import SwiftData
 
-// NOTE: Assuming NavigationItem is an enum defined elsewhere in the project, like this:
-// enum NavigationItem {
-//     case home, projects, resources, profile
-// }
+// MARK: - Custom Environment for Layout Direction
+private struct ContainerLayoutKey: EnvironmentKey {
+	static let defaultValue: Axis = .horizontal
+}
+
+extension EnvironmentValues {
+	var containerLayout: Axis {
+		get { self[ContainerLayoutKey.self] }
+		set { self[ContainerLayoutKey.self] = newValue }
+	}
+}
+
+
 
 struct HomeScreen: View {
 	
@@ -58,475 +67,255 @@ struct HomeScreen: View {
 		return "Start your journey!" // Default title
 	}
 	
-	// MARK: - Initializer
-	// This explicit initializer is now 'internal' by default, making it accessible
-	// from other files like SideBarView and TabBarView.
+	
+	
 	init(selection: Binding<NavigationItem>) {
 		self._selection = selection
-	}
-	
-	private var completedModules: Int {
-		userData.currentLevel
-	}
-	
-	private var totalModules: Int {
-		modules.count
-	}
-	
-	// A computed property that returns only the last 7 days for display.
-	private var recentActivity: [String] {
-		userData.last7DayActivity
-	}
-	
-	// This still calculates the total from the *entire* activity list.
-	private var activeDays: Int {
-		userData.totalActiveDays
-	}
-	
-	// --- Computed Properties for Progress ---
-	private var progress: Double {
-		guard totalModules > 0 else {
-			return 0.0 // Return 0 if there are no modules to complete.
-		}
-		return Double(completedModules) / Double(totalModules)
-	}
-	
-	private var progressSubtitle: String {
-		return "You have completed \(completedModules) out of \(totalModules) modules!"
-	}
-	
-	private var progressPercentageText: String {
-		return "\(Int(progress * 100))%"
 	}
 	
 	// Define columns for the responsive grid
 	private let columns = [GridItem(.adaptive(minimum: 350))]
 	
 	var body: some View {
-		NavigationStack{
-			// 1. Use a ZStack to manage the background and content layers
-			VStack {
-				// 2. Set a background that fills the entire screen, including safe areas
-				//         Color.mainBackground // Make sure "mainBackground" is in your asset catalog
-				//             .ignoresSafeArea()
-				
-				// 3. Your original ScrollView now acts as the main content block
-				ScrollView(showsIndicators: false) {
-					VStack {
-						// --- All your original content goes inside this VStack ---
-						
-						Text("Home")
-							.font(.largeTitle)
-							.fontWeight(.bold)
-							.foregroundColor(.white)
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.padding(.bottom, 5)
-						
-						// Title 2/Emphasized
-						Text("Apply your Swift skills by building real-world application")
-							.font(
-								Font.custom("Inter", size: 17)
-									.weight(.bold)
-							)
-							.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.padding(.bottom, 50)
-						
-						Text("For you")
-							.font(.title2)
-							.fontWeight(.bold)
-							.foregroundColor(.white)
-						
-							.frame(maxWidth: .infinity, alignment: .leading)
-						
-						
-						// --- First responsive section ---
-						ResponsiveStack {
-							cardThingy(
-								selection: $selection,
-								chapterNumber: currentChapterNumber,
-								chapterTitle: currentChapterTitle,
-								levelTitle: currentLevelTitle
-							)
-							projectsView(selection: $selection, projects: projects, userData: userData)
-						}
-						.padding(.bottom, 53)
-						
-						Text("Progress")
-							.font(.title2)
-							.fontWeight(.bold)
-							.foregroundColor(.white)
-						
-							.frame(maxWidth: .infinity, alignment: .leading)
-						
-						
-						// --- Second responsive section ---
-						ResponsiveStack {
-							progressCard()
-							activeLearningCard()
-						}
-						.padding(.bottom, 110)
-						
-						Text("Resources")
-							.font(.title2)
-							.fontWeight(.bold)
-							.foregroundColor(.white)
-						
-							.frame(maxWidth: .infinity, alignment: .leading)
-						
-						
-						let rows = [
-							GridItem()
-						]
-						
-						ScrollView(.horizontal, showsIndicators: false) {
-							LazyHGrid(rows: rows, spacing: 50) {
-								resourceCard()
-								resourceCard()
-								resourceCard()
-								resourceCard()
+		GeometryReader { geo in
+			NavigationStack{
+				HStack {
+					Spacer()
+					
+					ScrollView(showsIndicators: false) {
+						VStack(alignment: .center) {
+							VStack(alignment: .center) {
+								
+								HStack {
+									Text("Home")
+										.font(.largeTitle)
+										.fontWeight(.bold)
+										.foregroundColor(.white)
+										.padding(.bottom, 10)
+									
+									Spacer()
+								}
+								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								
+								HStack {
+									Text("Apply your Swift skills by building real-world application")
+										.font(
+											Font.custom("Inter", size: 17)
+												.weight(.bold)
+											
+										)
+										.padding(.bottom, 50)
+										.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+									
+									
+									Spacer()
+								}
+								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								
+								
+								HStack {
+									Text("For you")
+										.font(.title2)
+										.fontWeight(.bold)
+										.foregroundColor(.white)
+									
+									Spacer()
+								}
+								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								
+								ResponsiveStack {
+									CardThingy(
+										selection: $selection,
+										chapterNumber: currentChapterNumber,
+										chapterTitle: currentChapterTitle,
+										levelTitle: currentLevelTitle
+									)
+									ProjectsCard(selection: $selection, projects: projects, userData: userData)
+								}
+								
+								
+								Spacer()
+									.frame(height: 53)
+								
+								VStack {
+									
+									HStack {
+										Text("Progress")
+											.font(.title2)
+											.fontWeight(.bold)
+											.foregroundColor(.white)
+										
+										Spacer()
+									}
+									.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+									
+									ResponsiveStack2 {
+										
+										ProgressCard(completedModules: userData.currentLevel, totalModules: modules.count)
+										ActiveLearningCard(last7DayActivity: userData.last7DayActivity, totalActiveDays: userData.totalActiveDays)
+										
+									}
+									.padding(.bottom, 53)
+								}
+								
+								HStack {
+									Text("Resources")
+										.font(.title2)
+										.fontWeight(.bold)
+										.foregroundColor(.white)
+									
+									Spacer()
+								}
+								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								//                        ResourceCardScrollableThingy()
+								
+								let rows = [
+									GridItem(.fixed(200)) //
+								]
+								ScrollView (.horizontal, showsIndicators: false) {
+									LazyHGrid(rows: rows, spacing: 50) {
+										ResourceCard(
+											title: "SwiSekai",
+											description: "The Home of SwiSekai",
+											image: Image("SwiSekaiWeb"), // or Image(systemName: "photo")
+											link: URL(string: "https://swiftsekai.framer.website/")!
+										)
+										
+										ResourceCard(
+											title: "Apple Developer Academy Bali",
+											description: "Apply now to join Cohort 2026 at Apple Developer Academy Indonesia. We are also pleased to announce a new addition to the Apple Developer Academy community, located in Central Jakarta.",
+											image: Image("Apple Developer"), // or Image(systemName: "photo")
+											link: URL(string: "https://developeracademy.apps.binus.ac.id/bali/")!
+										)
+										ResourceCard(
+											title: "WWDC25",
+											description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+											image: Image("WWDC25"), // or Image(systemName: "photo")
+											link: URL(string: "https://developer.apple.com/wwdc25/")!
+										)
+										
+										
+										
+									}
+									.padding(.horizontal) // optional, just to not stick to screen edge
+								}
+								.frame(maxWidth: geo.size.width < 1235 ? 800 : .infinity)
+								
 								
 							}
-							.padding()
+							
 						}
+						.frame(maxWidth: 1200)
+//						.background(.blue)
 					}
-				}
-				
-				.frame(maxWidth: 1200)
-				.padding(.vertical, 20)
-				.padding(.horizontal, 20)
-			}
-		}
-	}
-	
-	func progressCard() -> some View {
-		VStack(alignment: .leading){
-			Text("Total Progress")
-				.font(.title3.weight(.bold))
-				.foregroundColor(.white)
-			
-			Text(progressSubtitle)
-				.font(.title3)
-				.foregroundColor(.white.opacity(0.8))
-				.padding(.top, 1)
-				.fixedSize(horizontal: false, vertical: true)
-			
-			Spacer()
-			
-			HStack{
-				GeometryReader { geo in
-					ZStack(alignment: .leading) {
-						Rectangle()
-							.fill(.white)
-							.frame(height: 16)
-							.cornerRadius(10)
-						Rectangle()
-							.fill(
-								LinearGradient(
-									stops: [
-										Gradient.Stop(color: Color(red: 0.99, green: 0.25, blue: 0), location: 0.00),
-										Gradient.Stop(color: Color(red: 1, green: 0.49, blue: 0.25), location: 1.00),
-									],
-									startPoint: .leading,
-									endPoint: .trailing
-								)
-							)
-							.frame(width: geo.size.width * CGFloat(progress), height: 16)
-							.cornerRadius(10)
-					}
-				}
-				
-				Text(progressPercentageText)
-					.font(.title2.weight(.bold))
-					.multilineTextAlignment(.trailing)
-					.foregroundColor(.white)
-			}
-			.frame(maxHeight: 16)
-		}
-		.padding()
-		.frame(minHeight: 132)
-		.background(Color(red: 0.19, green: 0.2, blue: 0.21))
-		.cornerRadius(12)
-	}
-	
-	func activeLearningCard() -> some View {
-		HStack {
-			VStack(alignment: .leading){
-				Text("Active Learning")
-					.font(.title3.weight(.bold))
-					.foregroundColor(.white)
-					.padding(.bottom, 20)
-				
-				HStack{
-					ForEach(recentActivity.indices, id: \.self) { index in
-						Rectangle()
-							.fill(recentActivity[index] == "active" ? // Changed from .active to "active"
-								  LinearGradient(
-									stops: [
-										Gradient.Stop(color: Color(red: 0.99, green: 0.25, blue: 0), location: 0.00),
-										Gradient.Stop(color: Color(red: 1, green: 0.49, blue: 0.25), location: 1.00),
-									],
-									startPoint: UnitPoint(x: 0.5, y: 0),
-									endPoint: UnitPoint(x: 0.5, y: 1)
-								  ) : LinearGradient(
-									stops: [Gradient.Stop(color: .white, location: 0.00)],
-									startPoint: .top,
-									endPoint: .bottom
-								  )
-							)
-							.aspectRatio(1, contentMode: .fit)
-							.cornerRadius(4)
-					}
-				}
-			}
-			
-			VStack {
-				Text("\(activeDays) Days")
-					.font(.system(size: 38, weight: .bold,))
-					.multilineTextAlignment(.trailing)
-					.foregroundColor(.white)
-					.padding(.horizontal, 40)
-			}
-		}
-		.padding()
-		.frame(minHeight: 132)
-		.background(Color(red: 0.19, green: 0.2, blue: 0.21))
-		.cornerRadius(12)
-	}
-	
-	func resourceCard() -> some View {
-		VStack {
-			Rectangle()
-				.fill(.gray)
-				.frame(width: 392, height: 152)
-				.cornerRadius(8)
-			
-			Text("WWDC25")
-				.font(.title2.weight(.bold))
-				.padding(.top,10)
-				.padding(.bottom ,4)
-				.foregroundColor(.white)
-				.frame(maxWidth:.infinity, alignment: .leading)
-			
-			Text("Access 100+ new videos with sessions,transcripts, docs, and sample code all in one place.")
-				.font(.body)
-				.frame(maxWidth:.infinity, alignment: .leading)
-				.foregroundColor(.gray)
-				.padding(.bottom,4)
-			
-			Spacer()
-			
-			Button(action: {}) {
-				HStack{
-					Spacer()
-					Image(systemName: "arrow.up.forward.app.fill")
-					Text("OPEN")
+					.frame(maxWidth: 1200)
+					.padding(.top, 40)
+					
 					Spacer()
 				}
-				.font(.headline.weight(.medium))
-				.foregroundColor(.white)
-				.padding()
-				.frame(height: 42)
-				.background(.blue)
-				.cornerRadius(8)
 			}
-			.buttonStyle(.plain)
 		}
 		.padding()
-		.background(.black.opacity(0.3))
-		.cornerRadius(12)
-		.frame(width: 392, height: 336)
 	}
 }
 
-private func cardThingy(
-	selection: Binding<NavigationItem>,
-	chapterNumber: Int,
-	chapterTitle: String,
-	levelTitle: String
-) -> some View {
-	// card thingy
-	VStack(alignment: .leading) {
-		
-		HStack{
-			VStack(alignment: .leading){
-				Text("Chapter \(chapterNumber)")
-					.font(
-						Font.custom("SF Pro", size: 20)
-							.weight(.bold)
-					)
-					.foregroundColor(.white)
-					.frame(maxWidth: .infinity, alignment: .leading)
-				
-				Text(chapterTitle.dropFirst(11))
-					.font(
-						Font.custom("SF Pro", size: 48)
-							.weight(.bold)
-					)
-					.foregroundColor(.white)
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.fixedSize(horizontal: false, vertical: true)
-				
-				Text(levelTitle)
-					.font(
-						Font.custom("SF Pro", size: 32)
-							.weight(.medium)
-					)
-					.foregroundColor(.white)
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.fixedSize(horizontal: false, vertical: true)
-			}
-			Image("logoswift")
-				.resizable()
-				.frame(width: 148, height: 148)
-		}.padding(.bottom, 40)
-		
-		HStack{
-			Button {
-				selection.wrappedValue = .learn
-			} label: {
-				Text("Continue")
-					.font(
-						Font.custom("SF Pro", size: 20)
-							.weight(.medium)
-					)
-					.multilineTextAlignment(.center)
-					.foregroundColor(.white)
-					.frame(width: 150, height: 54)
-					.background(Color.blue)
-					.cornerRadius(40)
-					.frame(maxWidth: .infinity, alignment: .trailing)
-			}
-			.buttonStyle(.plain)
-		}
-		
-	}
-	.padding(30)
-	.frame(minWidth: 800, maxWidth: .infinity, maxHeight: .infinity)
-	.background(
-		LinearGradient(
-			stops: [
-				Gradient.Stop(color: Color(red: 0.98, green: 0.63, blue: 0.25), location: 0.00),
-				Gradient.Stop(color: Color(red: 0.94, green: 0.27, blue: 0.2), location: 1.00),
-			],
-			startPoint: UnitPoint(x: 0.5, y: 0),
-			endPoint: UnitPoint(x: 0.5, y: 1)
-		)
-	)
-	.cornerRadius(20)
-	
-}
 
 
-private func projectsView(selection: Binding<NavigationItem>, projects: [Project], userData: UserData) -> some View {
-	let unlockedProjects = projects.filter { $0.levelPrerequisite <= userData.currentLevel && !userData.completedProjects.contains($0.id) }
-	let lockedProjects = projects.filter { $0.levelPrerequisite > userData.currentLevel }
-	
-	let projectsToShow = Array(unlockedProjects.prefix(3))
-	let remainingSlots = 3 - projectsToShow.count
-	let lockedProjectsToShow = Array(lockedProjects.prefix(remainingSlots))
-	
-	let finalProjects = projectsToShow + lockedProjectsToShow
-	
-	return VStack {
-		Text("Projects")
-			.font(
-				Font.custom("SF Pro", size: 20)
-					.weight(.bold)
-			)
-			.foregroundColor(.white)
-			.frame(maxWidth: .infinity, alignment: .leading)
-		
-			.padding(.top, 25)
-			.padding(.bottom, 15)
-		
-		
-		VStack(spacing: 10){
-			
-			ForEach(finalProjects) { project in
-				let isLocked = project.levelPrerequisite > userData.currentLevel
-				NavigationLink {
-					ProjectDetailView(project: project)
-				} label: {
-					HStack{
-						Text(project.projectName)
-							.font(
-								Font.custom("SF Pro", size: 20)
-									.weight(.medium))
-							.foregroundStyle(.black)
-						Spacer()
-						
-						Image(systemName: isLocked ? "lock.fill" : "chevron.right")
-							.foregroundColor(.black)
-							.padding(.trailing, 10)
-					}
-					.padding()
-					.frame(minWidth: 314, maxWidth: .infinity, minHeight: 42, maxHeight: 42, alignment: .leading)
-					.background(Color(red: 0.91, green: 0.91, blue: 0.91))
-					.cornerRadius(100)
-				}
-				.buttonStyle(.plain)
-				.disabled(isLocked)
-			}
-		}
-		
-		.padding(.bottom, 20)
-		
-		HStack(){
-			Text("25%")
-				.font(Font.custom("SF Pro", size: 16))
-				.foregroundColor(.white)
-				.frame(maxWidth:.infinity, alignment: .leading)
-				.padding(.leading, 10)
-			
-			Spacer()
-			
-			Button {
-				// By using the binding, we can change the state of the parent view.
-				selection.wrappedValue = .projects
-			} label: {
-				Text("All projects")
-					.font(
-						Font.custom("SF Pro", size: 20)
-							.weight(.medium)
-					)
-					.foregroundColor(.white)
-					.frame(width: 170, height: 54)
-					.background(Color(red: 0.04, green: 0.52, blue: 1))
-					.cornerRadius(100)
-					.padding(.bottom, 22)
-			}
-			.buttonStyle(.plain)
-		}
-	}
-	.frame(maxWidth: .infinity, maxHeight: 370)
-	.padding(.horizontal, 30)
-	.background(Color(red: 0.19, green: 0.2, blue: 0.21))
-	.cornerRadius(20)
-}
+//struct ResourceCardScrollableThingy: View {
+//    @Environment(\.containerLayout) private var containerLayout
+//
+//    let rows = [
+//        GridItem(.fixed(200)) //
+//    ]
+//
+//    var body: some View {
+//        ScrollView(.horizontal, showsIndicators: false) {
+//            LazyHGrid(rows: rows, spacing: 50) {
+//                ResourceCard(
+//                    title: "WWDC25",
+//                    description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+//                    image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+//                    link: URL(string: "https://developer.apple.com/wwdc25/")!
+//                )
+//                ResourceCard(
+//                    title: "WWDC25",
+//                    description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+//                    image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+//                    link: URL(string: "https://developer.apple.com/wwdc25/")!
+//                )
+//                ResourceCard(
+//                    title: "WWDC25",
+//                    description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+//                    image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+//                    link: URL(string: "https://developer.apple.com/wwdc25/")!
+//                )
+//            }
+//            .padding(.horizontal) // optional, just to not stick to screen edge
+//
+//        }
+//    }
+//}
 
 
-// MARK: Responsive container
+
+
 @ViewBuilder
 private func ResponsiveStack<Content: View>(
 	@ViewBuilder content: () -> Content
 ) -> some View {
 	ViewThatFits(in: .horizontal) {
+		// When HStack is active, tell children the layout is horizontal
 		HStack(alignment: .top, spacing: 20) { content() }
+			.environment(\.containerLayout, .horizontal)
+		
+		
+		// When VStack is active, tell children the layout is vertical
 		VStack(alignment: .leading, spacing: 20) { content() }
+			.environment(\.containerLayout, .vertical)
+	}
+}
+
+@ViewBuilder
+private func ResponsiveStack2<Content: View>(
+	@ViewBuilder content: () -> Content
+) -> some View {
+	ViewThatFits(in: .horizontal) {
+		// When HStack is active, tell children the layout is horizontal
+		HStack(alignment: .top, spacing: 20) { content() }
+			.frame(minWidth: 1195, maxWidth: .infinity)
+			.environment(\.containerLayout, .horizontal)
+		
+		
+		// When VStack is active, tell children the layout is vertical
+		VStack(alignment: .leading, spacing: 20) { content() }
+			.frame(maxWidth: 800)
+			.environment(\.containerLayout, .vertical)
+	}
+}
+
+@ViewBuilder
+private func ResponsiveStack3<Content: View>(
+	@ViewBuilder content: () -> Content
+) -> some View {
+	ViewThatFits(in: .horizontal) {
+		// When HStack is active, tell children the layout is horizontal
+		ScrollView { content() }
+			.frame(maxWidth: .infinity)
+			.environment(\.containerLayout, .horizontal)
+		
+		
+		// When VStack is active, tell children the layout is vertical
+		ScrollView { content() }
+			.frame(maxWidth: 800)
+			.environment(\.containerLayout, .vertical)
 	}
 }
 
 
 #Preview {
-	// A dummy enum to allow the preview to compile.
-	// Ensure this matches the actual enum used in the project.
 	enum NavigationItem {
 		case home, projects
 	}
-	
-	// The HomeScreen requires a binding and a model container for its preview.
-	// We provide a constant binding and an in-memory container.
 	return HomeScreen(selection: .constant(.home))
 		.modelContainer(for: UserData.self, inMemory: true)
 }
