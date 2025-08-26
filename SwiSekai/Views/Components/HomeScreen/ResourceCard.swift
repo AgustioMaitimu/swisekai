@@ -8,23 +8,30 @@
 import SwiftUI
 
 struct ResourceCard: View {
-    @Environment(\.containerLayout) private var containerLayout
+    let title: String
+    let description: String
+    let image: Image        // can use Image("...") or Image(systemName: "...")
+    let link: URL
+    
+    @Environment(\.openURL) private var openURL
     
     var body: some View {
         VStack {
-            Rectangle()
-                .fill(.gray)
+            image
+                .resizable()
+                .scaledToFill()
                 .frame(width: 392, height: 152)
+                .clipped()
                 .cornerRadius(8)
 
-            Text("WWDC25")
+            Text(title)
                 .font(.title2.weight(.bold))
                 .padding(.top,10)
                 .padding(.bottom ,4)
                 .foregroundColor(.white)
                 .frame(maxWidth:.infinity, alignment: .leading)
 
-            Text("Access 100+ new videos with sessions,transcripts, docs, and sample code all in one place.")
+            Text(description)
                 .font(.body)
                 .frame(maxWidth:.infinity, alignment: .leading)
                 .foregroundColor(.gray)
@@ -32,8 +39,10 @@ struct ResourceCard: View {
 
             Spacer()
 
-            Button(action: {}) {
-                HStack{
+            Button(action: {
+                openURL(link)
+            }) {
+                HStack {
                     Spacer()
                     Image(systemName: "arrow.up.forward.app.fill")
                     Text("OPEN")
@@ -53,4 +62,13 @@ struct ResourceCard: View {
         .cornerRadius(12)
         .frame(width: 392, height: 336)
     }
+}
+
+#Preview {
+    ResourceCard(
+        title: "WWDC25",
+        description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+        image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+        link: URL(string: "https://developer.apple.com/wwdc25/")!
+    )
 }

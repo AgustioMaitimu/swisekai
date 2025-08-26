@@ -18,7 +18,7 @@ struct ActiveLearningCard: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading){
-                Text("Active Learning")
+                Text("Past 7 Days")
                     .font(
                         Font.custom("SF Pro", size: 20)
                             .weight(.bold)
@@ -51,12 +51,12 @@ struct ActiveLearningCard: View {
                             }
                             
                             // Day label
-                            Text(dayLabels[index])
-                                .font(
-                                    Font.custom("SF Pro", size: 20)
-                                        .weight(.bold)
-                                )
-                                .foregroundColor(index == 6 ? .red : .white)
+//                            Text(dayLabels[index])
+//                                .font(
+//                                    Font.custom("SF Pro", size: 20)
+//                                        .weight(.bold)
+//                                )
+//                                .foregroundColor(index == 6 ? .red : .white)
                         }
                     }
                 }

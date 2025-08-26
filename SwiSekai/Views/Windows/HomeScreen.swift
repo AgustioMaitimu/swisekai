@@ -184,10 +184,28 @@ struct HomeScreen: View {
                                 ]
                                 ScrollView (.horizontal, showsIndicators: false) {
                                     LazyHGrid(rows: rows, spacing: 50) {
-                                        ResourceCard()
-                                        ResourceCard()
-                                        ResourceCard()
-                                        ResourceCard()
+                                        ResourceCard(
+                                            title: "SwiSekai",
+                                            description: "The Home of SwiSekai",
+                                            image: Image("SwiSekaiWeb"), // or Image(systemName: "photo")
+                                            link: URL(string: "https://swiftsekai.framer.website/")!
+                                        )
+                                        
+                                        ResourceCard(
+                                            title: "Apple Developer Academy Bali",
+                                            description: "Apply now to join Cohort 2026 at Apple Developer Academy Indonesia. We are also pleased to announce a new addition to the Apple Developer Academy community, located in Central Jakarta.",
+                                            image: Image("Apple Developer"), // or Image(systemName: "photo")
+                                            link: URL(string: "https://developeracademy.apps.binus.ac.id/bali/")!
+                                        )
+                                        ResourceCard(
+                                            title: "WWDC25",
+                                            description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+                                            image: Image("WWDC25"), // or Image(systemName: "photo")
+                                            link: URL(string: "https://developer.apple.com/wwdc25/")!
+                                        )
+                                       
+                                       
+                                        
                                     }
                                     .padding(.horizontal) // optional, just to not stick to screen edge
                                 }
@@ -208,31 +226,46 @@ struct HomeScreen: View {
                 }
             }
         }
+        .padding()
     }
 }
 
 
 
-struct ResourceCardScrollableThingy: View {
-    @Environment(\.containerLayout) private var containerLayout
-    
-    let rows = [
-        GridItem(.fixed(200)) //
-    ]
-    
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: rows, spacing: 50) {
-                ResourceCard()
-                ResourceCard()
-                ResourceCard()
-                ResourceCard()
-            }
-            .padding(.horizontal) // optional, just to not stick to screen edge
-            
-        }
-    }
-}
+//struct ResourceCardScrollableThingy: View {
+//    @Environment(\.containerLayout) private var containerLayout
+//    
+//    let rows = [
+//        GridItem(.fixed(200)) //
+//    ]
+//    
+//    var body: some View {
+//        ScrollView(.horizontal, showsIndicators: false) {
+//            LazyHGrid(rows: rows, spacing: 50) {
+//                ResourceCard(
+//                    title: "WWDC25",
+//                    description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+//                    image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+//                    link: URL(string: "https://developer.apple.com/wwdc25/")!
+//                )
+//                ResourceCard(
+//                    title: "WWDC25",
+//                    description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+//                    image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+//                    link: URL(string: "https://developer.apple.com/wwdc25/")!
+//                )
+//                ResourceCard(
+//                    title: "WWDC25",
+//                    description: "Access 100+ new videos with sessions, transcripts, docs, and sample code all in one place.",
+//                    image: Image("Apple Developer Academy"), // or Image(systemName: "photo")
+//                    link: URL(string: "https://developer.apple.com/wwdc25/")!
+//                )
+//            }
+//            .padding(.horizontal) // optional, just to not stick to screen edge
+//            
+//        }
+//    }
+//}
 
 
 
