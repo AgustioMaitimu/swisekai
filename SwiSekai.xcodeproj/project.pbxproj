@@ -10,6 +10,7 @@
 		7C11CC5D2E4C2EDF00B36D14 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 7C11CC5C2E4C2EDF00B36D14 /* Highlightr */; };
 		FA4891522E4A561300C51050 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891512E4A561300C51050 /* Yams */; };
 		FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA4891722E4AB5F500C51050 /* HighlightSwift */; };
+		FA4FC7B72E5D536B005053D2 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = FA4FC7B62E5D536B005053D2 /* GoogleGenerativeAI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 				FA4891522E4A561300C51050 /* Yams in Frameworks */,
 				7C11CC5D2E4C2EDF00B36D14 /* Highlightr in Frameworks */,
 				FA4891732E4AB5F500C51050 /* HighlightSwift in Frameworks */,
+				FA4FC7B72E5D536B005053D2 /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +79,7 @@
 				FA4891512E4A561300C51050 /* Yams */,
 				FA4891722E4AB5F500C51050 /* HighlightSwift */,
 				7C11CC5C2E4C2EDF00B36D14 /* Highlightr */,
+				FA4FC7B62E5D536B005053D2 /* GoogleGenerativeAI */,
 			);
 			productName = SwiSekai;
 			productReference = FA4891412E4A55A900C51050 /* SwiSekai.app */;
@@ -110,6 +113,7 @@
 				FA4891502E4A561300C51050 /* XCRemoteSwiftPackageReference "Yams" */,
 				FA4891712E4AB5F500C51050 /* XCRemoteSwiftPackageReference "highlightswift" */,
 				7C11CC5B2E4C2EDF00B36D14 /* XCRemoteSwiftPackageReference "Highlightr" */,
+				FA4FC7B52E5D536B005053D2 /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA4891422E4A55A900C51050 /* Products */;
@@ -270,6 +274,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiSekai/SwiSekai.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -286,6 +292,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jm.SwiSekai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -298,6 +305,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SwiSekai/SwiSekai.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -314,6 +323,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jm.SwiSekai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -368,6 +378,14 @@
 				minimumVersion = 1.0.9;
 			};
 		};
+		FA4FC7B52E5D536B005053D2 /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google-gemini/deprecated-generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -385,6 +403,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA4891712E4AB5F500C51050 /* XCRemoteSwiftPackageReference "highlightswift" */;
 			productName = HighlightSwift;
+		};
+		FA4FC7B62E5D536B005053D2 /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA4FC7B52E5D536B005053D2 /* XCRemoteSwiftPackageReference "deprecated-generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -8,33 +8,39 @@
 import SwiftUI
 
 struct UserMessageView: View {
-    let text: String
-    
-    var body: some View {
-        HStack{
-            Spacer()
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 8) {
-                    Text("You")
-                        .fontWeight(.semibold)
-                    
-                    Text("08.58")
-                }
-                .font(.caption)
-                .foregroundColor(.secondary)
-                
-                Text(text)
-                    .foregroundColor(.primary)
-            }
-            
-            .padding()
-            .background(Color("UserMessageColor"))
-            .cornerRadius(12)
-            .frame(maxWidth: 400, alignment: .leading)
-        }
-    }
+	let text: String
+	
+	var body: some View {
+		HStack{
+			Spacer()
+			VStack(alignment: .leading, spacing: 4) {
+				HStack(spacing: 8) {
+					Text("You")
+						.fontWeight(.semibold)
+					
+					Text(getCurrentTime())
+				}
+				.font(.caption)
+				.foregroundColor(.secondary)
+				
+				Text(text)
+					.foregroundColor(.primary)
+			}
+			
+			.padding()
+			.background(Color("UserMessageColor"))
+			.cornerRadius(12)
+			.frame(maxWidth: 400, alignment: .trailing)
+		}
+	}
+}
+
+func getCurrentTime() -> String {
+	let formatter = DateFormatter()
+	formatter.dateFormat = "HH:mm"
+	return formatter.string(from: Date())
 }
 
 #Preview {
-    UserMessageView(text: "This is a test message")
+	UserMessageView(text: "This is a test message")
 }
