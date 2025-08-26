@@ -1,283 +1,246 @@
 chapters:
-  - chapterName: "Chapter 1: The Basics"
-    modules:
-      - id: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
-        module_name: "Storing Data: Variables and Constants"
-        module_number: 4
-        multiple_choice:
-          - question: "Which keyword is used for a value that is expected to change?"
-            options:
-              - "let"
-              - "static"
-              - "const"
-              - "var"
-            answer: "var"
-          - question: "What is the value of `x` after this code runs?\nlet x = 10\nvar y = x\ny = 5"
-            options:
-              - "5"
-              - "10"
-              - "The code will cause an error."
-              - "15"
-            answer: "10"
-          - question: "Which line of code shows the correct way to explicitly declare a constant of type `String`?"
-            options:
-              - "var name: String = \"Leo\""
-              - "let name = String(\"Leo\")"
-              - "let name: String = \"Leo\""
-              - "let name = \"Leo\" as String"
-            answer: "let name: String = \"Leo\""
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Storing Data: Variables and Constants"
-          - type: "explanation"
-            content:
-              text: "Let’s kick things off by organizing your data! In Swift, we use **constants** (`let`) for stuff that stays put and **variables** (`var`) for things that might change. Picture them as labeled jars – some hold one item forever, others let you swap contents."
-          - type: "heading2"
-            content:
-              text: "Type Safety and Type Inference"
-          - type: "explanation"
-            content:
-              text: "Swift’s super strict about types – every jar has a label like `Int` for numbers or `String` for text. The cool part? Swift often guesses the type for you – that’s **type inference** keeping things smooth."
-          - type: "snippet"
-            content:
-              code: |
-                let planetName = "Earth" // Swift knows it’s a String
-                var currentYear = 2025    // Swift knows it’s an Int
-          - type: "heading2"
-            content:
-              text: "Explicit Type Annotation"
-          - type: "explanation"
-            content:
-              text: "Sometimes, you want to be super clear about a type. Use a colon (`:`) to spell it out – this is **type annotation**, like putting a big label on your jar."
-          - type: "snippet"
-            content:
-              code: |
-                let welcomeMessage: String = "Hello, world!"
-                var userAge: Int = 30
-          - type: "heading2"
-            content:
-              text: "Naming Like a Pro"
-          - type: "explanation"
-            content:
-              text: "Pick names that make sense – clear and descriptive. Swift loves **camelCase** (start lowercase, then capitalize each word), like `numberOfStars`. Keep it readable, and you’re golden!"
+- chapterName: 'Chapter 1: Swift Basics'
+  modules:
+  - id: D03BD0F4-F09C-4598-954B-D2AF3C40B702
+    module_name: Variables & Constants
+    module_number: 4
+    multiple_choice:
+    - question: Which keyword should you prefer by default for safety and clarity?
+      options:
+      - var
+      - let
+      - const
+      - mut
+      answer: let
+    - question: What happens if you change a value created with let?
+      options:
+      - It updates silently
+      - Compiler error
+      - Runtime warning
+      - It converts to var
+      answer: Compiler error
+    - question: Which line declares a mutable score?
+      options:
+      - let score = 0
+      - var score = 0
+      - score var = 0
+      - int score = 0
+      answer: var score = 0
+    content_blocks:
+    - type: heading1
+      content:
+        text: Variables & Constants
+    - type: explanation
+      content:
+        text: Think of var as a backpack you repack during the trip; let is a sealed
+          keepsake. Prefer let first—switch to var only when change is required.
+    - type: heading2
+      content:
+        text: Use the right tool
+    - type: unorderedList
+      content:
+        items:
+        - 'Use let for facts: birthday, app version, maximumPlayers.'
+        - 'Use var for changing state: scores, toggles, counters.'
+    - type: snippet
+      content:
+        code: 'var score = 0
 
-      - id: "C9B8A7D6-E5F4-A3B2-C1D0-E9F8A7B6C5D4"
-        module_name: "Basic Operators"
-        module_number: 5
-        multiple_choice:
-          - question: "What is the value of `result` after this code runs? `let result = 10 + 5 * 2`"
-            options:
-              - "30"
-              - "20"
-              - "25"
-              - "17"
-            answer: "20"
-          - question: "Which operator is used to find the remainder of a division?"
-            options:
-              - "/"
-              - "*"
-              - "%"
-              - "!"
-            answer: "%"
-          - question: "If `score` is 100, what is its value after `score -= 10`?"
-            options:
-              - "100"
-              - "110"
-              - "90"
-              - "The code will error."
-            answer: "90"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Basic Operators"
-          - type: "explanation"
-            content:
-              text: "Operators are like the tools in your coding toolbox – they let you crunch numbers, tweak values, or mix things up. They’re the spark that makes your data dance!"
-          - type: "heading2"
-            content:
-              text: "Arithmetic Operators"
-          - type: "explanation"
-            content:
-              text: "Got numbers? Use `+` to add, `-` to subtract, `*` to multiply, and `/` to divide. Just watch out for the order of operations (PEMDAS) – multiplication comes before addition!"
-          - type: "snippet"
-            content:
-              code: |
-                let sum = 10 + 5        // 15
-                let difference = 20 - 8   // 12
-                let product = 4 * 7       // 28
-                let quotient = 30 / 3     // 10
-          - type: "heading2"
-            content:
-              text: "Remainder Operator"
-          - type: "explanation"
-            content:
-              text: "The `%` operator (aka modulo) tells you what’s left after division. It’s awesome for checking if numbers are even or finding leftovers."
-          - type: "snippet"
-            content:
-              code: |
-                let remainder = 9 % 4 // 1 (4 fits into 9 twice, with 1 left)
-                let isEven = 10 % 2   // 0 (even number!)
-          - type: "heading2"
-            content:
-              text: "Compound Assignment Operators"
-          - type: "explanation"
-            content:
-              text: "These are shortcuts that mix operations with assignments. Like `+=` – it adds and updates the variable in one go. Less typing, more coding!"
-          - type: "snippet"
-            content:
-              code: |
-                var score = 100
-                score += 5 // score is now 105
-                var countdown = 10
-                countdown -= 1 // countdown is now 9
+          score += 10
 
-      - id: "D1E2F3A4-B5C6-D7E8-F9A0-B1C2D3E4F5A6"
-        module_name: "Working with Text: Strings"
-        module_number: 6
-        multiple_choice:
-          - question: "How do you combine `firstName` and `lastName` into a full name with a space?"
-            options:
-              - "`\"\\(firstName) \\(lastName)\"`"
-              - "`firstName...lastName`"
-              - "`firstName.add(lastName)`"
-              - "`\"firstName\" + \"lastName\"`"
-            answer: "`\"\\(firstName) \\(lastName)\"`"
-          - question: "Which syntax is used to create a multi-line string?"
-            options:
-              - "`'...'`"
-              - "`\"\"\"...\"\"\"`"
-              - "`<string>...</string>`"
-              - "`//...`"
-            answer: "`\"\"\"...\"\"\"`"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Working with Text: Strings"
-          - type: "explanation"
-            content:
-              text: "Strings are your go-to for text – names, messages, you name it. They’re like the words in your app’s story, ready to shine on screen or handle user input."
-          - type: "heading2"
-            content:
-              text: "String Interpolation"
-          - type: "explanation"
-            content:
-              text: "Want to weave variables into your text? String interpolation is your friend – just use `\\(...)` to slip values right into a string. Super smooth!"
-          - type: "snippet"
-            content:
-              code: |
-                let name = "Alex"
-                var age = 28
-                let message = "My name is \(name) and I am \(age) years old."
-                // message is "My name is Alex and I am 28 years old."
-          - type: "heading2"
-            content:
-              text: "String Concatenation"
-          - type: "explanation"
-            content:
-              text: "You can also glue strings together with `+`. It’s called concatenation – like stitching words into a sentence."
-          - type: "snippet"
-            content:
-              code: |
-                let part1 = "Hello, "
-                let part2 = "world!"
-                let greeting = part1 + part2 // greeting is "Hello, world!"
-          - type: "heading2"
-            content:
-              text: "Multi-line Strings"
-          - type: "explanation"
-            content:
-              text: "Got a long story? Use triple quotes (`\"\"\"`) for strings that span multiple lines – perfect for keeping your code readable."
-          - type: "snippet"
-            content:
-              code: |
-                let longString = """
-                This is a message
-                that spans across
-                several lines.
-                """
+          score -= 2'
+    - type: explanation
+      content:
+        text: Here score is mutable—great for values that evolve while your app runs.
+    - type: snippet
+      content:
+        code: 'let birthYear = 2000
 
-      - id: "0C8D23A7-522A-44C3-A33B-32825B3E144C"
-        module_name: "Repeating Code: For-In Loops"
-        module_number: 7
-        multiple_choice:
-          - question: "How many times will a loop with the range `1..<5` execute?"
-            options:
-              - "3"
-              - "4"
-              - "5"
-              - "6"
-            answer: "4"
-          - question: "Which line would correctly print each name from the `names` array?"
-            options:
-              - "`for i in names { print(name) }`"
-              - "`for name in names { print(name) }`"
-              - "`for name in 1...names.count { print(name) }`"
-              - "`loop name in names { print(name) }`"
-            answer: "`for name in names { print(name) }`"
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Repeating Code: For-In Loops"
-          - type: "explanation"
-            content:
-              text: "Need to do something over and over? **For-in** loops are your ticket to repeating code without typing it a million times. They’re like a playlist on repeat!"
-          - type: "heading2"
-            content:
-              text: "Looping Through Number Ranges"
-          - type: "explanation"
-            content:
-              text: "Loop over numbers with `...` (includes the end) or `..<` (stops just before). It’s like counting steps on a walk."
-          - type: "snippet"
-            content:
-              code: |
-                // Closed range: 1, 2, 3
-                for i in 1...3 {
-                    print("Number is \(i)")
-                }
+          // birthYear = 1999  // Error: cannot assign to value: ''birthYear'' is
+          a ''let'' constant'
+    - type: explanation
+      content:
+        text: Constants make intent obvious and prevent accidental edits; the compiler
+          enforces it for you.
+    - type: heading2
+      content:
+        text: Why this matters
+    - type: explanation
+      content:
+        text: Immutability improves safety, readability, and enables compiler optimizations.
+    - type: heading2
+      content:
+        text: Tips
+    - type: unorderedList
+      content:
+        items:
+        - Default to let; promote to var only with a real need.
+        - Name after purpose, not type (score, not intScore).
+        - Keep scope small—declare values close to where they’re used.
+  - id: 6F51DFF6-76D7-4D6C-B06E-2FEAFDE1AB4B
+    module_name: 'Data Types: Int, Double, String, Bool'
+    module_number: 5
+    multiple_choice:
+    - question: Which type represents whole numbers like 3 or 42?
+      options:
+      - String
+      - Int
+      - Double
+      - Bool
+      answer: Int
+    - question: Which type would you use for true/false flags?
+      options:
+      - Int
+      - String
+      - Double
+      - Bool
+      answer: Bool
+    - question: What type is 3.14 by default in Swift?
+      options:
+      - Int
+      - Double
+      - String
+      - Bool
+      answer: Double
+    content_blocks:
+    - type: heading1
+      content:
+        text: 'Data Types: Int, Double, String, Bool'
+    - type: explanation
+      content:
+        text: 'Swift uses clear boxes for values: Int (whole numbers), Double (decimals),
+          String (text), Bool (true/false). Clarity reduces bugs.'
+    - type: heading2
+      content:
+        text: Declaring values
+    - type: snippet
+      content:
+        code: 'let lives: Int = 3
 
-                // Half-open range: 1, 2
-                for i in 1..<3 {
-                    print("Half-open number is \(i)")
-                }
-          - type: "heading2"
-            content:
-              text: "Looping Through a Collection"
-          - type: "explanation"
-            content:
-              text: "The real power comes with arrays – loop through each item like flipping through a photo album."
-          - type: "snippet"
-            content:
-              code: |
-                let names = ["Anna", "Brian", "Clara"]
-                for name in names {
-                    print("Hello, \(name)!")
-                }
-                // Prints:
-                // Hello, Anna!
-                // Hello, Brian!
-                // Hello, Clara!
+          let pi: Double = 3.14159
 
-    finalReview:
-      content_blocks:
-        - type: "heading1"
-          content:
-            text: "Chapter 1 Review"
-        - type: "explanation"
-          content:
-            text: "Wow, you’ve nailed the basics! You’re building a solid foundation in Swift – like laying the bricks for a coding castle. Let’s celebrate what you’ve mastered."
-        - type: "heading2"
-          content:
-            text: "Your New Superpowers"
-        - type: "explanation"
-          content:
-            text: "**Storing Data (`let` vs. `var`):** You’re rocking constants (`let`) for fixed values and variables (`var`) for changing ones, plus type annotations for clarity."
-        - type: "explanation"
-          content:
-            text: "**Basic Operators:** You’re crunching numbers with `+`, `-`, `*`, `/`, finding leftovers with `%`, and using shortcuts like `+=`."
-        - type: "explanation"
-          content:
-            text: "**Working with Strings:** You’re crafting text with interpolation (`\\(...)`) and concatenation (`+`), making messages pop."
-        - type: "explanation"
-          content:
-            text: "**For-In Loops:** You’re looping like a pro over ranges (`1...5`) and arrays, repeating tasks with ease."
+          let username: String = "Nova"
+
+          let isPremium: Bool = true'
+    - type: explanation
+      content:
+        text: 'Swift can infer types too. If you write let count = 5, Swift sets it
+          to Int. Add : Type when you want explicit intent.'
+    - type: heading2
+      content:
+        text: Working with numbers
+    - type: snippet
+      content:
+        code: 'let apples = 4
+
+          let boxes = 2
+
+          let total = apples * boxes  // 8'
+    - type: explanation
+      content:
+        text: Use Int for counts/indices; prefer Double when precision with decimals
+          matters (prices, measurements).
+    - type: heading2
+      content:
+        text: Strings & Bools
+    - type: snippet
+      content:
+        code: 'let greeting = "Hello"
+
+          let shouted = greeting.uppercased()
+
+          let isEmpty = greeting.isEmpty  // false'
+    - type: explanation
+      content:
+        text: Strings come with handy helpers (uppercased, isEmpty). Bools drive decisions
+          in conditions.
+    - type: explanation
+      content:
+        text: 'Tip: Keep data meaningful. If you store a yes/no, make it Bool—not
+          0/1 or "yes"/"no".'
+  - id: 1CAB7DBC-7EF9-4091-8BC2-35C66C54D930
+    module_name: String Interpolation
+    module_number: 6
+    multiple_choice:
+    - question: What syntax inserts values into a string?
+      options:
+      - ${value}
+      - (value)
+      - \(value)
+      - <value>
+      answer: \(value)
+    - question: Given let name = "Mia", what prints Hello, Mia?
+      options:
+      - print("Hello, \(name)")
+      - print("Hello, (name)")
+      - print("Hello, ${name}")
+      - print("Hello, name")
+      answer: print("Hello, \(name)")
+    - question: Why prefer interpolation over concatenation with +?
+      options:
+      - It’s slower
+      - It’s cleaner and safer
+      - It only works with Ints
+      - It changes types
+      answer: It’s cleaner and safer
+    content_blocks:
+    - type: heading1
+      content:
+        text: String Interpolation
+    - type: explanation
+      content:
+        text: 'Interpolation is Swift’s fill‑in‑the‑blank: drop values into text using
+          \(value). It’s ideal for messages, logs, and UI labels.'
+    - type: heading2
+      content:
+        text: Basic insertion
+    - type: snippet
+      content:
+        code: 'let name = "Mia"
+
+          let score = 87
+
+          print("Hi, \(name)! Your score is \(score).")  // Hi, Mia! Your score is
+          87'
+    - type: explanation
+      content:
+        text: Swift converts numbers and other values to text automatically—no manual
+          casting or + juggling.
+    - type: heading2
+      content:
+        text: Expressions inside strings
+    - type: snippet
+      content:
+        code: 'print("2 + 2 = \(2 + 2)")  // 2 + 2 = 4
+
+          let items = ["A","B","C"]
+
+          print("Total items: \(items.count)")'
+    - type: explanation
+      content:
+        text: You can run expressions inline (math, counts, function calls) and Swift
+          will show the result.
+    - type: heading2
+      content:
+        text: Readable output
+    - type: explanation
+      content:
+        text: Prefer short, focused messages. If it’s getting long, break it into
+          multiple prints or assemble parts first.
+    - type: explanation
+      content:
+        text: 'Tip: Interpolation is also great for debugging—print small, meaningful
+          facts rather than giant blobs.'
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 1 Review
+    - type: explanation
+      content:
+        text: You practiced choosing between let and var, labeling data with the right
+          types, and creating clear output with string interpolation.
+    - type: explanation
+      content:
+        text: 'Rules of thumb: prefer let, pick types that match meaning, and use
+          \(value) for clean, safe strings.'

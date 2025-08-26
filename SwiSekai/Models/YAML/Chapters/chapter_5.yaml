@@ -1,206 +1,241 @@
 chapters:
-  - chapterName: "Chapter 5: Protocols, Extensions, and Generics"
-    modules:
-      - id: "C4E2A1B0-3D9F-4B8A-9C7E-5F6A1B2C3D4E"
-        module_name: "Protocols"
-        module_number: 20
-        multiple_choice:
-          - question: "What is a protocol?"
-            options:
-              - "A type of class that cannot be changed."
-              - "A blueprint of methods, properties, and other requirements."
-              - "A way to organize code into files."
-              - "A special kind of function."
-            answer: "A blueprint of methods, properties, and other requirements."
-          - question: "How does a type indicate that it follows the rules of a protocol?"
-            options:
-              - "By inheriting from it, like `class Car: Drivable`."
-              - "By conforming to it, like `struct Car: Drivable`."
-              - "By implementing it, like `struct Car implements Drivable`."
-              - "By using the `protocol` keyword in its definition."
-            answer: "By conforming to it, like `struct Car: Drivable`."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Protocols: Creating Blueprints"
-          - type: "explanation"
-            content:
-              text: "Imagine you’re running a car show – every vehicle needs to drive, but each does it differently. Protocols are like the entry rules: ‘You must have wheels and a start button.’ They set the expectations without dictating the details, letting any type join the party as long as it follows the rules."
-          - type: "heading2"
-            content:
-              text: "Defining and Conforming to a Protocol"
-          - type: "explanation"
-            content:
-              text: "Use `protocol` to draft the rules, then let classes, structs, or enums ‘sign up’ by adding it after a colon. Each one fills in the blanks their own way."
-          - type: "snippet"
-            content:
-              code: |
-                protocol Drivable {
-                    var numberOfWheels: Int { get }
-                    func startEngine()
-                    mutating func drive()
-                }
-                struct Car: Drivable {
-                    let numberOfWheels = 4
-                    func startEngine() {
-                        print("Engine started.")
-                    }
-                    mutating func drive() {
-                        print("Vroom!")
-                    }
-                }
-          - type: "heading2"
-            content:
-              text: "Protocols as Types"
-          - type: "explanation"
-            content:
-              text: "Protocols can act like types, letting you group anything that follows the rules. It’s like saying, ‘I don’t care if it’s a car or a bike – just drive!’ Super versatile."
-          - type: "snippet"
-            content:
-              code: |
-                func startVehicle(_ vehicle: Drivable) {
-                    print("This vehicle has \(vehicle.numberOfWheels) wheels.")
-                    vehicle.startEngine()
-                }
-                let myCar = Car()
-                startVehicle(myCar)
+- chapterName: 'Chapter 5: Closures'
+  modules:
+  - id: 280D751B-F9C4-4052-BE4F-FD46C23BA055
+    module_name: Intro to Closures
+    module_number: 16
+    multiple_choice:
+    - question: Which symbols define a closure body?
+      options:
+      - '{}'
+      - ()
+      - '[]'
+      - <>
+      answer: '{}'
+    - question: Which keyword separates parameters from the closure body?
+      options:
+      - in
+      - to
+      - ->
+      - do
+      answer: in
+    - question: What can you do with closures?
+      options:
+      - Store them in variables
+      - Pass them to functions
+      - Execute them later
+      - All of the above
+      answer: All of the above
+    content_blocks:
+    - type: heading1
+      content:
+        text: Intro to Closures
+    - type: explanation
+      content:
+        text: A closure is a chunk of executable code you can pass around like data—think
+          of it as a tiny function that fits in your pocket.
+    - type: heading2
+      content:
+        text: Basic closure
+    - type: snippet
+      content:
+        code: 'let sayHello = { print("Hello!") }
 
-      - id: "B8D7C6A5-4E3F-2A1B-0C9D-8F7E6A5B4C3D"
-        module_name: "Protocol Extensions"
-        module_number: 21
-        multiple_choice:
-          - question: "What is a major benefit of using a protocol extension?"
-            options:
-              - "It makes the original protocol smaller."
-              - "It allows you to provide default implementations for protocol requirements."
-              - "It is the only way to add new methods to a protocol."
-              - "It forces all conforming types to be classes."
-            answer: "It allows you to provide default implementations for protocol requirements."
-          - question: "If a conforming type provides its own implementation of a method that is also in a protocol extension, which one is used?"
-            options:
-              - "The protocol extension's implementation is always used."
-              - "The code will not compile."
-              - "The conforming type's own implementation is used."
-              - "It depends on whether it's a struct or a class."
-            answer: "The conforming type's own implementation is used."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Extensions: Adding Functionality"
-          - type: "explanation"
-            content:
-              text: "Extensions are like giving your code a power-up – add new tricks to classes, structs, or protocols without rewriting them. Want to make `String` do something new? Extensions have your back!"
-          - type: "heading2"
-            content:
-              text: "Extending a Protocol"
-          - type: "explanation"
-            content:
-              text: "The coolest trick? Extend a protocol to give default behaviors. Any type that follows it gets these for free – unless they want to do their own thing."
-          - type: "snippet"
-            content:
-              code: |
-                protocol Describable {
-                    func describe() -> String
-                }
-                extension Describable {
-                    func describe() -> String {
-                        return "This is a default description."
-                    }
-                }
-                struct Item: Describable { }
-                let item = Item()
-                print(item.describe()) // "This is a default description."
-                struct Person: Describable {
-                    var name: String
-                    func describe() -> String {
-                        return "This person's name is \(name)."
-                    }
-                }
-                let person = Person(name: "Alex")
-                print(person.describe()) // "This person's name is Alex."
+          sayHello()  // prints Hello!'
+    - type: explanation
+      content:
+        text: Curly braces hold the body. Here, sayHello stores behavior you can run
+          later.
+    - type: heading2
+      content:
+        text: Closure with parameters
+    - type: snippet
+      content:
+        code: "let repeatLine: (String, Int) -> Void = { text, times in\n  for _ in\
+          \ 0..<times { print(text) }\n}\nrepeatLine(\"Swift!\", 2)  // prints twice"
+    - type: explanation
+      content:
+        text: Use (Type, Type) -> Return to describe the closure’s signature; in separates
+          parameters from the body.
+    - type: heading2
+      content:
+        text: Inline closure as argument
+    - type: snippet
+      content:
+        code: 'func perform(action: () -> Void) { action() }
 
-      - id: "A2B3C4D5-6E7F-8A9B-0C1D-2E3F4A5B6C7D"
-        module_name: "Introduction to Generics"
-        module_number: 22
-        multiple_choice:
-          - question: "What is the primary purpose of generics?"
-            options:
-              - "To generate code automatically."
-              - "To make code faster."
-              - "To write flexible, reusable functions and types that can work with any type."
-              - "To simplify the syntax of Swift."
-            answer: "To write flexible, reusable functions and types that can work with any type."
-          - question: "In `func doSomething<T>(item: T)`, what does `T` represent?"
-            options:
-              - "A specific type called 'T'."
-              - "A placeholder for any type, determined when the function is called."
-              - "A shorthand for 'Text'."
-              - "An error in the code."
-            answer: "A placeholder for any type, determined when the function is called."
-        content_blocks:
-          - type: "heading1"
-            content:
-              text: "Introduction to Generics"
-          - type: "explanation"
-            content:
-              text: "Generics are like a coding superpower – they let you write one piece of code that works with any type. Think of how Swift’s `Array` handles numbers, strings, anything – that’s generics making life flexible and fun!"
-          - type: "heading2"
-            content:
-              text: "The Problem Generics Solve"
-          - type: "explanation"
-            content:
-              text: "Writing the same function for `Int`, `String`, etc., is a drag. Generics say, ‘Write it once, use it everywhere.’ No more copy-paste blues!"
-          - type: "snippet"
-            content:
-              code: |
-                func swapTwoInts(_ a: inout Int, _ b: inout Int) {
-                    let tempA = a
-                    a = b
-                    b = tempA
-                }
-                func swapTwoStrings(_ a: inout String, _ b: inout String) {
-                    let tempA = a
-                    a = b
-                    b = tempA
-                }
-          - type: "heading2"
-            content:
-              text: "Generic Functions"
-          - type: "explanation"
-            content:
-              text: "Use a placeholder like `T` for the type – Swift figures it out when you call the function. It’s like a shape-shifter that adapts to your data!"
-          - type: "snippet"
-            content:
-              code: |
-                func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
-                    let tempA = a
-                    a = b
-                    b = tempA
-                }
-                var score1 = 100
-                var score2 = 200
-                swapTwoValues(&score1, &score2) // score1 is 200, score2 is 100
-                var name1 = "Alex"
-                var name2 = "Maria"
-                swapTwoValues(&name1, &name2) // name1 is "Maria", name2 is "Alex"
+          perform { print("Running inline") }'
+    - type: explanation
+      content:
+        text: You can pass a closure directly where a function expects one—great for
+          callbacks.
+    - type: explanation
+      content:
+        text: 'Tip: Start with explicit types, then simplify once you understand the
+          shape of your closure.'
+  - id: 0B2837E4-AB1D-4E81-AC67-8F3F62FD821B
+    module_name: Capturing Values
+    module_number: 17
+    multiple_choice:
+    - question: What does it mean that a closure captures values?
+      options:
+      - It copies external variables into its own context
+      - It cannot access external variables
+      - It deletes variables
+      - It turns values into strings
+      answer: It copies external variables into its own context
+    - question: 'Each closure instance keeps:'
+      options:
+      - A shared global state
+      - Its own captured state
+      - No state
+      - Only parameters
+      answer: Its own captured state
+    - question: Why can capturing be powerful?
+      options:
+      - It lets closures remember progress
+      - It prevents functions from running
+      - It removes values
+      - It slows code
+      answer: It lets closures remember progress
+    content_blocks:
+    - type: heading1
+      content:
+        text: Capturing Values
+    - type: explanation
+      content:
+        text: Closures can remember values from their surrounding scope—like packing
+          a small backpack with local variables.
+    - type: heading2
+      content:
+        text: A counter that remembers
+    - type: snippet
+      content:
+        code: "func makeCounter() -> () -> Int {\n  var count = 0\n  return {\n  \
+          \  count += 1\n    return count\n  }\n}\nlet next = makeCounter()\nprint(next())\
+          \  // 1\nprint(next())  // 2"
+    - type: explanation
+      content:
+        text: count lives on inside the returned closure. Each call updates the same
+          captured value.
+    - type: heading2
+      content:
+        text: Multiple independent captures
+    - type: snippet
+      content:
+        code: 'let c1 = makeCounter()
 
-    finalReview:
-      content_blocks:
-        - type: "heading1"
-          content:
-            text: "Chapter 5 Review"
-        - type: "explanation"
-          content:
-            text: "You’ve just unlocked Swift’s advanced toolkit! These concepts are what make big apps tick. You’re coding like a pro now – amazing work!"
-        - type: "heading2"
-          content:
-            text: "Your New Superpowers"
-        - type: "explanation"
-          content:
-            text: "**Protocols (`protocol`):** You’re setting rules for types to follow, keeping code flexible and team-ready."
-        - type: "explanation"
-          content:
-            text: "**Extensions (`extension`):** You’re boosting types with new powers, cutting down on repetitive code."
-        - type: "explanation"
-          content:
-            text: "**Generics (`<T>`):** You’re writing adaptable code that works with any type, just like Swift’s own `Array` and `Dictionary`."
+          let c2 = makeCounter()
+
+          print(c1())  // 1
+
+          print(c1())  // 2
+
+          print(c2())  // 1'
+    - type: explanation
+      content:
+        text: Each closure instance gets its own copy of captured state—perfect for
+          isolated tasks.
+    - type: heading2
+      content:
+        text: Avoid surprise captures
+    - type: snippet
+      content:
+        code: 'var total = 0
+
+          let addToTotal: (Int) -> Void = { value in total += value }
+
+          addToTotal(5)
+
+          print(total)  // 5'
+    - type: explanation
+      content:
+        text: Be mindful when capturing external variables; document intent or pass
+          values explicitly if it’s clearer.
+  - id: 96215EA9-0778-42A6-AFAC-166F48A565D6
+    module_name: Higher-Order Functions
+    module_number: 18
+    multiple_choice:
+    - question: Which function transforms each element of a collection?
+      options:
+      - map
+      - filter
+      - reduce
+      - sorted
+      answer: map
+    - question: Which function keeps only elements that pass a test?
+      options:
+      - filter
+      - map
+      - reduce
+      - append
+      answer: filter
+    - question: Which function combines all elements into a single value?
+      options:
+      - reduce
+      - map
+      - filter
+      - count
+      answer: reduce
+    content_blocks:
+    - type: heading1
+      content:
+        text: Higher-Order Functions
+    - type: explanation
+      content:
+        text: 'Swift’s arrays come with power tools that take closures: map, filter,
+          and reduce—write less code, get more done.'
+    - type: heading2
+      content:
+        text: 'map: transform each value'
+    - type: snippet
+      content:
+        code: 'let numbers = [1,2,3]
+
+          let doubled = numbers.map { $0 * 2 }
+
+          print(doubled)  // [2, 4, 6]'
+    - type: explanation
+      content:
+        text: map applies your closure to every element and returns a new array of
+          results.
+    - type: heading2
+      content:
+        text: 'filter: keep some values'
+    - type: snippet
+      content:
+        code: 'let evens = numbers.filter { $0 % 2 == 0 }
+
+          print(evens)  // [2]'
+    - type: explanation
+      content:
+        text: filter keeps elements where your closure returns true.
+    - type: heading2
+      content:
+        text: 'reduce: combine into one'
+    - type: snippet
+      content:
+        code: 'let sum = numbers.reduce(0) { partial, next in partial + next }
+
+          print(sum)  // 6'
+    - type: explanation
+      content:
+        text: reduce walks through the array, carrying an accumulator you update each
+          step.
+    - type: explanation
+      content:
+        text: 'Tip: Start with readable closures, then shorten using $0 and implicit
+          returns when comfortable.'
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 5 Review
+    - type: explanation
+      content:
+        text: You learned what closures are, how they capture values to remember state,
+          and how to wield them with map, filter, and reduce.
+    - type: explanation
+      content:
+        text: 'Rule of thumb: closures are great for callbacks and transformations—keep
+          them clear, then optimize for brevity.'

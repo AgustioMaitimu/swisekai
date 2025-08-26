@@ -1,0 +1,217 @@
+chapters:
+- chapterName: 'Chapter 6: Structs & Classes'
+  modules:
+  - id: E9E451B9-4900-4E29-AC38-4E8CFF21EBCB
+    module_name: Structs
+    module_number: 19
+    multiple_choice:
+    - question: Which keyword defines a struct?
+      options:
+      - struct
+      - class
+      - enum
+      - record
+      answer: struct
+    - question: 'Structs are:'
+      options:
+      - Value types
+      - Reference types
+      - Protocols
+      - Enums
+      answer: Value types
+    - question: 'Assigning a struct to another variable:'
+      options:
+      - Copies the value
+      - References the same instance
+      - Fails
+      - None
+      answer: Copies the value
+    content_blocks:
+    - type: heading1
+      content:
+        text: Structs
+    - type: explanation
+      content:
+        text: Structs are blueprints for lightweight data types. Each copy of a struct
+          holds its own data, independent of others.
+    - type: heading2
+      content:
+        text: Defining a struct
+    - type: snippet
+      content:
+        code: "struct User {\n  var name: String\n  var age: Int\n}\nvar u1 = User(name:\
+          \ \"Sam\", age: 20)"
+    - type: explanation
+      content:
+        text: Properties store data inside the struct. Initializers are auto-generated
+          when all properties have defaults or are provided.
+    - type: heading2
+      content:
+        text: Value semantics
+    - type: snippet
+      content:
+        code: 'var u2 = u1
+
+          u2.name = "Alex"
+
+          print(u1.name)  // Sam
+
+          print(u2.name)  // Alex'
+    - type: explanation
+      content:
+        text: Assigning a struct copies it. Changing u2 doesn’t affect u1—each keeps
+          its own state.
+    - type: explanation
+      content:
+        text: 'Tip: Prefer structs for models, settings, and small reusable types.'
+  - id: 903871AB-6684-494D-90B9-2A7C8F20AB69
+    module_name: Properties & Methods
+    module_number: 20
+    multiple_choice:
+    - question: 'Properties are:'
+      options:
+      - Variables inside a type
+      - Functions inside a type
+      - Enums
+      - Operators
+      answer: Variables inside a type
+    - question: 'Methods are:'
+      options:
+      - Functions inside a type
+      - Properties of a class
+      - Structs only
+      - Enums
+      answer: Functions inside a type
+    - question: Which keyword makes a property belong to the type itself?
+      options:
+      - static
+      - class
+      - type
+      - struct
+      answer: static
+    content_blocks:
+    - type: heading1
+      content:
+        text: Properties & Methods
+    - type: explanation
+      content:
+        text: Structs and classes can contain properties (data) and methods (behavior).
+    - type: heading2
+      content:
+        text: Stored and computed properties
+    - type: snippet
+      content:
+        code: "struct Circle {\n  var radius: Double\n  var area: Double { radius\
+          \ * radius * 3.14 }\n}\nlet c = Circle(radius: 2)\nprint(c.area)  // 12.56"
+    - type: explanation
+      content:
+        text: Computed properties calculate values dynamically instead of storing
+          them.
+    - type: heading2
+      content:
+        text: Instance vs static properties
+    - type: snippet
+      content:
+        code: "struct Counter {\n  static var totalCreated = 0\n  init() { Counter.totalCreated\
+          \ += 1 }\n}\nlet a = Counter()\nlet b = Counter()\nprint(Counter.totalCreated)\
+          \  // 2"
+    - type: explanation
+      content:
+        text: Static properties belong to the type itself, not instances.
+    - type: heading2
+      content:
+        text: Methods
+    - type: snippet
+      content:
+        code: "struct Car {\n  var speed = 0\n  mutating func accelerate() { speed\
+          \ += 10 }\n}\nvar myCar = Car()\nmyCar.accelerate()\nprint(myCar.speed)\
+          \  // 10"
+    - type: explanation
+      content:
+        text: Methods are functions inside the type. Use mutating in structs if they
+          change properties.
+  - id: 7BA7F91F-B01F-48A0-BA27-84F49AC72EA0
+    module_name: Classes & Inheritance
+    module_number: 21
+    multiple_choice:
+    - question: Which keyword defines a class?
+      options:
+      - class
+      - struct
+      - object
+      - enum
+      answer: class
+    - question: 'Classes are:'
+      options:
+      - Reference types
+      - Value types
+      - Protocols
+      - Enums
+      answer: Reference types
+    - question: 'Inheritance means:'
+      options:
+      - A class extends another
+      - Copy value
+      - Delete data
+      - Override struct
+      answer: A class extends another
+    content_blocks:
+    - type: heading1
+      content:
+        text: Classes & Inheritance
+    - type: explanation
+      content:
+        text: 'Classes are reference types: multiple variables can point to the same
+          instance. They also support inheritance.'
+    - type: heading2
+      content:
+        text: Defining a class
+    - type: snippet
+      content:
+        code: "class Animal {\n  func speak() { print(\"...\") }\n}\nclass Dog: Animal\
+          \ {\n  override func speak() { print(\"Woof\") }\n}\nlet d = Dog()\nd.speak()\
+          \  // Woof"
+    - type: explanation
+      content:
+        text: Dog inherits from Animal and overrides speak().
+    - type: heading2
+      content:
+        text: Reference semantics
+    - type: snippet
+      content:
+        code: 'let d1 = Dog()
+
+          let d2 = d1
+
+          d2.speak()
+
+          d1.speak()  // both Woof'
+    - type: explanation
+      content:
+        text: d1 and d2 point to the same Dog instance—changing one affects the other.
+    - type: heading2
+      content:
+        text: Deinitializers
+    - type: snippet
+      content:
+        code: "class FileHandler {\n  deinit { print(\"Closing resources\") }\n}"
+    - type: explanation
+      content:
+        text: Classes can clean up with deinit before being removed from memory.
+    - type: explanation
+      content:
+        text: 'Tip: Prefer structs unless you specifically need inheritance or reference
+          semantics.'
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 6 Review
+    - type: explanation
+      content:
+        text: You learned about structs (value types), properties and methods, and
+          classes (reference types with inheritance).
+    - type: explanation
+      content:
+        text: 'Rule of thumb: use structs for most models, reach for classes when
+          inheritance or shared references are needed.'

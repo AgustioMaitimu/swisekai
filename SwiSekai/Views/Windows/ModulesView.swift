@@ -36,10 +36,10 @@ struct ModulesView: View {
             ScrollViewReader { proxy in
                 ScrollView(showsIndicators: false) {
                     
-                    // MARK - REMOVE (FOR DEBUGGING TEST ONLY)
-                    NavigationLink(destination: ModulesList()){
-                        Text("Complete Modules")
-                    }
+//                    // MARK - REMOVE (FOR DEBUGGING TEST ONLY)
+//                    NavigationLink(destination: ModulesList()){
+//                        Text("Complete Modules")
+//                    }
                     Spacer().frame(height: 30)
                     
                     // Loop through each chapter
