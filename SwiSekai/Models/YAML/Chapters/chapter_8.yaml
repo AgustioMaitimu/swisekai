@@ -1,0 +1,229 @@
+chapters:
+- chapterName: 'Chapter 8: Advanced Swift'
+  modules:
+  - id: C871112D-81B3-4ECC-9371-4EFE47A68D67
+    module_name: Optionals
+    module_number: 25
+    multiple_choice:
+    - question: Which symbol marks an optional type in Swift?
+      options:
+      - '?'
+      - '!'
+      - '*'
+      - '@'
+      answer: '?'
+    - question: What does nil represent for an optional?
+      options:
+      - Zero
+      - An empty string
+      - No value
+      - 'False'
+      answer: No value
+    - question: Which keywords safely unwrap an optional?
+      options:
+      - if let / guard let
+      - force unwrap
+      - var let
+      - unwrap now
+      answer: if let / guard let
+    content_blocks:
+    - type: heading1
+      content:
+        text: Optionals
+    - type: explanation
+      content:
+        text: 'Optionals are like mystery boxes: a value might be inside—or it might
+          be nil. Swift makes you open the box safely.'
+    - type: heading2
+      content:
+        text: Declaring optionals
+    - type: snippet
+      content:
+        code: 'var nickname: String? = nil
+
+          nickname = "Ace"'
+    - type: explanation
+      content:
+        text: The ? means this variable can hold a String or no value at all (nil).
+    - type: heading2
+      content:
+        text: Safe unwrapping with if let
+    - type: snippet
+      content:
+        code: "if let name = nickname {\n  print(\"Hello, \\(name)\")\n} else {\n\
+          \  print(\"No nickname yet\")\n}"
+    - type: explanation
+      content:
+        text: if let unwraps only when a value exists—inside the block, name is a
+          non-optional String.
+    - type: heading2
+      content:
+        text: Early exit with guard let
+    - type: snippet
+      content:
+        code: "func greet(_ nick: String?) {\n  guard let nick = nick else { print(\"\
+          Missing\"); return }\n  print(\"Yo, \\(nick)\")\n}\ngreet(nickname)"
+    - type: explanation
+      content:
+        text: guard lets you fail fast and keep the happy path unindented.
+    - type: heading2
+      content:
+        text: Careful with force unwrap
+    - type: snippet
+      content:
+        code: let forced = nickname!  // Crashes if nickname is nil
+    - type: explanation
+      content:
+        text: Use ! only when you are 100% certain a value exists (e.g., after validations).
+          Prefer safe unwrapping.
+  - id: D2741D59-BADB-4864-9294-0C03FE097E8B
+    module_name: Typecasting
+    module_number: 26
+    multiple_choice:
+    - question: Which operator attempts a safe cast and returns an optional?
+      options:
+      - as?
+      - as!
+      - as
+      - is
+      answer: as?
+    - question: Which operator forces a cast and will crash if it fails?
+      options:
+      - as!
+      - as?
+      - is
+      - ->
+      answer: as!
+    - question: Which keyword checks type without casting?
+      options:
+      - is
+      - as?
+      - as!
+      - try
+      answer: is
+    content_blocks:
+    - type: heading1
+      content:
+        text: Typecasting
+    - type: explanation
+      content:
+        text: Typecasting asks an instance what it really is—use it when working with
+          hierarchies or protocol values.
+    - type: heading2
+      content:
+        text: Checking type
+    - type: snippet
+      content:
+        code: 'let pet: Any = "Dog"
+
+          print(pet is String)  // true'
+    - type: explanation
+      content:
+        text: Use is to test an instance’s type before you try to cast.
+    - type: heading2
+      content:
+        text: Safe casting with as?
+    - type: snippet
+      content:
+        code: "let animal: Any = 7\nif let n = animal as? Int {\n  print(n * 2)  //\
+          \ 14\n} else {\n  print(\"Not an Int\")\n}"
+    - type: explanation
+      content:
+        text: as? returns an optional—unwrap on success or handle the nil case gracefully.
+    - type: heading2
+      content:
+        text: Forced casting with as!
+    - type: snippet
+      content:
+        code: 'let value: Any = "42"
+
+          let s = value as! String  // Crashes if not String'
+    - type: explanation
+      content:
+        text: Avoid as! unless you are certain of the runtime type. Prefer as? and
+          handle failure.
+  - id: 74A9A7C4-B488-4338-AA1F-080DDF85C779
+    module_name: Access Control & Laziness
+    module_number: 27
+    multiple_choice:
+    - question: Which keyword makes a symbol visible only inside the same type or
+        file scope?
+      options:
+      - private
+      - public
+      - open
+      - internal
+      answer: private
+    - question: Which keyword delays property initialization until first use?
+      options:
+      - lazy
+      - defer
+      - delay
+      - optional
+      answer: lazy
+    - question: Which access level exposes a symbol within the same module by default?
+      options:
+      - internal
+      - public
+      - open
+      - fileprivate
+      answer: internal
+    content_blocks:
+    - type: heading1
+      content:
+        text: Access Control & Laziness
+    - type: explanation
+      content:
+        text: Access control decides who can touch what; lazy properties wait to be
+          created until you actually need them.
+    - type: heading2
+      content:
+        text: Access levels
+    - type: snippet
+      content:
+        code: 'public struct API {}
+
+          internal var cache = [String: String]()
+
+          private func reset() { cache.removeAll() }'
+    - type: explanation
+      content:
+        text: 'public: visible outside the module; internal: default within module;
+          private: hidden to the same scope/type.'
+    - type: heading2
+      content:
+        text: Lazy properties
+    - type: snippet
+      content:
+        code: "struct DataLoader {\n  lazy var data: [Int] = {\n    print(\"Loading...\"\
+          )\n    return Array(0...3)\n  }()\n}\nvar loader = DataLoader()\nprint(\"\
+          Before access\")\nprint(loader.data)\nprint(\"After access\")"
+    - type: explanation
+      content:
+        text: The closure runs only on first access, which saves work and memory if
+          the value is never used.
+    - type: heading2
+      content:
+        text: When to use
+    - type: snippet
+      content:
+        code: '// Example: expensive image decoding or heavy computations
+
+          defer { /* cleanup if needed */ }'
+    - type: explanation
+      content:
+        text: Use access control to enforce boundaries; use lazy when creation is
+          expensive or depends on other setup.
+  finalReview:
+    content_blocks:
+    - type: heading1
+      content:
+        text: Chapter 8 Review
+    - type: explanation
+      content:
+        text: You mastered optionals for missing data, typecasting for runtime type
+          checks, and access control with lazy properties for safer, faster code.
+    - type: explanation
+      content:
+        text: 'Rules of thumb: unwrap safely, prefer as? over as!, and expose only
+          what needs to be public while deferring expensive work with lazy.'
