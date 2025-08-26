@@ -48,6 +48,21 @@ struct ProjectContentView: View {
 				VStack(alignment: .center) {
 					// Button is now part of the scrolling content
 					HStack {
+						HStack {
+							Image(systemName: "chevron.left")
+							Text("Back")
+						}
+						.font(.title3)
+						.foregroundStyle(.blue)
+						.padding(8)
+						.overlay {
+							RoundedRectangle(cornerRadius: 24)
+								.stroke(Color.blue, lineWidth: 1)
+								.foregroundStyle(.clear)
+						}
+						.onTapGesture {
+							dismiss()
+						}
 						Spacer()
 						Button(action: onChatButtonTapped) {
 							ChatBotButtonView()
