@@ -20,24 +20,25 @@ projects:
       - type: "explanation"
         content:
           text: "This project is based on **Module 1: Storing Data**. We will use `let` to declare a constant and `var` to declare a variable. We will also add **explicit type annotations** (e.g., `: String`) to be clear about the kind of data we are storing, even though Swift could figure it out through **type inference**."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            // Use 'let' for a value that never changes.
-            // We also add a type annotation `: String` for clarity.
-            let playerName: String = "Cyber-Cat"
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  // Use 'let' for a value that never changes.
+                  // We also add a type annotation `: String` for clarity.
+                  let playerName: String = "Cyber-Cat"
 
-            // Use 'var' for a value that is expected to change.
-            // Swift can infer this is an Int, but we'll be explicit.
-            var currentScore: Int = 0
-            print("Welcome, \(playerName)! Your score is \(currentScore).")
+                  // Use 'var' for a value that is expected to change.
+                  // Swift can infer this is an Int, but we'll be explicit.
+                  var currentScore: Int = 0
+                  print("Welcome, \(playerName)! Your score is \(currentScore).")
 
-            // The player gains points, so we update the variable.
-            currentScore = 150
-            print("\(playerName) scored! New score is \(currentScore).")
+                  // The player gains points, so we update the variable.
+                  currentScore = 150
+                  print("\(playerName) scored! New score is \(currentScore).")
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -66,28 +67,29 @@ projects:
       - type: "explanation"
         content:
           text: "Based on **Module 2: Basic Operators**, this project uses standard **arithmetic operators** like multiplication (`*`) and addition (`+`). You will also use a **compound assignment operator** (`+=`) as a convenient shortcut to modify a variable."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            let billAmount = 58.50
-            let tipPercentage = 0.20 // 20% tip
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  let billAmount = 58.50
+                  let tipPercentage = 0.20 // 20% tip
 
-            // Use the multiplication operator '*' to calculate the tip.
-            let tipAmount = billAmount * tipPercentage
+                  // Use the multiplication operator '*' to calculate the tip.
+                  let tipAmount = billAmount * tipPercentage
 
-            // Start with the bill amount.
-            var totalBill = billAmount
+                  // Start with the bill amount.
+                  var totalBill = billAmount
 
-            // Use the compound assignment operator '+=' to add the tip.
-            // This is a shortcut for: totalBill = totalBill + tipAmount
-            totalBill += tipAmount
+                  // Use the compound assignment operator '+=' to add the tip.
+                  // This is a shortcut for: totalBill = totalBill + tipAmount
+                  totalBill += tipAmount
 
-            print("Bill: $\(billAmount)")
-            print("Tip: $\(tipAmount)")
-            print("Total: $\(totalBill)")
+                  print("Bill: $\(billAmount)")
+                  print("Tip: $\(tipAmount)")
+                  print("Total: $\(totalBill)")
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -116,29 +118,30 @@ projects:
       - type: "explanation"
         content:
           text: "From **Module 3: Working with Text**, this project uses **string interpolation** `\\(...)` to easily embed variables inside a string. You will also use **multi-line strings** (`\"\"\"`) for creating text that spans several lines."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            let recipientName = "Alex"
-            let event = "Graduation"
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  let recipientName = "Alex"
+                  let event = "Graduation"
 
-            // Use string interpolation to build a dynamic message.
-            let message = "Congratulations on your \(event), \(recipientName)!"
-            print(message)
+                  // Use string interpolation to build a dynamic message.
+                  let message = "Congratulations on your \(event), \(recipientName)!"
+                  print(message)
 
-            // Use multi-line strings for longer, formatted text.
-            let longerMessage = """
-            It's been a long journey,
-            and you've worked so hard.
+                  // Use multi-line strings for longer, formatted text.
+                  let longerMessage = """
+                  It's been a long journey,
+                  and you've worked so hard.
 
-            We are all incredibly proud of you!
+                  We are all incredibly proud of you!
 
-            - The Swift Team
-            """
-            print(longerMessage)
+                  - The Swift Team
+                  """
+                  print(longerMessage)
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -167,24 +170,25 @@ projects:
       - type: "explanation"
         content:
           text: "Based on **Module 7: Conditionals**, this project uses `if`, `else if`, and `else` to create conditional logic. You'll use **comparison operators** like `<` (less than) and the **logical AND operator** (`&&`) to check if multiple conditions are true at the same time."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            let currentTempCelsius = 18
-            let isWindowOpen = false
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  let currentTempCelsius = 18
+                  let isWindowOpen = false
 
-            if currentTempCelsius < 15 {
-              print("It's chilly. Turning on the heat.")
-            } else if currentTempCelsius > 15 && isWindowOpen == true {
-              print("It's pleasant, but the window is open! Pausing climate control.")
-            } else if currentTempCelsius > 25 {
-              print("It's hot! Turning on the AC.")
-            } else {
-              print("Temperature is perfect. Maintaining settings.")
-            }
+                  if currentTempCelsius < 15 {
+                    print("It's chilly. Turning on the heat.")
+                  } else if currentTempCelsius > 15 && isWindowOpen == true {
+                    print("It's pleasant, but the window is open! Pausing climate control.")
+                  } else if currentTempCelsius > 25 {
+                    print("It's hot! Turning on the AC.")
+                  } else {
+                    print("Temperature is perfect. Maintaining settings.")
+                  }
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -213,26 +217,27 @@ projects:
       - type: "explanation"
         content:
           text: "From **Module 5: Arrays**, this project demonstrates how to create an **Array**, add elements with `.append()`, remove them with `.remove(at:)`, and check the number of items with `.count`."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            // Start with an empty array of Strings.
-            var todoList: [String] = []
-            print("You have \(todoList.count) tasks.")
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  // Start with an empty array of Strings.
+                  var todoList: [String] = []
+                  print("You have \(todoList.count) tasks.")
 
-            // Use .append() to add new items to the end.
-            todoList.append("Finish report")
-            todoList.append("Buy groceries")
-            todoList.append("Call the dentist")
-            print("Your tasks: \(todoList)")
+                  // Use .append() to add new items to the end.
+                  todoList.append("Finish report")
+                  todoList.append("Buy groceries")
+                  todoList.append("Call the dentist")
+                  print("Your tasks: \(todoList)")
 
-            // Use .remove(at:) to remove an item at a specific index.
-            // Remember, indices start at 0!
-            todoList.remove(at: 1) // Removes "Buy groceries"
-            print("Groceries bought! Remaining tasks: \(todoList)")
+                  // Use .remove(at:) to remove an item at a specific index.
+                  // Remember, indices start at 0!
+                  todoList.remove(at: 1) // Removes "Buy groceries"
+                  print("Groceries bought! Remaining tasks: \(todoList)")
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -261,29 +266,30 @@ projects:
       - type: "explanation"
         content:
           text: "Based on **Module 6: Dictionaries**, you'll create a **Dictionary** with `String` keys and `String` values. You'll practice adding, updating, and removing values by referencing their unique keys. Accessing a dictionary key returns an optional, because the key might not exist."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            var userProfile: [String: String] = [
-              "username": "CodeMaster",
-              "status": "Online"
-            ]
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  var userProfile: [String: String] = [
+                    "username": "CodeMaster",
+                    "status": "Online"
+                  ]
 
-            // Add a new key-value pair.
-            userProfile["email"] = "codemaster@swift.dev"
+                  // Add a new key-value pair.
+                  userProfile["email"] = "codemaster@swift.dev"
 
-            // Update an existing value using its key.
-            userProfile["status"] = "Away"
+                  // Update an existing value using its key.
+                  userProfile["status"] = "Away"
 
-            // Accessing a value returns an optional.
-            print("Username: \(userProfile["username"] ?? "N/A")")
+                  // Accessing a value returns an optional.
+                  print("Username: \(userProfile["username"] ?? "N/A")")
 
-            // Remove a key-value pair by setting its value to nil.
-            userProfile["status"] = nil
-            print("Profile Data: \(userProfile)")
+                  // Remove a key-value pair by setting its value to nil.
+                  userProfile["status"] = nil
+                  print("Profile Data: \(userProfile)")
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -312,27 +318,28 @@ projects:
       - type: "explanation"
         content:
           text: "Following **Module 9: Functions**, you will write a **function** using the `func` keyword. The function will accept an input value (a **parameter**) and, after performing its calculation, send back an output (a **return value**)."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            // A function with one Double parameter that returns a Double.
-            func milesToKilometers(miles: Double) -> Double {
-              let conversionRate = 1.60934
-              return miles * conversionRate
-            }
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  // A function with one Double parameter that returns a Double.
+                  func milesToKilometers(miles: Double) -> Double {
+                    let conversionRate = 1.60934
+                    return miles * conversionRate
+                  }
 
-            // A function that prints but does not return a value.
-            func displayConversion(miles: Double) {
-                let kilometers = milesToKilometers(miles: miles)
-                print("\(miles) miles is equal to \(kilometers) kilometers.")
-            }
+                  // A function that prints but does not return a value.
+                  func displayConversion(miles: Double) {
+                      let kilometers = milesToKilometers(miles: miles)
+                      print("\(miles) miles is equal to \(kilometers) kilometers.")
+                  }
 
-            // Call the function to get the result.
-            displayConversion(miles: 100.0)
-            displayConversion(miles: 25.5)
+                  // Call the function to get the result.
+                  displayConversion(miles: 100.0)
+                  displayConversion(miles: 25.5)
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -361,26 +368,27 @@ projects:
       - type: "explanation"
         content:
           text: "From **Module 12: Structures**, this project involves defining a **`struct`** blueprint. You'll define its **properties** (the data it holds). Then, you'll create an **instance** of that struct, which is a concrete object made from the blueprint, and access its properties using dot syntax."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            // 1. Define the blueprint for a Book.
-            struct Book {
-              // These are the properties of the struct.
-              let title: String
-              let author: String
-              let pageCount: Int
-            }
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  // 1. Define the blueprint for a Book.
+                  struct Book {
+                    // These are the properties of the struct.
+                    let title: String
+                    let author: String
+                    let pageCount: Int
+                  }
 
-            // 2. Create a concrete instance of the Book.
-            // Swift provides a memberwise initializer automatically.
-            let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
+                  // 2. Create a concrete instance of the Book.
+                  // Swift provides a memberwise initializer automatically.
+                  let favoriteBook = Book(title: "The Hobbit", author: "J.R.R. Tolkien", pageCount: 310)
 
-            // 3. Access the properties of the instance using dot syntax.
-            print("My favorite book is '\(favoriteBook.title)' by \(favoriteBook.author).")
+                  // 3. Access the properties of the instance using dot syntax.
+                  print("My favorite book is '\(favoriteBook.title)' by \(favoriteBook.author).")
       - type: "heading2"
         content:
           text: "Next Steps"
@@ -409,29 +417,30 @@ projects:
       - type: "explanation"
         content:
           text: "From **Module 8: Switch Statements**, this project uses a **`switch`** statement to check a value against multiple possible `case`s. Swift `switch` statements must be **exhaustive**, meaning every possible value must be handled, either with a specific case or a `default` case."
-      - type: "heading2"
+      - type: "collapsible_section"
         content:
-          text: "Implementation"
-      - type: "snippet"
-        content:
-          code: |
-            let httpStatusCode = 404
-            var message = ""
+          title: "View Implementation"
+          blocks:
+            - type: "snippet"
+              content:
+                code: |
+                  let httpStatusCode = 404
+                  var message = ""
 
-            // Use a switch statement to check the value of httpStatusCode.
-            switch httpStatusCode {
-            case 200:
-              message = "OK"
-            case 404:
-              message = "Not Found"
-            case 500:
-              message = "Internal Server Error"
-            case 400...499: // You can also match against ranges.
-              message = "Client Error"
-            default:
-              message = "Unknown Code"
-            }
-            print("Status: \(httpStatusCode), Message: \(message)")
+                  // Use a switch statement to check the value of httpStatusCode.
+                  switch httpStatusCode {
+                  case 200:
+                    message = "OK"
+                  case 404:
+                    message = "Not Found"
+                  case 500:
+                    message = "Internal Server Error"
+                  case 400...499: // You can also match against ranges.
+                    message = "Client Error"
+                  default:
+                    message = "Unknown Code"
+                  }
+                  print("Status: \(httpStatusCode), Message: \(message)")
       - type: "heading2"
         content:
           text: "Next Steps"

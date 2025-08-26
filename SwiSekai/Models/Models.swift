@@ -85,6 +85,7 @@ enum ContentBlock: Codable, Identifiable {
     case heading6(text: String)
     case orderedList(items: [String])
     case unorderedList(items: [String])
+    case collapsibleSection(title: String, blocks: [ContentBlock])
     
     var id: String {
         switch self {
@@ -110,6 +111,8 @@ enum ContentBlock: Codable, Identifiable {
             return "ol-" + items.joined()
         case .unorderedList(let items):
             return "ul-" + items.joined()
+        case .collapsibleSection(let title, let blocks):
+            return "cs-" + title + blocks.map { $0.id }.joined()
         }
     }
     
@@ -118,7 +121,7 @@ enum ContentBlock: Codable, Identifiable {
     }
     
     private enum ContentKeys: String, CodingKey {
-        case text, code, question, options, answer, prose, items
+        case text, code, question, options, answer, prose, items, title, blocks
     }
     
     init(from decoder: Decoder) throws {
@@ -171,6 +174,11 @@ enum ContentBlock: Codable, Identifiable {
             let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
             let items = try contentContainer.decode([String].self, forKey: .items)
             self = .unorderedList(items: items)
+        case "collapsible_section":
+            let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
+            let title = try contentContainer.decode(String.self, forKey: .title)
+            let blocks = try contentContainer.decode([ContentBlock].self, forKey: .blocks)
+            self = .collapsibleSection(title: title, blocks: blocks)
         default:
             throw DecodingError.dataCorruptedError(forKey: .type, in: container, debugDescription: "Invalid content block type")
         }
@@ -225,6 +233,11 @@ enum ContentBlock: Codable, Identifiable {
             try container.encode("unorderedList", forKey: .type)
             var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
             try contentContainer.encode(items, forKey: .items)
+        case .collapsibleSection(let title, let blocks):
+            try container.encode("collapsible_section", forKey: .type)
+            var contentContainer = container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
+            try contentContainer.encode(title, forKey: .title)
+            try contentContainer.encode(blocks, forKey: .blocks)
         }
     }
 }
