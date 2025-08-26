@@ -91,7 +91,7 @@ struct VerticalProjects: View {
 				Button(action: {
 					withAnimation { uiState.selectedCategory = category }
 				}) {
-					Text(category)
+					 Text(category)
 						.fontWeight(.semibold)
 						.padding(.vertical, 8)
 						.frame(maxWidth: .infinity)
