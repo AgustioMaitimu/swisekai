@@ -16,26 +16,28 @@ struct ResourceCard: View {
     @Environment(\.openURL) private var openURL
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 8) {
             image
                 .resizable()
                 .scaledToFill()
-                .frame(width: 392, height: 152)
+                .frame(height: 120)
+                .frame(maxWidth: .infinity)
                 .clipped()
                 .cornerRadius(8)
 
             Text(title)
-                .font(.title2.weight(.bold))
-                .padding(.top,10)
-                .padding(.bottom ,4)
+                .font(.headline.weight(.bold))
+                .padding(.top, 6)
                 .foregroundColor(.white)
+                .lineLimit(1)
+                .truncationMode(.tail)
                 .frame(maxWidth:.infinity, alignment: .leading)
 
             Text(description)
-                .font(.body)
-                .frame(maxWidth:.infinity, alignment: .leading)
+                .font(.subheadline)
                 .foregroundColor(.gray)
-                .padding(.bottom,4)
+                .lineLimit(2)
+                .frame(maxWidth:.infinity, alignment: .leading)
 
             Spacer()
 
@@ -48,19 +50,20 @@ struct ResourceCard: View {
                     Text("OPEN")
                     Spacer()
                 }
-                .font(.headline.weight(.medium))
+                .font(.subheadline.weight(.semibold))
                 .foregroundColor(.white)
-                .padding()
-                .frame(height: 42)
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+                .frame(height: 36)
                 .background(.blue)
                 .cornerRadius(8)
             }
             .buttonStyle(.plain)
         }
-        .padding()
+        .padding(12)
         .background(.black.opacity(0.3))
         .cornerRadius(12)
-        .frame(width: 392, height: 336)
+        .frame(width: 360, height: 270)
     }
 }
 

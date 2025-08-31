@@ -33,8 +33,9 @@ struct ChatbotSidebarView: View {
 		
 		let model = GenerativeModel(name: "gemini-2.5-flash", apiKey: APIKey.default)
 		
+		
 		let systemPrompt = """
-			You are a helpful programming assistant called Taylor. Your sole purpose is to answer questions about the Swift programming language and its related frameworks like SwiftUI and UIKit. If you are asked about any other topic, politely decline and state that you can only discuss Swift.
+			You are a helpful programming assistant called Taylor. Your sole purpose is to answer questions about the Swift programming language and its related frameworks like SwiftUI and UIKit in an easy-to-understand way, using clear explanations and simple examples that beginners can follow, keep is short and concise. If you are asked about any other topic, politely decline and state that you can only discuss Swift.
 			"""
 		
 		let initialHistory = [
@@ -116,6 +117,7 @@ struct ChatbotSidebarView: View {
 				sendMessage()
 			}
 		}
+		.padding(.top, 35)
 		.background(Color("ChatbotBackground"))
 		.edgesIgnoringSafeArea(.bottom)
 	}

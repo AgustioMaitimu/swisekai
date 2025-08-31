@@ -34,8 +34,7 @@ struct TabBarComponent: View {
 					selection = .projects
 					nav.reset(.projects)
 				}
-			}
-			.padding(.vertical, 8)
+			} 
 			.background(.tabBarBackground)
 		}
 	}
@@ -61,6 +60,7 @@ private struct TabButton: View {
 			.opacity(isSelected ? 1.0 : 0.7)
 		}
 		.buttonStyle(.plain)
+		.padding(.vertical, 6)
 	}
 }
 
