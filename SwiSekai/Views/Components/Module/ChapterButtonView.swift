@@ -27,7 +27,7 @@ struct ChapterButton: View {
                 }
             }
             .padding(.horizontal, 16)
-            .frame(width: 453, height: 83)
+            .frame(width: 420, height: 83)
             .background {
                 if status == .available {
                     LinearGradient(

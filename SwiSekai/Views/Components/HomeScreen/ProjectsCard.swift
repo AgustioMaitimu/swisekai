@@ -33,6 +33,11 @@ struct ProjectsCard: View {
         return Int((Double(userData.completedProjects.count) / Double(projects.count)) * 100)
     }
     
+    private var displayProjects: [Project] {
+        if containerLayout == .horizontal { return finalProjects }
+        return Array(finalProjects.prefix(2))
+    }
+
     var body: some View {
         VStack {
             Text("Projects")
@@ -45,13 +50,13 @@ struct ProjectsCard: View {
                 .padding(.top, 25)
                 .padding(.bottom, 15)
             
-            VStack(spacing: 10) {
-                ForEach(finalProjects) { project in
+            VStack(spacing: containerLayout == .horizontal ? 12 : 10) {
+                ForEach(displayProjects) { project in
                     let isLocked = project.levelPrerequisite > userData.currentLevel
                     NavigationLink(destination: ProjectDetailView(project: project)) {
                         HStack {
                             Text(project.projectName)
-                                .font(Font.custom("SF Pro", size: 20).weight(.medium))
+                                .font(Font.custom("SF Pro", size: containerLayout == .horizontal ? 20 : 18).weight(.medium))
                                 .foregroundStyle(.black)
                             Spacer()
                             Image(systemName: isLocked ? "lock.fill" : "chevron.right")
@@ -59,8 +64,9 @@ struct ProjectsCard: View {
                                 .padding(.trailing, 10)
                                 .bold(true)
                         }
-                        .padding()
-                        .frame(minWidth: 314, maxWidth: .infinity, minHeight: 42, maxHeight: 42, alignment: .leading)
+                        .padding(.horizontal, containerLayout == .horizontal ? 18 : 14)
+                        .padding(.vertical, containerLayout == .horizontal ? 12 : 10)
+                        .frame(maxWidth: .infinity, minHeight: containerLayout == .horizontal ? 44 : 40, alignment: .leading)
                         .background(Color(red: 0.91, green: 0.91, blue: 0.91))
                         .cornerRadius(100)
                     }
@@ -101,7 +107,7 @@ struct ProjectsCard: View {
                         .foregroundColor(.white)
                 }
                 // Set a fixed size for the progress arc view.
-                .frame(width: 45, height: 45)
+                .frame(width: containerLayout == .horizontal ? 45 : 36, height: containerLayout == .horizontal ? 45 : 36)
                 .padding(.leading, 10)
                
 
@@ -109,7 +115,7 @@ struct ProjectsCard: View {
                 // This VStack holds the project completion count and label.
               
                     Text("\(userData.completedProjects.count)/\(projects.count)")
-                        .font(Font.custom("SF Pro", size: 20))
+                        .font(Font.custom("SF Pro", size: containerLayout == .horizontal ? 20 : 18))
                         .foregroundColor(.white)
                     
                    
@@ -124,30 +130,45 @@ struct ProjectsCard: View {
                 } label: {
                     Text("All projects")
                         .font(
-                            Font.custom("SF Pro", size: 20)
+                            Font.custom("SF Pro", size: containerLayout == .horizontal ? 20 : 18)
                                 .weight(.medium)
                         )
                         .foregroundColor(.white)
-                        .frame(width: 170, height: 54)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
                         .background(Color(red: 0.04, green: 0.52, blue: 1))
                         .cornerRadius(100)
                        
                 }
                 .buttonStyle(.plain)
+                .padding(.trailing, 4)
             }
+          .padding(.vertical, 8)
           .padding(.bottom, 22)
         }
-        .padding(.horizontal, 30)
-        
-        .frame(
-            minWidth: 20,
-            maxWidth: containerLayout == .horizontal ? .infinity: 800,
-            maxHeight: 370)
-        
+        .padding(.horizontal, 32)
+        .modifier(ProjectsCardSizer(layout: containerLayout))
         .background(Color(red: 0.13, green: 0.13, blue: 0.13))
         
         
         .cornerRadius(20)
+    }
+}
+
+private struct ProjectsCardSizer: ViewModifier {
+    let layout: Axis
+    func body(content: Content) -> some View {
+        Group {
+            if layout == .horizontal {
+                content
+                    .frame(width: 460)
+                    .frame(minHeight: 345)
+            } else {
+                content
+                    .frame(minWidth: 200, maxWidth: .infinity)
+                    .frame(maxHeight: 260)
+            }
+        }
     }
 }
 

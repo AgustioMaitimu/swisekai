@@ -40,7 +40,8 @@ struct ModulesView: View {
 //                    NavigationLink(destination: ModulesList()){
 //                        Text("Complete Modules")
 //                    }
-                    Spacer().frame(height: 30)
+                    // Add a bit more top padding so the path doesn't hug the top
+                    Spacer().frame(height: 56)
                     
                     // Loop through each chapter
                     ForEach(chapters.indices, id: \.self) { chapterIndex in

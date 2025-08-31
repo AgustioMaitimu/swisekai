@@ -35,8 +35,10 @@ struct ProgressCard: View {
                 .padding(.bottom, 10)
 
             Text(progressSubtitle)
-                .font(.title3)
+                .font(containerLayout == .horizontal ? .title3 : .callout)
                 .foregroundColor(.white.opacity(0.8))
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 10)
 
@@ -64,19 +66,14 @@ struct ProgressCard: View {
 
 
                 Text(progressPercentageText)
-                    .font(.title2.weight(.bold))
+                    .font(containerLayout == .horizontal ? .title2.weight(.bold) : .title3.weight(.bold))
                     .multilineTextAlignment(.trailing)
                     .foregroundColor(.white)
             }
             .frame(maxHeight: 16)
         }
         .padding()
-//        .frame(minHeight: 132)
-        .frame(
-//                    minWidth: containerLayout == .horizontal ? 500 : 100,
-//                    maxWidth: containerLayout == .horizontal ? .infinity: 800,
-                    maxHeight: 200
-                )
+        .frame(maxHeight: containerLayout == .horizontal ? 200 : 160)
         .background(Color(red: 0.13, green: 0.13, blue: 0.13))
 
 
