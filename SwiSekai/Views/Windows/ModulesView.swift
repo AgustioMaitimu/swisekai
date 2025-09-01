@@ -110,7 +110,6 @@ struct ModulesView: View {
                     }
                 }
             }
-            .background(Color("BackgroundColor"))
             .navigationTitle("Learn")
         }
     }
@@ -142,11 +141,16 @@ struct ModulesView: View {
     
     // MARK: - Buttons status
     private func chapterStatus(for chapter: Chapter) -> ChapterStatus {
-        guard let firstModuleNumber = chapter.modules.first?.moduleNumber else {
+        guard
+            let firstModuleNumber = chapter.modules.first?.moduleNumber,
+            let lastModuleNumber = chapter.modules.last?.moduleNumber
+        else {
             return .unavailable
         }
-        
-        if currentLevel >= firstModuleNumber {
+
+        if currentLevel > lastModuleNumber {
+            return .completed
+        } else if currentLevel >= firstModuleNumber {
             return .available
         } else {
             return .unavailable

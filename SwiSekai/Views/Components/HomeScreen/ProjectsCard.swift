@@ -15,6 +15,15 @@ struct ProjectsCard: View {
     let projects: [Project]
     let userData: UserData
     
+    // Circle size used for the completion indicator
+    private var circleSize: CGFloat {
+        containerLayout == .horizontal ? 45 : 36
+    }
+    // Stroke width scales with the circle so it stays proportionate and thinner
+    private var ringLineWidth: CGFloat {
+        max(4, circleSize * 0.15)
+    }
+    
     // This computed property now contains the correct logic from your original view
     private var finalProjects: [Project] {
         let unlockedProjects = projects.filter { $0.levelPrerequisite <= userData.currentLevel && !userData.completedProjects.contains($0.id) }
@@ -80,14 +89,14 @@ struct ProjectsCard: View {
                 ZStack {
                     // This is the background of the arc, making it look complete.
                     Circle()
-                        .stroke(lineWidth: 10.0)
+                        .stroke(lineWidth: ringLineWidth)
                         .opacity(1)
                         .foregroundColor(Color.white)
                     
                     // This is the progress arc that will fill up based on the percentage.
                     Circle()
                         .trim(from: 0.0, to: CGFloat(min(Double(projectCompletionPercentage) / 100.0, 1.0)))
-                        .stroke(style: StrokeStyle(lineWidth: 10.0, lineCap: .square, lineJoin: .miter))
+                        .stroke(style: StrokeStyle(lineWidth: ringLineWidth, lineCap: .square, lineJoin: .miter))
                         .fill(
                             LinearGradient(
                                 gradient: Gradient(stops: [
@@ -103,11 +112,16 @@ struct ProjectsCard: View {
                     
                     // The percentage text is placed in the center of the ZStack.
                     Text("\(projectCompletionPercentage)%")
-                        .font(Font.custom("SF Pro", size: 14))
+                        .font(.system(size: circleSize * 0.25, weight: .bold))
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .allowsTightening(true)
+                        // Constrain text within inner circle area, accounting for ring thickness + small padding
+                        .frame(width: circleSize - (ringLineWidth * 2 + 4))
                         .foregroundColor(.white)
                 }
                 // Set a fixed size for the progress arc view.
-                .frame(width: containerLayout == .horizontal ? 45 : 36, height: containerLayout == .horizontal ? 45 : 36)
+                .frame(width: circleSize, height: circleSize)
                 .padding(.leading, 10)
                
 

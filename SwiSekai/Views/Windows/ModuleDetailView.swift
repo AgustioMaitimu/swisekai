@@ -49,21 +49,22 @@ struct ModuleContentView: View {
 			ScrollView(showsIndicators: false) {
                 VStack(alignment: .center) {
                     HStack {
-						HStack {
-							Image(systemName: "chevron.left")
-							Text("Back")
-						}
-						.font(.title3)
-						.foregroundStyle(.blue)
-						.padding(8)
-						.overlay {
-							RoundedRectangle(cornerRadius: 24)
-								.stroke(Color.blue, lineWidth: 1)
-								.foregroundStyle(.clear)
-						}
-						.onTapGesture {
-							dismiss()
-						}
+                        Button(action: { dismiss() }) {
+                            Label("Back", systemImage: "chevron.left")
+                                .font(.title3)
+                                .foregroundStyle(.blue)
+                                .padding(8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.white.opacity(0.001)) // ensure full hit area inside pill
+                                )
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                }
+                        }
+                        .buttonStyle(.plain)
+                        .contentShape(RoundedRectangle(cornerRadius: 24))
 						
                         Spacer()
 						

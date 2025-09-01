@@ -55,13 +55,17 @@ struct ProjectContentView: View {
 								.font(.title3)
 								.foregroundStyle(.blue)
 								.padding(8)
+								.background(
+									RoundedRectangle(cornerRadius: 24)
+										.fill(Color.white.opacity(0.001)) // ensure full hit area
+								)
 								.overlay {
 									RoundedRectangle(cornerRadius: 24)
 										.stroke(Color.blue, lineWidth: 1)
 								}
 						}
 						.buttonStyle(.plain)
-						.contentShape(Rectangle())
+						.contentShape(RoundedRectangle(cornerRadius: 24))
 						
 						Spacer()
 						

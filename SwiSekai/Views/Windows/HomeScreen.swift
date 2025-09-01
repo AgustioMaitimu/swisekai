@@ -73,59 +73,58 @@ struct HomeScreen: View {
 		self._selection = selection
 	}
 	
-    // Define columns for potential adaptive layouts if needed later
-    private let columns = [GridItem(.adaptive(minimum: 320))]
+	// Define columns for potential adaptive layouts if needed later
+	private let columns = [GridItem(.adaptive(minimum: 320))]
 	
 	var body: some View {
 		GeometryReader { geo in
 			NavigationStack{
 				HStack {
-					Spacer()
-					
 					ScrollView(showsIndicators: false) {
 						VStack(alignment: .center) {
 							VStack(alignment: .center) {
 								
-                        HStack {
-                            Text("Home")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding(.bottom, 10)
-                                .minimumScaleFactor(0.9)
-                            Spacer()
-                        }
-                        .frame(maxWidth: 1200)
+								HStack {
+									Text("Home")
+										.font(.largeTitle)
+										.fontWeight(.bold)
+										.foregroundColor(.white)
+										.padding(.bottom, 10)
+										.minimumScaleFactor(0.9)
+									Spacer()
+								}
+								.frame(maxWidth: 1200)
+								.padding(.top, 50)
 								
-                        HStack {
-                            Text("Apply your Swift skills by building real-world application")
-                                .font(Font.custom("Inter", size: 17).weight(.bold))
-                                .padding(.bottom, 36)
-                                .foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-                                .minimumScaleFactor(0.9)
-                            Spacer()
-                        }
-                        .frame(maxWidth: 1200)
+								HStack {
+									Text("Apply your Swift skills by building real-world application")
+										.font(Font.custom("Inter", size: 17).weight(.bold))
+										.padding(.bottom, 36)
+										.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
+										.minimumScaleFactor(0.9)
+									Spacer()
+								}
+								.frame(maxWidth: 1200)
 								
 								
-                        HStack {
-                            Text("For you")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Spacer()
-                        }
-                        .frame(maxWidth: 1200)
+								HStack {
+									Text("For you")
+										.font(.title2)
+										.fontWeight(.bold)
+										.foregroundColor(.white)
+									Spacer()
+								}
+								.frame(maxWidth: 1200)
 								
-                        ResponsiveStack {
-                            CardThingy(
-                                selection: $selection,
-                                chapterNumber: currentChapterNumber,
-                                chapterTitle: currentChapterTitle,
-                                levelTitle: currentLevelTitle
-                            )
-                            ProjectsCard(selection: $selection, projects: projects, userData: userData)
-                        }
+								ResponsiveStack {
+									CardThingy(
+										selection: $selection,
+										chapterNumber: currentChapterNumber,
+										chapterTitle: currentChapterTitle,
+										levelTitle: currentLevelTitle
+									)
+									ProjectsCard(selection: $selection, projects: projects, userData: userData)
+								}
 								
 								
 								Spacer()
@@ -133,35 +132,35 @@ struct HomeScreen: View {
 								
 								VStack {
 									
-                        HStack {
-                            Text("Progress")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Spacer()
-                        }
-                        .frame(maxWidth: 1200)
+									HStack {
+										Text("Progress")
+											.font(.title2)
+											.fontWeight(.bold)
+											.foregroundColor(.white)
+										Spacer()
+									}
+									.frame(maxWidth: 1200)
 									
-                        ResponsiveStack2 {
-                            
-                            ProgressCard(completedModules: userData.currentLevel, totalModules: modules.count)
-                            ActiveLearningCard(last7DayActivity: userData.last7DayActivity, totalActiveDays: userData.totalActiveDays)
-                            
-                        }
-                        .padding(.bottom, 53)
+									ResponsiveStack2 {
+										
+										ProgressCard(completedModules: userData.currentLevel, totalModules: modules.count)
+										ActiveLearningCard(last7DayActivity: userData.last7DayActivity, totalActiveDays: userData.totalActiveDays)
+										
+									}
+									.padding(.bottom, 53)
 								}
 								
-                        HStack {
-                            Text("Resources")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            Spacer()
-                        }
-                        .frame(maxWidth: 1200)
+								HStack {
+									Text("Resources")
+										.font(.title2)
+										.fontWeight(.bold)
+										.foregroundColor(.white)
+									Spacer()
+								}
+								.frame(maxWidth: 1200)
 								//                        ResourceCardScrollableThingy()
 								
-                        let rows = [ GridItem(.fixed(270)) ]
+								let rows = [ GridItem(.fixed(270)) ]
 								ScrollView (.horizontal, showsIndicators: false) {
 									LazyHGrid(rows: rows, spacing: 20) {
 										ResourceCard(
@@ -187,27 +186,24 @@ struct HomeScreen: View {
 										
 										
 									} // consistent side whitespace
-                            }
-                        .frame(maxWidth: 1200)
-
-                        // Add breathing room at the bottom of content
-                        Spacer().frame(height: 28)
+								}
+								.frame(maxWidth: 1200)
 								
-								
-                    }
-                }
-                .frame(maxWidth: 1200)
-//						.background(.blue)
+								// Add breathing room at the bottom of content
+								Spacer().frame(height: 28)
+							}
+						}
+						.frame(maxWidth: 1200)
+						//						.background(.blue)
 					}
 					.frame(maxWidth: 1200)
-					.padding(.top, 40)
 					
 					Spacer()
 				}
-            }
-        }
-        .padding(.horizontal, 36)
-        .padding(.top)
+			}
+		}
+		.padding(.horizontal, 36)
+		.padding(.top)
 	}
 }
 
@@ -253,36 +249,36 @@ struct HomeScreen: View {
 
 @ViewBuilder
 private func ResponsiveStack<Content: View>(
-    @ViewBuilder content: () -> Content
+	@ViewBuilder content: () -> Content
 ) -> some View {
-    ViewThatFits(in: .horizontal) {
-        // When HStack is active, tell children the layout is horizontal
-        HStack(alignment: .top, spacing: 28) { content() }
-            .environment(\.containerLayout, .horizontal)
-        
-        
-        // When VStack is active, tell children the layout is vertical
-        VStack(alignment: .leading, spacing: 24) { content() }
-            .environment(\.containerLayout, .vertical)
-    }
+	ViewThatFits(in: .horizontal) {
+		// When HStack is active, tell children the layout is horizontal
+		HStack(alignment: .top, spacing: 28) { content() }
+			.environment(\.containerLayout, .horizontal)
+		
+		
+		// When VStack is active, tell children the layout is vertical
+		VStack(alignment: .leading, spacing: 24) { content() }
+			.environment(\.containerLayout, .vertical)
+	}
 }
 
 @ViewBuilder
 private func ResponsiveStack2<Content: View>(
-    @ViewBuilder content: () -> Content
+	@ViewBuilder content: () -> Content
 ) -> some View {
-    ViewThatFits(in: .horizontal) {
-        // Prefer two-up layout earlier by lowering the threshold
-        HStack(alignment: .top, spacing: 24) { content() }
-            .frame(minWidth: 900, maxWidth: .infinity)
-            .environment(\.containerLayout, .horizontal)
-
-        
-        // When VStack is active, tell children the layout is vertical
-        VStack(alignment: .leading, spacing: 20) { content() }
-            .frame(maxWidth: 800)
-            .environment(\.containerLayout, .vertical)
-    }
+	ViewThatFits(in: .horizontal) {
+		// Prefer two-up layout earlier by lowering the threshold
+		HStack(alignment: .top, spacing: 24) { content() }
+			.frame(minWidth: 900, maxWidth: .infinity)
+			.environment(\.containerLayout, .horizontal)
+		
+		
+		// When VStack is active, tell children the layout is vertical
+		VStack(alignment: .leading, spacing: 20) { content() }
+			.frame(maxWidth: 800)
+			.environment(\.containerLayout, .vertical)
+	}
 }
 
 @ViewBuilder
