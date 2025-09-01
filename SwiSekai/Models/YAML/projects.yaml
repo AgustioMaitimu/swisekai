@@ -1,8 +1,7 @@
 projects:
 - id: C868C4EB-F0A1-429F-9EDB-601AE8BA08A1
   project_name: Quick Habit Tracker
-  project_description: Track a habit with a fixed name and an evolving streak, and
-    print friendly progress updates.
+  project_description: Track a habit with a fixed name and an evolving streak, and print friendly progress updates.
   project_difficulty: Easy
   level_prerequisite: 4
   content_blocks:
@@ -14,71 +13,88 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: 'You’ll model a real habit with two values: a **name** that never changes
-        and a **streak** that increases over time. This builds muscle memory for constants
-        vs. variables and for small, safe mutations.'
+      text: 'You''ll model a real habit with two values: a **name** that never changes and a **streak** that increases over time. This builds muscle memory for constants vs. variables and for small, safe mutations.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 4 (Variables & Constants)**: prefer `let` for data that
-        shouldn’t change (habit name), `var` for data that will (streak). Use **string
-        interpolation** to print clear feedback.'
+      text: 'From **Module 4 (Variables & Constants)**: prefer `let` for data that shouldn''t change (habit name), `var` for data that will (streak). Use **string interpolation** to print clear feedback.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a tiny console habit tracker that shows the habit''s name, updates a daily streak, compares it to a goal, and resets when you miss a day.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: constants vs variables (`let`/`var`), integer math (`+=`), `max` to avoid negatives, string interpolation, ternary for friendly messages.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
-          text: '**Step 1 — Declare your data:** Use a constant for the habit name
-            and a variable for the streak.'
+          text: '**Step 1 — Declare your data (backpack vs sticker):** Use a constant for the habit name (never changes) and a variable for the streak (changes). Think: name = label, streak = counter.'
       - type: snippet
         content:
-          code: 'let habitName: String = "Read"
-
+          code: |
+            let habitName: String = "Read"
             var streak: Int = 0
-
-            print("Habit: \(habitName) • Streak: \(streak) day(s)")'
+            print("Habit: \(habitName) • Streak: \(streak) day(s)")  # Habit: Read • Streak: 0 day(s)
       - type: explanation
         content:
-          text: '**Step 2 — Update the streak:** Simulate a completed day by incrementing
-            the streak.'
-      - type: snippet
-        content:
-          code: 'streak += 1
-
-            print("Nice! You''ve kept \(habitName) for \(streak) day(s)")'
+          text: '**Why this matters:** Choosing `let` for fixed info prevents accidental edits; choosing `var` for counters lets you update safely.'
       - type: explanation
         content:
-          text: '**Step 3 — Add a goal and report progress:** Compare the current
-            streak to a goal and show how far you are.'
+          text: '**Step 2 — Update the streak:** Simulate a completed day by incrementing the streak with `+= 1`.'
       - type: snippet
         content:
-          code: 'let streakGoal: Int = 7
-
+          code: |
+            streak += 1
+            print("Nice! You''ve kept \(habitName) for \(streak) day(s)")  # Nice! You''ve kept Read for 1 day(s)
+      - type: explanation
+        content:
+          text: '**Step 3 — Add a goal and report progress:** Compare the current streak to a goal and show how far you are using a ternary (`? :`).'
+      - type: snippet
+        content:
+          code: |
+            let streakGoal: Int = 7
             let remaining = max(0, streakGoal - streak)
-
-            print(remaining == 0 ? "Goal met!" : "\(remaining) day(s) to reach \(streakGoal)")'
+            print(remaining == 0 ? "Goal met!" : "\(remaining) day(s) to reach \(streakGoal)")
       - type: explanation
         content:
-          text: '**Step 4 — Reset logic (optional):** If you miss a day, reset the
-            streak and print a supportive message.'
+          text: '**Step 4 — Reset logic (optional):** If you miss a day, reset the streak and print a supportive message.'
       - type: snippet
         content:
-          code: "let missedToday = false\nif missedToday {\n  streak = 0\n  print(\"\
-            No worries! Restart \\(habitName) tomorrow \U0001F4AA\")\n}"
+          code: |
+            let missedToday = false
+            if missedToday {
+              streak = 0
+              print("No worries! Restart \(habitName) tomorrow 💪")
+            }
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** `let` = fixed label, `var` = changeable number, `+=` increments, `max(a,b)` prevents negatives, ternary prints one of two messages.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Forgetting to use `let` for the name, letting `remaining` go negative, or not printing after updates so you cannot see state changes.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Habit: Read • Streak: 0 day(s)
+            Nice! You''ve kept Read for 1 day(s)
+            6 day(s) to reach 7
+      - type: explanation
+        content:
+          text: 'Milestones to verify: (1) Initial print shows name + 0-day streak; (2) After increment, message reflects new streak; (3) Goal message switches when you reach the target; (4) Reset sets streak to 0 and prints a supportive line.'
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: 'Add a celebratory message for specific milestones (e.g., 3, 7, 30). Consider
-        pluralization: “1 day” vs “2 days”.'
+      text: 'Add a celebratory message for specific milestones (e.g., 3, 7, 30). Consider pluralization: “1 day” vs “2 days”.'
 - id: BAB04F4F-571D-47CF-8F7B-83D34C6C5818
   project_name: Profile Badge
-  project_description: Build a one-line badge from typed values and make the text
-    friendly for humans.
+  project_description: Build a one-line badge from typed values and make the text friendly for humans.
   project_difficulty: Easy
   level_prerequisite: 6
   content_blocks:
@@ -90,67 +106,81 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: You’ll combine multiple basic types into a readable string. This simulates
-        real UI text like profile headers or status labels.
+      text: 'You''ll combine multiple basic types into a readable string. This simulates real UI text like profile headers or status labels.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: Grounded in **Module 6 (String Interpolation)** and type basics. Let Swift
-        format values with `\(value)` instead of manual conversions. Add tiny logic
-        (ternary) to produce friendly labels.
+      text: 'Grounded in **Module 6 (String Interpolation)** and type basics. Let Swift format values with `\(value)` instead of manual conversions. Add tiny logic (ternary) to produce friendly labels.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a one-line profile badge plus a status line that converts raw values into human-friendly text and handles pluralization.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: string interpolation with `\(value)`, boolean-to-text via ternary, small copy refinements (pluralization), readable variables.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
-          text: '**Step 1 — Define the data:** Choose realistic values so your output
-            reads like a real app.'
+          text: 'Milestones to verify: (1) Badge prints with name/age/pro; (2) Status line maps boolean to a label; (3) Final sentence uses correct singular/plural.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** `\(value)` inserts values • ternary `condition ? A : B` picks a label • handle plural with a tiny `== 1 ?` check.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Printing a `Bool` directly in UI, forgetting to convert booleans to friendly text, skipping pluralization.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            User: Mina • Age: 20 • Pro: false
+            Status: Free Member
+            Mina is 20 years old.
+      - type: explanation
+        content:
+          text: '**Step 1 — Define the data:** Choose realistic values so your output reads like a real app.'
       - type: snippet
         content:
-          code: 'let name: String = "Mina"
-
+          code: |
+            let name: String = "Mina"
             let age: Int = 20
-
-            let isPro: Bool = false'
+            let isPro: Bool = false
       - type: explanation
         content:
           text: '**Step 2 — First pass badge:** Print a basic badge using interpolation.'
       - type: snippet
         content:
-          code: 'let badge = "User: \(name) • Age: \(age) • Pro: \(isPro)"
-
-            print(badge)'
+          code: |
+            let badge = "User: \(name) • Age: \(age) • Pro: \(isPro)"
+            print(badge)
       - type: explanation
         content:
           text: '**Step 3 — Friendlier status label:** Map your boolean to human language.'
       - type: snippet
         content:
-          code: 'let status = isPro ? "Pro Member" : "Free Member"
-
-            print("Status: \(status)")'
+          code: |
+            let status = isPro ? "Pro Member" : "Free Member"
+            print("Status: \(status)")
       - type: explanation
         content:
-          text: '**Step 4 — Refine the copy:** Show a natural sentence and handle
-            pluralization.'
+          text: '**Step 4 — Refine the copy:** Show a natural sentence and handle pluralization.'
       - type: snippet
         content:
-          code: 'let years = age == 1 ? "year" : "years"
-
-            print("\(name) is \(age) \(years) old.")'
+          code: |
+            let years = age == 1 ? "year" : "years"
+            print("\(name) is \(age) \(years) old.")
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Show an upsell line only when `isPro == false` (e.g., “Upgrade to Pro
-        for more features!”). Try adding a `credits` Int and show it with a coin symbol.
+      text: 'Show an upsell line only when `isPro == false` (e.g., “Upgrade to Pro for more features!”). Try adding a `credits` Int and show it with a coin symbol.'
 - id: 0BFE530C-2F9B-4765-BDB1-171DC160F518
   project_name: Shopping List
-  project_description: Create, update, sort, and summarize a shopping list with safe
-    index access.
+  project_description: Create, update, sort, and summarize a shopping list with safe index access.
   project_difficulty: Easy
   level_prerequisite: 7
   content_blocks:
@@ -162,63 +192,85 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Arrays are perfect for ordered lists in apps. You’ll practice add/remove,
-        count checks, sorting, and safe subscripting.
+      text: 'Arrays are perfect for ordered lists in apps. You''ll practice add/remove, count checks, sorting, and safe subscripting.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 7 (Arrays)**: use `.append`, `.remove(at:)`, `.count`,
-        `.isEmpty`, and `sorted()` for a tidy experience.'
+      text: 'From **Module 7 (Arrays)**: use `.append`, `.remove(at:)`, `.count`, `.isEmpty`, and `sorted()` for a tidy experience.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a changing shopping list that supports add, safe remove, pretty printing, and a sorted view.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: arrays, `.append`, safe `remove(at:)` with `indices.contains`, `.count`, loop printing, `.sorted` (non-mutating).'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
-          text: '**Step 1 — Start with a list:** Print count and contents so you see
-            state changes.'
-      - type: snippet
-        content:
-          code: 'var list: [String] = ["Milk", "Eggs"]
-
-            print("Count: \(list.count) • Items: \(list)")'
+          text: 'Milestones to verify: (1) Count reflects adds/removes; (2) Removing an out-of-range index is guarded; (3) Bulleted print lists each item; (4) Sorted output shows alphabetical order.'
       - type: explanation
         content:
-          text: '**Step 2 — Add and remove safely:** Always check the index exists
-            before removing.'
+          text: '**Step 1 — Start with a list:** Create an array, then print its count and contents so you see every change.'
       - type: snippet
         content:
-          code: "list.append(\"Bread\")\nif list.indices.contains(1) {\n  let removed\
-            \ = list.remove(at: 1)\n  print(\"Removed: \\(removed)\")\n}\nprint(\"\
-            Now: \\(list)\")"
+          code: |
+            var list: [String] = ["Milk", "Eggs"]
+            print("Count: \(list.count) • Items: \(list)")  # Count: 2 • Items: ["Milk", "Eggs"]
       - type: explanation
         content:
-          text: '**Step 3 — Present nicely:** Print each item on its own line with
-            a bullet.'
+          text: '**Step 2 — Add and remove safely:** Add with `.append`. Before removing by index, always check `indices.contains(idx)`.'
       - type: snippet
         content:
-          code: for item in list { print("• \(item)") }
+          code: |
+            list.append("Bread")
+            if list.indices.contains(1) {
+              let removed = list.remove(at: 1)
+              print("Removed: \(removed)")
+            }
+            print("Now: \(list)")  # Now: ["Milk", "Bread"]
       - type: explanation
         content:
-          text: '**Step 4 — Sort for a tidy UI:** Show the sorted list as final output.'
+          text: '**Step 3 — Present nicely:** Print each item on its own line with a bullet.'
       - type: snippet
         content:
-          code: 'let sortedList = list.sorted()
-
-            print("Sorted: \(sortedList)")'
+          code: 'for item in list { print("• \(item)") }  # • Milk\n# • Bread'
+      - type: explanation
+        content:
+          text: '**Step 4 — Sort for a tidy UI:** Use `.sorted()` to keep things readable.'
+      - type: snippet
+        content:
+          code: |
+            let sortedList = list.sorted()
+            print("Sorted: \(sortedList)")
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** `.append()` add • `.remove(at:)` delete • `.count` how many • `.isEmpty` none? • `indices.contains(i)` safe access • `.sorted()` alphabetize.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Removing without checking the index, mutating while iterating, or assuming `.sorted()` changes the original (it returns a new array).'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Count: 2 • Items: ["Milk", "Eggs"]
+            Removed: Eggs
+            Now: ["Milk", "Bread"]
+            • Milk
+            • Bread
+            Sorted: ["Bread", "Milk"]
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Add a `hasItem(_:)` helper using `contains` and guard against empty input
-        when removing.
+      text: 'Add a `hasItem(_:)` helper using `contains` and guard against empty input when removing.'
 - id: 2A9173DE-5B4F-4CE1-AE5E-5E68B92B0D67
   project_name: Student Directory
-  project_description: Use a dictionary for labeled homerooms and a set for unique
-    house colors.
+  project_description: Use a dictionary for labeled homerooms and a set for unique house colors.
   project_difficulty: Medium
   level_prerequisite: 9
   content_blocks:
@@ -230,40 +282,58 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Dictionaries provide fast key→value lookups, and sets ensure items are
-        unique—both appear everywhere in app data models.
+      text: 'Dictionaries provide fast key→value lookups, and sets ensure items are unique—both appear everywhere in app data models.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Modules 8–9 (Dictionaries & Sets)**: use subscripts to add/update,
-        `??` for safe reads, and sets to deduplicate automatically.'
+      text: 'From **Modules 8–9 (Dictionaries & Sets)**: use subscripts to add/update, `??` for safe reads, and sets to deduplicate automatically.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a directory that assigns homerooms by name and manages a set of unique house colors.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: dictionary subscripts to add/update, `??` for defaults, set uniqueness, `.insert` to add.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Updating a key changes its value; (2) Missing key prints your default; (3) Set prints without duplicates after inserts.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** dictionary subscript adds/updates • `??` provides defaults • sets auto-deduplicate • `insert` adds to Set.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Force-unwrapping a missing key, assuming dictionary order is stable, expecting Set to preserve order.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Kai’s room: A3
+            House colors: {"Blue", "Red"}
+            Updated colors: {"Green", "Blue", "Red"}
+      - type: explanation
+        content:
           text: '**Step 1 — Define the structures:** Seed with a couple of values.'
       - type: snippet
         content:
-          code: 'var homeroom: [String: String] = ["Kai":"A2"]
-
-            var houseColors: Set<String> = ["Red", "Blue", "Red"]'
+          code: |
+            var homeroom: [String: String] = ["Kai":"A2"]
+            var houseColors: Set<String> = ["Red", "Blue", "Red"]
       - type: explanation
         content:
-          text: '**Step 2 — Add/update entries:** Subscripts both insert and modify
-            by key.'
+          text: '**Step 2 — Add/update entries:** Subscripts both insert and modify by key.'
       - type: snippet
         content:
-          code: 'homeroom["Zoe"] = "B1"   // insert
-
-            homeroom["Kai"] = "A3"   // update'
+          code: |
+            homeroom["Zoe"] = "B1"   # insert
+            homeroom["Kai"] = "A3"   # update
       - type: explanation
         content:
-          text: '**Step 3 — Safe reads return optionals:** Provide a default for missing
-            keys.'
+          text: '**Step 3 — Safe reads return optionals:** Provide a default for missing keys.'
       - type: snippet
         content:
           code: 'print("Kai’s room: \(homeroom["Kai"] ?? "N/A")")'
@@ -272,22 +342,19 @@ projects:
           text: '**Step 4 — Sets remove duplicates automatically:**'
       - type: snippet
         content:
-          code: 'print("House colors: \(houseColors)")
-
+          code: |
+            print("House colors: \(houseColors)")
             houseColors.insert("Green")
-
-            print("Updated colors: \(houseColors)")'
+            print("Updated colors: \(houseColors)")
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Iterate over all keys and print a roster. If a student transfers, update
-        their room and log the change.
+      text: 'Iterate over all keys and print a roster. If a student transfers, update their room and log the change.'
 - id: CA8D4E9B-4CC5-4660-8B2F-8A3A2C58A2EB
   project_name: Fitness Points Calculator
-  project_description: Compute daily points with arithmetic and conditions, then explain
-    the bonuses.
+  project_description: Compute daily points with arithmetic and conditions, then explain the bonuses.
   project_difficulty: Easy
   level_prerequisite: 10
   content_blocks:
@@ -299,53 +366,67 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: You’ll combine math with comparisons to award bonuses. Clear printouts
-        help users understand why they got a score.
+      text: 'You''ll combine math with comparisons to award bonuses. Clear printouts help users understand why they got a score.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 10 (Operators)**: arithmetic (+, -, *, /), comparison (>=),
-        and simple boolean logic with `&&`.'
+      text: 'From **Module 10 (Operators)**: arithmetic (+, -, *, /), comparison (>=), and simple boolean logic with `&&`.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a points calculator that explains base points, goal bonuses, and combo bonuses.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: integer arithmetic, comparisons, boolean AND `&&`, ternary for final summary.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
-          text: '**Step 1 — Inputs and base score:** Start from simple numbers for
-            easy testing.'
-      - type: snippet
-        content:
-          code: 'let steps = 6500
-
-            let workouts = 1
-
-            var points = (steps / 1000) * 2 + (workouts * 5)
-
-            print("Base points: \(points)")'
+          text: 'Milestones to verify: (1) Base points match your inputs; (2) Step goal adds bonus only at threshold; (3) Combo bonus requires both conditions; (4) Final message shows correct total.'
       - type: explanation
         content:
-          text: '**Step 2 — Goals and bonuses:** Apply a step bonus when the goal
-            is met.'
+          text: '**Step-by-step implementation:** base = simple math • bonus with `if` • combine with `&&` • final message via ternary.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Integer division `steps / 1000` floors values; consider `Double` if you need decimals.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Base points: 18
+            Step goal bonus +3
+            Great day! 21 pts
+      - type: explanation
+        content:
+          text: '**Step 1 — Inputs and base score:** Start from simple numbers for easy testing.'
       - type: snippet
         content:
-          code: if steps >= 8000 { points += 3; print("Step goal bonus +3") }
+          code: |
+            let steps = 6500
+            let workouts = 1
+            var points = (steps / 1000) * 2 + (workouts * 5)
+            print("Base points: \(points)")
+      - type: explanation
+        content:
+          text: '**Step 2 — Goals and bonuses:** Apply a step bonus when the goal is met.'
+      - type: snippet
+        content:
+          code: 'if steps >= 8000 { points += 3; print("Step goal bonus +3") }'
       - type: explanation
         content:
           text: '**Step 3 — Stretch bonus:** Combine conditions with AND.'
       - type: snippet
         content:
-          code: if steps >= 8000 && workouts >= 2 { points += 5; print("Combo bonus
-            +5") }
+          code: 'if steps >= 8000 && workouts >= 2 { points += 5; print("Combo bonus +5") }'
       - type: explanation
         content:
           text: '**Step 4 — Final message:** Provide clear feedback.'
       - type: snippet
         content:
-          code: 'print(points >= 15 ? "Great day! \(points) pts" : "Keep going: \(points)
-            pts")'
+          code: 'print(points >= 15 ? "Great day! \(points) pts" : "Keep going: \(points) pts")'
   - type: heading2
     content:
       text: Next Steps
@@ -366,55 +447,74 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: This shows how early‑exit validation keeps your main path unindented and
-        easier to read.
+      text: This shows how early‑exit validation keeps your main path unindented and easier to read.
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 11 (Conditions)**: prefer `guard` for required conditions
-        and `if/else` for branching choices.'
+      text: 'From **Module 11 (Conditions)**: prefer `guard` for required conditions and `if/else` for branching choices.'
+  - type: explanation
+    content:
+      text: 'What you''re building: an entry checker that validates a ticket first, then branches on age.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: `guard` for required preconditions, `if/else` for branching, early returns to keep code flat.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Guard prints a ticket message and returns early; (2) Adults welcome path prints; (3) Underage path prints a different warning.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** prefer `guard` for required checks • use `if/else` for branching • keep inputs easy to tweak.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Doing work before validating, forgetting `return` after `guard` fails, deeply nested `if` chains.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Welcome!
+            Ticket required
+      - type: explanation
+        content:
           text: '**Step 1 — Model inputs:** Keep them easy to tweak while testing.'
       - type: snippet
         content:
-          code: 'let age = 17
-
-            let hasTicket = true'
+          code: |
+            let age = 17
+            let hasTicket = true
       - type: explanation
         content:
-          text: '**Step 2 — Gate function with guard:** Exit early if the requirement
-            fails.'
+          text: '**Step 2 — Gate function with guard:** Exit early if the requirement fails.'
       - type: snippet
         content:
-          code: "func enter(age: Int, hasTicket: Bool) {\n  guard hasTicket else {\
-            \ print(\"Ticket required\"); return }\n  if age >= 18 { print(\"Welcome!\"\
-            ) } else { print(\"Need an adult\") }\n}\nenter(age: age, hasTicket: hasTicket)"
+          code: |
+            func enter(age: Int, hasTicket: Bool) {
+              guard hasTicket else { print("Ticket required"); return }
+              if age >= 18 { print("Welcome!") } else { print("Need an adult") }
+            }
+            enter(age: age, hasTicket: hasTicket)
       - type: explanation
         content:
-          text: '**Step 3 — Variations:** Try different values to ensure each branch
-            prints correctly.'
+          text: '**Step 3 — Variations:** Try different values to ensure each branch prints correctly.'
       - type: snippet
         content:
-          code: 'enter(age: 20, hasTicket: true)
-
-            enter(age: 16, hasTicket: false)'
+          code: |
+            enter(age: 20, hasTicket: true)
+            enter(age: 16, hasTicket: false)
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Add a `vip` flag that bypasses age checks, but still requires a ticket.
+      text: 'Add a `vip` flag that bypasses age checks, but still requires a ticket.'
 - id: DAA35ED6-38D8-468E-A54F-3DAE637DA865
   project_name: Countdown Display
-  project_description: Compare `for-in`, `while`, and `repeat-while` to print short
-    sequences.
+  project_description: 'Compare `for-in`, `while`, and `repeat-while` to print short sequences.'
   project_difficulty: Easy
   level_prerequisite: 12
   content_blocks:
@@ -426,43 +526,67 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Repetition is everywhere—learn which loop fits which scenario and how
-        to keep loop logic simple.
+      text: 'Repetition is everywhere—learn which loop fits which scenario and how to keep loop logic simple.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 12 (Loops)**: ranges for fixed loops; `while` for pre-check;
-        `repeat-while` for do‑then‑check.'
+      text: 'From **Module 12 (Loops)**: ranges for fixed loops; `while` for pre-check; `repeat-while` for do‑then‑check.'
+  - type: explanation
+    content:
+      text: 'What you''re building: three short counters that demonstrate `for-in`, `while`, and `repeat-while` behaviors.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: reversed ranges, pre-check `while`, at-least-once `repeat-while`, updating counters safely.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Reversed count prints 3,2,1 then Go!; (2) `while` prints 0..2; (3) `repeat-while` prints 0 at least once.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** ranges for fixed counts • `while` pre-check • `repeat-while` at-least-once.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Off-by-one errors with ranges, forgetting to increment in loops, infinite loops.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            3
+            2
+            1
+            Go!
+            0
+            0
+            1
+      - type: explanation
+        content:
           text: '**Step 1 — for‑in with a reversed range:** Perfect for fixed cycles.'
       - type: snippet
         content:
-          code: 'for n in (1...3).reversed() { print(n) }
-
-            print("Go!")'
+          code: |
+            for n in (1...3).reversed() { print(n) }
+            print("Go!")
       - type: explanation
         content:
           text: '**Step 2 — while for pre‑check conditions:** Runs zero or more times.'
       - type: snippet
         content:
-          code: 'var i = 0
-
-            while i < 3 { print(i); i += 1 }'
+          code: |
+            var i = 0
+            while i < 3 { print(i); i += 1 }
       - type: explanation
         content:
           text: '**Step 3 — repeat‑while for at‑least‑once:** Useful for prompt loops.'
       - type: snippet
         content:
-          code: 'var n = 0
-
-            repeat { print(n); n += 1 } while n < 1'
+          code: |
+            var n = 0
+            repeat { print(n); n += 1 } while n < 1
   - type: heading2
     content:
       text: Next Steps
@@ -483,54 +607,77 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Functions make logic reusable and testable—great for calculators, utilities,
-        and pipeline steps.
+      text: 'Functions make logic reusable and testable—great for calculators, utilities, and pipeline steps.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 13 (Functions)**: keep functions small, name them clearly,
-        and prefer returning values over printing inside.'
+      text: 'From **Module 13 (Functions)**: keep functions small, name them clearly, and prefer returning values over printing inside.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a tiny utility library with standalone, testable functions.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: pure functions, clear names, returning values instead of printing, simple tests with `print`.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) `isEven` returns true/false correctly; (2) `cube` returns n*n*n; (3) `average` handles empty arrays and computes correct mean.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** store closures in arrays • run them with `forEach` • add typed parameters when needed.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Forgetting parentheses to invoke a closure, mismatched closure types, capturing unintended external variables.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Hi
+            HEY!
+            • Swift
+      - type: explanation
+        content:
           text: '**Step 1 — Define helpers:** Start with simple, testable functions.'
       - type: snippet
         content:
-          code: 'func isEven(_ n:Int) -> Bool { n % 2 == 0 }
-
-            func cube(_ n:Int) -> Int { n*n*n }'
+          code: |
+            func isEven(_ n:Int) -> Bool { n % 2 == 0 }
+            func cube(_ n:Int) -> Int { n*n*n }
       - type: explanation
         content:
           text: '**Step 2 — Try them out:**'
       - type: snippet
         content:
-          code: 'print(isEven(4))  // true
-
-            print(cube(3))    // 27'
+          code: |
+            print(isEven(4))  # true
+            print(cube(3))    # 27
       - type: explanation
         content:
           text: '**Step 3 — Extend the set:** Add an average helper for arrays.'
       - type: snippet
         content:
-          code: "func average(_ values:[Double]) -> Double {\n  guard !values.isEmpty\
-            \ else { return 0 }\n  var total = 0.0\n  for v in values { total += v\
-            \ }\n  return total / Double(values.count)\n}\nprint(average([1,2,3,4]))\
-            \  // 2.5"
+          code: |
+            func average(_ values:[Double]) -> Double {
+              guard !values.isEmpty else { return 0 }
+              var total = 0.0
+              for v in values { total += v }
+              return total / Double(values.count)
+            }
+            print(average([1,2,3,4]))  # 2.5
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Write `clamp(_ value:min:max:)` that limits a number into a range.
+      text: 'Write `clamp(_ value:min:max:)` that limits a number into a range.'
 - id: 170F58E0-3F63-472A-800A-D5B17CC72B86
   project_name: Readable Moves
-  project_description: Make calls that read like sentences using external parameter
-    labels.
+  project_description: Make calls that read like sentences using external parameter labels.
   project_difficulty: Medium
   level_prerequisite: 14
   content_blocks:
@@ -548,34 +695,57 @@ projects:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 14 (Parameters & Return Values)**: use labels like `from:`
-        and `to:` and return tuples for multi‑value results.'
+      text: 'From **Module 14 (Parameters & Return Values)**: use labels like `from:` and `to:` and return tuples for multi‑value results.'
+  - type: explanation
+    content:
+      text: 'What you''re building: readable movement calls that return both distance and direction.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: external parameter labels, tuple return types, derived values (absolute distance, direction by sign).'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Calls read like sentences; (2) Distance is non-negative; (3) Direction is "forward" when end ≥ start, otherwise "back".'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** factory returns a closure • captured variable stores state • each factory call creates independent state.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Assuming two counters share state, forgetting to store the returned closure, mixing global and captured state.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            1 2
+            1
+      - type: explanation
+        content:
           text: '**Step 1 — Define the API:** Return both distance and direction.'
       - type: snippet
         content:
-          code: "func move(from start:Int, to end:Int) -> (distance:Int, direction:String)\
-            \ {\n  let d = end - start\n  let dir = d >= 0 ? \"forward\" : \"back\"\
-            \n  return (abs(d), dir)\n}"
+          code: |
+            func move(from start:Int, to end:Int) -> (distance:Int, direction:String) {
+              let d = end - start
+              let dir = d >= 0 ? "forward" : "back"
+              return (abs(d), dir)
+            }
       - type: explanation
         content:
           text: '**Step 2 — Call naturally:**'
       - type: snippet
         content:
-          code: 'let result = move(from: 3, to: 10)
-
-            print("Moved \(result.distance) steps \(result.direction)")'
+          code: |
+            let result = move(from: 3, to: 10)
+            print("Moved \(result.distance) steps \(result.direction)")
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Add a label `by steps:` to shift a position and return the new coordinate.
+      text: 'Add a label `by steps:` to shift a position and return the new coordinate.'
 - id: 6A50F863-A56C-4AF8-AFDC-1C77620F80F9
   project_name: File Loader (Mock)
   project_description: Practice error modeling and recovery without needing real files.
@@ -590,20 +760,39 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Good error handling shows the happy path and the recovery path clearly,
-        keeping both readable.
+      text: 'Good error handling shows the happy path and the recovery path clearly, keeping both readable.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 15 (Error Handling)**: model errors with an `enum`, use
-        `throws`, and handle with `do/try/catch`. Prefer `try?` for quick optional
-        fallbacks.'
+      text: 'From **Module 15 (Error Handling)**: model errors with an `enum`, use `throws`, and handle with `do/try/catch`. Prefer `try?` for quick optional fallbacks.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a loader that models possible failures and recovers gracefully.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: error `enum`, throwing function, `do/try/catch` branches, `try?` for optional fallback.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
+      - type: explanation
+        content:
+          text: 'Milestones to verify: (1) Throw path prints "File not found"; (2) Unknown errors print with description; (3) `try?` returns nil and you print a default.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** chain `map` → `filter` → `reduce` • keep transformations focused • derive ranks with `sorted`.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Mutating during iteration, confusing in-place vs. non-mutating versions, forgetting initial `reduce` value.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            [15, 30, 45]
+            [20, 45]
+            Top: 45
       - type: explanation
         content:
           text: '**Step 1 — Define errors:** Make failures explicit.'
@@ -615,24 +804,32 @@ projects:
           text: '**Step 2 — Throwing function:** Signal failure with `throws`.'
       - type: snippet
         content:
-          code: func load(name:String) throws -> String { throw LoadError.missing
+          code: |
+            func load(name:String) throws -> String {
+              throw LoadError.missing
             }
       - type: explanation
         content:
           text: '**Step 3 — Handle outcomes:** Separate success from recovery.'
       - type: snippet
         content:
-          code: "do {\n  let _ = try load(name:\"data.json\")\n  print(\"Loaded\"\
-            )\n} catch LoadError.missing {\n  print(\"File not found\")\n} catch {\n\
-            \  print(\"Unknown error: \\(error)\")\n}"
+          code: |
+            do {
+              let _ = try load(name:"data.json")
+              print("Loaded")
+            } catch LoadError.missing {
+              print("File not found")
+            } catch {
+              print("Unknown error: \(error)")
+            }
       - type: explanation
         content:
           text: '**Step 4 — Optional shortcut:**'
       - type: snippet
         content:
-          code: 'let maybe = try? load(name:"config.json")
-
-            print(maybe ?? "Using defaults")'
+          code: |
+            let maybe = try? load(name:"config.json")
+            print(maybe ?? "Using defaults")
   - type: heading2
     content:
       text: Next Steps
@@ -653,27 +850,45 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Closures package behavior. Storing them lets you trigger actions at the
-        right moment (e.g., button callbacks).
+      text: 'Closures package behavior. Storing them lets you trigger actions at the right moment (e.g., button callbacks).'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 16 (Intro to Closures)**: declare `() -> Void` closures,
-        store in arrays, and execute with `forEach`.'
+      text: 'From **Module 16 (Intro to Closures)**: declare `() -> Void` closures, store in arrays, and execute with `forEach`.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a list of actions you can enqueue and execute later.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: closure types `() -> Void`, storing in arrays, iterating and invoking, parameterized closures.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Both actions run in order; (2) Parameterized closure prints with its argument; (3) No crashes from mismatched closure types.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** structs copy on assign • changes to one copy don’t affect another • keep models simple.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Expecting reference behavior, forgetting `var` when you need to mutate, printing before/after to verify.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Osaka Kyoto
+      - type: explanation
+        content:
           text: '**Step 1 — Define actions:** Start with a couple of closures.'
       - type: snippet
         content:
-          code: 'let say = { print("Hi") }
-
-            let shout: () -> Void = { print("HEY!") }'
+          code: |
+            let say = { print("Hi") }
+            let shout: () -> Void = { print("HEY!") }
       - type: explanation
         content:
           text: '**Step 2 — Queue & run:**'
@@ -685,16 +900,15 @@ projects:
           text: '**Step 3 — Parameterized action:**'
       - type: snippet
         content:
-          code: 'let echo: (String) -> Void = { text in print("• " + text) }
-
-            echo("Swift")'
+          code: |
+            let echo: (String) -> Void = { text in print("• " + text) }
+            echo("Swift")
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: 'Make a function `schedule(_ action: @escaping () -> Void)` and call it
-        later.'
+      text: 'Make a function `schedule(_ action: @escaping () -> Void)` and call it later.'
 - id: 6EDCA7B1-F517-4638-94FF-2385C7ABFF76
   project_name: Personal Counter
   project_description: Return a closure that remembers and updates its own count.
@@ -709,34 +923,59 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Captured values let closures hold state between calls—ideal for counters,
-        throttles, or memoization.
+      text: 'Captured values let closures hold state between calls—ideal for counters, throttles, or memoization.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 17 (Capturing Values)**: closures keep captured variables
-        alive even after the outer function returns.'
+      text: 'From **Module 17 (Capturing Values)**: closures keep captured variables alive even after the outer function returns.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a factory that returns a counter function which remembers its own state.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: closures capturing variables, returning closures, independent captures per instance.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Repeated calls increase the same counter; (2) Two counters advance independently; (3) Optional: add a reset and verify it.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** computed properties derive values • `mutating` changes state • `static` holds shared facts.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Missing `mutating` on struct methods, relying on magic numbers, misunderstanding `static` vs instance.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            false
+            true
+            110.0
+      - type: explanation
+        content:
           text: '**Step 1 — Factory function:** Create a counter that remembers.'
       - type: snippet
         content:
-          code: func makeCounter() -> () -> Int { var n=0; return { n += 1; return
-            n } }
+          code: |
+            func makeCounter() -> () -> Int {
+              var n=0
+              return { n += 1; return n }
+            }
       - type: explanation
         content:
           text: '**Step 2 — Independent instances:** Each capture is isolated.'
       - type: snippet
         content:
-          code: 'let c1 = makeCounter(); print(c1(), c1())
-
-            let c2 = makeCounter(); print(c2())'
+          code: |
+            let c1 = makeCounter()
+            print(c1(), c1())
+            let c2 = makeCounter()
+            print(c2())
   - type: heading2
     content:
       text: Next Steps
@@ -745,8 +984,7 @@ projects:
       text: 'Return `(next: () -> Int, reset: () -> Void)` so you can clear the count.'
 - id: 5F3FF8EB-672C-4258-BA74-8DFD6E09DBA4
   project_name: Scoreboard Redux
-  project_description: Transform, filter, and summarize a list of scores with higher‑order
-    functions.
+  project_description: Transform, filter, and summarize a list of scores with higher‑order functions.
   project_difficulty: Medium
   level_prerequisite: 18
   content_blocks:
@@ -758,55 +996,74 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: map/filter/reduce make data pipelines concise and readable—great for dashboards
-        and analytics.
+      text: 'map/filter/reduce make data pipelines concise and readable—great for dashboards and analytics.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 18 (Higher‑Order Functions)**: chain transformations for
-        clarity and fewer temp variables.'
+      text: 'From **Module 18 (Higher‑Order Functions)**: chain transformations for clarity and fewer temp variables.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a data pipeline that transforms scores, filters passing ones, sums them, and shows the top.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: `map` for transform, `filter` for selection, `reduce` for accumulation, `sorted(by:)` for ranking.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Bonus added to each score; (2) Passing threshold applied; (3) Total matches sum; (4) Top is first in sorted descending list.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** put shared behavior in the base class • override where specifics differ • remember reference semantics.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Forgetting `override`, assuming copies behave like structs, using inheritance when composition fits better.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Meow
+            Meow
+      - type: explanation
+        content:
           text: '**Step 1 — Transform:** Add a small bonus.'
       - type: snippet
         content:
-          code: 'let scores = [10,25,40]
-
-            let bonus = scores.map { $0 + 5 }'
+          code: |
+            let scores = [10,25,40]
+            let bonus = scores.map { $0 + 5 }
       - type: explanation
         content:
           text: '**Step 2 — Filter:** Keep only passing scores.'
       - type: snippet
         content:
-          code: let passing = bonus.filter { $0 >= 20 }
+          code: 'let passing = bonus.filter { $0 >= 20 }'
       - type: explanation
         content:
           text: '**Step 3 — Reduce:** Combine into a total.'
       - type: snippet
         content:
-          code: 'let total = passing.reduce(0,+)
-
-            print(passing, total)'
+          code: |
+            let total = passing.reduce(0,+)
+            print(passing, total)
       - type: explanation
         content:
           text: '**Step 4 — Rank:**'
       - type: snippet
         content:
-          code: 'let sorted = passing.sorted(by: >)
-
-            print("Top: \(sorted.first ?? 0)")'
+          code: |
+            let sorted = passing.sorted(by: >)
+            print("Top: \(sorted.first ?? 0)")
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Compute the average of `passing` with `reduce` and `Double` conversion.
+      text: 'Compute the average of `passing` with `reduce` and `Double` conversion.'
 - id: E6C3E232-749B-475A-9D75-1A4D45E10AE6
   project_name: Contact Card
   project_description: Model a contact with value semantics and print a friendly line.
@@ -821,48 +1078,63 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Struct copies mean changes don’t leak between variables, which avoids
-        spooky action at a distance.
+      text: 'Struct copies mean changes don’t leak between variables, which avoids spooky action at a distance.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 19 (Structs)**: define properties, create instances, and
-        observe copy‑on‑assign behavior.'
+      text: 'From **Module 19 (Structs)**: define properties, create instances, and observe copy‑on‑assign behavior.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a simple contact model that demonstrates value semantics by copying and modifying.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: struct with stored properties, copy-on-assign semantics, verifying independence by changing a copy.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Two variables can hold the same struct; (2) Changing one doesn''t affect the other; (3) Printed cities differ after editing.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** define capability with a protocol • conform multiple types • iterate polymorphically.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Missing required methods, forgetting protocol conformance, assuming protocol values keep concrete type methods.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Vroom
+            Pedal
+      - type: explanation
+        content:
           text: '**Step 1 — Define the model:**'
       - type: snippet
         content:
-          code: struct Contact { var name:String; var city:String }
+          code: 'struct Contact { var name:String; var city:String }'
       - type: explanation
         content:
           text: '**Step 2 — Copy and edit:**'
       - type: snippet
         content:
-          code: 'var a = Contact(name:"Rin", city:"Osaka")
-
+          code: |
+            var a = Contact(name:"Rin", city:"Osaka")
             var b = a
-
             b.city = "Kyoto"
-
-            print(a.city, b.city)  // Osaka Kyoto'
+            print(a.city, b.city)  # Osaka Kyoto
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: 'Add a `display()` method that prints: “Name — City”. Try copying and
-        editing again.'
+      text: 'Add a `display()` method that prints: “Name — City”. Try copying and editing again.'
 - id: A38CBC4E-7C5C-4F8A-BF1D-CF51D1A5EFDF
   project_name: Speed Gauge
-  project_description: Practice computed properties, mutating methods, and static
-    members.
+  project_description: Practice computed properties, mutating methods, and static members.
   project_difficulty: Medium
   level_prerequisite: 20
   content_blocks:
@@ -874,47 +1146,65 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Computed properties derive values from other state, and mutating methods
-        let structs evolve safely.
+      text: 'Computed properties derive values from other state, and mutating methods let structs evolve safely.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 20 (Properties & Methods)**: combine `mutating` methods
-        with `static` members for shared facts.'
+      text: 'From **Module 20 (Properties & Methods)**: combine `mutating` methods with `static` members for shared facts.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a gauge that reports if speed is fast, can boost itself, and exposes a shared max safe speed.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: computed property for `isFast`, `mutating` method for boost, `static` constant for max safe speed.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) `isFast` changes after boost; (2) `boost()` increases speed; (3) `Gauge.maxSafeSpeed` prints as a shared value.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** add focused helpers in extensions • keep them small and discoverable • avoid stored properties.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Trying to add stored properties in extensions, naming helpers vaguely, duplicating standard library behavior.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Hi
+            Hi
+            Hi
+            tfiwS
+      - type: explanation
+        content:
           text: '**Step 1 — Define the gauge:**'
       - type: snippet
         content:
-          code: struct Gauge { var speed:Double; var isFast:Bool { speed > 80 } }
+          code: 'struct Gauge { var speed:Double; var isFast:Bool { speed > 80 } }'
       - type: explanation
         content:
           text: '**Step 2 — Change state:**'
       - type: snippet
         content:
-          code: 'extension Gauge { mutating func boost(){ speed += 20 } }
-
+          code: |
+            extension Gauge { mutating func boost(){ speed += 20 } }
             var g = Gauge(speed:70)
-
             print(g.isFast)
-
             g.boost()
-
-            print(g.isFast)'
+            print(g.isFast)
       - type: explanation
         content:
           text: '**Step 3 — Shared limits:**'
       - type: snippet
         content:
-          code: 'extension Gauge { static let maxSafeSpeed = 110.0 }
-
-            print(Gauge.maxSafeSpeed)'
+          code: |
+            extension Gauge { static let maxSafeSpeed = 110.0 }
+            print(Gauge.maxSafeSpeed)
   - type: heading2
     content:
       text: Next Steps
@@ -935,45 +1225,65 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Use inheritance only when shared state/behavior makes sense; otherwise
-        protocols + composition are often better.
+      text: 'Use inheritance only when shared state/behavior makes sense; otherwise protocols + composition are often better.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 21 (Classes & Inheritance)**: override methods and observe
-        reference semantics.'
+      text: 'From **Module 21 (Classes & Inheritance)**: override methods and observe reference semantics.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a tiny class hierarchy with a base `Animal` and a subclass that overrides behavior.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: base class with method, subclass with `override`, reference semantics (two variables point to one object).'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Subclass prints a different sound; (2) Assigning one instance to two variables still calls on the same object; (3) Optional: add another subclass and compare.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** declare protocol • give default in a protocol extension • override in specific types when needed.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Forgetting that defaults apply to all conformers, not customizing where appropriate, scattering similar code across types.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            Just something...
+            A very fancy box ✨
+      - type: explanation
+        content:
           text: '**Step 1 — Base class + override:**'
       - type: snippet
         content:
-          code: 'class Animal { func speak(){ print("...") } }
-
-            class Cat: Animal { override func speak(){ print("Meow") } }'
+          code: |
+            class Animal { func speak(){ print("...") } }
+            class Cat: Animal { override func speak(){ print("Meow") } }
       - type: explanation
         content:
           text: '**Step 2 — Reference semantics:**'
       - type: snippet
         content:
-          code: 'let d1 = Cat(); let d2 = d1
-
-            d2.speak(); d1.speak()  // same instance'
+          code: |
+            let d1 = Cat()
+            let d2 = d1
+            d2.speak()
+            d1.speak()  # same instance
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Create a `Bird` subclass with `chirp` and call both `speak()` and `chirp()`.
+      text: 'Create a `Bird` subclass with `chirp` and call both `speak()` and `chirp()`.'
 - id: 47671A9A-FD87-4C71-B9D8-07B119358B1D
   project_name: Drive & Stop
-  project_description: Compose abilities with protocols and implement them on multiple
-    types.
+  project_description: Compose abilities with protocols and implement them on multiple types.
   project_difficulty: Medium
   level_prerequisite: 22
   content_blocks:
@@ -991,26 +1301,34 @@ projects:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 22 (Protocols)**: define a protocol and conform from several
-        types.'
+      text: 'From **Module 22 (Protocols)**: define a protocol and conform from several types.'
+  - type: explanation
+    content:
+      text: 'What you''re building: protocol-defined abilities implemented by multiple types and used polymorphically.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: protocol declaration, multiple conformances, iterating over protocol values and calling the common method.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Both types conform; (2) Loop prints both behaviors; (3) Optional: add a second protocol and adopt it in one type.'
+      - type: explanation
+        content:
           text: '**Step 1 — Define capability:**'
       - type: snippet
         content:
-          code: protocol Drivable { func drive() }
+          code: 'protocol Drivable { func drive() }'
       - type: explanation
         content:
           text: '**Step 2 — Conform multiple types:**'
       - type: snippet
         content:
-          code: 'struct Car: Drivable { func drive(){ print("Vroom") } }
-
-            struct Bike: Drivable { func drive(){ print("Pedal") } }'
+          code: |
+            struct Car: Drivable { func drive(){ print("Vroom") } }
+            struct Bike: Drivable { func drive(){ print("Pedal") } }
       - type: explanation
         content:
           text: '**Step 3 — Use polymorphically:**'
@@ -1022,7 +1340,7 @@ projects:
       text: Next Steps
   - type: explanation
     content:
-      text: Add `Refuelable` with `refuel()`; make `Car` adopt it and call `refuel()`.
+      text: 'Add `Refuelable` with `refuel()`; make `Car` adopt it and call `refuel()`.'
 - id: C6FEA736-2BBB-44FD-AAE5-740330043DA3
   project_name: String Goodies
   project_description: Add small conveniences to String without subclassing.
@@ -1043,41 +1361,49 @@ projects:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 23 (Extensions)**: add methods and computed properties
-        in an `extension` file.'
+      text: 'From **Module 23 (Extensions)**: add methods and computed properties in an `extension` file.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a few String helpers you can call fluently without subclassing.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: extension with computed property, extension method with side effects, call-site examples.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) `reversedString` returns reversed text; (2) `times(_:)` prints the string n times; (3) Both calls compile in client code.'
+      - type: explanation
+        content:
           text: '**Step 1 — Add utilities:**'
       - type: snippet
         content:
-          code: extension String { var reversedString:String { String(self.reversed())
-            } }
+          code: |
+            extension String {
+              var reversedString:String { String(self.reversed()) }
+            }
       - type: explanation
         content:
           text: '**Step 2 — Add a method with a side effect:**'
       - type: snippet
         content:
-          code: 'extension String { func times(_ n:Int){ for _ in 0..<n { print(self)
-            } } }
-
+          code: |
+            extension String {
+              func times(_ n:Int){ for _ in 0..<n { print(self) } }
+            }
             "Hi".times(2)
-
-            print("Swift".reversedString)'
+            print("Swift".reversedString)
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: 'Create an `Int` extension `isEven: Bool` and print a message depending
-        on its value.'
+      text: 'Create an `Int` extension `isEven: Bool` and print a message depending on its value.'
 - id: B391B01D-ADAA-4145-B03E-A70D4A077AEB
   project_name: Describable Default
-  project_description: Provide default behavior to every conforming type via protocol
-    extensions.
+  project_description: Provide default behavior to every conforming type via protocol extensions.
   project_difficulty: Medium
   level_prerequisite: 24
   content_blocks:
@@ -1089,51 +1415,56 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Protocol extensions enable broad code reuse while allowing customization
-        in specific types.
+      text: Protocol extensions enable broad code reuse while allowing customization in specific types.
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 24 (Protocol Extensions)**: give a default method body
-        that types can override.'
+      text: 'From **Module 24 (Protocol Extensions)**: give a default method body that types can override.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a protocol with a default method body that types can override when needed.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: declare protocol, provide default in protocol extension, provide custom override in a conforming type.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Default prints for first type; (2) Override prints for second type; (3) Both conform to the same protocol.'
+      - type: explanation
+        content:
           text: '**Step 1 — Contract + default:**'
       - type: snippet
         content:
-          code: 'protocol Describable { func describe() }
-
-            extension Describable { func describe(){ print("Just something...") }
-            }'
+          code: |
+            protocol Describable { func describe() }
+            extension Describable { func describe(){ print("Just something...") } }
       - type: explanation
         content:
           text: '**Step 2 — Conform and use:**'
       - type: snippet
         content:
-          code: 'struct Box: Describable {}
-
-            Box().describe()  // default impl'
+          code: |
+            struct Box: Describable {}
+            Box().describe()  # default impl
       - type: explanation
         content:
           text: '**Step 3 — Customize:**'
       - type: snippet
         content:
-          code: 'struct FancyBox: Describable { func describe(){ print("A very fancy
-            box ✨") } }
-
-            FancyBox().describe()'
+          code: |
+            struct FancyBox: Describable { func describe(){ print("A very fancy box ✨") } }
+            FancyBox().describe()
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Make another type conform to `Describable` and test both outputs.
+      text: 'Make another type conform to `Describable` and test both outputs.'
 - id: 92348F8B-469A-43E1-B951-B88A973884F9
   project_name: Nickname Helper
   project_description: Handle missing nicknames with safe unwrapping and clear messages.
@@ -1148,47 +1479,60 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: 'Optionals make absence explicit. Your job: unwrap safely and present
-        helpful output—never crash.'
+      text: 'Optionals make absence explicit. Your job: unwrap safely and present helpful output—never crash.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 25 (Optionals)**: use `if let` / `guard let` for safe paths;
-        avoid `!` unless guaranteed non‑nil.'
+      text: 'From **Module 25 (Optionals)**: use `if let` / `guard let` for safe paths; avoid `!` unless guaranteed non‑nil.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a tiny greeter that safely unwraps an optional nickname and prints a friendly message.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: optional `String?`, `if let` to unwrap, `guard let` inside a function with early return, avoiding force unwrap.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) `if let` path greets by nickname; (2) Else path prints a fallback; (3) Function version uses `guard let` and returns early on nil.'
+      - type: explanation
+        content:
           text: '**Step 1 — Optional variable:**'
       - type: snippet
         content:
-          code: 'var nick: String? = nil
-
-            nick = "Ace"'
+          code: |
+            var nick: String? = nil
+            nick = "Ace"
       - type: explanation
         content:
-          text: '**Step 2 — if let:**'
+          text: '**Step 2 — if let (peek safely):** Use `if let` to open the optional box only when a value exists. Inside the `if` block, `n` is a non‑optional `String`.'
       - type: snippet
         content:
-          code: if let n = nick { print("Hi, \(n)") } else { print("No nick") }
+          code: 'if let n = nick { print("Hi, \(n)") } else { print("No nick") }'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** `String?` may be nil • `if let n = nick { ... }` unwraps safely • avoid `!` unless you are 100% sure.'
       - type: explanation
         content:
           text: '**Step 3 — guard let in a function:**'
       - type: snippet
         content:
-          code: "func greet(_ name:String?) {\n  guard let n = name else { print(\"\
-            Missing name\"); return }\n  print(\"Yo, \\(n)\")\n}\ngreet(nick)"
+          code: |
+            func greet(_ name:String?) {
+              guard let n = name else { print("Missing name"); return }
+              print("Yo, \(n)")
+            }
+            greet(nick)
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Return a greeting `String` from `greet(_:)` instead of printing so you
-        can use it in UI.
+      text: 'Return a greeting `String` from `greet(_:)` instead of printing so you can use it in UI.'
 - id: 731BA00A-EE23-464B-A4FC-B2DCA6BD6E00
   project_name: Shape Casting
   project_description: Inspect mixed values and act based on runtime type safely.
@@ -1203,40 +1547,62 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: When working with `Any`, you’ll need to check and cast carefully—prefer
-        `as?` plus conditionals.
+      text: 'When working with `Any`, you’ll need to check and cast carefully—prefer `as?` plus conditionals.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 26 (Typecasting)**: use `is` to check, `as?` to cast safely,
-        and avoid `as!` unless certain.'
+      text: 'From **Module 26 (Typecasting)**: use `is` to check, `as?` to cast safely, and avoid `as!` unless certain.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a loop that inspects mixed values and performs different actions for Ints, Strings, and everything else.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: `Any` container, `as?` for safe casts, conditional branches for each concrete type, avoiding `as!`.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) Int branch doubles numbers; (2) String branch prefixes text; (3) Other branch handles the rest without crashing.'
+      - type: explanation
+        content:
+          text: '**Step-by-step implementation:** use `is` to check type • cast safely with `as?` • avoid `as!` unless certain.'
+      - type: explanation
+        content:
+          text: '**Common pitfalls:** Crashing with `as!`, forgetting to handle the `else` case after `as?`, assuming `Any` retains methods of the original type.'
+      - type: explanation
+        content:
+          text: |
+            **Example output:**
+            10
+            Text: Hi
+            Other
+      - type: explanation
+        content:
           text: '**Step 1 — Mixed bag:**'
       - type: snippet
         content:
-          code: let items:[Any] = ["Hi", 5, 2.0]
+          code: 'let items:[Any] = ["Hi", 5, 2.0]'
       - type: explanation
         content:
           text: '**Step 2 — Inspect and handle:**'
       - type: snippet
         content:
-          code: "for item in items {\n  if let n = item as? Int { print(n * 2) }\n\
-            \  else if let s = item as? String { print(\"Text: \\(s)\") }\n  else\
-            \ { print(\"Other\") }\n}"
+          code: |
+            for item in items {
+              if let n = item as? Int { print(n * 2) }
+              else if let s = item as? String { print("Text: \(s)") }
+              else { print("Other") }
+            }
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Add a `Drawable` protocol with `draw()` and call it only when `item as?
-        Drawable` succeeds.
+      text: 'Add a `Drawable` protocol with `draw()` and call it only when `item as? Drawable` succeeds.'
 - id: 79CEAEBC-6917-4655-BA2F-C2DFAEAF5E94
   project_name: Lazy Gallery
   project_description: Load expensive data only when first accessed, then reuse it.
@@ -1251,41 +1617,54 @@ projects:
       text: Project Overview
   - type: explanation
     content:
-      text: Lazy properties defer cost until needed—great for caches, images, or computations.
+      text: 'Lazy properties defer cost until needed—great for caches, images, or computations.'
   - type: heading2
     content:
       text: Core Concepts
   - type: explanation
     content:
-      text: 'From **Module 27 (Access Control & Laziness)**: use `lazy` with a closure
-        initializer and show the first‑access effect.'
+      text: 'From **Module 27 (Access Control & Laziness)**: use `lazy` with a closure initializer and show the first‑access effect.'
+  - type: explanation
+    content:
+      text: 'What you''re building: a lazy-loaded list where the initial access prints a load message only once, then reuses the cached data.'
+  - type: explanation
+    content:
+      text: 'Concepts to implement: `lazy` stored property with a closure initializer, demonstrating first-access effect, showing reuse without reloading.'
   - type: collapsible_section
     content:
       title: Step-by-Step Implementation
       blocks:
       - type: explanation
         content:
+          text: 'Milestones to verify: (1) "Before access" prints first; (2) Access triggers a single "Loading..."; (3) Next prints show cached data without another load.'
+      - type: explanation
+        content:
           text: '**Step 1 — Define the loader:**'
       - type: snippet
         content:
-          code: "struct Gallery {\n  lazy var images:[String] = {\n    print(\"Loading...\"\
-            )\n    return [\"a\",\"b\",\"c\"]\n  }()\n}"
+          code: |
+            struct Gallery {
+              lazy var images:[String] = {
+                print("Loading...")
+                return ["a","b","c"]
+              }()
+            }
       - type: explanation
         content:
           text: '**Step 2 — Demonstrate laziness:**'
       - type: snippet
         content:
-          code: 'var g = Gallery()
-
+          code: |
+            var g = Gallery()
             print("Before access")
-
-            print(g.images)   // triggers load
-
-            print("After access")'
+            print(g.images)   # triggers load
+            print("After access")
   - type: heading2
     content:
       text: Next Steps
   - type: explanation
     content:
-      text: Move the load logic into a separate function, then call it from the lazy
-        property for better testability.
+      text: Move the load logic into a separate function, then call it from the lazy property for better testability.
+  - type: explanation
+    content:
+      text: 'Milestones to verify: (1) "Before access" prints first; (2) Access triggers a single "Loading..."; (3) Next prints show cached data without another load.'

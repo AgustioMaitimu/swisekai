@@ -5,35 +5,34 @@ chapters:
     module_name: Protocols
     module_number: 22
     multiple_choice:
-    - question: Which keyword defines a protocol?
+    - question: 'Which keyword defines a protocol?'
       options:
-      - protocol
-      - interface
-      - trait
-      - proto
-      answer: protocol
+      - 'protocol'
+      - 'interface'
+      - 'trait'
+      - 'proto'
+      answer: 'protocol'
     - question: 'Protocols can be adopted by:'
       options:
-      - Classes
-      - Structs
-      - Enums
-      - All of these
-      answer: All of these
-    - question: What must a type do when adopting a protocol?
+      - 'Classes'
+      - 'Structs'
+      - 'Enums'
+      - 'All of these'
+      answer: 'All of these'
+    - question: 'What must a type do when adopting a protocol?'
       options:
-      - Nothing
-      - Implement its requirements
-      - Inherit from another type
-      - Be a class
-      answer: Implement its requirements
+      - 'Nothing'
+      - 'Implement its requirements'
+      - 'Inherit from another type'
+      - 'Be a class'
+      answer: 'Implement its requirements'
     content_blocks:
     - type: heading1
       content:
         text: Protocols
     - type: explanation
       content:
-        text: Protocols define a contract—like a checklist of methods or properties
-          a type must provide.
+        text: 'Protocols are like contracts or checklists for your types—imagine the requirements for a job, or the abilities a game character must have. When you create a protocol, you''re saying: "Any type that adopts this must promise to provide certain properties or methods." If a type says it conforms, it promises to follow the rules! This lets you write flexible, reusable code where different types can share abilities, just by checking off the same list.'
     - type: heading2
       content:
         text: Defining a protocol
@@ -43,7 +42,7 @@ chapters:
           \ drive() { print(\"Vroom\") }\n}"
     - type: explanation
       content:
-        text: Car adopts Drivable and fulfills the requirement by implementing drive().
+        text: 'Here, Car adopts Drivable and fulfills the requirement by implementing drive(). It''s like saying, "I''m Drivable, so I promise to have a drive() method."'
     - type: heading2
       content:
         text: Multiple conformances
@@ -54,43 +53,57 @@ chapters:
           ) }\n}"
     - type: explanation
       content:
-        text: Types can conform to multiple protocols, mixing capabilities as needed.
+        text: 'Types can conform to multiple protocols, mixing and matching abilities like collecting power-ups. Bike here promises to be both Drivable and Stoppable, so it must implement both drive() and stop().'
     - type: explanation
       content:
-        text: 'Tip: Use protocols to define shared abilities without forcing inheritance.'
+        text: 'Tip: Use protocols to define shared abilities without forcing inheritance. You can use them with structs, classes, and even enums—everyone can play!'
+    - type: explanation
+      content:
+        text: 'Mini Challenge: Create a protocol Named with a name property, and make a struct Person that adopts it.'
+    - type: explanation
+      content:
+        text: 'Reflection: Why is it useful that structs, classes, and enums can all adopt protocols? How does this help you write more flexible code?'
+    - type: explanation
+      content:
+        text: '**Step-by-step implementation:** Declare a protocol with required members • Conform a type and implement requirements • Use protocol types in function parameters to write flexible code.'
+    - type: explanation
+      content:
+        text: '**Common pitfalls:** Forgetting to implement every requirement • Using class inheritance when a protocol fits better • Over-constraining functions to concrete types instead of protocol types.'
+    - type: explanation
+      content:
+        text: '**Example output:**\nVroom\nPedal\nBrake'
   - id: F8A39618-67F5-4996-BE2F-8168C9129C1D
     module_name: Extensions
     module_number: 23
     multiple_choice:
-    - question: Which keyword adds functionality to an existing type?
+    - question: 'Which keyword adds functionality to an existing type?'
       options:
-      - extension
-      - extend
-      - addon
-      - impl
-      answer: extension
+      - 'extension'
+      - 'extend'
+      - 'addon'
+      - 'impl'
+      answer: 'extension'
     - question: 'Extensions can add:'
       options:
-      - Methods
-      - Computed properties
-      - Convenience initializers
-      - All of these
-      answer: All of these
-    - question: Why are extensions useful?
+      - 'Methods'
+      - 'Computed properties'
+      - 'Convenience initializers'
+      - 'All of these'
+      answer: 'All of these'
+    - question: 'Why are extensions useful?'
       options:
-      - They allow modifying existing types safely
-      - They replace inheritance
-      - They make types slower
-      - They remove code
-      answer: They allow modifying existing types safely
+      - 'They allow modifying existing types safely'
+      - 'They replace inheritance'
+      - 'They make types slower'
+      - 'They remove code'
+      answer: 'They allow modifying existing types safely'
     content_blocks:
     - type: heading1
       content:
         text: Extensions
     - type: explanation
       content:
-        text: Extensions let you add new behavior to existing types—even those you
-          didn’t write.
+        text: 'Extensions let you give superpowers to types—even after they already exist! It''s like teaching an old dog new tricks: you can add methods, computed properties, or initializers to types you didn''t write yourself. But remember, you can''t add stored properties (places to store new data), only new tricks!'
     - type: heading2
       content:
         text: Adding a method
@@ -101,7 +114,7 @@ chapters:
           \ tfiwS"
     - type: explanation
       content:
-        text: Extensions can add methods and computed properties without subclassing.
+        text: 'Extensions can add methods and computed properties without needing to subclass. It''s like giving every String a new ability, instantly!'
     - type: heading2
       content:
         text: Adding initializers
@@ -112,43 +125,57 @@ chapters:
           \ 3)"
     - type: explanation
       content:
-        text: Extensions can define convenience initializers too.
+        text: 'Extensions can define convenience initializers too—so you can make creating values easier and more expressive.'
     - type: explanation
       content:
-        text: 'Tip: Organize extensions by functionality (e.g., String+Formatting.swift).'
+        text: 'Tip: Organize extensions by functionality (e.g., String+Formatting.swift). This keeps your code neat and easy to find.'
+    - type: explanation
+      content:
+        text: 'Mini Challenge: Add an extension to Int that checks if a number is even.'
+    - type: explanation
+      content:
+        text: 'Reflection: Why might extensions be better than subclassing for adding behavior? When would you choose one over the other?'
+    - type: explanation
+      content:
+        text: '**Step-by-step implementation:** Add focused helpers in extensions • Group related additions by file/section • Prefer computed properties and methods (no stored properties).'
+    - type: explanation
+      content:
+        text: '**Common pitfalls:** Trying to add stored properties • Dumping unrelated helpers into one extension • Shadowing existing APIs with confusing names.'
+    - type: explanation
+      content:
+        text: '**Example output:**\ntfiwS\n6'
   - id: FF517654-51FF-48AA-B2A0-4C4E7E6A9576
     module_name: Protocol Extensions
     module_number: 24
     multiple_choice:
     - question: 'Protocol extensions allow:'
       options:
-      - Default method implementations
-      - Stored properties
-      - Inheritance
-      - Enums
-      answer: Default method implementations
-    - question: What’s a benefit of protocol extensions?
+      - 'Default method implementations'
+      - 'Stored properties'
+      - 'Inheritance'
+      - 'Enums'
+      answer: 'Default method implementations'
+    - question: 'What’s a benefit of protocol extensions?'
       options:
-      - Code reuse across conforming types
-      - Forces subclasses
-      - Removes protocols
-      - None
-      answer: Code reuse across conforming types
+      - 'Code reuse across conforming types'
+      - 'Forces subclasses'
+      - 'Removes protocols'
+      - 'None'
+      answer: 'Code reuse across conforming types'
     - question: Which keyword defines a protocol extension?
       options:
-      - extension
-      - protocol
-      - impl
-      - augment
-      answer: extension
+      - 'extension'
+      - 'protocol'
+      - 'impl'
+      - 'augment'
+      answer: 'extension'
     content_blocks:
     - type: heading1
       content:
         text: Protocol Extensions
     - type: explanation
       content:
-        text: Protocol extensions let you provide default behavior to all types that
-          conform—no need to repeat code.
+        text: 'Protocol extensions are like giving everyone in a club a starter kit: you can provide default abilities to all types that conform to a protocol. This means you don''t have to repeat the same code for each type—they all get the shared behavior automatically! Types can still override these defaults when they want something special.'
     - type: heading2
       content:
         text: Default implementation
@@ -159,21 +186,37 @@ chapters:
           \ {}\nItem().describe()"
     - type: explanation
       content:
-        text: Item doesn’t implement describe(), but still gets a working version.
+        text: 'Item doesn''t implement describe(), but still gets a working version from the protocol extension. It''s like getting a freebie just for joining the club!'
     - type: heading2
       content:
         text: Customizing behavior
     - type: snippet
       content:
-        code: "struct Dog: Describable {\n  func describe() { print(\"A dog \U0001F436\
-          \") }\n}\nDog().describe()"
+        code: 'struct Dog: Describable {
+  func describe() { print("A dog") }
+}
+Dog().describe()'
     - type: explanation
       content:
-        text: Conforming types can override the default if they want.
+        text: 'Conforming types can override the default if they want their own special version—just like customizing your starter kit.'
     - type: explanation
       content:
-        text: 'Tip: Protocol extensions are the backbone of Swift’s standard library—they
-          make common behavior widely available.'
+        text: 'Tip: Protocol extensions are the backbone of Swift''s standard library—they make common behavior widely available, so you can focus on what makes your types unique.'
+    - type: explanation
+      content:
+        text: 'Mini Challenge: Create a protocol Greetable with a default greet() implementation, then override it in one type.'
+    - type: explanation
+      content:
+        text: 'Reflection: How do protocol extensions help reduce duplicate code? Can you think of a time when this would save you lots of typing?'
+    - type: explanation
+      content:
+        text: '**Step-by-step implementation:** Define a protocol • Provide defaults in a protocol extension • Override in specific types when needed.'
+    - type: explanation
+      content:
+        text: '**Common pitfalls:** Expecting stored properties in protocol extensions • Forgetting that defaults apply to all conformers • Not customizing behavior when types need special logic.'
+    - type: explanation
+      content:
+        text: '**Example output:**\nJust something...\nA dog 🐶'
   finalReview:
     content_blocks:
     - type: heading1
@@ -181,9 +224,10 @@ chapters:
         text: Chapter 7 Review
     - type: explanation
       content:
-        text: You learned to use protocols to define capabilities, extensions to add
-          behavior, and protocol extensions for default implementations.
+        text: 'Great job! In this chapter, you unlocked three powerful tools: protocols (promises and checklists for your types), extensions (teaching old types new tricks), and protocol extensions (giving everyone in a group a starter kit of abilities).'
     - type: explanation
       content:
-        text: 'Rule of thumb: prefer composition with protocols and extensions instead
-          of deep inheritance trees.'
+        text: 'Rule of thumb: prefer composition with protocols and extensions instead of deep inheritance trees. Think: protocols = promises, extensions = new tricks, protocol extensions = shared defaults!'
+    - type: explanation
+      content:
+        text: 'Reflection: In your own project, where could protocols and extensions replace inheritance? How might this make your code more flexible and fun to work with?'

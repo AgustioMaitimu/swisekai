@@ -15,25 +15,24 @@ chapters:
     - question: Which operator means not equal?
       options:
       - '!='
-      - ==
-      - <>
+      - '=='
+      - '<>'
       - '!'
       answer: '!='
     - question: Which operator adds two numbers?
       options:
-      - +
+      - '+'
       - '-'
       - '*'
-      - /
-      answer: +
+      - '/'
+      answer: '+'
     content_blocks:
     - type: heading1
       content:
         text: Operators
     - type: explanation
       content:
-        text: Operators are the small symbols that let you do math and comparisons
-          in Swift.
+        text: 'Operators are the small symbols that teach your code how to calculate or compare. Think of + as adding apples to your basket, and == as asking "are these two apples twins?"—checking if they’re exactly the same.'
     - type: heading2
       content:
         text: Math operators
@@ -48,7 +47,7 @@ chapters:
           let div = 10 / 2   // 5'
     - type: explanation
       content:
-        text: Use +, -, *, / for basic arithmetic just like in normal math.
+        text: Use +, -, *, / for basic arithmetic just like in normal math. Imagine you’re adding, subtracting, multiplying, or dividing apples in a basket.
     - type: heading2
       content:
         text: Comparison operators
@@ -65,7 +64,7 @@ chapters:
           print(a < b)   // true'
     - type: explanation
       content:
-        text: Comparison operators return Bool values—true or false—based on the relation.
+        text: Comparison operators ask questions like “Is this number bigger?” or “Are these two values different?” They return true or false answers, helping your code make decisions. Try writing your own expressions using > or <= and predict the result before running it!
     - type: heading2
       content:
         text: Logical operators
@@ -80,11 +79,19 @@ chapters:
           print(loggedIn || isAdmin) // true'
     - type: explanation
       content:
-        text: Use && for AND, || for OR, ! for NOT.
+        text: 'Use && for AND, || for OR, ! for NOT. Think of these as combining answers: AND means both must be true, OR means at least one is true, and NOT flips true to false.'
     - type: explanation
       content:
-        text: 'Tip: Operators are the glue for logic and math—practice mixing them
-          with conditions.'
+        text: 'Tip: Operators are the glue for logic and math—practice mixing them with conditions to build smart decisions!'
+    - type: explanation
+      content:
+        text: '**Step-by-step implementation:** Use + - * / for arithmetic • == != < > <= >= for comparisons • && || ! for logic. Try combining them in one expression, then print the result.'
+    - type: explanation
+      content:
+        text: '**Common pitfalls:** Mixing assignment (=) with equality (==) • Forgetting parentheses when combining comparisons and logic • Dividing integers and expecting decimals.'
+    - type: explanation
+      content:
+        text: '**Example output:**\nfalse\ntrue\ntrue\nfalse'
   - id: 92A063D4-055D-41D0-A286-BB8A72BBD5D9
     module_name: Conditions
     module_number: 11
@@ -108,7 +115,7 @@ chapters:
       - '&&'
       - '||'
       - and
-      - +
+      - '+'
       answer: '&&'
     content_blocks:
     - type: heading1
@@ -116,76 +123,81 @@ chapters:
         text: Conditions
     - type: explanation
       content:
-        text: Conditions let your program decide what to do, like traffic lights guiding
-          cars.
+        text: 'Conditions are like traffic lights or branching paths in a choose-your-own-adventure book. They help your program decide which way to go based on what’s happening right now.'
     - type: heading2
       content:
         text: If statements
     - type: snippet
       content:
-        code: "let age = 20\nif age >= 18 {\n  print(\"Adult\")\n} else {\n  print(\"\
-          Minor\")\n}"
+        code: "let age = 20\nif age >= 18 {\n  print(\"Adult\")\n} else {\n  print(\"Minor\")\n}"
     - type: explanation
       content:
-        text: If checks a condition; if true, it runs the first block. Else handles
-          the other case.
+        text: 'An if statement checks a condition. If it’s true, your code takes the first path (like a green light). If not, it goes to the else path (like a red light). It’s like asking, “Are you old enough?” and responding accordingly.'
     - type: heading2
       content:
         text: Else if for multiple choices
     - type: snippet
       content:
-        code: "let score = 75\nif score > 90 {\n  print(\"A\")\n} else if score >\
-          \ 70 {\n  print(\"B\")\n} else {\n  print(\"C\")\n}"
+        code: "let score = 75\nif score > 90 {\n  print(\"A\")\n} else if score > 70 {\n  print(\"B\")\n} else {\n  print(\"C\")\n}"
     - type: explanation
       content:
-        text: Else if lets you test more than two paths.
+        text: 'Else if lets you test more than two paths, like taking different branches in a story depending on your score.'
     - type: heading2
       content:
         text: Guard for early exit
     - type: snippet
       content:
-        code: "func enter(clubAge: Int) {\n  guard clubAge >= 18 else {\n    print(\"\
-          Go home\")\n    return\n  }\n  print(\"Welcome in!\")\n}"
+        code: "func enter(clubAge: Int) {\n  guard clubAge >= 18 else {\n    print(\"Go home\")\n    return\n  }\n  print(\"Welcome in!\")\n}"
     - type: explanation
       content:
-        text: 'Guard is the opposite: it ensures a condition is true, otherwise it
-          exits early.'
+        text: 'Guard is like a bouncer at the door checking your ID. If you don’t meet the age requirement, you’re politely asked to leave early, so the rest of the code can assume you’re allowed in.'
     - type: explanation
       content:
-        text: 'Tip: Use if for branching logic, guard for validation and cleaner code.'
+        text: 'Tip: Use if for branching logic and guard for validation to keep your code clean and easy to read.'
+    - type: explanation
+      content:
+        text: 'Mini challenge: Write an if statement to check if a number is even or odd.'
+    - type: explanation
+      content:
+        text: '**Step-by-step implementation:** Start with if/else • Add else if for more branches • Use guard for validations and early exit.'
+    - type: explanation
+      content:
+        text: '**Common pitfalls:** Writing deep nested ifs instead of early-exit guard • Using = instead of == in conditions • Forgetting return after a failing guard.'
+    - type: explanation
+      content:
+        text: '**Example output:**\nAdult\nB\nWelcome in!'
   - id: FC30AF60-360C-4BDA-880C-5CDFB2719212
     module_name: Loops
     module_number: 12
     multiple_choice:
     - question: Which loop runs a set number of times?
       options:
-      - for-in
-      - while
-      - repeat-while
-      - switch
-      answer: for-in
+      - 'for-in'
+      - 'while'
+      - 'repeat-while'
+      - 'switch'
+      answer: 'for-in'
     - question: Which loop checks its condition before running?
       options:
-      - while
-      - repeat-while
-      - for
-      - check
-      answer: while
+      - 'while'
+      - 'repeat-while'
+      - 'for'
+      - 'check'
+      answer: 'while'
     - question: Which loop runs the body at least once?
       options:
-      - repeat-while
-      - while
-      - for-in
-      - switch
-      answer: repeat-while
+      - 'repeat-while'
+      - 'while'
+      - 'for-in'
+      - 'switch'
+      answer: 'repeat-while'
     content_blocks:
     - type: heading1
       content:
         text: Loops
     - type: explanation
       content:
-        text: Loops let you repeat code without copy-pasting—perfect for lists and
-          counters.
+        text: 'Loops are like practicing a song or brushing your teeth every day—they let you repeat actions without copying your code again and again.'
     - type: heading2
       content:
         text: For-in loop
@@ -194,7 +206,7 @@ chapters:
         code: "for i in 1...3 {\n  print(\"Iteration \\(i)\")\n}"
     - type: explanation
       content:
-        text: for-in repeats for a fixed range or over a collection.
+        text: 'Think of a for-in loop as counting steps on a staircase, going from the bottom to the top, one step at a time.'
     - type: heading2
       content:
         text: While loop
@@ -203,7 +215,7 @@ chapters:
         code: "var count = 0\nwhile count < 3 {\n  print(count)\n  count += 1\n}"
     - type: explanation
       content:
-        text: While checks condition first; runs only if it’s true.
+        text: 'A while loop waits until a condition is true before stopping, like waiting for the rain to stop before going outside.'
     - type: heading2
       content:
         text: Repeat-while loop
@@ -212,11 +224,22 @@ chapters:
         code: "var n = 0\nrepeat {\n  print(n)\n  n += 1\n} while n < 3"
     - type: explanation
       content:
-        text: Repeat-while runs at least once before checking the condition.
+        text: 'Repeat-while tries at least once before checking if it should continue—like trying a new game level once before deciding if you want to keep playing.'
     - type: explanation
       content:
-        text: 'Tip: Use for-in when you know how many times, while/repeat-while when
-          you don’t.'
+        text: 'Tip: Use for-in when you know the exact number of times to repeat, and while or repeat-while when you’re waiting for something to happen.'
+    - type: explanation
+      content:
+        text: 'Mini challenge: Create a loop that prints your name 5 times.'
+    - type: explanation
+      content:
+        text: '**Step-by-step implementation:** Use for-in when the count is known • Use while when you check before each run • Use repeat-while to run at least once.'
+    - type: explanation
+      content:
+        text: '**Common pitfalls:** Off-by-one range errors • Forgetting to update the loop variable • Infinite loops from always-true conditions.'
+    - type: explanation
+      content:
+        text: '**Example output:**\nIteration 1\nIteration 2\nIteration 3\n0\n1\n2\n0\n1\n2'
   finalReview:
     content_blocks:
     - type: heading1
@@ -224,9 +247,10 @@ chapters:
         text: Chapter 3 Review
     - type: explanation
       content:
-        text: You used operators for math and logic, conditions for branching, and
-          loops for repetition.
+        text: You’ve learned how operators act like little teachers guiding your code to do math and logic, conditions help your program choose different paths like a traffic light or storybook, and loops let you repeat actions like practicing a song.
     - type: explanation
       content:
-        text: 'Rule of thumb: operators connect values, conditions guide paths, loops
-          repeat work.'
+        text: 'Remember: operators connect values, conditions guide your program’s path, and loops repeat work to save time.'
+    - type: explanation
+      content:
+        text: 'Reflection question: Which control flow concept do you think will be most useful in your first project? Give it some thought and try to use it soon!'
