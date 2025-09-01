@@ -18,79 +18,78 @@ struct CardThingy: View {
     var body: some View {
         Group {
             if containerLayout == .horizontal {
-                // ZStack layout
-                ZStack(alignment: .leading) {
-                    VStack(alignment: .leading) {
-                        Text("Chapter \(chapterNumber)")
-                            .font(Font.custom("SF Pro", size: 20).weight(.bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom, 1)
-                        
-                        Text(chapterTitle.dropFirst(11))
-                            .font(Font.custom("SF Pro", size: 48).weight(.bold))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                        
-                        Text(levelTitle)
-                            .font(Font.custom("SF Pro", size: 32).weight(.medium))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        selection = .learn
-                    } label: {
-                        Text("Continue")
-                            .font(Font.custom("SF Pro", size: 20).weight(.medium))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 32)
-                            .padding(.vertical, 16)
-                            .foregroundColor(.white)
-                            .frame(width: 254)
-                            .background(Color.blue)
-                            .cornerRadius(100)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .buttonStyle(.plain)
-                    .offset(x: 0, y: 170) // only in horizontal
-                }
-            } else {
-                // VStack layout
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text("Chapter \(chapterNumber)")
                         .font(Font.custom("SF Pro", size: 20).weight(.bold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
                     Text(chapterTitle.dropFirst(11))
-                        .font(Font.custom("SF Pro", size: 48).weight(.bold))
+                        .font(Font.custom("SF Pro", size: 42).weight(.bold))
                         .foregroundColor(.white)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.75)
+                        .allowsTightening(true)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
-                    
                     Text(levelTitle)
-                        .font(Font.custom("SF Pro", size: 32).weight(.medium))
+                        .font(Font.custom("SF Pro", size: 28).weight(.medium))
                         .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                        .allowsTightening(true)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
-                    
-                    Spacer()
-                    
+                    Spacer(minLength: 8)
+                    HStack {
+                        Spacer()
+                        Button {
+                            selection = .learn
+                        } label: {
+                            Text("Continue")
+                                .font(Font.custom("SF Pro", size: 18).weight(.medium))
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 12)
+                                .foregroundColor(.white)
+                                .background(Color.blue)
+                                .cornerRadius(100)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Chapter \(chapterNumber)")
+                        .font(Font.custom("SF Pro", size: 18).weight(.bold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(chapterTitle.dropFirst(11))
+                        .font(Font.custom("SF Pro", size: 32).weight(.bold))
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.7)
+                        .allowsTightening(true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(levelTitle)
+                        .font(Font.custom("SF Pro", size: 20).weight(.medium))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                        .allowsTightening(true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 8)
                     Button {
                         selection = .learn
                     } label: {
                         Text("Continue")
-                            .font(Font.custom("SF Pro", size: 20).weight(.medium))
+                            .font(Font.custom("SF Pro", size: 18).weight(.medium))
                             .multilineTextAlignment(.center)
-                            .padding(.horizontal, 32)
-                            .padding(.vertical, 16)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity) // fills width
+                            .frame(maxWidth: .infinity)
                             .background(Color.blue)
                             .cornerRadius(100)
                     }
@@ -98,13 +97,13 @@ struct CardThingy: View {
                 }
             }
         }
-        .padding(30)
+        .padding(24)
         .frame(
-            minWidth: containerLayout == .horizontal ? 800 : 100,
-            maxWidth: containerLayout == .horizontal ? .infinity : 800,
-            maxHeight: .infinity,
+            minWidth: 320,
+            maxWidth: .infinity,
             alignment: .topLeading
         )
+        .modifier(ChapterCardSizer(layout: containerLayout))
         .background(
             LinearGradient(
                 stops: [
@@ -116,6 +115,17 @@ struct CardThingy: View {
             )
         )
         .cornerRadius(20)
+    }
+}
+
+private struct ChapterCardSizer: ViewModifier {
+    let layout: Axis
+    func body(content: Content) -> some View {
+        if layout == .vertical {
+            content.frame(maxHeight: 260)
+        } else {
+            content
+        }
     }
 }
 
@@ -131,4 +141,3 @@ struct CardThingy: View {
     .padding()
     .background(Color.black)
 }
-

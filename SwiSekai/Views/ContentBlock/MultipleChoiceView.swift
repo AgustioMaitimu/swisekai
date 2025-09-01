@@ -101,7 +101,7 @@ struct MultipleChoiceView: View {
 						
 						Spacer()
 					}
-					.padding(.top, 20)
+					.padding(.top, 60)
 					.frame(maxWidth: 800)
 					.frame(minHeight: geometry.size.height)
 				}

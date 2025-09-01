@@ -48,7 +48,6 @@ struct ModuleContentView: View {
         GeometryReader { geometry in
 			ScrollView(showsIndicators: false) {
                 VStack(alignment: .center) {
-                    // Button is now part of the scrolling content
                     HStack {
 						HStack {
 							Image(systemName: "chevron.left")

@@ -24,6 +24,7 @@ struct SwiSekaiApp: App {
 					let userData = UserData.shared(in: context)
 					userData.registerOpen()
 				}
+				.frame(minWidth: 470, minHeight: 570)
 		}
 		.modelContainer(modelContainer)
 		.windowStyle(.hiddenTitleBar)
