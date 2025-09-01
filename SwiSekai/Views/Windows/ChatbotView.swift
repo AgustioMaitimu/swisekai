@@ -20,144 +20,159 @@ struct ChatMessage: Identifiable, Equatable {
 }
 
 struct ChatbotSidebarView: View {
-	@State private var chat: Chat
-	@State private var chatHistory: [ChatMessage] = [
-		ChatMessage(role: .bot, text: "How can I help you today?")
-	]
-	@State var userPrompt = ""
-	@State var isLoading = false
-	@Binding var isShowing: Bool
-	
-	init(isShowing: Binding<Bool>) {
-		self._isShowing = isShowing
-		
-		let model = GenerativeModel(name: "gemini-2.5-flash", apiKey: APIKey.default)
-		
-		
-		let systemPrompt = """
-			You are a helpful programming assistant called Taylor. Your sole purpose is to answer questions about the Swift programming language and its related frameworks like SwiftUI and UIKit in an easy-to-understand way, using clear explanations and simple examples that beginners can follow, keep is short and concise. If you are asked about any other topic, politely decline and state that you can only discuss Swift.
-			"""
-		
-		let initialHistory = [
-			ModelContent(role: "user", parts: [ModelContent.Part.text(systemPrompt)]),
-			ModelContent(role: "model", parts: [ModelContent.Part.text("How can I help you today?")])
-		]
-		
-		// Start the chat with the predefined history
-		self._chat = State(initialValue: model.startChat(history: initialHistory))
-	}
+    @State private var chatSession: ChatSession?
+    @State private var chatHistory: [ChatMessage] = [
+        ChatMessage(role: .bot, text: "How can I help you today?")
+    ]
+    @State var userPrompt = ""
+    @State var isLoading = false
+    @Binding var isShowing: Bool
+    @StateObject private var settings = AISettings.shared
 	
 	
 	var body: some View {
 		VStack(spacing: 0) {
-			// MARK: - Header
-			HStack{
-				Button(action: {
-					withAnimation {
-						isShowing = false
-					}
-				}) {
-					Image(systemName: "xmark")
-						.font(.title)
-				}
-				.buttonStyle(.plain)
-				
-				Spacer()
-			}
-			.padding([.top, .leading])
+            // MARK: - Header
+            HStack{
+                Button(action: {
+                    withAnimation {
+                        isShowing = false
+                    }
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.title)
+                }
+                .buttonStyle(.plain)
+                
+                Spacer()
+                if settings.hasStoredKey {
+                    Button("Logout") { confirmLogout() }
+                        .buttonStyle(.bordered)
+                }
+            }
+            .padding([.top, .leading, .trailing])
+            
+            HeaderView()
 			
-			HeaderView()
-			
-			// MARK: - Chat History View
-			ScrollViewReader { scrollViewProxy in
-				ScrollView {
-					VStack(alignment: .leading, spacing: 12) {
-						ForEach(chatHistory) { message in
-							// Display the correct view based on the message's role
-							switch message.role {
-							case .user:
-								HStack {
-									Spacer() // This pushes the bubble to the right
-									UserMessageView(text: message.text)
-								}
-							case .bot:
-								HStack {
-									let parsedContent = parseBotResponse(rawText: message.text)
-									BotMessageView(contents: parsedContent)
-									Spacer() // This pushes the bubble to the left
-								}
-							}
-						}
-						
-						// Show a loading indicator when the bot is "typing"
-						if isLoading {
-							HStack {
-								Spacer()
-								ProgressView()
-									.padding()
-								Spacer()
-							}
-						}
-					}
-					.padding()
-				}
-				.onChange(of: chatHistory) {
-					if let lastMessage = chatHistory.last {
-						withAnimation {
-							scrollViewProxy.scrollTo(lastMessage.id, anchor: .bottom)
-						}
-					}
-				}
-			}
+            // MARK: - Either Setup or Chat View
+            if !(settings.selectedProvider != nil && settings.hasStoredKey) {
+                ChatSetupView(settings: settings) {
+                    setUpChatSession()
+                }
+                .padding(.horizontal)
+            } else {
+                ScrollViewReader { scrollViewProxy in
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 12) {
+                            ForEach(chatHistory) { message in
+                                switch message.role {
+                                case .user:
+                                    HStack { Spacer(); UserMessageView(text: message.text) }
+                                case .bot:
+                                    HStack {
+                                        let parsedContent = parseBotResponse(rawText: message.text)
+                                        BotMessageView(contents: parsedContent)
+                                        Spacer()
+                                    }
+                                }
+                            }
+                            if isLoading {
+                                HStack { Spacer(); ProgressView().padding(); Spacer() }
+                            }
+                        }
+                        .padding()
+                    }
+                    .onChange(of: chatHistory) {
+                        if let lastMessage = chatHistory.last {
+                            withAnimation { scrollViewProxy.scrollTo(lastMessage.id, anchor: .bottom) }
+                        }
+                    }
+                }
+            }
 			
 			Spacer()
 			
 			// MARK: - Message Input
-			MessageInputView(userPrompt: $userPrompt) {
-				sendMessage()
-			}
-		}
-		.padding(.top, 35)
-		.background(Color("ChatbotBackground"))
-		.edgesIgnoringSafeArea(.bottom)
-	}
-	
-	func sendMessage() {
-		guard !userPrompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-		
-		let newUserMessage = ChatMessage(role: .user, text: userPrompt)
-		chatHistory.append(newUserMessage)
-		
-		let promptToSend = userPrompt
-		userPrompt = ""
-		
-		generateResponse(for: promptToSend)
-	}
-	
-	func generateResponse(for prompt: String) {
-		isLoading = true
-		
-		Task {
-			do {
-				let result = try await chat.sendMessage(prompt)
-				isLoading = false
-				
-				if let botResponseText = result.text {
-					let botMessage = ChatMessage(role: .bot, text: botResponseText)
-					chatHistory.append(botMessage)
-				} else {
-					let errorMessage = ChatMessage(role: .bot, text: "Sorry, I couldn't get a response.")
-					chatHistory.append(errorMessage)
+			if settings.selectedProvider != nil && settings.hasStoredKey {
+				MessageInputView(userPrompt: $userPrompt) {
+					sendMessage()
 				}
-				
-			} catch {
-				isLoading = false
-				let errorMessage = ChatMessage(role: .bot, text: "Something went wrong! \n\(error.localizedDescription)")
-				chatHistory.append(errorMessage)
-				print("Error generating response: \(error)")
 			}
 		}
-	}
+        .padding(.top, 35)
+        .background(Color("ChatbotBackground"))
+        .edgesIgnoringSafeArea(.bottom)
+        .onAppear { setUpChatSession() }
+    }
+
+    func sendMessage() {
+        guard !userPrompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        let newUserMessage = ChatMessage(role: .user, text: userPrompt)
+        chatHistory.append(newUserMessage)
+        
+        let promptToSend = userPrompt
+        userPrompt = ""
+        
+        generateResponse(for: promptToSend)
+    }
+    
+    func generateResponse(for prompt: String) {
+        isLoading = true
+        
+        Task {
+            do {
+                guard let chatSession = chatSession else { return }
+                let resultText = try await chatSession.send(prompt)
+                isLoading = false
+                
+                if !resultText.isEmpty {
+                    let botMessage = ChatMessage(role: .bot, text: resultText)
+                    chatHistory.append(botMessage)
+                } else {
+                    let errorMessage = ChatMessage(role: .bot, text: "Sorry, I couldn't get a response.")
+                    chatHistory.append(errorMessage)
+                }
+                
+            } catch {
+                isLoading = false
+                let friendly: String
+                if let ns = error as NSError?, ns.domain == "OpenAIError" {
+                    switch ns.code {
+                    case 401, 403:
+                        friendly = "OpenAI key is invalid or not authorized. Try re‑entering your key or switch to Gemini via Logout."
+                    case 429:
+                        friendly = "OpenAI usage quota exceeded. Add billing or wait, or switch to Gemini via Logout."
+                    case 400, 404:
+                        friendly = "Selected OpenAI model isn’t available. I’ll try a fallback, or switch models."
+                    default:
+                        friendly = "OpenAI error (\(ns.code)). Please try again or switch provider."
+                    }
+                } else {
+                    friendly = "Something went wrong! \n\(error.localizedDescription)"
+                }
+                let errorMessage = ChatMessage(role: .bot, text: friendly)
+                chatHistory.append(errorMessage)
+                print("Error generating response: \(error)")
+            }
+        }
+    }
+
+    private func setUpChatSession() {
+        guard let provider = settings.selectedProvider, let key = settings.loadKey() else { return }
+        let systemPrompt = """
+        You are a helpful programming assistant called Taylor. Your sole purpose is to answer questions about the Swift programming language and its related frameworks like SwiftUI and UIKit in an easy-to-understand way, using clear explanations and simple examples that beginners can follow, keep it short and concise. If you are asked about any other topic, politely decline and state that you can only discuss Swift.
+        """
+        let providerInstance = ChatProviderFactory.make(provider: provider, apiKey: key, model: provider.defaultModel)
+        self.chatSession = providerInstance.startChat(initialSystemPrompt: systemPrompt)
+    }
+
+    private func confirmLogout() {
+        // Simple immediate logout; could add confirmation dialog if desired
+        settings.deleteKey()
+        chatSession = nil
+        chatHistory = [ChatMessage(role: .bot, text: "How can I help you today?")]
+    }
 }
 
 struct HeaderView: View {
@@ -201,6 +216,7 @@ struct MessageInputView: View {
 					.foregroundColor(.white)
 					.textFieldStyle(.plain)
 					.onSubmit(onSendMessage)
+					.layoutPriority(1)
 				
 				Button(action: onSendMessage) {
 					Image(systemName: "arrow.up")
@@ -231,6 +247,8 @@ struct MessageInputView: View {
 			Text("Press Enter to send. Shift + Enter for a new line.")
 				.font(.caption)
 				.foregroundColor(.gray)
+				.lineLimit(1)
+				.minimumScaleFactor(0.8)
 		}
 		.padding(.bottom, 8)
 	}

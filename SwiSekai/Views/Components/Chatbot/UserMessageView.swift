@@ -30,7 +30,7 @@ struct UserMessageView: View {
 			.padding()
 			.background(Color("UserMessageColor"))
 			.cornerRadius(12)
-			.frame(maxWidth: 400, alignment: .trailing)
+			.frame(maxWidth: .infinity, alignment: .trailing)
 		}
 	}
 }
