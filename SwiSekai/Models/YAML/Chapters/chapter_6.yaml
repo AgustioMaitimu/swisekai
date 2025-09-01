@@ -32,8 +32,7 @@ chapters:
         text: Structs
     - type: explanation
       content:
-        text: Structs are blueprints for lightweight data types. Each copy of a struct
-          holds its own data, independent of others.
+        text: 'Think of a struct as a cookie mold—a blueprint to make cookies. Each cookie you bake is its own independent treat, just like each struct you create holds its own data. Structs are lightweight blueprints for your data.'
     - type: heading2
       content:
         text: Defining a struct
@@ -43,24 +42,28 @@ chapters:
           \ \"Sam\", age: 20)"
     - type: explanation
       content:
-        text: Properties store data inside the struct. Initializers are auto-generated
-          when all properties have defaults or are provided.
+        text: 'Properties are like the ingredients inside your cookie mold—they store the data. When you create a struct, Swift automatically gives you an initializer if you provide values for all properties.'
     - type: heading2
       content:
-        text: Value semantics
+        text: Value semantics – independent copies
     - type: snippet
       content:
         code: 'var u2 = u1
 
-          u2.name = "Alex"
+u2.name = "Alex"
 
-          print(u1.name)  // Sam
+print(u1.name)  // Sam
 
-          print(u2.name)  // Alex'
+print(u2.name)  // Alex'
     - type: explanation
       content:
-        text: Assigning a struct copies it. Changing u2 doesn’t affect u1—each keeps
-          its own state.
+        text: 'When you assign a struct to another variable, it copies the data—like baking two separate cookies from the same mold. Changing one doesn’t affect the other!'
+    - type: explanation
+      content:
+        text: 'Mini challenge: Create a struct Book with properties title and author. Make two copies of a Book instance and change the title of one. Can you see how they stay independent?'
+    - type: explanation
+      content:
+        text: 'Reflection: Why might it be useful that structs create independent copies? Think about scenarios where you want to avoid accidental changes.'
     - type: explanation
       content:
         text: 'Tip: Prefer structs for models, settings, and small reusable types.'
@@ -95,7 +98,7 @@ chapters:
         text: Properties & Methods
     - type: explanation
       content:
-        text: Structs and classes can contain properties (data) and methods (behavior).
+        text: 'Think of properties as the characteristics or data inside your type—like the color or size of a toy. Methods are the actions or behaviors your type can perform—like a toy that can move or make sounds.'
     - type: heading2
       content:
         text: Stored and computed properties
@@ -105,8 +108,7 @@ chapters:
           \ * radius * 3.14 }\n}\nlet c = Circle(radius: 2)\nprint(c.area)  // 12.56"
     - type: explanation
       content:
-        text: Computed properties calculate values dynamically instead of storing
-          them.
+        text: 'Stored properties are like items in your fridge—they hold actual data. Computed properties are like a calculator: they don’t store data but compute it on the fly when you ask for it.'
     - type: heading2
       content:
         text: Instance vs static properties
@@ -117,7 +119,7 @@ chapters:
           \  // 2"
     - type: explanation
       content:
-        text: Static properties belong to the type itself, not instances.
+        text: 'Static properties belong to the type itself, not to individual instances. Think of it as a shared counter that tracks how many times something has been created.'
     - type: heading2
       content:
         text: Methods
@@ -128,8 +130,13 @@ chapters:
           \  // 10"
     - type: explanation
       content:
-        text: Methods are functions inside the type. Use mutating in structs if they
-          change properties.
+        text: 'Methods are functions inside the type. In structs, if a method changes properties, mark it as mutating.'
+    - type: explanation
+      content:
+        text: 'Mini challenge: Add a method to Circle that prints a friendly message with its radius.'
+    - type: explanation
+      content:
+        text: 'Reflection: When would you use a static property instead of an instance property? Think about shared data versus individual data.'
   - id: 7BA7F91F-B01F-48A0-BA27-84F49AC72EA0
     module_name: Classes & Inheritance
     module_number: 21
@@ -161,8 +168,7 @@ chapters:
         text: Classes & Inheritance
     - type: explanation
       content:
-        text: 'Classes are reference types: multiple variables can point to the same
-          instance. They also support inheritance.'
+        text: 'Classes are reference types—imagine multiple remotes controlling the same TV. Changing the channel on one remote affects what you see on the TV, no matter which remote you use.'
     - type: heading2
       content:
         text: Defining a class
@@ -173,7 +179,7 @@ chapters:
           \  // Woof"
     - type: explanation
       content:
-        text: Dog inherits from Animal and overrides speak().
+        text: 'Inheritance is like a child inheriting traits from a parent but also customizing them. Here, Dog inherits from Animal and overrides speak().'
     - type: heading2
       content:
         text: Reference semantics
@@ -181,14 +187,14 @@ chapters:
       content:
         code: 'let d1 = Dog()
 
-          let d2 = d1
+let d2 = d1
 
-          d2.speak()
+d2.speak()
 
-          d1.speak()  // both Woof'
+d1.speak()  // both Woof'
     - type: explanation
       content:
-        text: d1 and d2 point to the same Dog instance—changing one affects the other.
+        text: 'Both d1 and d2 point to the same Dog instance—changes through one are seen by the other.'
     - type: heading2
       content:
         text: Deinitializers
@@ -197,11 +203,16 @@ chapters:
         code: "class FileHandler {\n  deinit { print(\"Closing resources\") }\n}"
     - type: explanation
       content:
-        text: Classes can clean up with deinit before being removed from memory.
+        text: 'Classes can clean up resources with deinit before they are removed from memory.'
     - type: explanation
       content:
-        text: 'Tip: Prefer structs unless you specifically need inheritance or reference
-          semantics.'
+        text: 'Mini challenge: Make a class Vehicle with a drive() method, and subclass Car that overrides it to print \"Vroom\".'
+    - type: explanation
+      content:
+        text: 'Reflection: Why would you choose a class over a struct in some cases? Think about shared state and inheritance.'
+    - type: explanation
+      content:
+        text: 'Tip: Prefer structs unless you specifically need inheritance or reference semantics.'
   finalReview:
     content_blocks:
     - type: heading1
@@ -209,9 +220,7 @@ chapters:
         text: Chapter 6 Review
     - type: explanation
       content:
-        text: You learned about structs (value types), properties and methods, and
-          classes (reference types with inheritance).
+        text: 'Great job! You learned that structs are like independent cookies—each copy stands alone. Classes are like shared remotes controlling the same TV. Both can have properties (data) and methods (actions).'
     - type: explanation
       content:
-        text: 'Rule of thumb: use structs for most models, reach for classes when
-          inheritance or shared references are needed.'
+        text: 'Reflection: In your first project, do you imagine using structs, classes, or both? Why? Think about what fits your needs best.'

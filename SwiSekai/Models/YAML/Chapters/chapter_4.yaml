@@ -32,8 +32,7 @@ chapters:
         text: Functions
     - type: explanation
       content:
-        text: 'A function is a reusable recipe: give it inputs, get a result. It keeps
-          code tidy and avoids repetition.'
+        text: 'Think of a function as a reusable recipe or even a magic spell: you give it some ingredients (inputs), and it returns a tasty dish or a magical result (output). Functions help keep your code neat and save you from repeating yourself over and over.'
     - type: heading2
       content:
         text: Declaring a function
@@ -42,32 +41,37 @@ chapters:
         code: "func greet() {\n  print(\"Hello!\")\n}\ngreet()"
     - type: explanation
       content:
-        text: Use func name() { ... } for functions without inputs or outputs.
+        text: 'Functions start with func followed by a name and parentheses. If your function doesn’t need any inputs or outputs, just keep the parentheses empty like greet() here.'
     - type: heading2
       content:
         text: Returning a value
     - type: snippet
       content:
-        code: "func square(of number: Int) -> Int {\n  return number * number\n}\n\
-          let nine = square(of: 3)  // 9"
+        code: "func square(of number: Int) -> Int {\n  return number * number\n}\nlet nine = square(of: 3)  // 9"
     - type: explanation
       content:
-        text: Use -> Type to describe the result. return sends the value back.
+        text: 'Imagine the arrow -> as a sign pointing to the type of magic your function returns. The return keyword sends the result back to whoever called the function.'
+    - type: heading2
+      content:
+        text: Mini challenge
+    - type: explanation
+      content:
+        text: 'Try this: write a function greet(name:) that prints Hello to someone by name. For example, greet(name: "Anna") should print Hello, Anna!'
     - type: heading2
       content:
         text: Why functions matter
     - type: explanation
       content:
-        text: They reduce duplication, clarify intent, and make testing easier.
+        text: 'Functions help you avoid repeating code, make your intentions clear, and make your programs easier to test and fix.'
     - type: heading2
       content:
         text: Tips
     - type: unorderedList
       content:
         items:
-        - Use clear names that read like sentences.
-        - Keep functions small—do one thing well.
-        - Prefer returning values over printing inside.
+        - Use clear, descriptive names that read like little sentences.
+        - Keep functions small—focus on doing one thing well.
+        - Prefer returning values instead of printing inside functions, so you can reuse results.
   - id: 9EB0B2D1-9835-4FC4-A0E5-9CD92A86FBA3
     module_name: Parameters & Return Values
     module_number: 14
@@ -79,8 +83,7 @@ chapters:
       - After ->
       - In curly braces
       answer: Inside parentheses after the name
-    - question: 'What is the external parameter label in func move(from start: Int,
-        to end: Int)?'
+    - question: 'What is the external parameter label in func move(from start: Int, to end: Int)?'
       options:
       - start and end
       - from and to
@@ -100,45 +103,43 @@ chapters:
         text: Parameters & Return Values
     - type: explanation
       content:
-        text: Parameters are inputs to your recipe. Labels make calls read naturally;
-          the return value hands back the result.
+        text: 'Think of parameters as the ingredients you add to your recipe. They are the inputs your function needs to work its magic. The return value is the dish you serve—what your function gives back after cooking.'
     - type: heading2
       content:
         text: Defining parameters
     - type: snippet
       content:
-        code: "func add(_ a: Int, _ b: Int) -> Int {\n  return a + b\n}\nlet sum =\
-          \ add(2, 3)  // 5"
+        code: "func add(_ a: Int, _ b: Int) -> Int {\n  return a + b\n}\nlet sum = add(2, 3)  // 5"
     - type: explanation
       content:
-        text: Using _ removes external labels at the call site for brevity.
+        text: 'Using _ means you skip the external label when calling the function, making it shorter but less descriptive.'
     - type: heading2
       content:
         text: Readable calls with labels
     - type: snippet
       content:
-        code: "func move(from start: Int, to end: Int) {\n  print(\"Move from \\(start)\
-          \ to \\(end)\")\n}\nmove(from: 1, to: 5)"
+        code: "func move(from start: Int, to end: Int) {\n  print(\"Move from \\(start) to \\(end)\")\n}\nmove(from: 1, to: 5)"
     - type: explanation
       content:
-        text: External labels (from:, to:) make usage self-documenting.
+        text: 'External labels like from: and to: make calling a function read like a sentence. It’s like giving directions: move from 1 to 5.'
     - type: heading2
       content:
         text: Multiple returns
     - type: snippet
       content:
-        code: "func minMax(_ numbers: [Int]) -> (min: Int, max: Int)? {\n  guard let\
-          \ first = numbers.first else { return nil }\n  var minVal = first\n  var\
-          \ maxVal = first\n  for n in numbers {\n    if n < minVal { minVal = n }\n\
-          \    if n > maxVal { maxVal = n }\n  }\n  return (minVal, maxVal)\n}\nlet\
-          \ result = minMax([3,8,2,9])  // (min: 2, max: 9)"
+        code: "func minMax(_ numbers: [Int]) -> (min: Int, max: Int)? {\n  guard let first = numbers.first else { return nil }\n  var minVal = first\n  var maxVal = first\n  for n in numbers {\n    if n < minVal { minVal = n }\n    if n > maxVal { maxVal = n }\n  }\n  return (minVal, maxVal)\n}\nlet result = minMax([3,8,2,9])  // (min: 2, max: 9)"
     - type: explanation
       content:
-        text: Tuples let you return several values at once. Optionals handle empty
-          input.
+        text: 'Tuples let you return several values at once, like bringing a tray with multiple dishes. Optionals let you say, "sometimes there might be no dish at all," handling empty inputs safely.'
+    - type: heading2
+      content:
+        text: Mini challenge
     - type: explanation
       content:
-        text: 'Tip: Choose labels that explain the role of each parameter.'
+        text: 'Write a function that takes your age as a parameter and returns how old you’ll be in 5 years. Try calling it with your current age!'
+    - type: explanation
+      content:
+        text: 'Tip: Choose parameter labels that help the function call read like a natural sentence.'
   - id: 49D8CEC2-5FCC-4185-94BA-D10B25C54390
     module_name: Error Handling
     module_number: 15
@@ -170,8 +171,7 @@ chapters:
         text: Error Handling
     - type: explanation
       content:
-        text: Things go wrong—files missing, networks down. Swift uses throws/try/catch
-          to handle failures cleanly.
+        text: 'Errors are like real-life mistakes: missing keys, a wrong password, or a lost file. Swift helps you handle these “uh-oh” moments gracefully with throws, try, and catch—like warning labels and safety nets in your code.'
     - type: heading2
       content:
         text: Defining errors
@@ -180,19 +180,16 @@ chapters:
         code: 'enum FileError: Error { case notFound, unreadable }'
     - type: explanation
       content:
-        text: Conform to Error with an enum so cases are explicit and type-safe.
+        text: 'Create an enum that conforms to Error to list all the possible problems your function might face—this makes error handling clear and type-safe.'
     - type: heading2
       content:
         text: Throwing and catching
     - type: snippet
       content:
-        code: "func loadFile(named: String) throws -> String {\n  throw FileError.notFound\n\
-          }\n\ndo {\n  let _ = try loadFile(named: \"notes.txt\")\n} catch FileError.notFound\
-          \ {\n  print(\"Missing file\")\n} catch {\n  print(\"Unknown error: \\(error)\"\
-          )\n}"
+        code: "func loadFile(named: String) throws -> String {\n  throw FileError.notFound\n}\n\ndo {\n  let _ = try loadFile(named: \"notes.txt\")\n} catch FileError.notFound {\n  print(\"Missing file\")\n} catch {\n  print(\"Unknown error: \\(error)\")\n}"
     - type: explanation
       content:
-        text: Use do/try/catch to separate the success path from recovery logic.
+        text: 'Mark functions that might fail with throws—this is like putting a warning label on them. Use do/try/catch to try the risky code and handle problems without crashing.'
     - type: heading2
       content:
         text: try?, try!
@@ -200,15 +197,25 @@ chapters:
       content:
         code: 'let maybe = try? loadFile(named: "notes.txt")   // Optional
 
-          let forced = try! loadFile(named: "notes.txt")  // Crashes if it throws'
+let forced = try! loadFile(named: "notes.txt")  // Crashes if it throws'
     - type: explanation
       content:
-        text: try? converts errors to nil; try! crashes on error. Prefer do/try/catch
-          unless you’re certain it can’t fail.
+        text: 'try? turns errors into nil values—safe and easy. try! forces the call and crashes if there’s an error—use carefully. Most of the time, do/try/catch is your friend.'
+    - type: heading2
+      content:
+        text: Mini challenge
     - type: explanation
       content:
-        text: 'Tip: Model only real errors as throwing. Use optionals for expected
-          absence.'
+        text: 'Create your own error enum called LoginError with cases wrongPassword and userNotFound. Then write a throwing function that simulates a login check and throws these errors.'
+    - type: heading2
+      content:
+        text: Reflection
+    - type: explanation
+      content:
+        text: 'When would you prefer using optionals instead of throwing errors? Think about situations where absence is normal, not a mistake.'
+    - type: explanation
+      content:
+        text: 'Tip: Model only real errors as throwing. Use optionals for expected absence.'
   finalReview:
     content_blocks:
     - type: heading1
@@ -216,9 +223,13 @@ chapters:
         text: Chapter 4 Review
     - type: explanation
       content:
-        text: You wrote functions to bundle logic, used parameters and return values
-          for clarity, and handled failure paths with throws/try/catch.
+        text: 'Great job! You’ve learned how to bundle your logic into neat functions, pass information in and out with parameters and return values, and handle mistakes like a pro using error handling.'
     - type: explanation
       content:
-        text: 'Rules of thumb: small focused functions, descriptive parameter labels,
-          and precise error modeling.'
+        text: 'Remember: small focused functions, clear parameter labels, and thoughtful error modeling make your code stronger and easier to maintain.'
+    - type: heading2
+      content:
+        text: Reflection question
+    - type: explanation
+      content:
+        text: 'Which of these skills—functions, parameters, or error handling—do you think will help you most in your first app? Take a moment to think about how you’ll use them!'
