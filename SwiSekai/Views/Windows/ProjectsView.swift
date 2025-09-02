@@ -60,8 +60,7 @@ struct ProjectsView: View {
 					}
 				}
 				.padding(.horizontal, geometry.size.width < 910 ? 15 : 20)
-				.padding(.top, 36)
-				.background(Color("MainBackground"))
+				.padding(.top, 50)
 			}
 			.onAppear {
 				if uiState.selectedProjectId == nil {

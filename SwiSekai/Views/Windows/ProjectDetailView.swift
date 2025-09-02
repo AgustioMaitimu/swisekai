@@ -18,7 +18,6 @@ struct ProjectDetailView: View {
 	@State private var isSidebarVisible = false
 	
 	var body: some View {
-		// Use an HStack to place content and sidebar side-by-side
 		HStack(spacing: 0) {
 			// Main content area
 			ProjectContentView(project: project, userData: userData) {
@@ -29,8 +28,8 @@ struct ProjectDetailView: View {
 			
 			if isSidebarVisible {
 				ChatbotSidebarView(isShowing: $isSidebarVisible)
-					.frame(width: 500) // Give the sidebar a fixed width
-					.transition(.move(edge: .trailing)) // Keep the slide animation
+					.frame(minWidth: 470, maxWidth: 500)
+					.transition(.move(edge: .trailing))
 			}
 		}
 		.toolbar(.hidden)
@@ -40,30 +39,33 @@ struct ProjectDetailView: View {
 struct ProjectContentView: View {
 	let project: Project
 	let userData: UserData
-	var onChatButtonTapped: () -> Void // Closure to handle the button tap
+	var onChatButtonTapped: () -> Void
 	@Environment(\.dismiss) var dismiss
 	
 	var body: some View {
 		GeometryReader { geometry in
 			ScrollView(showsIndicators: false) {
 				VStack(alignment: .center) {
-					// Button is now part of the scrolling content
 					HStack {
-						HStack {
-							Image(systemName: "chevron.left")
-							Text("Back")
-						}
-						.font(.title3)
-						.foregroundStyle(.blue)
-						.padding(8)
-						.overlay {
-							RoundedRectangle(cornerRadius: 24)
-								.stroke(Color.blue, lineWidth: 1)
-								.foregroundStyle(.clear)
-						}
-						.onTapGesture {
+						
+						Button() {
 							dismiss()
+						} label: {
+							Label("Back", systemImage: "chevron.left")
+								.font(.title3)
+								.foregroundStyle(.blue)
+								.padding(8)
+								.background(
+									RoundedRectangle(cornerRadius: 24)
+										.fill(Color.white.opacity(0.001)) // ensure full hit area
+								)
+								.overlay {
+									RoundedRectangle(cornerRadius: 24)
+										.stroke(Color.blue, lineWidth: 1)
+								}
 						}
+						.buttonStyle(.plain)
+						.contentShape(RoundedRectangle(cornerRadius: 24))
 						
 						Spacer()
 						

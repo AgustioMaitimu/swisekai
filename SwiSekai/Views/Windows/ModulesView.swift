@@ -40,7 +40,8 @@ struct ModulesView: View {
 //                    NavigationLink(destination: ModulesList()){
 //                        Text("Complete Modules")
 //                    }
-                    Spacer().frame(height: 30)
+                    // Add a bit more top padding so the path doesn't hug the top
+                    Spacer().frame(height: 56)
                     
                     // Loop through each chapter
                     ForEach(chapters.indices, id: \.self) { chapterIndex in
@@ -109,7 +110,6 @@ struct ModulesView: View {
                     }
                 }
             }
-            .background(Color("BackgroundColor"))
             .navigationTitle("Learn")
         }
     }
@@ -141,11 +141,16 @@ struct ModulesView: View {
     
     // MARK: - Buttons status
     private func chapterStatus(for chapter: Chapter) -> ChapterStatus {
-        guard let firstModuleNumber = chapter.modules.first?.moduleNumber else {
+        guard
+            let firstModuleNumber = chapter.modules.first?.moduleNumber,
+            let lastModuleNumber = chapter.modules.last?.moduleNumber
+        else {
             return .unavailable
         }
-        
-        if currentLevel >= firstModuleNumber {
+
+        if currentLevel > lastModuleNumber {
+            return .completed
+        } else if currentLevel >= firstModuleNumber {
             return .available
         } else {
             return .unavailable

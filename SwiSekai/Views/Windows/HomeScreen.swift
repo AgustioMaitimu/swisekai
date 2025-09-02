@@ -73,15 +73,13 @@ struct HomeScreen: View {
 		self._selection = selection
 	}
 	
-	// Define columns for the responsive grid
-	private let columns = [GridItem(.adaptive(minimum: 350))]
+	// Define columns for potential adaptive layouts if needed later
+	private let columns = [GridItem(.adaptive(minimum: 320))]
 	
 	var body: some View {
 		GeometryReader { geo in
 			NavigationStack{
 				HStack {
-					Spacer()
-					
 					ScrollView(showsIndicators: false) {
 						VStack(alignment: .center) {
 							VStack(alignment: .center) {
@@ -92,25 +90,21 @@ struct HomeScreen: View {
 										.fontWeight(.bold)
 										.foregroundColor(.white)
 										.padding(.bottom, 10)
-									
+										.minimumScaleFactor(0.9)
 									Spacer()
 								}
-								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								.frame(maxWidth: 1200)
+								.padding(.top, 50)
 								
 								HStack {
 									Text("Apply your Swift skills by building real-world application")
-										.font(
-											Font.custom("Inter", size: 17)
-												.weight(.bold)
-											
-										)
-										.padding(.bottom, 50)
+										.font(Font.custom("Inter", size: 17).weight(.bold))
+										.padding(.bottom, 36)
 										.foregroundColor(Color(red: 0.85, green: 0.85, blue: 0.85).opacity(0.6))
-									
-									
+										.minimumScaleFactor(0.9)
 									Spacer()
 								}
-								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								.frame(maxWidth: 1200)
 								
 								
 								HStack {
@@ -118,10 +112,9 @@ struct HomeScreen: View {
 										.font(.title2)
 										.fontWeight(.bold)
 										.foregroundColor(.white)
-									
 									Spacer()
 								}
-								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								.frame(maxWidth: 1200)
 								
 								ResponsiveStack {
 									CardThingy(
@@ -144,10 +137,9 @@ struct HomeScreen: View {
 											.font(.title2)
 											.fontWeight(.bold)
 											.foregroundColor(.white)
-										
 										Spacer()
 									}
-									.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+									.frame(maxWidth: 1200)
 									
 									ResponsiveStack2 {
 										
@@ -163,17 +155,14 @@ struct HomeScreen: View {
 										.font(.title2)
 										.fontWeight(.bold)
 										.foregroundColor(.white)
-									
 									Spacer()
 								}
-								.frame(maxWidth: geo.size.width > 1200 ? 1200 : 800 )
+								.frame(maxWidth: 1200)
 								//                        ResourceCardScrollableThingy()
 								
-								let rows = [
-									GridItem(.fixed(200)) //
-								]
+								let rows = [ GridItem(.fixed(270)) ]
 								ScrollView (.horizontal, showsIndicators: false) {
-									LazyHGrid(rows: rows, spacing: 50) {
+									LazyHGrid(rows: rows, spacing: 20) {
 										ResourceCard(
 											title: "SwiSekai",
 											description: "The Home of SwiSekai",
@@ -196,26 +185,25 @@ struct HomeScreen: View {
 										
 										
 										
-									}
-									.padding(.horizontal) // optional, just to not stick to screen edge
+									} // consistent side whitespace
 								}
-								.frame(maxWidth: geo.size.width < 1235 ? 800 : .infinity)
+								.frame(maxWidth: 1200)
 								
-								
+								// Add breathing room at the bottom of content
+								Spacer().frame(height: 28)
 							}
-							
 						}
 						.frame(maxWidth: 1200)
-//						.background(.blue)
+						//						.background(.blue)
 					}
 					.frame(maxWidth: 1200)
-					.padding(.top, 40)
 					
 					Spacer()
 				}
 			}
 		}
-		.padding()
+		.padding(.horizontal, 36)
+		.padding(.top)
 	}
 }
 
@@ -265,12 +253,12 @@ private func ResponsiveStack<Content: View>(
 ) -> some View {
 	ViewThatFits(in: .horizontal) {
 		// When HStack is active, tell children the layout is horizontal
-		HStack(alignment: .top, spacing: 20) { content() }
+		HStack(alignment: .top, spacing: 28) { content() }
 			.environment(\.containerLayout, .horizontal)
 		
 		
 		// When VStack is active, tell children the layout is vertical
-		VStack(alignment: .leading, spacing: 20) { content() }
+		VStack(alignment: .leading, spacing: 24) { content() }
 			.environment(\.containerLayout, .vertical)
 	}
 }
@@ -280,9 +268,9 @@ private func ResponsiveStack2<Content: View>(
 	@ViewBuilder content: () -> Content
 ) -> some View {
 	ViewThatFits(in: .horizontal) {
-		// When HStack is active, tell children the layout is horizontal
-		HStack(alignment: .top, spacing: 20) { content() }
-			.frame(minWidth: 1195, maxWidth: .infinity)
+		// Prefer two-up layout earlier by lowering the threshold
+		HStack(alignment: .top, spacing: 24) { content() }
+			.frame(minWidth: 900, maxWidth: .infinity)
 			.environment(\.containerLayout, .horizontal)
 		
 		

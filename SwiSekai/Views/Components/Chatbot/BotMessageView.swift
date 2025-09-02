@@ -40,11 +40,11 @@ struct BotMessageView: View {
 					}
 				}
 			}
-			.padding()
-			.background(Color("ChatbotMessageColor"))
-			.foregroundColor(.white)
-			.cornerRadius(15)
-			.frame(maxWidth: 600, alignment: .leading)
+        		.padding()
+        		.background(Color("ChatbotMessageColor"))
+        		.foregroundColor(.white)
+        		.cornerRadius(15)
+        		.frame(maxWidth: .infinity, alignment: .leading)
 			
 			Spacer()
 		}

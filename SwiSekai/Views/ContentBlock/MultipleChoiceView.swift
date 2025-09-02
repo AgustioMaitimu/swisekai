@@ -47,6 +47,28 @@ struct MultipleChoiceView: View {
 				// The main content is now wrapped in a ScrollView.
 				ScrollView {
 					VStack(spacing: 30) {
+						// Custom Back Button (matches detail views)
+						HStack {
+							Button(action: { dismiss() }) {
+								Label("Back", systemImage: "chevron.left")
+									.font(.title3)
+									.foregroundStyle(.blue)
+									.padding(8)
+									.background(
+										RoundedRectangle(cornerRadius: 24)
+											.fill(Color.white.opacity(0.001)) // full hit area
+									)
+									.overlay {
+										RoundedRectangle(cornerRadius: 24)
+											.stroke(Color.blue, lineWidth: 1)
+									}
+							}
+							.buttonStyle(.plain)
+							.contentShape(RoundedRectangle(cornerRadius: 24))
+							
+							Spacer()
+						}
+						
 						//MARK:  Progress Bar
 						ProgressView(value: progress) {
 							Text(progressText)
@@ -101,7 +123,7 @@ struct MultipleChoiceView: View {
 						
 						Spacer()
 					}
-					.padding(.top, 20)
+					.padding(.top, 60)
 					.frame(maxWidth: 800)
 					.frame(minHeight: geometry.size.height)
 				}
@@ -118,6 +140,9 @@ struct MultipleChoiceView: View {
 				ScoreView(score: score, totalQuestions: module.multipleChoice.count)
 			}
 		}
+		// Hide the navigation back button and toolbar to remove the back button in fullscreen
+		.navigationBarBackButtonHidden(true)
+		.toolbar(.hidden)
 	}
 	
 	// Helper to get the letter for each option (A, B, C, D)

@@ -40,6 +40,7 @@ struct NavigationView: View {
 				}
 				.frame(maxWidth: .infinity, maxHeight: .infinity)
 			}
+//			.background(.blue)
 		}
 		.ignoresSafeArea()
 	}

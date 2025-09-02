@@ -30,7 +30,7 @@ struct ModuleDetailView: View {
 
             if isSidebarVisible {
                 ChatbotSidebarView(isShowing: $isSidebarVisible)
-                    .frame(width: 500) // Give the sidebar a fixed width
+                    .frame(minWidth: 470, maxWidth: 500) // Give the sidebar a fixed width
                     .transition(.move(edge: .trailing)) // Keep the slide animation
             }
         }
@@ -48,23 +48,23 @@ struct ModuleContentView: View {
         GeometryReader { geometry in
 			ScrollView(showsIndicators: false) {
                 VStack(alignment: .center) {
-                    // Button is now part of the scrolling content
                     HStack {
-						HStack {
-							Image(systemName: "chevron.left")
-							Text("Back")
-						}
-						.font(.title3)
-						.foregroundStyle(.blue)
-						.padding(8)
-						.overlay {
-							RoundedRectangle(cornerRadius: 24)
-								.stroke(Color.blue, lineWidth: 1)
-								.foregroundStyle(.clear)
-						}
-						.onTapGesture {
-							dismiss()
-						}
+                        Button(action: { dismiss() }) {
+                            Label("Back", systemImage: "chevron.left")
+                                .font(.title3)
+                                .foregroundStyle(.blue)
+                                .padding(8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.white.opacity(0.001)) // ensure full hit area inside pill
+                                )
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .stroke(Color.blue, lineWidth: 1)
+                                }
+                        }
+                        .buttonStyle(.plain)
+                        .contentShape(RoundedRectangle(cornerRadius: 24))
 						
                         Spacer()
 						
