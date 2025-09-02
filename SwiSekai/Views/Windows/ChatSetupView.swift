@@ -20,6 +20,7 @@ struct ChatSetupView: View {
     var onComplete: (() -> Void)?
 
     var body: some View {
+        NavigationStack {
         ScrollView {
         VStack(spacing: 16) {
             Text("Choose AI Provider")
@@ -27,8 +28,17 @@ struct ChatSetupView: View {
                 .fontWeight(.bold)
 			
 			VStack {
-				Link("How To Get Gemini API Key", destination: URL(string: "https://www.youtube.com/watch?v=6BRyynZkvf0")!)
-				Link("How To Get OpenAI API Key", destination: URL(string: "https://www.youtube.com/watch?v=OB99E7Y1cMA")!)
+				NavigationLink("How To Get Gemini API Key") {
+					GeminiTutorialView()
+				}
+				.buttonStyle(.plain)
+				.foregroundStyle(.blue)
+				
+				NavigationLink("How To Get OpenAI API Key") {
+					OpenAITutorialView()
+				}
+				.buttonStyle(.plain)
+				.foregroundStyle(.blue)
 			}
 
             Picker(selection: $selected, label: EmptyView()) {
@@ -80,6 +90,7 @@ struct ChatSetupView: View {
         }
         .onAppear {
             if let existing = settings.selectedProvider { selected = existing }
+        }
         }
     }
 
