@@ -25,12 +25,6 @@ struct ChatSetupView: View {
             Text("Choose AI Provider")
                 .font(.title2)
                 .fontWeight(.bold)
-			
-			VStack {
-				Link("How To Get Gemini API Key", destination: URL(string: "https://www.youtube.com/watch?v=6BRyynZkvf0")!)
-				
-				Link("How To Get OpenAI API Key", destination: URL(string: "https://www.youtube.com/watch?v=OB99E7Y1cMA")!)
-			}
 
             Picker(selection: $selected, label: EmptyView()) {
                 ForEach(AIProvider.allCases) { p in
@@ -72,7 +66,7 @@ struct ChatSetupView: View {
             }
             .frame(maxWidth: .infinity)
 
-            Text("Your key is stored securely in your local macOS Keychain.\nWe don't have access to your key.\nOnce you log out on the chatbot, your key will be deleted.")
+            Text("Your key is stored securely in your local macOS Keychain.\nWe have no access to your key.\nOnce you log out on the chatbot, your key will be deleted.")
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
