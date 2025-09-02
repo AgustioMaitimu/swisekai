@@ -26,13 +26,13 @@ struct ChatSetupView: View {
                 .font(.title2)
                 .fontWeight(.bold)
 
-            Picker("Provider", selection: $selected) {
+            Picker(selection: $selected, label: EmptyView()) {
                 ForEach(AIProvider.allCases) { p in
                     Text(p.displayName).tag(p)
                 }
             }
             .pickerStyle(.segmented)
-            .frame(maxWidth: .infinity)
+            .frame(width: 300)
 
             VStack(alignment: .leading, spacing: 8) {
                 Text("API Key for \(selected.displayName)")
@@ -40,7 +40,10 @@ struct ChatSetupView: View {
                     .textFieldStyle(.roundedBorder)
                     .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+			.frame(width: 400, alignment: .leading)
+			.onChange(of: selected) { oldValue, newValue in
+				apiKey = ""
+			}
 
             if let msg = validationMessage {
                 Text(msg)

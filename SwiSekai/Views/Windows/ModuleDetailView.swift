@@ -30,7 +30,7 @@ struct ModuleDetailView: View {
 
             if isSidebarVisible {
                 ChatbotSidebarView(isShowing: $isSidebarVisible)
-                    .frame(width: 500) // Give the sidebar a fixed width
+                    .frame(minWidth: 470, maxWidth: 500) // Give the sidebar a fixed width
                     .transition(.move(edge: .trailing)) // Keep the slide animation
             }
         }

@@ -28,7 +28,7 @@ struct ProjectDetailView: View {
 			
 			if isSidebarVisible {
 				ChatbotSidebarView(isShowing: $isSidebarVisible)
-					.frame(width: 500)
+					.frame(minWidth: 470, maxWidth: 500)
 					.transition(.move(edge: .trailing))
 			}
 		}
