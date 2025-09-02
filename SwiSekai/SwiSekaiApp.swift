@@ -25,6 +25,7 @@ struct SwiSekaiApp: App {
 					userData.registerOpen()
 				}
 				.frame(minWidth: 470, minHeight: 570)
+				.preferredColorScheme(.dark)
 		}
 		.modelContainer(modelContainer)
 		.windowStyle(.hiddenTitleBar)

@@ -25,6 +25,11 @@ struct ChatSetupView: View {
             Text("Choose AI Provider")
                 .font(.title2)
                 .fontWeight(.bold)
+			
+			VStack {
+				Link("How To Get Gemini API Key", destination: URL(string: "https://www.youtube.com/watch?v=6BRyynZkvf0")!)
+				Link("How To Get OpenAI API Key", destination: URL(string: "https://www.youtube.com/watch?v=OB99E7Y1cMA")!)
+			}
 
             Picker(selection: $selected, label: EmptyView()) {
                 ForEach(AIProvider.allCases) { p in
